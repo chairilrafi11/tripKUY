@@ -1,8 +1,11 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/balance/view/balance_view.dart';
+import 'package:benpay/ui/banner/banner_advertise.dart';
+import 'package:benpay/ui/banner/cubit/banner_cubit.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
 
@@ -34,14 +37,9 @@ class Home extends StatelessWidget {
             const SizedBox(height: 10,),
             const BalanceNew(),
             const SizedBox(height: 10,),
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              child: Image.asset(
-                "assets/images/banner.png",
-                height: SizeConfig.blockSizeVertical * 17,
-                width: SizeConfig.blockSizeHorizontal * 100,
-                fit: BoxFit.fill,
-              ),
+            BlocProvider(
+              create: (context) => BannerCubit('primary'),
+              child: const BannerAdvertise(),
             ),
             const SizedBox(height: 20,),
             Component.textBold("Menu", colors: BenpayPalette.darkBlue),
