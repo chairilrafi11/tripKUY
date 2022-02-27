@@ -211,14 +211,6 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "Pendapatan Per Bulan",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   _texyFieldPhoneNumber(),
                   const SizedBox(
                     height: 20,

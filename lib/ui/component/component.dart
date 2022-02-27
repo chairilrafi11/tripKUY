@@ -63,7 +63,7 @@ class Component {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: BenpayPalette.green),
+        borderSide: const BorderSide(color: BenpayPalette.darkBlue),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -84,11 +84,11 @@ class Component {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: BenpayPalette.green),
+        borderSide: const BorderSide(color: BenpayPalette.darkBlue),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: BenpayPalette.green),
+        borderSide: const BorderSide(color: BenpayPalette.darkBlue),
       ),
       counterText: "",
       suffixIcon: const Icon(Icons.arrow_drop_down_outlined),
