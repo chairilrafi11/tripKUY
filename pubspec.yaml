@@ -69,6 +69,17 @@ flutter:
     - assets/images/
     - assets/icons/
 
+
+  fonts:
+    - family: evenir_regurlar
+      fonts:
+        - asset: assets/fonts/avenir_regular.otf
+    - family: evenir_bold
+      fonts:
+        - asset: assets/fonts/avenir_bold.otf
+    - family: evenir_italic
+      fonts:
+        - asset: assets/fonts/avenir_italic.otf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
