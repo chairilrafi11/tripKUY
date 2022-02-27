@@ -1,6 +1,8 @@
+import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/dashboard/view/dashboard.dart';
+import 'package:benpay/ui/register/view/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -116,7 +118,7 @@ class _LoginState extends State<Login> {
                 width: SizeConfig.screenWidth / 0.5,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.indigo,
+                    primary: BenpayPalette.darkBlue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                   ),
@@ -132,7 +134,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 20),
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -142,9 +144,7 @@ class _LoginState extends State<Login> {
                       width: 10,
                     ),
                     InkWell(
-                      // onTap: () => routePush(RegisterForm(
-                      //   userDataBox: UserBox(),
-                      // )),
+                      onTap: () => routePush(const Register(), RouterType.cupertino),
                       child: GestureDetector(
                         child: Text(
                           'Daftar',
@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 20),
+                margin: const EdgeInsets.only(top: 10),
                 child: InkWell(
                   child: Center(
                     child: Component.textDefault('Hubungi CS',
@@ -192,10 +192,10 @@ class _LoginState extends State<Login> {
     return TextFormField(
       controller: _phoneNumberController,
       style: TextStyle(
-          fontSize: SizeConfig.screenHeight / 60, color: Colors.indigo),
+          fontSize: SizeConfig.screenHeight / 60, color: BenpayPalette.darkBlue),
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.indigo,
+      cursorColor: BenpayPalette.darkBlue,
       inputFormatters: [
         LengthLimitingTextInputFormatter(16),
         FilteringTextInputFormatter.digitsOnly,
@@ -216,27 +216,27 @@ class _LoginState extends State<Login> {
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.phone, color: Colors.indigo),
+          child: Icon(Icons.phone, color: BenpayPalette.darkBlue),
         ),
         hintText: '8xxxxxxxx',
         hintStyle: TextStyle(
-          color: Colors.indigo,
+          color: BenpayPalette.darkBlue,
           fontSize: SizeConfig.screenHeight / 60,
         ),
-        labelStyle: const TextStyle(color: Colors.indigo),
+        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
         labelText: 'nomor telepon',
-        fillColor: Colors.indigo,
+        fillColor: BenpayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
       ),
     );
@@ -246,11 +246,11 @@ class _LoginState extends State<Login> {
     return TextFormField(
       controller: _passwordController,
       style: TextStyle(
-          fontSize: SizeConfig.screenHeight / 60, color: Colors.indigo),
+          fontSize: SizeConfig.screenHeight / 60, color: BenpayPalette.darkBlue),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscureText: isHiddenPassword,
-      cursorColor: Colors.indigo,
+      cursorColor: BenpayPalette.darkBlue,
       inputFormatters: [
         LengthLimitingTextInputFormatter(20),
         FilteringTextInputFormatter.deny(
@@ -270,33 +270,33 @@ class _LoginState extends State<Login> {
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.lock, color: Colors.indigo),
+          child: Icon(Icons.lock, color: BenpayPalette.darkBlue),
         ),
         suffixIcon: IconButton(
             icon: Icon(
               isHiddenPassword ? Icons.visibility : Icons.visibility_off,
-              color: Colors.blue,
+              color: BenpayPalette.darkBlue,
             ),
             onPressed: _tooglePasswordView),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
-          color: Colors.indigo,
+          color: BenpayPalette.darkBlue,
           fontSize: SizeConfig.screenHeight / 60,
         ),
-        labelStyle: const TextStyle(color: Colors.indigo),
+        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
         labelText: 'password',
-        fillColor: Colors.indigo,
+        fillColor: BenpayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/dashboard/view/dashboard.dart';
 import 'package:benpay/ui/home/view/home.dart';
-import 'package:benpay/ui/login/login.dart';
+import 'package:benpay/ui/login/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
