@@ -1,6 +1,5 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/core_variable.dart';
-import 'package:benpay/core/util/date_text_formatter.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/login/view/login.dart';
@@ -135,53 +134,10 @@ class _RegisterState extends State<Register> {
                     height: 30,
                   ),
                   _iconLogo(),
-                  Component.textBold("Pendaftaran Anggota",
-                      colors: BenpayPalette.black,
-                      fontSize: 15,
-                      textAlign: TextAlign.start),
                   const SizedBox(
                     height: 20,
                   ),
                   _textFieldUserName(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  _textFieldBirthPlace(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  _textFieldBirthDateNew(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Component.textBold("Jenis Kelamin",
-                      colors: BenpayPalette.black,
-                      fontSize: 15,
-                      textAlign: TextAlign.start),
-                  _radioGender(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Component.textBold("Status Pernikahan",
-                      colors: BenpayPalette.black,
-                      fontSize: 15,
-                      textAlign: TextAlign.start),
-                  _radioMarriageStatus(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _textFieldTypeOrNumberId(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _texyFieldMotherName(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Component.textBold("Alamat Tinggal Terkini",
-                      colors: BenpayPalette.black,
-                      fontSize: 15,
-                      textAlign: TextAlign.start),
                   const SizedBox(
                     height: 20,
                   ),
@@ -189,8 +145,8 @@ class _RegisterState extends State<Register> {
                   CheckboxListTile(
                     title: const Text(
                       "Sesuai dengan KTP",
-                      style:
-                      TextStyle(fontSize: 12, color: BenpayPalette.darkBlue),
+                      style: TextStyle(
+                          fontSize: 12, color: BenpayPalette.darkBlue),
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: BenpayPalette.darkBlue,
@@ -199,18 +155,14 @@ class _RegisterState extends State<Register> {
                   ),
                   !addressDomisili
                       ? Column(
-                    children: [
-                      _textFieldDomisili(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )
+                          children: [
+                            _textFieldDomisili(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        )
                       : Container(),
-                  _textFieldKodePos(),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   _texyFieldPhoneNumber(),
                   const SizedBox(
                     height: 20,
@@ -309,7 +261,7 @@ class _RegisterState extends State<Register> {
       child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
           margin:
-          const EdgeInsets.only(bottom: 30, top: 10, left: 10, right: 10),
+              const EdgeInsets.only(bottom: 30, top: 10, left: 10, right: 10),
           alignment: Alignment.center,
           decoration: const BoxDecoration(color: BenpayPalette.darkBlue),
           child: Component.textBold("Registrasi",
@@ -348,112 +300,6 @@ class _RegisterState extends State<Register> {
           }
         },
         decoration: Component.inputDecoration("Nama Lengkap"));
-  }
-
-  Widget _textFieldBirthPlace() {
-    return TextFormField(
-        controller: birthPlaceController,
-        keyboardType: TextInputType.name,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        maxLength: 30,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Tempat Lahir"));
-  }
-
-  Widget _textFieldBirthDateNew() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: birthDateController,
-            keyboardType: TextInputType.number,
-            inputFormatters: [DateTextFormatter()],
-            textInputAction: TextInputAction.next,
-            maxLength: 10,
-            style: const TextStyle(fontSize: 14, color: Colors.black),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Wajib diisi*";
-              }
-              if (value.length == 10) {
-                var dob = DateFormat("dd/MM/yyyy").parse(value.toString());
-                Duration dur = DateTime.now().difference(dob);
-                int differenceInYears = (dur.inDays / 365).floor();
-                if (differenceInYears < 17) {
-                  return "Minimal 17 Tahun";
-                }
-              }
-            },
-            decoration: Component.inputDecoration("Tanggal Lahir",
-                hintText: "dd/mm/yyyy",
-                suffixIcon: IconButton(
-                    onPressed: () {
-                      onTapBirtDateOld();
-                    },
-                    icon: const Icon(
-                      Icons.calendar_today,
-                      color: BenpayPalette.darkBlue,
-                    ))),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _textFieldTypeOrNumberId() {
-    return TextFormField(
-        controller: typeNumberIdController,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.next,
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        maxLength: 16,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("No KTP"));
-  }
-
-  Widget _texyFieldMotherName() {
-    return TextFormField(
-        controller: motherNameController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        maxLength: 30,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-          if (validateMother(value)) {
-            return "Tidak boleh nama panggilan*";
-          }
-        },
-        decoration: Component.inputDecoration("Ibu Kandung"));
   }
 
   Widget _textFieldAddress() {
@@ -500,109 +346,6 @@ class _RegisterState extends State<Register> {
           }
         },
         decoration: Component.inputDecoration("Masukkan Alamat Domisili"));
-  }
-
-  Widget _textFieldKodePos() {
-    return TextFormField(
-        controller: kodePosController,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.next,
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        // Only numbers can be entered
-        maxLength: 5,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Masukkan Kode Pos"));
-  }
-
-  Widget _radioGender() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(
-          child: RadioListTile(
-            contentPadding: const EdgeInsets.all(0),
-            value: 1,
-            groupValue: selectedRadioGender,
-            onChanged: (val) {
-              setState(() {
-                selectedRadioGender = val as int?;
-              });
-            },
-            activeColor: BenpayPalette.darkBlue,
-            title: const Text(
-              "Laki-Laki",
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-        ),
-        Flexible(
-          child: RadioListTile(
-            contentPadding: const EdgeInsets.all(0),
-            value: 2,
-            groupValue: selectedRadioGender,
-            onChanged: (val) {
-              setState(() {
-                selectedRadioGender = val as int?;
-              });
-            },
-            activeColor: BenpayPalette.darkBlue,
-            title: const Text(
-              "Perempuan",
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _radioMarriageStatus() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(
-          child: RadioListTile(
-            contentPadding: const EdgeInsets.all(0),
-            value: 1,
-            groupValue: selectedRadioMarriageStatus,
-            onChanged: (val) {
-              setState(() {
-                selectedRadioMarriageStatus = val as int?;
-              });
-            },
-            activeColor: BenpayPalette.darkBlue,
-            title: const Text(
-              "Belum Menikah",
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-        ),
-        Flexible(
-          child: RadioListTile(
-            contentPadding: const EdgeInsets.all(0),
-            value: 2,
-            groupValue: selectedRadioMarriageStatus,
-            onChanged: (val) {
-              setState(() {
-                selectedRadioMarriageStatus = val as int?;
-              });
-            },
-            activeColor: BenpayPalette.darkBlue,
-            title: const Text(
-              "Menikah",
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 
   Widget _texyFieldPhoneNumber() {
