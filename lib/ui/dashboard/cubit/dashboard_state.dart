@@ -1,6 +1,6 @@
 part of 'dashboard_cubit.dart';
 
-enum NavBarItem { home, transaction,profile }
+enum NavBarItem { home, transaction, notification, profile }
 
 class DashboardState extends Equatable {
 

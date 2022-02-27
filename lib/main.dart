@@ -1,3 +1,4 @@
+import 'package:benpay/core/util/constant.dart';
 import 'package:benpay/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navGK,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: BenpayConstant.avenirRegular
       ),
       home: const SplashscreenView(),
     );

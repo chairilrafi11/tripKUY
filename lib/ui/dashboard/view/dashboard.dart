@@ -2,7 +2,9 @@ import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/util.dart';
 import 'package:benpay/ui/dashboard/cubit/dashboard_cubit.dart';
 import 'package:benpay/ui/home/view/home.dart';
+import 'package:benpay/ui/notification/view/notification_view.dart';
 import 'package:benpay/ui/profile/view/profile_view.dart';
+import 'package:benpay/ui/transaction/view/transaction_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +28,11 @@ class Dashboard extends StatelessWidget {
             builder: (context, state) {
               switch (state.navBarItem) {
                 case NavBarItem.home:
-                  return const Home();
+                  return Home();
+                case NavBarItem.transaction:
+                  return const TransactionView();
+                case NavBarItem.notification:
+                  return const NotificationView();    
                 case NavBarItem.profile:
                   return const ProfilePage();
                 default:
@@ -36,8 +42,8 @@ class Dashboard extends StatelessWidget {
           )
         ),
         bottomNavigationBar: buildBottomNavigation(),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // floatingActionButton: _buildFloatingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: _buildFloatingActionButton(),
       )
     );
   }
@@ -57,11 +63,16 @@ class Dashboard extends StatelessWidget {
               icon: Icon(Icons.home, color: BenpayPalette.grey),
               label: "Beranda",
             ),
-            // BottomNavigationBarItem(
-            //   activeIcon: Icon(Icons.article, color: BenpayPalette.darkBlue),
-            //   icon: Icon(Icons.article, color: BenpayPalette.grey),
-            //   label: "Transaksi",
-            // ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.article, color: BenpayPalette.darkBlue),
+              icon: Icon(Icons.article, color: BenpayPalette.grey),
+              label: "Transaksi",
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.notifications, color: BenpayPalette.darkBlue),
+              icon: Icon(Icons.notifications, color: BenpayPalette.grey),
+              label: "Notifikasi",
+            ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.person, color: BenpayPalette.darkBlue),
               icon: Icon(Icons.person, color: BenpayPalette.grey),
@@ -73,18 +84,18 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  // Widget _buildFloatingActionButton() => Transform.translate(
-  //   offset: const Offset(0, -10),
-  //   child: FloatingActionButton(
-  //     elevation: 15.0,
-  //     focusElevation: 2.0,
-  //     autofocus: false,
-  //     backgroundColor: BenpayPalette.yellow,
-  //     child: const Icon(Icons.qr_code_scanner, color: BenpayPalette.white, size: 40),
-  //     onPressed: () {
-  //       // routePush(const QRPage());
-  //       CoreFunction.showToast("Segera datang", backgroundColor: BenpayPalette.green);
-  //     }
-  //   ),
-  // );
+  Widget _buildFloatingActionButton() => Transform.translate(
+    offset: const Offset(0, -10),
+    child: FloatingActionButton(
+      elevation: 15.0,
+      focusElevation: 2.0,
+      autofocus: false,
+      backgroundColor: BenpayPalette.darkBlue,
+      child: const Icon(Icons.qr_code_scanner, color: BenpayPalette.white, size: 40),
+      onPressed: () {
+        // routePush(const QRPage());
+        // CoreFunction.showToast("Segera datang", backgroundColor: BenpayPalette.green);
+      }
+    ),
+  );
 }
