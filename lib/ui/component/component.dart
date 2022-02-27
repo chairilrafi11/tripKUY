@@ -1,3 +1,4 @@
+import 'package:benpay/core/util/constant.dart';
 import 'package:flutter/material.dart';
 
 class Component {
@@ -13,6 +14,7 @@ class Component {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: colors,
+        fontFamily: BenpayConstant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
@@ -33,6 +35,7 @@ class Component {
       style: TextStyle(
         fontWeight: fontWeight,
         color: colors,
+        fontFamily: BenpayConstant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),

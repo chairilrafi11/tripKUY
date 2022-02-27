@@ -26,7 +26,7 @@ class Dashboard extends StatelessWidget {
             builder: (context, state) {
               switch (state.navBarItem) {
                 case NavBarItem.home:
-                  return const Home();
+                  return Home();
                 case NavBarItem.profile:
                   return const ProfilePage();
                 default:
@@ -36,8 +36,8 @@ class Dashboard extends StatelessWidget {
           )
         ),
         bottomNavigationBar: buildBottomNavigation(),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // floatingActionButton: _buildFloatingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: _buildFloatingActionButton(),
       )
     );
   }
@@ -57,11 +57,16 @@ class Dashboard extends StatelessWidget {
               icon: Icon(Icons.home, color: BenpayPalette.grey),
               label: "Beranda",
             ),
-            // BottomNavigationBarItem(
-            //   activeIcon: Icon(Icons.article, color: BenpayPalette.darkBlue),
-            //   icon: Icon(Icons.article, color: BenpayPalette.grey),
-            //   label: "Transaksi",
-            // ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.article, color: BenpayPalette.darkBlue),
+              icon: Icon(Icons.article, color: BenpayPalette.grey),
+              label: "Transaksi",
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.notifications, color: BenpayPalette.darkBlue),
+              icon: Icon(Icons.notifications, color: BenpayPalette.grey),
+              label: "Notifikasi",
+            ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.person, color: BenpayPalette.darkBlue),
               icon: Icon(Icons.person, color: BenpayPalette.grey),
@@ -73,18 +78,18 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  // Widget _buildFloatingActionButton() => Transform.translate(
-  //   offset: const Offset(0, -10),
-  //   child: FloatingActionButton(
-  //     elevation: 15.0,
-  //     focusElevation: 2.0,
-  //     autofocus: false,
-  //     backgroundColor: BenpayPalette.yellow,
-  //     child: const Icon(Icons.qr_code_scanner, color: BenpayPalette.white, size: 40),
-  //     onPressed: () {
-  //       // routePush(const QRPage());
-  //       CoreFunction.showToast("Segera datang", backgroundColor: BenpayPalette.green);
-  //     }
-  //   ),
-  // );
+  Widget _buildFloatingActionButton() => Transform.translate(
+    offset: const Offset(0, -10),
+    child: FloatingActionButton(
+      elevation: 15.0,
+      focusElevation: 2.0,
+      autofocus: false,
+      backgroundColor: BenpayPalette.darkBlue,
+      child: const Icon(Icons.qr_code_scanner, color: BenpayPalette.white, size: 40),
+      onPressed: () {
+        // routePush(const QRPage());
+        // CoreFunction.showToast("Segera datang", backgroundColor: BenpayPalette.green);
+      }
+    ),
+  );
 }
