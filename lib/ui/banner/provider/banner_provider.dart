@@ -13,14 +13,17 @@ class BannerProvider {
     // var banners = await client.banners(type);
     var banners = [
       BannerResponse(
+        imageUrl: "assets/images/banner_0.png"
+      ),
+      BannerResponse(
         imageUrl: "assets/images/banner_1.png"
       ),
-      BannerResponse(
-        imageUrl: "assets/images/banner_2.png"
-      ),
-      BannerResponse(
-        imageUrl: "assets/images/banner_3.png"
-      ),
+      // BannerResponse(
+      //   imageUrl: "assets/images/banner_2.png"
+      // ),
+      // BannerResponse(
+      //   imageUrl: "assets/images/banner_3.png"
+      // ),
     ];
     return banners;
   }
