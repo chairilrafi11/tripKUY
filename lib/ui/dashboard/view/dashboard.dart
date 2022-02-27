@@ -2,7 +2,9 @@ import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/util.dart';
 import 'package:benpay/ui/dashboard/cubit/dashboard_cubit.dart';
 import 'package:benpay/ui/home/view/home.dart';
+import 'package:benpay/ui/notification/view/notification_view.dart';
 import 'package:benpay/ui/profile/view/profile_view.dart';
+import 'package:benpay/ui/transaction/view/transaction_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +29,10 @@ class Dashboard extends StatelessWidget {
               switch (state.navBarItem) {
                 case NavBarItem.home:
                   return Home();
+                case NavBarItem.transaction:
+                  return const TransactionView();
+                case NavBarItem.notification:
+                  return const NotificationView();    
                 case NavBarItem.profile:
                   return const ProfilePage();
                 default:

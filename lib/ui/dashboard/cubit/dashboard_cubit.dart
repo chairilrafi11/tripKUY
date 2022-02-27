@@ -18,10 +18,10 @@ class DashboardCubit extends Cubit<DashboardState> {
           emit(const DashboardState(navBarItem: NavBarItem.home));
           break;
         case 1:
-          emit(const DashboardState(navBarItem: NavBarItem.profile));
+          emit(const DashboardState(navBarItem: NavBarItem.transaction));
           break;
         case 2:
-          emit(const DashboardState(navBarItem: NavBarItem.profile));
+          emit(const DashboardState(navBarItem: NavBarItem.notification));
           break;
         case 3:
           emit(const DashboardState(navBarItem: NavBarItem.profile));
