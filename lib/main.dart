@@ -1,10 +1,19 @@
 import 'package:benpay/core/util/constant.dart';
 import 'package:benpay/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    runApp(const MyApp());
+  // });
 }
 
 class MyApp extends StatelessWidget {

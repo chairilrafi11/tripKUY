@@ -51,7 +51,7 @@ class CoreFunction {
   static showToast(String message,
       {int duration = 3,
         int position = 1,
-        Color backgroundColor = BenpayPalette.red}) {
+        Color backgroundColor = BenpayPalette.darkBlue}) {
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),

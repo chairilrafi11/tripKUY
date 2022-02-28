@@ -103,7 +103,15 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: Component.appbarDefault(title: 'Daftar'),
+      appBar: AppBar(
+          backgroundColor: BenpayPalette.darkBlue,
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          elevation: 0.0,
+          title: const Text(
+            'Daftar',
+            style: TextStyle(fontSize: 20),
+          )),
       body: Container(
         decoration: const BoxDecoration(
           color: BenpayPalette.whiteBackground,
@@ -182,10 +190,11 @@ class _RegisterState extends State<Register> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 20),
                     padding: const EdgeInsets.all(5),
-                    color: BenpayPalette.greenBackground,
+                    color: BenpayPalette.yellow,
                     child: const Text(
                       'Calon anggota wajib membaca syarat & ketentuan serta akad anggota terlebih dahulu. Pilih "Lihat" untuk membaca',
-                      style: TextStyle(fontSize: 13, color: BenpayPalette.text),
+                      style: TextStyle(
+                          fontSize: 13, color: BenpayPalette.darkBlue),
                       textAlign: TextAlign.center,
                     ),
                   ),
