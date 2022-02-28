@@ -34,7 +34,7 @@ class Dashboard extends StatelessWidget {
                 case NavBarItem.notification:
                   return const NotificationView();    
                 case NavBarItem.profile:
-                  return Profile();
+                  return ProfilePage();
                 default:
                   return Container();
               }
