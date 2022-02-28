@@ -3,12 +3,10 @@ import 'package:benpay/core/util/core_variable.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/login/view/login.dart';
-import 'package:benpay/ui/register/view/syarat_dan_ketentuan.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
 
 class Register extends StatefulWidget {
@@ -20,16 +18,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController userNameController = TextEditingController();
-  final TextEditingController birthPlaceController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
-  final TextEditingController typeNumberIdController = TextEditingController();
-  final TextEditingController motherNameController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController provinceController = TextEditingController();
-  final TextEditingController regenciesController = TextEditingController();
-  final TextEditingController districtController = TextEditingController();
-  final TextEditingController villagesController = TextEditingController();
-  final TextEditingController kodePosController = TextEditingController();
+  final TextEditingController storeNameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -41,61 +30,12 @@ class _RegisterState extends State<Register> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConfirmation = true;
 
-  late int? selectedRadioGender = 0;
-  late int? selectedRadioAddress = 0;
-  late int? selectedRadioMarriageStatus = 0;
-
-  bool termsCondition = false;
-  bool acceptMember = false;
-  bool addressDomisili = false;
-
   @override
   void initState() {
     super.initState();
   }
 
-  DateTime selectedDate = DateTime.now();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  void changeTermCondition(value) {
-    setState(() {
-      // termsCondition = value;
-    });
-  }
-
-  void changeAcceptMember(value) {
-    setState(() {
-      // acceptMember = value;
-    });
-  }
-
-  void changeAddressDomisili(value) {
-    setState(() {
-      addressDomisili = value;
-      if (value == true) {
-        domisiliController.text = addressController.text;
-      } else {
-        domisiliController.text = "";
-      }
-    });
-  }
-
-  bool validateMother(String motherName) {
-    switch (motherName.toLowerCase()) {
-      case "mama":
-      case "mamah":
-      case "mamaa":
-      case "mamaaa":
-      case "mamih":
-      case "ibu":
-      case "tante":
-      case "umi":
-        return true;
-      default:
-        return false;
-    }
-  }
 
   ConnectivityResult result = ConnectivityResult.none;
 
@@ -149,28 +89,10 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 20,
                   ),
-                  _textFieldAddress(),
-                  CheckboxListTile(
-                    title: const Text(
-                      "Sesuai dengan KTP",
-                      style: TextStyle(
-                          fontSize: 12, color: BenpayPalette.darkBlue),
-                    ),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    activeColor: BenpayPalette.darkBlue,
-                    value: addressDomisili,
-                    onChanged: (value) => changeAddressDomisili(value),
+                  _textFieldStoreName(),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  !addressDomisili
-                      ? Column(
-                          children: [
-                            _textFieldDomisili(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        )
-                      : Container(),
                   _texyFieldPhoneNumber(),
                   const SizedBox(
                     height: 20,
@@ -187,36 +109,6 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    padding: const EdgeInsets.all(5),
-                    color: BenpayPalette.yellow,
-                    child: const Text(
-                      'Calon anggota wajib membaca syarat & ketentuan serta akad anggota terlebih dahulu. Pilih "Lihat" untuk membaca',
-                      style: TextStyle(
-                          fontSize: 13, color: BenpayPalette.darkBlue),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Checkbox(
-                        activeColor: BenpayPalette.darkBlue,
-                        value: termsCondition,
-                        // onChanged: (value) => changeTermCondition(value)
-                        onChanged: (value) {},
-                      ),
-                      const Flexible(
-                        child: Text(
-                          "Setuju dengan syarat dan ketentuan",
-                          style: TextStyle(
-                              fontSize: 12, color: BenpayPalette.darkBlue),
-                        ),
-                      ),
-                      _buttonLihatSyaratKetentuan(),
-                    ],
-                  ),
                   const SizedBox(height: 10.0),
                   _buttonSend(),
                 ],
@@ -226,33 +118,6 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
-  }
-
-  Widget _buttonLihatSyaratKetentuan() {
-    return Card(
-        margin: const EdgeInsets.only(right: 20.0),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        color: BenpayPalette.darkBlue,
-        child: InkWell(
-          onTap: () {
-            routePush(const SyaratDanKetentuan(), RouterType.cupertino)
-                .then((value) {
-              if (value != null) {
-                changeTermCondition(true);
-              }
-            });
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: SizeConfig.blockSizeHorizontal * 25,
-            height: SizeConfig.blockSizeVertical * 3,
-            child: const Text(
-              "Lihat",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ));
   }
 
   Widget _buttonSend() {
@@ -311,50 +176,25 @@ class _RegisterState extends State<Register> {
         decoration: Component.inputDecoration("Nama Lengkap"));
   }
 
-  Widget _textFieldAddress() {
+  Widget _textFieldStoreName() {
     return TextFormField(
-        controller: addressController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
+        controller: storeNameController,
+        keyboardType: TextInputType.name,
         inputFormatters: [
           LengthLimitingTextInputFormatter(255),
           FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z 0-9 .])', caseSensitive: false),
+              RegExp(r'([a-z A-Z])', caseSensitive: false),
               replacementString: ''),
         ],
-        maxLength: 100,
-        maxLines: 3,
-        minLines: 1,
+        textInputAction: TextInputAction.next,
+        maxLength: 30,
         style: const TextStyle(fontSize: 14, color: Colors.black),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Wajib diisi*";
           }
         },
-        decoration: Component.inputDecoration("Masukkan Alamat Sesuai KTP"));
-  }
-
-  Widget _textFieldDomisili() {
-    return TextFormField(
-        controller: domisiliController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z 0-9 .])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        maxLength: 100,
-        maxLines: 3,
-        minLines: 1,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Masukkan Alamat Domisili"));
+        decoration: Component.inputDecoration("Nama Toko"));
   }
 
   Widget _texyFieldPhoneNumber() {
@@ -488,26 +328,6 @@ class _RegisterState extends State<Register> {
             onPressed: _tooglePasswordConfirmationView),
       ),
     );
-  }
-
-  void onTapBirtDateOld() {
-    DateTime dateNow = DateTime.now();
-    int endYear = DateTime.now().year - 17;
-    DateTime endDate = DateTime(endYear, dateNow.month, dateNow.day);
-    showDatePicker(
-      context: context,
-      initialDate: endDate,
-      firstDate: DateTime(1960),
-      lastDate: endDate,
-      currentDate: endDate,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-    ).then((date) {
-      if (date is DateTime) {
-        setState(() {
-          birthDateController.text = DateFormat('dd/MM/yyyy').format(date);
-        });
-      }
-    });
   }
 
   void _tooglePasswordView() {

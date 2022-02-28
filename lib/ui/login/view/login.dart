@@ -16,7 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late String email, password;
+  late String phoneNumber, password;
 
   bool isHiddenPassword = true;
 
@@ -30,37 +30,6 @@ class _LoginState extends State<Login> {
       // LoginBloc().login(emailController.text, passwordController.text);
     }
     // routePush(SignUp(), RouterType.cupertino);
-  }
-
-  String? validateemail(value) {
-    var email = value.toString();
-    if (email.isEmpty) {
-      return "Email tidak boleh kosong";
-    } else if (!email.contains("@")) {
-      return "Email tidak sesuai";
-    } else if (email.contains("@")) {
-      var list = email.split("@");
-      if (list[0].length < 2) {
-        return "Email tidak sesuai";
-      } else if (list[1].length < 2) {
-        return "Email tidak sesuai";
-      } else if (list[1].length > 1) {
-        if (!list[1].contains(".")) {
-          return "Email tidak sesuai";
-        } else {
-          var dot = list[1].split(".");
-          if (dot[1].length > 1) {
-            return null;
-          } else {
-            return "Email tidak sesuai";
-          }
-        }
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
   }
 
   String? validatepass(value) {
@@ -82,111 +51,116 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: formKey,
-          child: ListView(
-            children: <Widget>[
-              SizedBox(height: SizeConfig.blockSizeVertical * 2),
-              _buildLogo(),
-              _textFieldPhoneNumber(),
-              const SizedBox(
-                height: 20,
-              ),
-              _textFieldPassword(),
-              Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 20),
-                alignment: Alignment.centerRight,
-                child: InkWell(
-                  // onTap: _routeToForgotPassword,
-                  onTap: () => routePush(const ForgotPassword(), RouterType.cupertino),
-                  child: GestureDetector(
-                    child: Text(
-                      'Lupa Password?',
-                      style: TextStyle(
-                          color: const Color(0xFFFFC400),
-                          fontSize: SizeConfig.screenHeight / 60),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                height: SizeConfig.screenHeight / 20,
-                width: SizeConfig.screenWidth / 0.5,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: BenpayPalette.darkBlue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                  ),
-                  onPressed: () {
-                    routePush(Dashboard(), RouterType.cupertino);
-                  },
-                  child: Text(
-                    'Masuk',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: SizeConfig.screenHeight / 60),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Component.textDefault('tidak punya akun?',
-                        colors: Colors.black),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      onTap: () => routePush(const Register(), RouterType.cupertino),
-                      child: GestureDetector(
-                        child: Text(
-                          'Daftar',
-                          style: TextStyle(
-                              color: const Color(0xFFFFC400),
-                              fontSize: SizeConfig.screenHeight / 60),
+      backgroundColor: BenpayPalette.white,
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Form(
+            key: formKey,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/icons/logo.png',
+                        height: SizeConfig.blockSizeHorizontal * 15,
+                        fit: BoxFit.contain,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical * 7,
+                      ),
+                      _textFieldPhoneNumber(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _textFieldPassword(),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10, bottom: 20),
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          // onTap: _routeToForgotPassword,
+                          onTap: () => routePush(
+                              const ForgotPassword(), RouterType.cupertino),
+                          child: GestureDetector(
+                            child: Text(
+                              'Lupa Password?',
+                              style: TextStyle(
+                                  color: BenpayPalette.yellow,
+                                  fontSize: SizeConfig.screenHeight / 60),
+                            ),
+                          ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: InkWell(
-                  child: Center(
-                    child: Component.textDefault('Hubungi CS',
-                        colors: const Color(0xFFFFC400)),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        height: SizeConfig.screenHeight / 20,
+                        width: SizeConfig.screenWidth / 0.5,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: BenpayPalette.darkBlue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                          ),
+                          onPressed: () {
+                            routePush(Dashboard(), RouterType.cupertino);
+                          },
+                          child: Text(
+                            'Masuk',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: SizeConfig.screenHeight / 60),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Component.textDefault('tidak punya akun?',
+                                colors: Colors.black),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                              onTap: () => routePush(
+                                  const Register(), RouterType.cupertino),
+                              child: GestureDetector(
+                                child: Text(
+                                  'Daftar',
+                                  style: TextStyle(
+                                      color: BenpayPalette.yellow,
+                                      fontSize: SizeConfig.screenHeight / 60),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: InkWell(
+                          child: Center(
+                            child: Component.textDefault('Hubungi CS',
+                                colors: BenpayPalette.yellow),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildLogo() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 80.0, top: 30.0),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height / 10.0,
-            child: Image.asset('assets/icons/logo.png'),
-          ),
-        )
-      ],
     );
   }
 
@@ -194,7 +168,8 @@ class _LoginState extends State<Login> {
     return TextFormField(
       controller: _phoneNumberController,
       style: TextStyle(
-          fontSize: SizeConfig.screenHeight / 60, color: BenpayPalette.darkBlue),
+          fontSize: SizeConfig.screenHeight / 60,
+          color: BenpayPalette.darkBlue),
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       cursorColor: BenpayPalette.darkBlue,
@@ -248,7 +223,8 @@ class _LoginState extends State<Login> {
     return TextFormField(
       controller: _passwordController,
       style: TextStyle(
-          fontSize: SizeConfig.screenHeight / 60, color: BenpayPalette.darkBlue),
+          fontSize: SizeConfig.screenHeight / 60,
+          color: BenpayPalette.darkBlue),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscureText: isHiddenPassword,

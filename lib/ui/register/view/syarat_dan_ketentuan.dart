@@ -61,82 +61,82 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
               const SizedBox(
                 height: 20,
               ),
-              Component.textDefault(
-                  "Dengan ini saya mengajukan permohonan menjadi anggota Koperasi syariah 212 dan bersedia memenuhi ketentuan ketentuan dan persyaratan yang berlaku, yaitu :",
-                  fontWeight: FontWeight.bold,
-                  maxLines: 4,
-                  textAlign: TextAlign.justify),
-              const SizedBox(
-                height: 10,
-              ),
-              Component.textDefault(
-                  "- Menaati Anggaran Dasar dan Anggaran Rumah Tangga serta segala peraturan yang berlaku di Koperasi Syariah 212",
-                  textAlign: TextAlign.justify),
-              Component.textDefault(
-                  "- Melampirkan fotokopi identitas diri (ID) yang masih berlaku (KTP/SIM/PASSWORD)",
-                  textAlign: TextAlign.justify),
-              Component.textDefault(
-                  "- Membayar simpanan pokok dan simpanan wajib (setiap tahun), serta simpanan lain sebagai berikut:",
-                  textAlign: TextAlign.justify),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    itemCount: modelSyaratKetentuanList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Table(
-                        border: TableBorder.symmetric(),
-                        columnWidths: const {
-                          0: FlexColumnWidth(.3),
-                          1: FlexColumnWidth(1.8),
-                          2: FlexColumnWidth(1.2),
-                          3: FlexColumnWidth(2),
-                        },
-                        children: [
-                          TableRow(children: [
-                            Text(modelSyaratKetentuanList[index].no!,
-                                style: index == 0
-                                    ? const TextStyle(
-                                    fontWeight: FontWeight.bold)
-                                    : const TextStyle(fontSize: 12)),
-                            Text(modelSyaratKetentuanList[index].jenisSimpanan!,
-                                style: index == 0
-                                    ? const TextStyle(
-                                    fontWeight: FontWeight.bold)
-                                    : const TextStyle(fontSize: 12)),
-                            Text(modelSyaratKetentuanList[index].nominal!,
-                                style: index == 0
-                                    ? const TextStyle(
-                                    fontWeight: FontWeight.bold)
-                                    : const TextStyle(fontSize: 12)),
-                            Text(modelSyaratKetentuanList[index].keterangan!,
-                                style: index == 0
-                                    ? const TextStyle(
-                                    fontWeight: FontWeight.bold)
-                                    : const TextStyle(fontSize: 12)),
-                          ]),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Component.textDefault("TOTAL SIMPANAN DISETORKAN RP 400.000,-",
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.start),
-              const SizedBox(
-                height: 10,
-              ),
+              // Component.textDefault(
+              //     "Dengan ini saya mengajukan permohonan menjadi anggota Koperasi syariah 212 dan bersedia memenuhi ketentuan ketentuan dan persyaratan yang berlaku, yaitu :",
+              //     fontWeight: FontWeight.bold,
+              //     maxLines: 4,
+              //     textAlign: TextAlign.justify),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Component.textDefault(
+              //     "- Menaati Anggaran Dasar dan Anggaran Rumah Tangga serta segala peraturan yang berlaku di Koperasi Syariah 212",
+              //     textAlign: TextAlign.justify),
+              // Component.textDefault(
+              //     "- Melampirkan fotokopi identitas diri (ID) yang masih berlaku (KTP/SIM/PASSWORD)",
+              //     textAlign: TextAlign.justify),
+              // Component.textDefault(
+              //     "- Membayar simpanan pokok dan simpanan wajib (setiap tahun), serta simpanan lain sebagai berikut:",
+              //     textAlign: TextAlign.justify),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // Column(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     ListView.builder(
+              //       physics: const NeverScrollableScrollPhysics(),
+              //       shrinkWrap: true,
+              //       padding: const EdgeInsets.symmetric(vertical: 10),
+              //       itemCount: modelSyaratKetentuanList.length,
+              //       itemBuilder: (BuildContext context, int index) {
+              //         return Table(
+              //           border: TableBorder.symmetric(),
+              //           columnWidths: const {
+              //             0: FlexColumnWidth(.3),
+              //             1: FlexColumnWidth(1.8),
+              //             2: FlexColumnWidth(1.2),
+              //             3: FlexColumnWidth(2),
+              //           },
+              //           children: [
+              //             TableRow(children: [
+              //               Text(modelSyaratKetentuanList[index].no!,
+              //                   style: index == 0
+              //                       ? const TextStyle(
+              //                       fontWeight: FontWeight.bold)
+              //                       : const TextStyle(fontSize: 12)),
+              //               Text(modelSyaratKetentuanList[index].jenisSimpanan!,
+              //                   style: index == 0
+              //                       ? const TextStyle(
+              //                       fontWeight: FontWeight.bold)
+              //                       : const TextStyle(fontSize: 12)),
+              //               Text(modelSyaratKetentuanList[index].nominal!,
+              //                   style: index == 0
+              //                       ? const TextStyle(
+              //                       fontWeight: FontWeight.bold)
+              //                       : const TextStyle(fontSize: 12)),
+              //               Text(modelSyaratKetentuanList[index].keterangan!,
+              //                   style: index == 0
+              //                       ? const TextStyle(
+              //                       fontWeight: FontWeight.bold)
+              //                       : const TextStyle(fontSize: 12)),
+              //             ]),
+              //           ],
+              //         );
+              //       },
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Component.textDefault("TOTAL SIMPANAN DISETORKAN RP 400.000,-",
+              //     fontSize: 12,
+              //     fontWeight: FontWeight.bold,
+              //     textAlign: TextAlign.start),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               _buttonOK(),
               const SizedBox(
                 height: 10,
