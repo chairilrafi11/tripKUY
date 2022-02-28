@@ -1,6 +1,7 @@
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/dashboard/view/dashboard.dart';
 import 'package:benpay/ui/home/view/home.dart';
+import 'package:benpay/ui/login/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
@@ -16,7 +17,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), (){
-      pushAndRemoveUntil(Dashboard());
+      pushAndRemoveUntil(const Login());
     });
     super.initState();
   }

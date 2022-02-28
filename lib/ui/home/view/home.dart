@@ -31,12 +31,17 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: BenpayPalette.whiteBackground,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 10,),
-            Image.asset(
-              "assets/icons/group.png",
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                "assets/icons/logo.png",
+                width: SizeConfig.blockSizeHorizontal * 40,
+                // height: SizeConfig.blockSizeHorizontal * 10,
+              ),
             ),
             const SizedBox(height: 10,),
             const BalanceNew(),
