@@ -109,4 +109,15 @@ class Component {
     height: SizeConfig.blockSizeVertical * 20,
     width: SizeConfig.blockSizeHorizontal * 100,
   );
+
+
+  static Widget divider({int padding = 8}) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Divider(
+        color: BenpayPalette.grey,
+        height: 1,
+      ),
+    );
+  }
 }
