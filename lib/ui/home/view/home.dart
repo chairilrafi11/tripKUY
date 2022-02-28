@@ -35,8 +35,13 @@ class Home extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 10,),
-            Image.asset(
-              "assets/icons/group.png",
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                "assets/icons/logo.png",
+                width: SizeConfig.blockSizeHorizontal * 40,
+                // height: SizeConfig.blockSizeHorizontal * 10,
+              ),
             ),
             const SizedBox(height: 10,),
             const BalanceNew(),
