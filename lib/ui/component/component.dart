@@ -13,7 +13,20 @@ class Component {
       colors: transparet ? BenpayPalette.white : BenpayPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
+    leading: Icon(Icons.arrow_back, color: BenpayPalette.darkBlue)
   );
+
+  static AppBar appBarLogo(){
+    return AppBar(
+      centerTitle: false,
+      backgroundColor: BenpayPalette.white,
+      elevation: 0.0,
+      title: Image.asset(
+        "assets/icons/logo.png",
+        width: SizeConfig.blockSizeHorizontal * 40,
+      ),
+    );
+  }
 
   static appBarHeader(String title, {bool transparet = false}) => AppBar(
     backgroundColor: transparet ? Colors.transparent : BenpayPalette.white,
@@ -81,6 +94,33 @@ class Component {
     labelStyle: const TextStyle(fontSize: BenpayConstant.fontSizeMedium),
     suffixIcon: suffixIcon,
     hintStyle: const TextStyle(fontSize: BenpayConstant.fontSizeSmall)
+  );
+
+  static decorationNoBorder(String hint) => InputDecoration(
+    fillColor: BenpayPalette.blueLight.withAlpha(50),
+    filled: true,
+    border: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.circular(10)
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.circular(10)
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: const BorderSide(color: BenpayPalette.white),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: const BorderSide(color: BenpayPalette.white),
+    ),
+    counterText: "",
+    hintText: hint,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+    // labelText: "Search",
+    // suffixIcon: suffixIcon,
+    hintStyle: const TextStyle(fontSize: 15.0, color: BenpayPalette.blue1, fontWeight: FontWeight.w500)
   );
 
   static button({required String label, required VoidCallback? onPressed}){
