@@ -17,20 +17,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: Component.appBarLogo(),
       backgroundColor: BenpayPalette.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
-            const SizedBox(height: 10,),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(
-                "assets/icons/logo.png",
-                width: SizeConfig.blockSizeHorizontal * 40,
-                // height: SizeConfig.blockSizeHorizontal * 10,
-              ),
-            ),
             const SizedBox(height: 20,),
             Stack(
               alignment: Alignment.center,

@@ -15,15 +15,6 @@ class NotificationView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
-            const SizedBox(height: 10,),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(
-                "assets/icons/logo.png",
-                width: SizeConfig.blockSizeHorizontal * 40,
-                // height: SizeConfig.blockSizeHorizontal * 10,
-              ),
-            ),
             const SizedBox(height: 20,),
             Component.textBold("Notifikasi", fontSize: BenpayConstant.fontSizeLargeExtra),
             const SizedBox(height: 10,),

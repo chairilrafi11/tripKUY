@@ -1,6 +1,9 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/ui/component/component.dart';
+import 'package:benpay/ui/topup/view/topup_input_view.dart';
+import 'package:benpay/ui/topup/view/topup_select_bank.dart';
 import 'package:flutter/material.dart';
+import 'package:nav_router/nav_router.dart';
 
 class Balance extends StatelessWidget {
   const Balance({ Key? key }) : super(key: key);
@@ -71,7 +74,7 @@ class BalanceNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: BenpayPalette.whiteBackground,
+      color: BenpayPalette.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -95,15 +98,20 @@ class BalanceNew extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Card(
-              color: BenpayPalette.yellow,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50.0),
+            InkWell(
+              onTap: (){
+                routePush(TopupSelectbank(), RouterType.material);
+              },
+              child: Card(
+                color: BenpayPalette.yellow,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.add_outlined, color: Colors.white, size: 30,),
+                )
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.add_outlined, color: Colors.white, size: 30,),
-              )
             ),
           ],
         ),
