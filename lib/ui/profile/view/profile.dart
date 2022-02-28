@@ -1,6 +1,7 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
+import 'package:benpay/ui/component/component_dialog_logout.dart';
 import 'package:benpay/ui/profile/bloc/profile_bloc.dart';
 import 'package:benpay/ui/profile/bloc/profile_menu_bloc.dart';
 import 'package:flutter/material.dart';
@@ -97,8 +98,7 @@ class Profile extends StatelessWidget {
                               Text(
                                 _profileBloc.listMenu[index].label!,
                                 style: const TextStyle(
-                                    color: BenpayPalette.darkBlue,
-                                    fontSize: 14),
+                                    color: Colors.black, fontSize: 14),
                               ),
                               const Spacer(),
                               const Icon(Icons.arrow_forward_ios,
@@ -108,30 +108,32 @@ class Profile extends StatelessWidget {
                     );
                   }),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  ComponentDialogLogout.logout();
+                },
                 child: Container(
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.all(10),
                     width: SizeConfig.safeBlockHorizontal * 100,
-                    color: BenpayPalette.white,
+                    color: Colors.red,
                     alignment: Alignment.centerLeft,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const <Widget>[
                         Icon(
                           Icons.exit_to_app,
-                          color: BenpayPalette.darkBlue,
+                          color: BenpayPalette.white,
                           size: 20,
                         ),
                         SizedBox(width: 10),
                         Text(
                           "Keluar",
                           style: TextStyle(
-                              color: BenpayPalette.darkBlue, fontSize: 14),
+                              color: BenpayPalette.white, fontSize: 14),
                         ),
                         Spacer(),
                         Icon(Icons.arrow_forward_ios,
-                            color: BenpayPalette.darkBlue, size: 15)
+                            color: BenpayPalette.white, size: 15)
                       ],
                     )),
               )
