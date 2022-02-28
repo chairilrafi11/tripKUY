@@ -2,6 +2,7 @@ import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/dashboard/view/dashboard.dart';
+import 'package:benpay/ui/forgot_password/view/forgot_password.dart';
 import 'package:benpay/ui/register/view/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,6 +103,7 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   // onTap: _routeToForgotPassword,
+                  onTap: () => routePush(const ForgotPassword(), RouterType.cupertino),
                   child: GestureDetector(
                     child: Text(
                       'Lupa Password?',
@@ -208,7 +210,7 @@ class _LoginState extends State<Login> {
         if (value!.isEmpty) {
           return 'masukkan nomor telepon';
         }
-        if (value.length < 3) {
+        if (value.length < 8) {
           return 'data tidak lengkap';
         }
         return null;
@@ -262,7 +264,7 @@ class _LoginState extends State<Login> {
         if (value!.isEmpty) {
           return 'masukkan password';
         }
-        if (value.length < 3) {
+        if (value.length < 8) {
           return 'data tidak lengkap';
         }
         return null;
