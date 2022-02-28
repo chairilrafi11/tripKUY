@@ -18,7 +18,7 @@ class TransactionView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(height: 30,),
             Container(
               alignment: Alignment.centerLeft,
               padding: BenpayConstant.paddingScreen,
@@ -70,8 +70,8 @@ class TransactionView extends StatelessWidget {
             Expanded(     
               child: TabBarView(children: [
                 listTransaction(),
-                listTransaction(),
-                listTransaction(),
+                emptyTransaction(),
+                emptyTransaction()
               ]
             ),)
           ],
@@ -88,7 +88,7 @@ class TransactionView extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return Card(
-            margin: EdgeInsets.symmetric(vertical: 5),
+            margin: EdgeInsets.only(top: 5, bottom: index == 9 ? 100 : 5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10)
             ),
@@ -100,11 +100,11 @@ class TransactionView extends StatelessWidget {
                   Row(
                     children: [
                       Image.asset( 
-                        "assets/icons/icmn_pulsa.png",
+                        "assets/icons/icmn_bpjs.png",
                         height: 20,
                       ),
                       const SizedBox(width: 10,),
-                      Component.textBold("Pulsa"),
+                      Component.textBold("BPJS"),
                       const Spacer(),
                       Component.textDefault("28 Februari 2022", fontSize: 11)
                     ],
@@ -112,28 +112,23 @@ class TransactionView extends StatelessWidget {
                   Component.divider(),
                   const SizedBox(height: 10,),
                   Component.textDefault(
-                    "30GB Internet Unlimited* (01.00-17.00 di Semua Jaringan Tri Indonesia) selama 30 hari",
+                    "BPJS kesehatan 2 BULAN dengan nomor 00000024676328764632",
                     fontSize: BenpayConstant.fontSizeSmall
                   ),
                   const SizedBox(height: 10,),
                   Row(
                     children: [
                       Component.textBold(
-                        "RP 30.000",
+                        "Total",
+                        fontSize: 13,
+                        colors: BenpayPalette.darkBlue
+                      ),
+                      const SizedBox(width: 10,),
+                      Component.textBold(
+                        "RP 130.000",
                         fontSize: 13,
                         colors: BenpayPalette.orange
                       ),
-                      const SizedBox(width: 10,),
-                      const Text(
-                        "RP 35.000",
-                        style: TextStyle(
-                          color: BenpayPalette.grey,
-                          fontFamily: BenpayConstant.avenirRegular,
-                          fontSize: BenpayConstant.fontSizeSmall,
-                          overflow: TextOverflow.ellipsis,
-                          decoration: TextDecoration.lineThrough
-                        ),
-                      )
                     ],
                   )
                 ],

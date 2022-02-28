@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: BenpayPalette.whiteBackground,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 10,),
