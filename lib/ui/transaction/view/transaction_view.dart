@@ -30,31 +30,8 @@ class TransactionView extends StatelessWidget {
               Container(
                 padding: BenpayConstant.paddingScreen,
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: BenpayPalette.white),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: BenpayPalette.white),
-                    ),
-                    counterText: "",
-                    hintText: "Search",
-                    contentPadding: const EdgeInsets.all(5),
-                    // labelText: "Search",
-                    // suffixIcon: suffixIcon,
-                    hintStyle: const TextStyle(fontSize: 15.0)
-                  ),
-                ),
+                  decoration: Component.decorationNoBorder("Search")
+                )
               ),
               TabBar(
                 labelColor: BenpayPalette.darkBlue,

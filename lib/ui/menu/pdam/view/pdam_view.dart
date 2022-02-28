@@ -28,7 +28,7 @@ class PDAMView extends StatelessWidget {
                       children: [
                         TextFormField(
                           // controller: phoneContactController,
-                          decoration: Component.inputDecoration("No Pelanggan"),
+                          decoration: Component.decorationNoBorder("No Pelanggan"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -43,7 +43,7 @@ class PDAMView extends StatelessWidget {
                         const SizedBox(height: 10,),
                         TextFormField(
                           // controller: phoneContactController,
-                          decoration: Component.inputDecoration("Wilayah"),
+                          decoration: Component.decorationNoBorder("Wilayah"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
