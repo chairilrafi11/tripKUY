@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
+import '../../dashboard/view/dashboard.dart';
+
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -17,17 +19,11 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController userNameController = TextEditingController();
-  final TextEditingController storeNameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController domisiliController = TextEditingController();
 
   bool isCanChangePassword = false;
   bool isHiddenPassword = true;
-  bool isHiddenPasswordConfirmation = true;
 
   @override
   void initState() {
@@ -42,113 +38,113 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: BenpayPalette.darkBlue,
-          automaticallyImplyLeading: true,
-          centerTitle: true,
-          elevation: 0.0,
-          title: const Text(
-            'Daftar',
-            style: TextStyle(fontSize: 20),
-          )),
-      body: Container(
-        decoration: const BoxDecoration(
-          color: BenpayPalette.whiteBackground,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40.0),
-            topRight: Radius.circular(40.0),
-          ),
-        ),
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: formKey,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: const BoxDecoration(
-              color: BenpayPalette.whiteBackground,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
-              ),
+      backgroundColor: BenpayPalette.white,
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Form(
+            key: formKey,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/header_login.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical * 15,
+                        ),
+                        Component.textDefault('Sign Up',
+                            colors: BenpayPalette.darkBlue,
+                            fontSize: 46,
+                            fontWeight: FontWeight.bold),
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical * 25,
+                        ),
+                        _textFieldUserName(),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        _textFieldPhoneNumber(),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        _textFieldPassword(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          height: SizeConfig.screenHeight / 20,
+                          width: SizeConfig.screenWidth / 1.35,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: BenpayPalette.darkBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            onPressed: () {
+                              routePush(Dashboard(), RouterType.cupertino);
+                            },
+                            child: Text(
+                              'Daftar',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.screenHeight / 60),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Component.textDefault('Sudah punya akun?',
+                                  colors: Colors.black),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  result =
+                                      await Connectivity().checkConnectivity();
+                                  if (result == ConnectivityResult.mobile) {
+                                  } else if (result ==
+                                      ConnectivityResult.wifi) {
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Tidak Terhubung Internet')));
+                                  }
+                                  routePush(
+                                      const Login(), RouterType.cupertino);
+                                },
+                                child: GestureDetector(
+                                  child: Text(
+                                    'Masuk',
+                                    style: TextStyle(
+                                        color: BenpayPalette.yellow,
+                                        fontSize: SizeConfig.screenHeight / 60),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _iconLogo(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _textFieldUserName(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _textFieldStoreName(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _texyFieldPhoneNumber(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _texyFieldEmail(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _textFieldPassword(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _textFieldConfirmationPassword(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const SizedBox(height: 10.0),
-                  _buttonSend(),
-                ],
-              ),
-            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buttonSend() {
-    return InkWell(
-      onTap: () async {
-        result = await Connectivity().checkConnectivity();
-        if (result == ConnectivityResult.mobile) {
-        } else if (result == ConnectivityResult.wifi) {
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Tidak Terhubung Internet')));
-        }
-        routePush(const Login(), RouterType.cupertino);
-      },
-      child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          margin:
-              const EdgeInsets.only(bottom: 30, top: 10, left: 10, right: 10),
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(color: BenpayPalette.darkBlue),
-          child: Component.textBold("Registrasi",
-              colors: BenpayPalette.white, fontSize: 17)),
-    );
-  }
-
-  Widget _iconLogo() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 30.0),
-        child: Image.asset(
-          'assets/icons/logo.png',
-          height: SizeConfig.blockSizeHorizontal * 10,
         ),
       ),
     );
@@ -156,88 +152,94 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldUserName() {
     return TextFormField(
-        controller: userNameController,
-        keyboardType: TextInputType.name,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        textInputAction: TextInputAction.next,
-        maxLength: 30,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Nama Lengkap"));
+      controller: userNameController,
+      keyboardType: TextInputType.name,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.allow(
+            RegExp(r'([a-z A-Z])', caseSensitive: false),
+            replacementString: ''),
+      ],
+      textInputAction: TextInputAction.next,
+      maxLength: 20,
+      style: const TextStyle(fontSize: 14, color: BenpayPalette.darkBlue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Wajib diisi*";
+        }
+      },
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child:
+              Icon(Icons.account_circle_rounded, color: BenpayPalette.darkBlue),
+        ),
+        hintText: 'xxxxxxxxx',
+        hintStyle: TextStyle(
+          color: BenpayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+        labelText: 'Username',
+        fillColor: BenpayPalette.darkBlue,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+      ),
+    );
   }
 
-  Widget _textFieldStoreName() {
+  Widget _textFieldPhoneNumber() {
     return TextFormField(
-        controller: storeNameController,
-        keyboardType: TextInputType.name,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        textInputAction: TextInputAction.next,
-        maxLength: 30,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Nama Toko"));
-  }
-
-  Widget _texyFieldPhoneNumber() {
-    return TextFormField(
-        controller: phoneNumberController,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.next,
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        maxLength: 13,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          }
-        },
-        decoration: Component.inputDecoration("Nomor HP"));
-  }
-
-  Widget _texyFieldEmail() {
-    return TextFormField(
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.allow(
-              RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
-              replacementString: ''),
-        ],
-        maxLength: 30,
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Wajib diisi*";
-          } else {
-            //? TODO
-            // if (!EmailValidator.validate(value)) {
-            //   return "Email tidak valid";
-            // }
-          }
-        },
-        decoration: Component.inputDecoration("Email"));
+      controller: phoneNumberController,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
+      maxLength: 14,
+      style: const TextStyle(fontSize: 14, color: Colors.black),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Wajib diisi*";
+        }
+      },
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child: Icon(Icons.phone, color: BenpayPalette.darkBlue),
+        ),
+        hintText: '8xxxxxxxx',
+        hintStyle: TextStyle(
+          color: BenpayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+        labelText: 'Phone number',
+        fillColor: BenpayPalette.darkBlue,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+      ),
+    );
   }
 
   Widget _textFieldPassword() {
@@ -257,7 +259,7 @@ class _RegisterState extends State<Register> {
       autocorrect: false,
       textInputAction: TextInputAction.next,
       maxLength: 20,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
+      style: const TextStyle(fontSize: 14, color: BenpayPalette.darkBlue),
       validator: (value) {
         if (value == null || value.isEmpty) {
           isCanChangePassword = false;
@@ -270,62 +272,37 @@ class _RegisterState extends State<Register> {
         isCanChangePassword = true;
         return null;
       },
-      decoration: Component.inputDecoration(
-        "Password",
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child: Icon(Icons.lock, color: BenpayPalette.darkBlue),
+        ),
         suffixIcon: IconButton(
             icon: Icon(
               isHiddenPassword ? Icons.visibility : Icons.visibility_off,
               color: BenpayPalette.darkBlue,
             ),
             onPressed: _tooglePasswordView),
-      ),
-    );
-  }
-
-  Widget _textFieldConfirmationPassword() {
-    return TextFormField(
-      controller: confirmPasswordController,
-      keyboardType: TextInputType.text,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.deny(
-            RegExp(
-                r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
-                caseSensitive: false),
-            replacementString: ''),
-      ],
-      obscureText: isHiddenPasswordConfirmation,
-      enableSuggestions: false,
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      maxLength: 20,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
-      validator: (value) {
-        if (value == null) {
-          isCanChangePassword = false;
-          return 'Harap masukkan password baru 1x lagi';
-        }
-        if (value.length < 8) {
-          isCanChangePassword = false;
-          return CoreVariable.minlength8char;
-        }
-        if (value != passwordController.text) {
-          isCanChangePassword = false;
-          return 'Password tidak sama';
-        }
-        isCanChangePassword = true;
-        return null;
-      },
-      decoration: Component.inputDecoration(
-        "Konfirmasi Password",
-        suffixIcon: IconButton(
-            icon: Icon(
-              isHiddenPasswordConfirmation
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              color: BenpayPalette.darkBlue,
-            ),
-            onPressed: _tooglePasswordConfirmationView),
+        hintText: 'xxxxxxxxx',
+        hintStyle: TextStyle(
+          color: BenpayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+        labelText: 'Password',
+        fillColor: BenpayPalette.darkBlue,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+        ),
       ),
     );
   }
@@ -336,16 +313,6 @@ class _RegisterState extends State<Register> {
     } else {
       isHiddenPassword = true;
     }
-    setState(() {});
-  }
-
-  void _tooglePasswordConfirmationView() {
-    if (isHiddenPasswordConfirmation) {
-      isHiddenPasswordConfirmation = false;
-    } else {
-      isHiddenPasswordConfirmation = true;
-    }
-
     setState(() {});
   }
 }

@@ -62,98 +62,100 @@ class _LoginState extends State<Login> {
             key: formKey,
             child: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/icons/logo.png',
-                        height: SizeConfig.blockSizeHorizontal * 15,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.blockSizeVertical * 7,
-                      ),
-                      _textFieldPhoneNumber(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _textFieldPassword(),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 20),
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          // onTap: _routeToForgotPassword,
-                          onTap: () => routePush(
-                              const ForgotPassword(), RouterType.cupertino),
-                          child: GestureDetector(
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/header_login.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical * 15,
+                        ),
+                        Image.asset(
+                          'assets/icons/logo.png',
+                          height: SizeConfig.blockSizeHorizontal * 10,
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical * 25,
+                        ),
+                        _textFieldPhoneNumber(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _textFieldPassword(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 20),
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            // onTap: _routeToForgotPassword,
+                            onTap: () => routePush(
+                                const ForgotPassword(), RouterType.cupertino),
+                            child: GestureDetector(
+                              child: Text(
+                                'Lupa Kata Sandi?',
+                                style: TextStyle(
+                                    color: BenpayPalette.yellow,
+                                    fontSize: SizeConfig.screenHeight / 60),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          height: SizeConfig.screenHeight / 20,
+                          width: SizeConfig.screenWidth / 1.35,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: BenpayPalette.darkBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            onPressed: () {
+                              routePush(Dashboard(), RouterType.cupertino);
+                            },
                             child: Text(
-                              'Lupa Password?',
+                              'Masuk',
                               style: TextStyle(
-                                  color: BenpayPalette.yellow,
+                                  color: Colors.white,
                                   fontSize: SizeConfig.screenHeight / 60),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        height: SizeConfig.screenHeight / 20,
-                        width: SizeConfig.screenWidth / 0.5,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: BenpayPalette.darkBlue,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
-                          ),
-                          onPressed: () {
-                            routePush(Dashboard(), RouterType.cupertino);
-                          },
-                          child: Text(
-                            'Masuk',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: SizeConfig.screenHeight / 60),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Component.textDefault('tidak punya akun?',
-                                colors: Colors.black),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              onTap: () => routePush(
-                                  const Register(), RouterType.cupertino),
-                              child: GestureDetector(
-                                child: Text(
-                                  'Daftar',
-                                  style: TextStyle(
-                                      color: BenpayPalette.yellow,
-                                      fontSize: SizeConfig.screenHeight / 60),
-                                ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Component.textDefault('Belum punya akun?',
+                                  colors: Colors.black),
+                              const SizedBox(
+                                width: 10,
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        child: InkWell(
-                          child: Center(
-                            child: Component.textDefault('Hubungi CS',
-                                colors: BenpayPalette.yellow),
+                              InkWell(
+                                onTap: () => routePush(
+                                    const Register(), RouterType.cupertino),
+                                child: GestureDetector(
+                                  child: Text(
+                                    'Daftar',
+                                    style: TextStyle(
+                                        color: BenpayPalette.yellow,
+                                        fontSize: SizeConfig.screenHeight / 60),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -201,7 +203,7 @@ class _LoginState extends State<Login> {
           fontSize: SizeConfig.screenHeight / 60,
         ),
         labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
-        labelText: 'nomor telepon',
+        labelText: 'Phone number',
         fillColor: BenpayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -262,7 +264,7 @@ class _LoginState extends State<Login> {
           fontSize: SizeConfig.screenHeight / 60,
         ),
         labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
-        labelText: 'password',
+        labelText: 'Password',
         fillColor: BenpayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
