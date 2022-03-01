@@ -13,12 +13,13 @@ class Component {
       colors: transparet ? BenpayPalette.white : BenpayPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
-    leading: Icon(Icons.arrow_back, color: BenpayPalette.darkBlue)
+    leading: const Icon(Icons.arrow_back, color: BenpayPalette.darkBlue)
   );
 
   static AppBar appBarLogo(){
     return AppBar(
       centerTitle: false,
+      automaticallyImplyLeading: false,
       backgroundColor: BenpayPalette.white,
       elevation: 0.0,
       title: Image.asset(

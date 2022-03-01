@@ -52,16 +52,10 @@ dependencies:
   shimmer: ^2.0.0
   fbroadcast_nullsafety: ^2.0.2
   rxdart: ^0.27.3
-  signature: ^5.0.0
-  email_validator: ^2.0.1
-  bubble: ^1.2.1
   url_launcher: ^6.0.17
-  qr_code_scanner: ^0.6.1
   permission_handler: ^8.3.0
   open_file: ^3.2.1
   gallery_saver: ^2.3.2
-  share_plus: ^3.0.4
-  flutter_image_compress: ^1.1.0
   flutter_contacts: ^1.1.2
 
 dev_dependencies:
