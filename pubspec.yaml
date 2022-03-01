@@ -57,6 +57,7 @@ dependencies:
   open_file: ^3.2.1
   gallery_saver: ^2.3.2
   flutter_contacts: ^1.1.2
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_test:

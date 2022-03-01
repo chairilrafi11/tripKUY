@@ -3,12 +3,14 @@ import 'package:benpay/core/util/core_variable.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/login/view/login.dart';
+import 'package:benpay/ui/register/view/account_verification.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
 import '../../dashboard/view/dashboard.dart';
+import '../../forgot_password/view/forgot_password_form.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -90,7 +92,7 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () {
-                              routePush(Dashboard(), RouterType.cupertino);
+                              routePush(OTPVerification(), RouterType.cupertino);
                             },
                             child: Text(
                               'Daftar',
