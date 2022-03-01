@@ -1,11 +1,13 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/util.dart';
+import 'package:benpay/ui/banner/banner_advertise_detail.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nav_router/nav_router.dart';
 
 import 'cubit/banner_cubit.dart';
 
@@ -51,7 +53,7 @@ class BannerAdvertise extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(right: 10),
                   child: GestureDetector(
-                    // onTap: () => BlocProvider.of<BannerCubit>(context).navDetail(i),
+                    onTap: () => routePush(BannerAdvertiseDetail(bannerAdvertiseResponse: i), RouterType.material),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                       child: Image.asset(
