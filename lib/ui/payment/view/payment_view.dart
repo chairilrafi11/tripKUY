@@ -4,15 +4,21 @@ import 'package:benpay/core/util/util.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
-List<Set<String>> listInfomartion = [
-  {"Produk", "Pulsa Three 50.000"},
-  {"Provider", "Three"},
-  {"Nomor Handphone", "08985722049"},
-  {"Harga", "51.000"}
-];
-
 class PaymentView extends StatelessWidget {
-  const PaymentView({ Key? key }) : super(key: key);
+
+  PaymentView({ Key? key }) : super(key: key);
+
+
+  List<Set<String>> listInfomartion = [
+    {"Produk", "BPJS"},
+    {"Nama","Chairil Rafi Purnama"},
+    {"Nomor Referal", "62376587326856"},
+    {"Nomor Pelanggan", "0328497334"},
+    {"Jumlah Bulan", "1 Bulan"},
+    {"Total", "51.000"},
+    {"Biaya Admin", "2.500"},
+    {"Total Pembayaran", "55.000"}
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,78 +27,88 @@ class PaymentView extends StatelessWidget {
       backgroundColor: BenpayPalette.white,
       body: Stack(
         children: [
-          ListView(
-            children: [
-              Padding(
-                padding: BenpayConstant.paddingScreen,
-                child: Row(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+            child: ListView(
+              children: [
+                const SizedBox(height: 20,),
+                Row(
                   children: [
                     Image.asset( 
-                      "assets/icons/icmn_pulsa.png",
+                      "assets/icons/icmn_bpjs.png",
                       height: 50,
                     ),
                     const SizedBox(width: 10,),
-                    Component.textBold("Pulsa")
+                    Component.textBold("BPJS")
                   ],
                 ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: BenpayConstant.paddingScreen,
-                itemCount: listInfomartion.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2.5),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: SizeConfig.blockSizeHorizontal * 40,
-                          child: Component.textDefault(listInfomartion[index].first)
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: SizeConfig.blockSizeHorizontal * 40,
-                          child: Component.textBold(
-                            listInfomartion[index].last, 
-                            colors: BenpayPalette.darkBlue,
-                            textAlign: TextAlign.start
-                          )
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              Container(
-                height: 10,
-                color: BenpayPalette.whiteBackground,
-              ),
-              Padding(
-                padding: BenpayConstant.paddingScreen,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Component.textDefault("Metode Pembayaran"),
-                    const Spacer(),
-                    Component.textDefault("Pilih"),
-                    Icon(Icons.arrow_forward_ios, size: 15)
-                  ],
+                Component.divider(),
+                const SizedBox(height: 10,),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: listInfomartion.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: SizeConfig.blockSizeHorizontal * 40,
+                            child: Component.textDefault(listInfomartion[index].first)
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            width: SizeConfig.blockSizeHorizontal * 40,
+                            child: Component.textBold(
+                              listInfomartion[index].last, 
+                              colors: BenpayPalette.darkBlue,
+                              textAlign: TextAlign.start
+                            )
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              ),
-              Container(
-                height: 10,
-                color: BenpayPalette.whiteBackground,
-              ),
-            ],
+                // Container(
+                //   height: 10,
+                //   color: BenpayPalette.whiteBackground,
+                // ),
+                // Padding(
+                //   padding: BenpayConstant.paddingScreen,
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     children: [
+                //       Component.textDefault("Metode Pembayaran"),
+                //       const Spacer(),
+                //       Component.textDefault("Pilih"),
+                //       Icon(Icons.arrow_forward_ios, size: 15)
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //   height: 10,
+                //   color: BenpayPalette.whiteBackground,
+                // ),
+              ],
+            ),
           ),
           Positioned(
             bottom: 0.0,
             child: Container(
-              color: BenpayPalette.white,
               width: SizeConfig.blockSizeHorizontal * 100,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: const BoxDecoration(
+                color: BenpayPalette.white,
+                border: Border(
+                  top: BorderSide(
+                    color: BenpayPalette.whiteBackground,
+                    width: 1
+                  )
+                )
+              ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

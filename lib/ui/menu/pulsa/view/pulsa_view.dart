@@ -89,7 +89,7 @@ class PulsaView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
-          onTap: () => routePush(const PaymentView(), RouterType.material),
+          onTap: () => routePush(PaymentView(), RouterType.material),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

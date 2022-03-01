@@ -4,7 +4,6 @@ import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:benpay/ui/login/view/login.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -232,9 +231,10 @@ class _RegisterState extends State<Register> {
           if (value == null || value.isEmpty) {
             return "Wajib diisi*";
           } else {
-            if (!EmailValidator.validate(value)) {
-              return "Email tidak valid";
-            }
+            //? TODO
+            // if (!EmailValidator.validate(value)) {
+            //   return "Email tidak valid";
+            // }
           }
         },
         decoration: Component.inputDecoration("Email"));

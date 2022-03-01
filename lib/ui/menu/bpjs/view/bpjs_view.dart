@@ -1,3 +1,4 @@
+import 'package:benpay/core/pintupay/core_function.dart';
 import 'package:benpay/core/util/constant.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,9 @@ class BPJSView extends StatelessWidget {
                         const SizedBox(height: 20,),
                         Component.button(
                           label: "Cek Tagihan",
-                          onPressed: (){}
+                          onPressed: (){
+                            CoreFunction.showPin(context);
+                          }
                         ),
                       ],
                     ),
