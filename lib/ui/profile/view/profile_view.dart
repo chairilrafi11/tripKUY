@@ -5,7 +5,7 @@ import 'package:benpay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({ Key? key }) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   final List<Set<String>> listProfile = [
     {"Nama", "Chairil Rafi Purnama"},
@@ -20,12 +20,15 @@ class ProfilePage extends StatelessWidget {
       appBar: Component.appBarLogo(),
       backgroundColor: BenpayPalette.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(
+            horizontal: BenpayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.centerLeft,
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -36,23 +39,92 @@ class ProfilePage extends StatelessWidget {
                     width: SizeConfig.blockSizeHorizontal * 100,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Component.textDefault("Nomor Referal", colors: BenpayPalette.whiteBackground),
-                    const SizedBox(height: 10,),
-                    Component.textBold(
-                      "1 2 3 4 5 6 7 8 9 0",
-                      fontSize: 25,
-                      colors: BenpayPalette.white
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Component.textBold("Nama",
+                                  colors: BenpayPalette.white, fontSize: 16),
+                              const Spacer(),
+                              const Icon(Icons.edit,
+                                  color: BenpayPalette.white),
+                              // IconButton(
+                              //   onPressed: () {
+                              //     routePush(const EditProfile(),
+                              //         RouterType.cupertino);
+                              //   },
+                              //   icon: const Icon(Icons.edit),
+                              //   color: BenpayPalette.white,
+                              // )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Component.textDefault("Chairil Rafi Purnama",
+                          fontSize: 16, colors: BenpayPalette.white),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Component.textBold("No. Handphone",
+                                  colors: BenpayPalette.white, fontSize: 16),
+                              const Spacer(),
+                              const Icon(Icons.qr_code,
+                                  color: BenpayPalette.white),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Component.textDefault('08985722049',
+                          fontSize: 16, colors: BenpayPalette.white),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Component.textBold('No. Handphone',
+                                  colors: BenpayPalette.white, fontSize: 16),
+                              const Spacer(),
+                              Component.textBold('Referral',
+                                  fontSize: 12, colors: BenpayPalette.white),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Component.textDefault('chairilrafi11@gmail.com',
+                          fontSize: 16, colors: BenpayPalette.white),
+                    ],
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 20,),
-            Component.textBold("Informasi Akun", fontSize: BenpayConstant.fontSizeLargeExtra),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
+            Component.textBold("Informasi Akun",
+                fontSize: BenpayConstant.fontSizeLargeExtra),
+            const SizedBox(
+              height: 20,
+            ),
             ListView.builder(
               itemCount: listProfile.length,
               shrinkWrap: true,
@@ -62,16 +134,14 @@ class ProfilePage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Component.textDefault(
-                      listProfile[index].first,
-                      colors: BenpayPalette.greyText
+                    Component.textDefault(listProfile[index].first,
+                        colors: BenpayPalette.greyText),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    const SizedBox(height: 10,),
-                    Component.textBold(
-                      listProfile[index].last,
-                      colors: BenpayPalette.darkBlue,
-                      fontSize: BenpayConstant.fontSizeLarge
-                    ),
+                    Component.textBold(listProfile[index].last,
+                        colors: BenpayPalette.darkBlue,
+                        fontSize: BenpayConstant.fontSizeLarge),
                     Component.divider()
                   ],
                 );
