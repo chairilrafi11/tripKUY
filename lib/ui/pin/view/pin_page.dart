@@ -23,29 +23,25 @@ class _PinPageState extends State<PinPage> {
   PinCubit pinCubit = PinCubit();
 
   static Widget otpKeyboardInputButton({String label = "", VoidCallback? onPressed, Color colors = BenpayPalette.white}) {
-    return Material(
-      color: Colors.transparent,
-      child: Card(
-        color: colors,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: BenpayPalette.darkBlue, width: 2),
-          borderRadius: BorderRadius.circular(100.0),
-        ),
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(100.0),
-          child: SizedBox(
-            height: SizeConfig.screenHeight * 0.1,
-            width: SizeConfig.screenHeight * 0.1,
-            child: Center(
-              child: Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 30.0,
-                  color: BenpayPalette.darkBlue,
-                ),
-              ),
-            ),
+    return Card(
+      elevation: 0,
+      color: BenpayPalette.whiteBackground,
+      shape: RoundedRectangleBorder(
+        // side: const BorderSide(color: BenpayPalette.darkBlue, width: 2),
+        borderRadius: BorderRadius.circular(100.0),
+      ),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(100.0),
+        child: SizedBox(
+          height: SizeConfig.screenHeight * 0.1,
+          width: SizeConfig.screenHeight * 0.1,
+          child: Center(
+            child: Component.textBold(
+              label, 
+              colors: BenpayPalette.darkBlue,
+              fontSize: SizeConfig.blockSizeHorizontal * 10
+            )
           ),
         ),
       ),
@@ -57,10 +53,17 @@ class _PinPageState extends State<PinPage> {
     return Scaffold(
       appBar: Component.appBar("PIN"),
       backgroundColor: BenpayPalette.white,
-      body: ListView(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: SizeConfig.blockSizeHorizontal * 15),
-          Component.textBold("Masukan Security Code Anda", fontSize: BenpayConstant.fontSizeLarge, textAlign: TextAlign.center, ), 
+          Component.textBold(
+            "Masukan Security Code Anda", 
+            fontSize: BenpayConstant.fontSizeLargeExtra,
+            colors: BenpayPalette.darkBlue, 
+            textAlign: TextAlign.center, 
+          ), 
+          const SizedBox(height: 10,),
           BlocProvider(
             create: (context) => pinCubit,
             child: BlocBuilder<PinCubit, PinState>(
@@ -85,8 +88,12 @@ class _PinPageState extends State<PinPage> {
               },
             )
           ),
+          const Spacer(),
           Padding(
-            padding: EdgeInsets.only(top: SizeConfig.blockSizeHorizontal * 0.1),
+            padding: EdgeInsets.only(
+              top: SizeConfig.blockSizeHorizontal * 0.1, 
+              bottom: SizeConfig.blockSizeHorizontal * 10,
+            ),
             child: Container(
               padding: EdgeInsets.only(
                 top: SizeConfig.screenHeight * 0.03,
@@ -242,12 +249,12 @@ class _PinPageState extends State<PinPage> {
       alignment: Alignment.center,
       child: digit == -1
         ? const Icon(
-            Icons.door_back_door,
-            color: BenpayPalette.darkBlue,
-            size: 40,
+            Icons.circle,
+            color: BenpayPalette.blueLight,
+            size: 30,
           )
         : const Icon(
-            Icons.thumb_up,
+            Icons.circle,
             color: BenpayPalette.darkBlue,
             size: 40,
           ),
