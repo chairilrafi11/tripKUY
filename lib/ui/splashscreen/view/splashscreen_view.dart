@@ -1,3 +1,4 @@
+import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/size_config.dart';
 import 'package:benpay/ui/dashboard/view/dashboard.dart';
 import 'package:benpay/ui/home/view/home.dart';
@@ -26,14 +27,28 @@ class _SplashscreenViewState extends State<SplashscreenView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          "assets/icons/logo.png",
-          // height: 100,
-          width: SizeConfig.blockSizeHorizontal * 70,
-          fit: BoxFit.fill,
-          // width: SizeConfig.blockSizeHorizontal * 50,
-        ),
+      backgroundColor: BenpayPalette.darkBlue,
+      body: Stack(
+        children: [
+          Container(
+            height: SizeConfig.safeBlockVertical * 50,
+            width: SizeConfig.blockSizeHorizontal * 100,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/header_login.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Center(
+            child: Image.asset(
+              "assets/icons/logo.png",
+              color: BenpayPalette.white,
+              width: SizeConfig.blockSizeHorizontal * 70,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ],
       ),
     );
   }
