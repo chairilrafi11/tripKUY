@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -239,5 +240,15 @@ class CoreFunction {
     } finally {
       launch("https://play.google.com/store/apps/details?id=" "com.ecoop.customer");
     }
+  }
+
+  static Future<String?> generateFirebaseToken() async {
+    try {
+      await FirebaseMessaging.instance.deleteToken();
+    } catch (e) {
+      CoreFunction.logPrint("Delete Firebase", e.toString());
+    }
+    var token = await FirebaseMessaging.instance.getToken();
+    return token;
   }
 }

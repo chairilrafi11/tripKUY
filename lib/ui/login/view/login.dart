@@ -3,6 +3,7 @@ import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/forgot_password/view/forgot_password.dart';
+import 'package:pintupay/ui/login/cubit/login_cubit.dart';
 import 'package:pintupay/ui/register/view/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,9 +17,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late String phoneNumber, password;
 
+  late String phoneNumber, password;
   bool isHiddenPassword = true;
+
+  final LoginCubit loginCubit = LoginCubit();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

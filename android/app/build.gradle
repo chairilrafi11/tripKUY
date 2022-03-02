@@ -23,7 +23,14 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+// apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+// def keystoreProperties = new Properties()
+// def keystorePropertiesFile = rootProject.file('key.properties')
+// if (keystorePropertiesFile.exists()) {
+//     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// }
 
 android {
     compileSdkVersion 31
@@ -64,5 +71,14 @@ flutter {
 }
 
 dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.gms:play-services-base:17.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
+// apply plugin: 'com.google.firebase.crashlytics'
