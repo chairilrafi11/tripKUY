@@ -1,8 +1,13 @@
 import 'package:benpay/core/benpay_palette.dart';
 import 'package:benpay/core/util/constant.dart';
+import 'package:benpay/core/util/core_function.dart';
 import 'package:benpay/core/util/util.dart';
+import 'package:benpay/ui/bill/model/bill_body_model.dart';
+import 'package:benpay/ui/bill/model/bill_status_model.dart';
+import 'package:benpay/ui/bill/view/bill_view.dart';
 import 'package:benpay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:nav_router/nav_router.dart';
 
 class PaymentView extends StatelessWidget {
 
@@ -130,14 +135,30 @@ class PaymentView extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      
+                      BillStatusModel billStatusModel = BillStatusModel(
+                        billBody: [
+                          BillBodyModel('ID Transaksi :', "#${212147515345237546}"),
+                          BillBodyModel('Id Pelanggan :', "123456874923" ),
+                          BillBodyModel('Nominal :', CoreFunction.moneyFormatter(50000)),
+                          BillBodyModel('Biaya Admin :', CoreFunction.moneyFormatter(2000)),
+                          BillBodyModel('Keterangan :', "Gitu aja")
+                        ],
+                        createdAt: DateTime.now().toString(), 
+                        status: "sukses"
+                      );
+
+                      routePush(
+                        BillStatus(
+                          billStatusModel
+                        ), 
+                        RouterType.material
+                      );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: Text(
                         'Bayar',
                         style: TextStyle(
-                          
                         ),
                       ),
                     ),
