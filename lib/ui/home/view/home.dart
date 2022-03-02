@@ -1,11 +1,11 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/balance/view/balance_view.dart';
-import 'package:benpay/ui/banner/banner_advertise.dart';
-import 'package:benpay/ui/banner/cubit/banner_cubit.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/home/cubit/home_cubit.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/balance/view/balance_view.dart';
+import 'package:pintupay/ui/banner/banner_advertise.dart';
+import 'package:pintupay/ui/banner/cubit/banner_cubit.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,9 +30,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBarLogo(),
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 10,),
@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
               child: const BannerAdvertise(),
             ),
             const SizedBox(height: 20,),
-            Component.textBold("Menu", colors: BenpayPalette.darkBlue),
+            Component.textBold("Menu", colors: PintuPayPalette.darkBlue),
             const SizedBox(height: 20,),
             menu(),
             const SizedBox(height: 10,),
@@ -74,7 +74,7 @@ class Home extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                // const Icon(Icons.star, size: 50, color: BenpayPalette.darkBlue),
+                // const Icon(Icons.star, size: 50, color: PintuPayPalette.darkBlue),
                 Image.asset(
                   listMenu[index].last,
                   // height: SizeConfig.blockSizeHorizontal * 13,
@@ -94,7 +94,7 @@ class Home extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Component.textBold("Recommended", colors: BenpayPalette.darkBlue),
+        Component.textBold("Recommended", colors: PintuPayPalette.darkBlue),
         const SizedBox(height: 20,),
         SizedBox(
           height: 105,
@@ -125,26 +125,26 @@ class Home extends StatelessWidget {
                             // height: SizeConfig.blockSizeHorizontal * 13,
                           ),
                           const SizedBox(width: 10,),
-                          Component.textBold("Pulsa Three", colors: BenpayPalette.darkBlue),
+                          Component.textBold("Pulsa Three", colors: PintuPayPalette.darkBlue),
                         ],
                       ),
                       const SizedBox(height: 10,),
-                      Component.textBold("AON 30GB", colors: BenpayPalette.grey),
+                      Component.textBold("AON 30GB", colors: PintuPayPalette.grey),
                       const SizedBox(height: 5,),
                       Row(
                         children: [
                           Component.textBold(
                             "RP 30.000",
                             fontSize: 13,
-                            colors: BenpayPalette.orange
+                            colors: PintuPayPalette.orange
                           ),
                           const SizedBox(width: 10,),
                           const Text(
                             "RP 35.000",
                             style: TextStyle(
-                              color: BenpayPalette.grey,
-                              fontFamily: BenpayConstant.avenirRegular,
-                              fontSize: BenpayConstant.fontSizeSmall,
+                              color: PintuPayPalette.grey,
+                              fontFamily: PintuPayConstant.avenirRegular,
+                              fontSize: PintuPayConstant.fontSizeSmall,
                               overflow: TextOverflow.ellipsis,
                               decoration: TextDecoration.lineThrough
                             ),

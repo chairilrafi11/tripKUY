@@ -1,4 +1,4 @@
-package com.example.benpay
+package id.beben.pintupay
 
 import io.flutter.embedding.android.FlutterActivity
 

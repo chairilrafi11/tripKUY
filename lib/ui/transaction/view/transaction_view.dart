@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
 class TransactionView extends StatelessWidget {
@@ -13,7 +13,7 @@ class TransactionView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         // appBar: Component.appBarLogo(),
-        backgroundColor: BenpayPalette.white,
+        backgroundColor: PintuPayPalette.white,
         resizeToAvoidBottomInset: false,
         body: DefaultTabController(
           length: 3,
@@ -23,20 +23,20 @@ class TransactionView extends StatelessWidget {
             children: [
               const SizedBox(height: 20,),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
-                child: Component.textBold("Transaksi", fontSize: BenpayConstant.fontSizeLargeExtra, textAlign: TextAlign.start)
+                padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
+                child: Component.textBold("Transaksi", fontSize: PintuPayConstant.fontSizeLargeExtra, textAlign: TextAlign.start)
               ),
               const SizedBox(height: 10,),
               Container(
-                padding: BenpayConstant.paddingScreen,
+                padding: PintuPayConstant.paddingScreen,
                 child: TextFormField(
                   decoration: Component.decorationNoBorder("Search")
                 )
               ),
               TabBar(
-                labelColor: BenpayPalette.darkBlue,
-                indicatorColor: BenpayPalette.darkBlue,
-                unselectedLabelColor: BenpayPalette.grey,
+                labelColor: PintuPayPalette.darkBlue,
+                indicatorColor: PintuPayPalette.darkBlue,
+                unselectedLabelColor: PintuPayPalette.grey,
                 tabs: [
                   Tab(text: "Sukses"),
                   Tab(text: "Proses"),
@@ -59,7 +59,7 @@ class TransactionView extends StatelessWidget {
 
   Widget listTransaction(){
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal : BenpayConstant.paddingHorizontalScreen),
+      padding: const EdgeInsets.symmetric(horizontal : PintuPayConstant.paddingHorizontalScreen),
       itemCount: 10,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
@@ -89,7 +89,7 @@ class TransactionView extends StatelessWidget {
                 const SizedBox(height: 10,),
                 Component.textDefault(
                   "BPJS kesehatan 2 BULAN dengan nomor 00000024676328764632",
-                  fontSize: BenpayConstant.fontSizeSmall
+                  fontSize: PintuPayConstant.fontSizeSmall
                 ),
                 const SizedBox(height: 10,),
                 Row(
@@ -97,13 +97,13 @@ class TransactionView extends StatelessWidget {
                     Component.textBold(
                       "Total",
                       fontSize: 13,
-                      colors: BenpayPalette.darkBlue
+                      colors: PintuPayPalette.darkBlue
                     ),
                     const SizedBox(width: 10,),
                     Component.textBold(
                       "RP 130.000",
                       fontSize: 13,
-                      colors: BenpayPalette.orange
+                      colors: PintuPayPalette.orange
                     ),
                   ],
                 )

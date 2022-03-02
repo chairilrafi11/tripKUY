@@ -1,8 +1,8 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/pin/cubit/pin_cubit.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/pin/cubit/pin_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nav_router/nav_router.dart';
@@ -22,12 +22,12 @@ class _PinPageState extends State<PinPage> {
   final _formKey = GlobalKey<FormState>();
   PinCubit pinCubit = PinCubit();
 
-  static Widget otpKeyboardInputButton({String label = "", VoidCallback? onPressed, Color colors = BenpayPalette.white}) {
+  static Widget otpKeyboardInputButton({String label = "", VoidCallback? onPressed, Color colors = PintuPayPalette.white}) {
     return Card(
       elevation: 0,
-      color: BenpayPalette.whiteBackground,
+      color: PintuPayPalette.whiteBackground,
       shape: RoundedRectangleBorder(
-        // side: const BorderSide(color: BenpayPalette.darkBlue, width: 2),
+        // side: const BorderSide(color: PintuPayPalette.darkBlue, width: 2),
         borderRadius: BorderRadius.circular(100.0),
       ),
       child: InkWell(
@@ -39,7 +39,7 @@ class _PinPageState extends State<PinPage> {
           child: Center(
             child: Component.textBold(
               label, 
-              colors: BenpayPalette.darkBlue,
+              colors: PintuPayPalette.darkBlue,
               fontSize: SizeConfig.blockSizeHorizontal * 10
             )
           ),
@@ -52,15 +52,15 @@ class _PinPageState extends State<PinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBar("PIN"),
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: SizeConfig.blockSizeHorizontal * 15),
           Component.textBold(
             "Masukan Security Code Anda", 
-            fontSize: BenpayConstant.fontSizeLargeExtra,
-            colors: BenpayPalette.darkBlue, 
+            fontSize: PintuPayConstant.fontSizeLargeExtra,
+            colors: PintuPayPalette.darkBlue, 
             textAlign: TextAlign.center, 
           ), 
           const SizedBox(height: 10,),
@@ -201,14 +201,14 @@ class _PinPageState extends State<PinPage> {
                               "Cancel",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: BenpayPalette.orange,
+                                color: PintuPayPalette.orange,
                                 fontSize: 15
                               ),
                             ),
                           ),
                         ),
                         otpKeyboardInputButton(
-                          colors: BenpayPalette.white,
+                          colors: PintuPayPalette.white,
                           label: "0",
                           onPressed: () {
                             pinCubit.inputDigit(0);
@@ -226,7 +226,7 @@ class _PinPageState extends State<PinPage> {
                             child: const Center(
                               child: Icon(
                                 Icons.backspace,
-                                color: BenpayPalette.darkBlue,
+                                color: PintuPayPalette.darkBlue,
                               ),
                             ),
                           ),
@@ -250,12 +250,12 @@ class _PinPageState extends State<PinPage> {
       child: digit == -1
         ? const Icon(
             Icons.circle,
-            color: BenpayPalette.blueLight,
+            color: PintuPayPalette.blueLight,
             size: 30,
           )
         : const Icon(
             Icons.circle,
-            color: BenpayPalette.darkBlue,
+            color: PintuPayPalette.darkBlue,
             size: 40,
           ),
     );

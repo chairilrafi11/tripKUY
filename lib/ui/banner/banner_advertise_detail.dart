@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +18,10 @@ class BannerAdvertiseDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       appBar: Component.appBar( "Detail Banner"),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 20,),

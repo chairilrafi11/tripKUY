@@ -1,8 +1,8 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/dashboard/view/dashboard.dart';
-import 'package:benpay/ui/home/view/home.dart';
-import 'package:benpay/ui/login/view/login.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
+import 'package:pintupay/ui/home/view/home.dart';
+import 'package:pintupay/ui/login/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
@@ -27,7 +27,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: BenpayPalette.darkBlue,
+      backgroundColor: PintuPayPalette.darkBlue,
       body: Stack(
         children: [
           Container(
@@ -43,7 +43,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
           Center(
             child: Image.asset(
               "assets/icons/logo.png",
-              color: BenpayPalette.white,
+              color: PintuPayPalette.white,
               width: SizeConfig.blockSizeHorizontal * 70,
               fit: BoxFit.fill,
             ),

@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/banner/banner_advertise_detail.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/banner/banner_advertise_detail.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -105,8 +105,8 @@ class BannerAdvertise extends StatelessWidget {
   //     stream: BlocProvider.of<BannerCubit>(context).dotObservable,
   //     builder: (context, AsyncSnapshot<int> snapshot) {
   //       return snapshot.data == index
-  //         ? const Icon(Icons.circle, color: BenpayPalette.white, size: 10)
-  //         : const Icon(Icons.horizontal_rule, color: BenpayPalette.white, size: 10);
+  //         ? const Icon(Icons.circle, color: PintuPayPalette.white, size: 10)
+  //         : const Icon(Icons.horizontal_rule, color: PintuPayPalette.white, size: 10);
   //     }
   //   );
   // }

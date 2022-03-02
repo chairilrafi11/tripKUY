@@ -14,14 +14,8 @@ class CoreVariable {
   static const String appsVersionAndroid = "v1.0.0";
   static const String appsversionIos = "v1.0.0";
   static const String clientKey = "445b6b25ccb3647be9cda483546b67ed";
-  static const String urlStagging = "https://product-digital-etikad.atozpay.co/api/";
-  static const String urlProduction = "https://ecoop.atozpay.co.id";
-
-  static const String urlPlatform = "https://platform-ecoop.atozpay.co/api/";
-  static const String urlPlatformProduction = "https://ecoop.atozpay.co.id/api/";
-
-  static const String urlProduct = "https://product-digital-ecoop.atozpay.co/api/";
-  static const String urlProductProduction = "http://product-digital-ecoop.atozpay.co.id/api/";
+  static const String urlStagging = "https://core-pp.bfireship.com/api/";
+  static const String urlProduction = "https://core-pp.bfireship.com/api/";
 
   static const String urlProvince = "https://province.atozpay.co.id/api/";
 

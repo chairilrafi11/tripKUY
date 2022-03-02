@@ -1,3 +1,5 @@
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
@@ -45,6 +47,41 @@ class ComponentDialog {
         child: child,
         scale: animation.drive(_dialogScaleTween),
       ),
+    );
+  }
+
+
+
+  static void dialogLoading() {
+    showDialog(
+      context: navGK.currentContext!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          content: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(height: 10),
+                // const JumpingDots(
+                //   numberOfDots: 3,
+                // ),
+                const SizedBox(height: 10),
+                Text(
+                  "Mohon Tunggu",
+                  style: TextStyle(
+                    color: PintuPayPalette.green,
+                    fontSize: SizeConfig.blockSizeHorizontal * 4),
+                )
+              ],
+            )
+          ),
+        );
+      },
     );
   }
 

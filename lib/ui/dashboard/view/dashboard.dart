@@ -1,10 +1,10 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/dashboard/cubit/dashboard_cubit.dart';
-import 'package:benpay/ui/home/view/home.dart';
-import 'package:benpay/ui/notification/view/notification_view.dart';
-import 'package:benpay/ui/profile/view/profile_view.dart';
-import 'package:benpay/ui/transaction/view/transaction_view.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/dashboard/cubit/dashboard_cubit.dart';
+import 'package:pintupay/ui/home/view/home.dart';
+import 'package:pintupay/ui/notification/view/notification_view.dart';
+import 'package:pintupay/ui/profile/view/profile_view.dart';
+import 'package:pintupay/ui/transaction/view/transaction_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,29 +53,29 @@ class Dashboard extends StatelessWidget {
       builder: (context, state) {
         return BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: BenpayPalette.white,
+          backgroundColor: PintuPayPalette.white,
           currentIndex: state.navBarItem.index,
-          selectedItemColor: BenpayPalette.darkBlue,
+          selectedItemColor: PintuPayPalette.darkBlue,
           onTap: (index) => dashboardCubit.pickItem(index),
           items: const [
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.home, color: BenpayPalette.darkBlue),
-              icon: Icon(Icons.home, color: BenpayPalette.grey),
+              activeIcon: Icon(Icons.home, color: PintuPayPalette.darkBlue),
+              icon: Icon(Icons.home, color: PintuPayPalette.grey),
               label: "Beranda",
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.article, color: BenpayPalette.darkBlue),
-              icon: Icon(Icons.article, color: BenpayPalette.grey),
+              activeIcon: Icon(Icons.article, color: PintuPayPalette.darkBlue),
+              icon: Icon(Icons.article, color: PintuPayPalette.grey),
               label: "Transaksi",
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.notifications, color: BenpayPalette.darkBlue),
-              icon: Icon(Icons.notifications, color: BenpayPalette.grey),
+              activeIcon: Icon(Icons.notifications, color: PintuPayPalette.darkBlue),
+              icon: Icon(Icons.notifications, color: PintuPayPalette.grey),
               label: "Notifikasi",
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.person, color: BenpayPalette.darkBlue),
-              icon: Icon(Icons.person, color: BenpayPalette.grey),
+              activeIcon: Icon(Icons.person, color: PintuPayPalette.darkBlue),
+              icon: Icon(Icons.person, color: PintuPayPalette.grey),
               label: "Akun",
             ),
           ],
@@ -90,11 +90,11 @@ class Dashboard extends StatelessWidget {
       elevation: 15.0,
       focusElevation: 2.0,
       autofocus: false,
-      backgroundColor: BenpayPalette.darkBlue,
-      child: const Icon(Icons.qr_code_scanner, color: BenpayPalette.white, size: 40),
+      backgroundColor: PintuPayPalette.darkBlue,
+      child: const Icon(Icons.qr_code_scanner, color: PintuPayPalette.white, size: 40),
       onPressed: () {
         // routePush(const QRPage());
-        // CoreFunction.showToast("Segera datang", backgroundColor: BenpayPalette.green);
+        // CoreFunction.showToast("Segera datang", backgroundColor: PintuPayPalette.green);
       }
     ),
   );

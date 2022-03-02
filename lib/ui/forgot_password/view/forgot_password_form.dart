@@ -1,6 +1,6 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/core_variable.dart';
-import 'package:benpay/core/util/size_config.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/core_variable.dart';
+import 'package:pintupay/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,7 +26,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -51,7 +51,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                         },
                         child: Icon(
                           Icons.arrow_back_ios,
-                          color: BenpayPalette.darkBlue,
+                          color: PintuPayPalette.darkBlue,
                           size: SizeConfig.screenWidth * 0.07,
                         )),
                   ),
@@ -99,7 +99,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   Card _sendButton() => Card(
         shape:
             RoundedRectangleBorder(borderRadius: CoreVariable.borderRadius50),
-        color: BenpayPalette.darkBlue,
+        color: PintuPayPalette.darkBlue,
         child: InkWell(
           onTap: () {},
           borderRadius: CoreVariable.borderRadius50,
@@ -110,7 +110,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             child: const Text(
               'Kirim',
               style: TextStyle(
-                  color: BenpayPalette.white, fontWeight: FontWeight.bold),
+                  color: PintuPayPalette.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -121,7 +121,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         keyboardType: TextInputType.visiblePassword,
         textInputAction: TextInputAction.done,
         obscureText: !showPassword[1],
-        style: const TextStyle(color: BenpayPalette.darkBlue),
+        style: const TextStyle(color: PintuPayPalette.darkBlue),
         inputFormatters: [
           LengthLimitingTextInputFormatter(16),
           FilteringTextInputFormatter.deny(
@@ -156,29 +156,29 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   showPassword[1]
                       ? Icons.remove_red_eye_rounded
                       : Icons.remove_red_eye_outlined,
-                  color: BenpayPalette.darkBlue,
+                  color: PintuPayPalette.darkBlue,
                 )
               ],
             ),
           ),
           labelText: 'Konfirmasi Password Baru',
-          hintStyle: const TextStyle(color: BenpayPalette.grey),
-          labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+          hintStyle: const TextStyle(color: PintuPayPalette.grey),
+          labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
           focusedErrorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
         ),
       );
@@ -188,7 +188,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         keyboardType: TextInputType.visiblePassword,
         textInputAction: TextInputAction.done,
         obscureText: !showPassword[0],
-        style: const TextStyle(color: BenpayPalette.darkBlue),
+        style: const TextStyle(color: PintuPayPalette.darkBlue),
         inputFormatters: [
           LengthLimitingTextInputFormatter(16),
           FilteringTextInputFormatter.deny(
@@ -220,29 +220,29 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   showPassword[0]
                       ? Icons.remove_red_eye_rounded
                       : Icons.remove_red_eye_outlined,
-                  color: BenpayPalette.darkBlue,
+                  color: PintuPayPalette.darkBlue,
                 )
               ],
             ),
           ),
           labelText: 'Password',
-          hintStyle: const TextStyle(color: BenpayPalette.grey),
-          labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+          hintStyle: const TextStyle(color: PintuPayPalette.grey),
+          labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
           focusedErrorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
         ),
       );
@@ -251,7 +251,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         controller: otpController,
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
-        style: const TextStyle(color: BenpayPalette.darkBlue),
+        style: const TextStyle(color: PintuPayPalette.darkBlue),
         inputFormatters: [
           LengthLimitingTextInputFormatter(6),
           FilteringTextInputFormatter.deny(
@@ -273,23 +273,23 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         decoration: const InputDecoration(
           hintText: 'xxxx',
           labelText: 'OTP',
-          hintStyle: TextStyle(color: BenpayPalette.grey),
-          labelStyle: TextStyle(color: BenpayPalette.darkBlue),
+          hintStyle: TextStyle(color: PintuPayPalette.grey),
+          labelStyle: TextStyle(color: PintuPayPalette.darkBlue),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: BorderSide(color: PintuPayPalette.darkBlue),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: BenpayPalette.grey),
+            borderSide: BorderSide(color: PintuPayPalette.grey),
           ),
         ),
       );

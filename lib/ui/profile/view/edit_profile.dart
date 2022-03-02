@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:benpay/core/benpay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/core/util/core_function.dart';
 
-import '../../../core/pintupay/core_function.dart';
 import '../../../core/util/size_config.dart';
 import '../../component/component.dart';
 
@@ -77,12 +77,12 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       appBar: Component.appBar('Ubah Profil'),
       body: Container(
-        color: BenpayPalette.darkBlue,
+        color: PintuPayPalette.darkBlue,
         child: Container(
           margin: const EdgeInsets.only(top: 10),
           padding: const EdgeInsets.symmetric(horizontal: 20),
           decoration: const BoxDecoration(
-              color: BenpayPalette.white,
+              color: PintuPayPalette.white,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20.0),
                   topLeft: Radius.circular(20.0)
@@ -94,7 +94,7 @@ class _EditProfileState extends State<EditProfile> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: const BoxDecoration(
-                color: BenpayPalette.whiteBackground,
+                color: PintuPayPalette.whiteBackground,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
@@ -187,8 +187,8 @@ class _EditProfileState extends State<EditProfile> {
           margin:
           const EdgeInsets.only(bottom: 30, top: 10, left: 10, right: 10),
           alignment: Alignment.center,
-          decoration: const BoxDecoration(color: BenpayPalette.darkBlue),
-          child: Component.textBold("Ubah Profil", colors: BenpayPalette.white, fontSize: 17)
+          decoration: const BoxDecoration(color: PintuPayPalette.darkBlue),
+          child: Component.textBold("Ubah Profil", colors: PintuPayPalette.white, fontSize: 17)
       ),
     );
   }

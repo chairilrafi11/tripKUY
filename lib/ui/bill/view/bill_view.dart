@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/bill/model/bill_status_model.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/dashboard/view/dashboard.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/bill/model/bill_status_model.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -42,7 +42,7 @@ class _BillStatusState extends State<BillStatus> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           decoration: const BoxDecoration(
-            color: BenpayPalette.darkBlue,
+            color: PintuPayPalette.darkBlue,
             image: DecorationImage(
               image: AssetImage(
                 "assets/images/header_login.png",
@@ -60,7 +60,7 @@ class _BillStatusState extends State<BillStatus> {
                   SizedBox(height: SizeConfig.blockSizeHorizontal * 3),
                   Component.textBold(
                     "Transaksi Berhasil!",
-                    colors: BenpayPalette.white,
+                    colors: PintuPayPalette.white,
                     fontSize: SizeConfig.blockSizeHorizontal * 5
                   ),
                   SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
@@ -272,7 +272,7 @@ class _BillStatusState extends State<BillStatus> {
               last,
               fontSize: SizeConfig.blockSizeHorizontal * 3.5,
               textAlign: TextAlign.end,
-              colors: BenpayPalette.darkBlue,
+              colors: PintuPayPalette.darkBlue,
               maxLines: 5
             )
           ),
@@ -286,7 +286,7 @@ class _BillStatusState extends State<BillStatus> {
       width: SizeConfig.blockSizeHorizontal * 85,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: BenpayPalette.white,
+          primary: PintuPayPalette.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -305,8 +305,8 @@ class _BillStatusState extends State<BillStatus> {
           ),
           child: Component.textBold(
             'OK',
-            colors: BenpayPalette.darkBlue,
-            fontSize: BenpayConstant.fontSizeLarge
+            colors: PintuPayPalette.darkBlue,
+            fontSize: PintuPayConstant.fontSizeLarge
           ),
         ),
       ),
@@ -318,7 +318,7 @@ class _BillStatusState extends State<BillStatus> {
       width: SizeConfig.blockSizeHorizontal * 85,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: BenpayPalette.white,
+          primary: PintuPayPalette.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -333,8 +333,8 @@ class _BillStatusState extends State<BillStatus> {
           ),
           child: Component.textBold(
             'Unduh Bukti Pembayaran',
-            colors: BenpayPalette.darkBlue,
-            fontSize: BenpayConstant.fontSizeLarge
+            colors: PintuPayPalette.darkBlue,
+            fontSize: PintuPayConstant.fontSizeLarge
           ),
         ),
       ),

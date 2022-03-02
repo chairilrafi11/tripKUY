@@ -1,5 +1,7 @@
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/ui/splashscreen/view/splashscreen_view.dart';
+import 'package:logging/logging.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/core_function.dart';
+import 'package:pintupay/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -16,18 +18,36 @@ void main() {
   // });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    _setupLogging();
+    super.initState();
+  }
+
+  void _setupLogging() async {
+    Logger.root.level = Level.ALL;
+    Logger.root.onRecord.listen((rec) {
+      CoreFunction.logPrint("", '${rec.level.name}: ${rec.time}; ${rec.message}');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Benpay',
+      title: 'PintuPay',
       navigatorKey: navGK,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: BenpayConstant.avenirRegular
+        fontFamily: PintuPayConstant.avenirRegular
       ),
       home: const SplashscreenView(),
     );

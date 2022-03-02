@@ -1,4 +1,4 @@
-import 'package:benpay/core/benpay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -62,7 +62,7 @@ class OTPVerification extends StatelessWidget {
                       child: const Text(
                         "Kirim ulang",
                         style: TextStyle(
-                            color: BenpayPalette.darkBlue,
+                            color: PintuPayPalette.darkBlue,
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.bold),
                       ),
@@ -77,7 +77,7 @@ class OTPVerification extends StatelessWidget {
                     width: SizeConfig.screenWidth / 1.35,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: BenpayPalette.darkBlue,
+                        primary: PintuPayPalette.darkBlue,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                       ),
@@ -111,8 +111,8 @@ class OTPVerification extends StatelessWidget {
             //   width: SizeConfig.blockSizeHorizontal * 100,
             //   padding: const EdgeInsets.symmetric(vertical: 10),
             //   alignment: FractionalOffset.bottomCenter,
-            //   color: BenpayPalette.darkBlue,
-            //   child: Component.textBold("Lanjut", colors: BenpayPalette.white),
+            //   color: PintuPayPalette.darkBlue,
+            //   child: Component.textBold("Lanjut", colors: PintuPayPalette.white),
             // ),
             Container(
           margin: const EdgeInsets.only(top: 10),
@@ -120,7 +120,7 @@ class OTPVerification extends StatelessWidget {
           width: SizeConfig.screenWidth / 1.35,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: BenpayPalette.darkBlue,
+              primary: PintuPayPalette.darkBlue,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
             ),

@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
 class NotificationView extends StatelessWidget {
@@ -10,13 +10,13 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 20,),
-            Component.textBold("Notifikasi", fontSize: BenpayConstant.fontSizeLargeExtra),
+            Component.textBold("Notifikasi", fontSize: PintuPayConstant.fontSizeLargeExtra),
             const SizedBox(height: 10,),
             ListView.builder(
               itemCount: 3,
@@ -41,7 +41,7 @@ class NotificationView extends StatelessWidget {
                             Icon(
                               Icons.info,
                               size: 25,
-                              color: BenpayPalette.darkBlue,
+                              color: PintuPayPalette.darkBlue,
                             ),
                             const SizedBox(width: 10,),
                             Component.textBold("Info"),
@@ -53,12 +53,12 @@ class NotificationView extends StatelessWidget {
                         const SizedBox(height: 10,),
                         Component.textBold(
                           "Topup",
-                          fontSize: BenpayConstant.fontSizeMedium
+                          fontSize: PintuPayConstant.fontSizeMedium
                         ),
                         const SizedBox(height: 10,),
                         Component.textDefault(
                           "Topup sebesar 100.000 sedang di proses oleh admin, terimakasih sudah melakukan topup",
-                          fontSize: BenpayConstant.fontSizeSmall
+                          fontSize: PintuPayConstant.fontSizeSmall
                         ),
                         const SizedBox(height: 10,),
                       ],

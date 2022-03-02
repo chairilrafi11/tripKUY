@@ -1,8 +1,8 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/core_variable.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/forgot_password/view/forgot_password_form.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/core_variable.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/forgot_password/view/forgot_password_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -22,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: SizedBox(
@@ -45,7 +45,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         },
                         child: Icon(
                           Icons.arrow_back_ios,
-                          color: BenpayPalette.darkBlue,
+                          color: PintuPayPalette.darkBlue,
                           size: SizeConfig.screenWidth * 0.07,
                         )),
                   ),
@@ -66,7 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       Component.textBold(
                           "Silahkan masukkan no telepon yang terdaftar",
-                          colors: BenpayPalette.darkBlue),
+                          colors: PintuPayPalette.darkBlue),
                       SizedBox(
                         height: SizeConfig.blockSizeVertical * 7,
                       ),
@@ -74,10 +74,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         controller: phoneNumberController,
                         style: TextStyle(
                             fontSize: SizeConfig.screenHeight / 60,
-                            color: BenpayPalette.white),
+                            color: PintuPayPalette.white),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
-                        cursorColor: BenpayPalette.darkBlue,
+                        cursorColor: PintuPayPalette.darkBlue,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(16),
                           FilteringTextInputFormatter.digitsOnly,
@@ -99,31 +99,31 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           prefixIcon: const Padding(
                             padding: EdgeInsets.all(17.0),
                             child: Icon(Icons.phone,
-                                color: BenpayPalette.darkBlue),
+                                color: PintuPayPalette.darkBlue),
                           ),
                           hintText: '8xxxxxxxx',
                           hintStyle: TextStyle(
-                            color: BenpayPalette.darkBlue,
+                            color: PintuPayPalette.darkBlue,
                             fontSize: SizeConfig.screenHeight / 60,
                           ),
                           labelStyle:
-                              const TextStyle(color: BenpayPalette.darkBlue),
+                              const TextStyle(color: PintuPayPalette.darkBlue),
                           labelText: 'nomor telepon',
-                          fillColor: BenpayPalette.darkBlue,
+                          fillColor: PintuPayPalette.darkBlue,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide:
-                                const BorderSide(color: BenpayPalette.darkBlue),
+                                const BorderSide(color: PintuPayPalette.darkBlue),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide:
-                                const BorderSide(color: BenpayPalette.darkBlue),
+                                const BorderSide(color: PintuPayPalette.darkBlue),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide:
-                                const BorderSide(color: BenpayPalette.darkBlue),
+                                const BorderSide(color: PintuPayPalette.darkBlue),
                           ),
                         ),
                       ),
@@ -143,7 +143,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         margin: const EdgeInsets.only(top: 20),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(30))),
-        color: BenpayPalette.darkBlue,
+        color: PintuPayPalette.darkBlue,
         child: InkWell(
           // onTap: sendPhoneNumber,
           onTap: () =>
@@ -156,7 +156,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             child: const Text(
               'Kirim',
               style: TextStyle(
-                  color: BenpayPalette.white, fontWeight: FontWeight.bold),
+                  color: PintuPayPalette.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -166,7 +166,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         controller: phoneNumberController,
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
-        style: const TextStyle(color: BenpayPalette.darkBlue),
+        style: const TextStyle(color: PintuPayPalette.darkBlue),
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
@@ -182,27 +182,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         decoration: InputDecoration(
           prefixIcon: const Padding(
             padding: EdgeInsets.all(17.0),
-            child: Icon(Icons.phone, color: BenpayPalette.darkBlue),
+            child: Icon(Icons.phone, color: PintuPayPalette.darkBlue),
           ),
           hintText: '8xxxxxxxx',
           hintStyle: TextStyle(
-            color: BenpayPalette.darkBlue,
+            color: PintuPayPalette.darkBlue,
             fontSize: SizeConfig.screenHeight / 60,
           ),
-          labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+          labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
           labelText: 'nomor telepon',
-          fillColor: BenpayPalette.darkBlue,
+          fillColor: PintuPayPalette.darkBlue,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
           ),
         ),
       );

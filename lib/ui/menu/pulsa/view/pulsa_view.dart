@@ -1,8 +1,8 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/payment/view/payment_view.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -48,9 +48,9 @@ class PulsaView extends StatelessWidget {
                     ),
                   ),
                   const TabBar(
-                    labelColor: BenpayPalette.darkBlue,
-                    indicatorColor: BenpayPalette.darkBlue,
-                    unselectedLabelColor: BenpayPalette.grey,
+                    labelColor: PintuPayPalette.darkBlue,
+                    indicatorColor: PintuPayPalette.darkBlue,
+                    unselectedLabelColor: PintuPayPalette.grey,
                     tabs: [
                       Tab(text: "Pulsa",),
                       Tab(text: "Paket Data"),
@@ -100,7 +100,7 @@ class PulsaView extends StatelessWidget {
                 children: [
                   Component.textBold(
                     "$index.000", 
-                    fontSize: BenpayConstant.fontSizeLargeExtra
+                    fontSize: PintuPayConstant.fontSizeLargeExtra
                   ),
                   const SizedBox(height: 10,),
                   Row(
@@ -109,16 +109,16 @@ class PulsaView extends StatelessWidget {
                     children: [
                       Component.textBold(
                         "RP 30.000",
-                        fontSize: BenpayConstant.fontSizeMedium,
-                        colors: BenpayPalette.orange
+                        fontSize: PintuPayConstant.fontSizeMedium,
+                        colors: PintuPayPalette.orange
                       ),
                       const SizedBox(width: 10,),
                       const Text(
                         "RP 35.000",
                         style: TextStyle(
-                          color: BenpayPalette.grey,
-                          fontFamily: BenpayConstant.avenirRegular,
-                          fontSize: BenpayConstant.fontSizeSmall,
+                          color: PintuPayPalette.grey,
+                          fontFamily: PintuPayConstant.avenirRegular,
+                          fontSize: PintuPayConstant.fontSizeSmall,
                           overflow: TextOverflow.ellipsis,
                           decoration: TextDecoration.lineThrough
                         ),
@@ -149,11 +149,11 @@ class PulsaView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [                
-                Component.textBold("AON 30GB", colors: BenpayPalette.darkBlue),
+                Component.textBold("AON 30GB", colors: PintuPayPalette.darkBlue),
                 const SizedBox(height: 10,),
                 Component.textDefault(
                   "30GB Internet Unlimited* (01.00-17.00 di Semua Jaringan Tri Indonesia) selama 30 hari",
-                  fontSize: BenpayConstant.fontSizeSmall
+                  fontSize: PintuPayConstant.fontSizeSmall
                 ),
                 const SizedBox(height: 10,),
                 Row(
@@ -161,15 +161,15 @@ class PulsaView extends StatelessWidget {
                     Component.textBold(
                       "RP 30.000",
                       fontSize: 13,
-                      colors: BenpayPalette.orange
+                      colors: PintuPayPalette.orange
                     ),
                     const SizedBox(width: 10,),
                     const Text(
                       "RP 35.000",
                       style: TextStyle(
-                        color: BenpayPalette.grey,
-                        fontFamily: BenpayConstant.avenirRegular,
-                        fontSize: BenpayConstant.fontSizeSmall,
+                        color: PintuPayPalette.grey,
+                        fontFamily: PintuPayConstant.avenirRegular,
+                        fontSize: PintuPayConstant.fontSizeSmall,
                         overflow: TextOverflow.ellipsis,
                         decoration: TextDecoration.lineThrough
                       ),

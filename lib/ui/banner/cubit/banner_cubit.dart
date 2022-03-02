@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:benpay/ui/banner/model/banner_advertise_model.dart';
-import 'package:benpay/ui/banner/provider/banner_provider.dart';
+import 'package:pintupay/ui/banner/model/banner_advertise_model.dart';
+import 'package:pintupay/ui/banner/provider/banner_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';

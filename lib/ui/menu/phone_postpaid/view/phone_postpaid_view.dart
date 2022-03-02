@@ -1,7 +1,8 @@
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/ui/menu/phone_postpaid/cubit/phone_postpaid_cubit.dart';
 
 class PhonePostpaidView extends StatelessWidget {
   const PhonePostpaidView({ Key? key }) : super(key: key);
@@ -13,7 +14,7 @@ class PhonePostpaidView extends StatelessWidget {
         children: [
           Component.header(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [    
                 Component.appBar("Pascabayar", transparet: true),
@@ -58,7 +59,9 @@ class PhonePostpaidView extends StatelessWidget {
                         const SizedBox(height: 20,),
                         Component.button(
                           label: "Cek Tagihan",
-                          onPressed: (){}
+                          onPressed: (){
+                            PhonePostpaidCubit().onInquiry();
+                          }
                         ),
                       ],
                     ),

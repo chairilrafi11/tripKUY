@@ -1,9 +1,9 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/dashboard/view/dashboard.dart';
-import 'package:benpay/ui/forgot_password/view/forgot_password.dart';
-import 'package:benpay/ui/register/view/register_form.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
+import 'package:pintupay/ui/forgot_password/view/forgot_password.dart';
+import 'package:pintupay/ui/register/view/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: SizedBox(
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                               child: Text(
                                 'Lupa Kata Sandi?',
                                 style: TextStyle(
-                                    color: BenpayPalette.yellow,
+                                    color: PintuPayPalette.yellow,
                                     fontSize: SizeConfig.screenHeight / 60),
                               ),
                             ),
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                           width: SizeConfig.screenWidth / 1.35,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: BenpayPalette.darkBlue,
+                              primary: PintuPayPalette.darkBlue,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
@@ -146,7 +146,7 @@ class _LoginState extends State<Login> {
                                   child: Text(
                                     'Daftar',
                                     style: TextStyle(
-                                        color: BenpayPalette.yellow,
+                                        color: PintuPayPalette.yellow,
                                         fontSize: SizeConfig.screenHeight / 60),
                                   ),
                                 ),
@@ -171,10 +171,10 @@ class _LoginState extends State<Login> {
       controller: _phoneNumberController,
       style: TextStyle(
           fontSize: SizeConfig.screenHeight / 60,
-          color: BenpayPalette.darkBlue),
+          color: PintuPayPalette.darkBlue),
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      cursorColor: BenpayPalette.darkBlue,
+      cursorColor: PintuPayPalette.darkBlue,
       inputFormatters: [
         LengthLimitingTextInputFormatter(16),
         FilteringTextInputFormatter.digitsOnly,
@@ -195,27 +195,27 @@ class _LoginState extends State<Login> {
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.phone, color: BenpayPalette.darkBlue),
+          child: Icon(Icons.phone, color: PintuPayPalette.darkBlue),
         ),
         hintText: '8xxxxxxxx',
         hintStyle: TextStyle(
-          color: BenpayPalette.darkBlue,
+          color: PintuPayPalette.darkBlue,
           fontSize: SizeConfig.screenHeight / 60,
         ),
-        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Phone number',
-        fillColor: BenpayPalette.darkBlue,
+        fillColor: PintuPayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
       ),
     );
@@ -226,11 +226,11 @@ class _LoginState extends State<Login> {
       controller: _passwordController,
       style: TextStyle(
           fontSize: SizeConfig.screenHeight / 60,
-          color: BenpayPalette.darkBlue),
+          color: PintuPayPalette.darkBlue),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscureText: isHiddenPassword,
-      cursorColor: BenpayPalette.darkBlue,
+      cursorColor: PintuPayPalette.darkBlue,
       inputFormatters: [
         LengthLimitingTextInputFormatter(20),
         FilteringTextInputFormatter.deny(
@@ -250,33 +250,33 @@ class _LoginState extends State<Login> {
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.lock, color: BenpayPalette.darkBlue),
+          child: Icon(Icons.lock, color: PintuPayPalette.darkBlue),
         ),
         suffixIcon: IconButton(
             icon: Icon(
               isHiddenPassword ? Icons.visibility : Icons.visibility_off,
-              color: BenpayPalette.darkBlue,
+              color: PintuPayPalette.darkBlue,
             ),
             onPressed: _tooglePasswordView),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
-          color: BenpayPalette.darkBlue,
+          color: PintuPayPalette.darkBlue,
           fontSize: SizeConfig.screenHeight / 60,
         ),
-        labelStyle: const TextStyle(color: BenpayPalette.darkBlue),
+        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Password',
-        fillColor: BenpayPalette.darkBlue,
+        fillColor: PintuPayPalette.darkBlue,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
       ),
     );

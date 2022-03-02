@@ -1,6 +1,6 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/login/view/login.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/login/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
@@ -23,7 +23,7 @@ class ComponentDialogLogout {
                 const Text(
                   "Konfirmasi keluar",
                   style: TextStyle(
-                      color: BenpayPalette.darkBlue,
+                      color: PintuPayPalette.darkBlue,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -47,7 +47,7 @@ class ComponentDialogLogout {
                           alignment: Alignment.center,
                           child: const Text(
                             "Batal",
-                            style: TextStyle(color: BenpayPalette.white),
+                            style: TextStyle(color: PintuPayPalette.white),
                           )),
                     ),
                     const Spacer(),
@@ -61,10 +61,10 @@ class ComponentDialogLogout {
                           alignment: Alignment.center,
                           padding: const EdgeInsets.all(8),
                           width: SizeConfig.blockSizeHorizontal * 30,
-                          color: BenpayPalette.darkBlue,
+                          color: PintuPayPalette.darkBlue,
                           child: const Text(
                             "Ya",
-                            style: TextStyle(color: BenpayPalette.white),
+                            style: TextStyle(color: PintuPayPalette.white),
                           )),
                     )
                   ],

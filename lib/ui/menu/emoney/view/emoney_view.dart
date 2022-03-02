@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/menu/emoney/view/emoney_detail_view.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/menu/emoney/view/emoney_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -63,7 +63,7 @@ class EmoneyView extends StatelessWidget {
                               children: [                
                                 Image.asset("assets/icons/emoney_dana.png"),
                                 const SizedBox(width: 10,),
-                                Component.textBold("DANA", colors: BenpayPalette.darkBlue),
+                                Component.textBold("DANA", colors: PintuPayPalette.darkBlue),
                               ],
                             ),
                           ),

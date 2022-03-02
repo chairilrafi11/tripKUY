@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/topup/view/topup_input_view.dart';
-import 'package:benpay/ui/topup/view/topup_select_bank.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/topup/view/topup_input_view.dart';
+import 'package:pintupay/ui/topup/view/topup_select_bank.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
@@ -16,14 +16,14 @@ class Balance extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.money, color: BenpayPalette.darkBlue, size: 30,),
+            Icon(Icons.money, color: PintuPayPalette.darkBlue, size: 30,),
             const SizedBox(width: 10,),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Component.textDefault(
                   "Saldo Anda", 
-                  colors: BenpayPalette.textGrey,
+                  colors: PintuPayPalette.textGrey,
                   fontSize: 15
                 ),
                 Component.textBold("RP. 20.000", fontSize: 20)
@@ -55,7 +55,7 @@ class Poin extends StatelessWidget {
               children: [
                 Component.textDefault(
                   "Poin anda", 
-                  colors: BenpayPalette.textGrey,
+                  colors: PintuPayPalette.textGrey,
                   fontSize: 15
                 ),
                 Component.textBold("1000 POIN", fontSize: 20)
@@ -74,7 +74,7 @@ class BalanceNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: BenpayPalette.white,
+      color: PintuPayPalette.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -90,7 +90,7 @@ class BalanceNew extends StatelessWidget {
               children: [
                 Component.textDefault(
                   "saldo anda", 
-                  colors: BenpayPalette.textGrey,
+                  colors: PintuPayPalette.textGrey,
                   fontSize: 15
                 ),
                 const SizedBox(height: 20,),
@@ -103,7 +103,7 @@ class BalanceNew extends StatelessWidget {
                 routePush(TopupSelectbank(), RouterType.material);
               },
               child: Card(
-                color: BenpayPalette.yellow,
+                color: PintuPayPalette.yellow,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),

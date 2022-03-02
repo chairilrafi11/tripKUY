@@ -1,8 +1,8 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/topup/view/topup_input_view.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/topup/view/topup_input_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
@@ -14,13 +14,13 @@ class TopupSelectbank extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBar("Topup"),
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(height: 20,),
-            Component.textBold("Pilih Bank Transfer", fontSize: BenpayConstant.fontSizeLargeExtra, textAlign: TextAlign.start),
+            Component.textBold("Pilih Bank Transfer", fontSize: PintuPayConstant.fontSizeLargeExtra, textAlign: TextAlign.start),
             const SizedBox(height: 30,),
             ListView.builder(
               itemCount: 5,

@@ -1,11 +1,11 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/core_function.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/bill/model/bill_body_model.dart';
-import 'package:benpay/ui/bill/model/bill_status_model.dart';
-import 'package:benpay/ui/bill/view/bill_view.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/core_function.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/bill/model/bill_body_model.dart';
+import 'package:pintupay/ui/bill/model/bill_status_model.dart';
+import 'package:pintupay/ui/bill/view/bill_view.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
@@ -29,11 +29,11 @@ class PaymentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBar("Pembayaran"),
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [
                 const SizedBox(height: 20,),
@@ -68,7 +68,7 @@ class PaymentView extends StatelessWidget {
                             width: SizeConfig.blockSizeHorizontal * 40,
                             child: Component.textBold(
                               listInfomartion[index].last, 
-                              colors: BenpayPalette.darkBlue,
+                              colors: PintuPayPalette.darkBlue,
                               textAlign: TextAlign.start
                             )
                           ),
@@ -79,10 +79,10 @@ class PaymentView extends StatelessWidget {
                 ),
                 // Container(
                 //   height: 10,
-                //   color: BenpayPalette.whiteBackground,
+                //   color: PintuPayPalette.whiteBackground,
                 // ),
                 // Padding(
-                //   padding: BenpayConstant.paddingScreen,
+                //   padding: PintuPayConstant.paddingScreen,
                 //   child: Row(
                 //     mainAxisSize: MainAxisSize.min,
                 //     children: [
@@ -95,7 +95,7 @@ class PaymentView extends StatelessWidget {
                 // ),
                 // Container(
                 //   height: 10,
-                //   color: BenpayPalette.whiteBackground,
+                //   color: PintuPayPalette.whiteBackground,
                 // ),
               ],
             ),
@@ -106,10 +106,10 @@ class PaymentView extends StatelessWidget {
               width: SizeConfig.blockSizeHorizontal * 100,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: const BoxDecoration(
-                color: BenpayPalette.white,
+                color: PintuPayPalette.white,
                 border: Border(
                   top: BorderSide(
-                    color: BenpayPalette.whiteBackground,
+                    color: PintuPayPalette.whiteBackground,
                     width: 1
                   )
                 )
@@ -123,13 +123,13 @@ class PaymentView extends StatelessWidget {
                     children: [
                       Component.textBold("Total Pembayaran"),
                       const SizedBox(height: 5,),
-                      Component.textBold("RP 20.000", colors: BenpayPalette.orange)
+                      Component.textBold("RP 20.000", colors: PintuPayPalette.orange)
                     ],
                   ),
                   const Spacer(),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: BenpayPalette.darkBlue,
+                      primary: PintuPayPalette.darkBlue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)
                       ),

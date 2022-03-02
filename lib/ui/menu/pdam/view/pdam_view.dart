@@ -1,5 +1,5 @@
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,7 +13,7 @@ class PDAMView extends StatelessWidget {
         children: [
           Component.header(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [    
                 Component.appBar("PDAM", transparet: true),

@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -18,10 +18,10 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBarLogo(),
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: BenpayConstant.paddingHorizontalScreen),
+            horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(
@@ -52,24 +52,24 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Component.textBold("Nama",
-                                  colors: BenpayPalette.white, fontSize: 16),
+                                  colors: PintuPayPalette.white, fontSize: 16),
                               const Spacer(),
                               const Icon(Icons.edit,
-                                  color: BenpayPalette.white),
+                                  color: PintuPayPalette.white),
                               // IconButton(
                               //   onPressed: () {
                               //     routePush(const EditProfile(),
                               //         RouterType.cupertino);
                               //   },
                               //   icon: const Icon(Icons.edit),
-                              //   color: BenpayPalette.white,
+                              //   color: PintuPayPalette.white,
                               // )
                             ],
                           ),
                         ],
                       ),
                       Component.textDefault("Chairil Rafi Purnama",
-                          fontSize: 16, colors: BenpayPalette.white),
+                          fontSize: 16, colors: PintuPayPalette.white),
                       const SizedBox(
                         height: 20,
                       ),
@@ -81,16 +81,16 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Component.textBold("No. Handphone",
-                                  colors: BenpayPalette.white, fontSize: 16),
+                                  colors: PintuPayPalette.white, fontSize: 16),
                               const Spacer(),
                               const Icon(Icons.qr_code,
-                                  color: BenpayPalette.white),
+                                  color: PintuPayPalette.white),
                             ],
                           ),
                         ],
                       ),
                       Component.textDefault('08985722049',
-                          fontSize: 16, colors: BenpayPalette.white),
+                          fontSize: 16, colors: PintuPayPalette.white),
                       const SizedBox(
                         height: 20,
                       ),
@@ -102,16 +102,16 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Component.textBold('No. Handphone',
-                                  colors: BenpayPalette.white, fontSize: 16),
+                                  colors: PintuPayPalette.white, fontSize: 16),
                               const Spacer(),
                               Component.textBold('Referral',
-                                  fontSize: 12, colors: BenpayPalette.white),
+                                  fontSize: 12, colors: PintuPayPalette.white),
                             ],
                           ),
                         ],
                       ),
                       Component.textDefault('chairilrafi11@gmail.com',
-                          fontSize: 16, colors: BenpayPalette.white),
+                          fontSize: 16, colors: PintuPayPalette.white),
                     ],
                   ),
                 ),
@@ -121,7 +121,7 @@ class ProfilePage extends StatelessWidget {
               height: 20,
             ),
             Component.textBold("Informasi Akun",
-                fontSize: BenpayConstant.fontSizeLargeExtra),
+                fontSize: PintuPayConstant.fontSizeLargeExtra),
             const SizedBox(
               height: 20,
             ),
@@ -135,13 +135,13 @@ class ProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Component.textDefault(listProfile[index].first,
-                        colors: BenpayPalette.greyText),
+                        colors: PintuPayPalette.greyText),
                     const SizedBox(
                       height: 10,
                     ),
                     Component.textBold(listProfile[index].last,
-                        colors: BenpayPalette.darkBlue,
-                        fontSize: BenpayConstant.fontSizeLarge),
+                        colors: PintuPayPalette.darkBlue,
+                        fontSize: PintuPayConstant.fontSizeLarge),
                     Component.divider()
                   ],
                 );

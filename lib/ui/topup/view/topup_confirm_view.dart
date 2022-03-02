@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/util.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,13 +29,13 @@ class TopupConfirmView extends StatelessWidget {
     return Scaffold(
       appBar: Component.appBar("Konfirmasi Topup"),
       resizeToAvoidBottomInset: false,
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: Column(
           children: [
             const SizedBox(height: 20,),
-            Component.textBold("Informasi Rekening", fontSize: BenpayConstant.fontSizeLargeExtra),
+            Component.textBold("Informasi Rekening", fontSize: PintuPayConstant.fontSizeLargeExtra),
             const SizedBox(height: 20,),
             Card(
               elevation: 3.0,
@@ -55,16 +55,16 @@ class TopupConfirmView extends StatelessWidget {
                         const SizedBox(width: 10,),
                         Component.textBold(
                           "Bank Negara Indonesia",
-                          colors: BenpayPalette.darkBlue,
-                          fontSize: BenpayConstant.fontSizeLarge
+                          colors: PintuPayPalette.darkBlue,
+                          fontSize: PintuPayConstant.fontSizeLarge
                         )
                       ],
                     ),
                     const SizedBox(height: 10,),
                     Component.textDefault(
                       "Nomor Rekening",
-                      colors: BenpayPalette.greyText,
-                      fontSize: BenpayConstant.fontSizeMedium
+                      colors: PintuPayPalette.greyText,
+                      fontSize: PintuPayConstant.fontSizeMedium
                     ),
                     const SizedBox(height: 10,),
                     Row(
@@ -72,8 +72,8 @@ class TopupConfirmView extends StatelessWidget {
                       children: [
                         Component.textBold(
                           "2210075324",
-                          colors: BenpayPalette.darkBlue,
-                          fontSize: BenpayConstant.fontSizeLarge
+                          colors: PintuPayPalette.darkBlue,
+                          fontSize: PintuPayConstant.fontSizeLarge
                         ),
                         const Spacer(),
                         Container(
@@ -81,14 +81,14 @@ class TopupConfirmView extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(Radius.circular(10)),
                             border: Border.all(
-                              color: BenpayPalette.orange,
+                              color: PintuPayPalette.orange,
                               width: 1
                             )
                           ),
                           child: Component.textDefault(
                             "Salin",
-                            colors: BenpayPalette.orange,
-                            fontSize: BenpayConstant.fontSizeSmall
+                            colors: PintuPayPalette.orange,
+                            fontSize: PintuPayConstant.fontSizeSmall
                           ),
                         )
                       ],
@@ -98,14 +98,14 @@ class TopupConfirmView extends StatelessWidget {
                     const SizedBox(height: 10,),
                     Component.textDefault(
                       "Nama Rekening",
-                      colors: BenpayPalette.greyText,
-                      fontSize: BenpayConstant.fontSizeMedium
+                      colors: PintuPayPalette.greyText,
+                      fontSize: PintuPayConstant.fontSizeMedium
                     ),
                     const SizedBox(height: 10,),
                     Component.textBold(
                       "Chairil Rafi Purnama",
-                      colors: BenpayPalette.darkBlue,
-                      fontSize: BenpayConstant.fontSizeLarge
+                      colors: PintuPayPalette.darkBlue,
+                      fontSize: PintuPayConstant.fontSizeLarge
                     ),
                     const SizedBox(height: 5,),
                     Component.divider()
@@ -133,7 +133,7 @@ class TopupConfirmView extends StatelessWidget {
                         Flexible(
                           child: Component.textDefault(
                             info[index], 
-                            fontSize: BenpayConstant.fontSizeMedium,
+                            fontSize: PintuPayConstant.fontSizeMedium,
                             maxLines: 4
                           ),
                         ),

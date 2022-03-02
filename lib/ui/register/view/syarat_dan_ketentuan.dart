@@ -1,6 +1,6 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/size_config.dart';
-import 'package:benpay/ui/component/component.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
 import 'model_syarat_ketentuan.dart';
@@ -168,7 +168,7 @@ class _SyaratDanKetentuanState extends State<SyaratDanKetentuan> {
       padding: const EdgeInsets.only(right: 20.0),
       child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          color: BenpayPalette.darkBlue,
+          color: PintuPayPalette.darkBlue,
           child: InkWell(
             onTap: () {
               Navigator.of(context).pop(true);

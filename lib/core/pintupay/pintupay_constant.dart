@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BenpayConstant {
+class PintuPayConstant {
   static const avenirRegular = "avenir_regular";
 
   static const fontSizeLargeExtra = 20.0;

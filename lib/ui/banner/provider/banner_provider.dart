@@ -1,5 +1,5 @@
 
-import 'package:benpay/ui/banner/model/banner_advertise_model.dart';
+import 'package:pintupay/ui/banner/model/banner_advertise_model.dart';
 
 class BannerProvider {
   int _dot = 0;

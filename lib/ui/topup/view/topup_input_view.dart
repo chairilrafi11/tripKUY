@@ -1,7 +1,7 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/ui/component/component.dart';
-import 'package:benpay/ui/topup/view/topup_confirm_view.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/topup/view/topup_confirm_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -21,12 +21,12 @@ class TopupInputView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       body: Stack(
         children: [
           Component.header(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: BenpayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [    
@@ -41,7 +41,7 @@ class TopupInputView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Component.textBold("Masukan Nominal Topup", fontSize: BenpayConstant.fontSizeLargeExtra),
+                        Component.textBold("Masukan Nominal Topup", fontSize: PintuPayConstant.fontSizeLargeExtra),
                         const SizedBox(height: 30,),
                         TextFormField(
                           // controller: phoneContactController,
@@ -61,9 +61,9 @@ class TopupInputView extends StatelessWidget {
                         const SizedBox(height: 20,),
                         Row(
                           children: [
-                            const Icon(Icons.info, color: BenpayPalette.darkBlue,),
+                            const Icon(Icons.info, color: PintuPayPalette.darkBlue,),
                             const SizedBox(width: 10,),
-                            Component.textDefault("Mininal nominal Topup adalah 50.000", fontSize: BenpayConstant.fontSizeMedium)
+                            Component.textDefault("Mininal nominal Topup adalah 50.000", fontSize: PintuPayConstant.fontSizeMedium)
                           ],
                         )
                       ],

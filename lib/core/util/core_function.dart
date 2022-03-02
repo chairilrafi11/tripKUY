@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
-import 'package:benpay/core/benpay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,8 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pintupay/ui/component/component_dialog.dart';
+import 'package:pintupay/ui/pin/view/pin_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'core_variable.dart';
@@ -48,21 +50,34 @@ class CoreFunction {
     return connect;
   }
 
+  static Future<String?> showPin(BuildContext? context, {String? label}) async {
+    String? pin = "";
+    await ComponentDialog().cupertinoDialog(builder: (BuildContext buildContext) {
+      return PinPage(
+        label: label,
+      );
+    }).then((dataPin) {
+      pin = dataPin;
+    });
+    // CoreFunction.logPrint("Pin", pin);
+    return pin;
+  }
+
   static showToast(String message,
       {int duration = 3,
         int position = 1,
-        Color backgroundColor = BenpayPalette.darkBlue}) {
+        Color backgroundColor = PintuPayPalette.darkBlue}) {
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),
       duration: Duration(seconds: duration),
       backgroundColor: backgroundColor,
-      icon: const Icon(Icons.error_outline, color: BenpayPalette.white),
+      icon: const Icon(Icons.error_outline, color: PintuPayPalette.white),
       // message: message,
       messageText: Text(
         message,
         style: const TextStyle(
-          color: BenpayPalette.white,
+          color: PintuPayPalette.white,
         ),
         maxLines: 3,
       ),

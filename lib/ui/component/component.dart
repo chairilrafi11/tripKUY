@@ -1,26 +1,26 @@
-import 'package:benpay/core/benpay_palette.dart';
-import 'package:benpay/core/util/constant.dart';
-import 'package:benpay/core/util/size_config.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 
 class Component {
 
   static appBar(String title, {bool transparet = false}) => AppBar(
-    backgroundColor: transparet ? Colors.transparent : BenpayPalette.white,
+    backgroundColor: transparet ? Colors.transparent : PintuPayPalette.white,
     elevation: 0.0,
     title: Component.textBold(
       title, 
-      colors: transparet ? BenpayPalette.white : BenpayPalette.darkBlue
+      colors: transparet ? PintuPayPalette.white : PintuPayPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
-    leading: const Icon(Icons.arrow_back, color: BenpayPalette.darkBlue)
+    leading: const Icon(Icons.arrow_back, color: PintuPayPalette.darkBlue)
   );
 
   static AppBar appBarLogo(){
     return AppBar(
       centerTitle: false,
       automaticallyImplyLeading: false,
-      backgroundColor: BenpayPalette.white,
+      backgroundColor: PintuPayPalette.white,
       elevation: 0.0,
       title: Image.asset(
         "assets/icons/logo.png",
@@ -30,9 +30,9 @@ class Component {
   }
 
   static appBarHeader(String title, {bool transparet = false}) => AppBar(
-    backgroundColor: transparet ? Colors.transparent : BenpayPalette.white,
+    backgroundColor: transparet ? Colors.transparent : PintuPayPalette.white,
     elevation: 0.0,
-    title: Component.textBold(title, colors: BenpayPalette.darkBlue),
+    title: Component.textBold(title, colors: PintuPayPalette.darkBlue),
     automaticallyImplyLeading: true,
   );
 
@@ -47,7 +47,7 @@ class Component {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: colors,
-        fontFamily: BenpayConstant.avenirRegular,
+        fontFamily: PintuPayConstant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
@@ -68,7 +68,7 @@ class Component {
       style: TextStyle(
         fontWeight: fontWeight,
         color: colors,
-        fontFamily: BenpayConstant.avenirRegular,
+        fontFamily: PintuPayConstant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
@@ -82,23 +82,23 @@ class Component {
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: BenpayPalette.darkBlue),
+      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
     ),
     counterText: "",
     hintText: hintText,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     labelText: label,
-    labelStyle: const TextStyle(fontSize: BenpayConstant.fontSizeMedium),
+    labelStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeMedium),
     suffixIcon: suffixIcon,
-    hintStyle: const TextStyle(fontSize: BenpayConstant.fontSizeSmall)
+    hintStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeSmall)
   );
 
   static decorationNoBorder(String hint) => InputDecoration(
-    fillColor: BenpayPalette.blueLight.withAlpha(50),
+    fillColor: PintuPayPalette.blueLight.withAlpha(50),
     filled: true,
     border: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.white),
@@ -110,24 +110,24 @@ class Component {
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: BenpayPalette.white),
+      borderSide: const BorderSide(color: PintuPayPalette.white),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: BenpayPalette.white),
+      borderSide: const BorderSide(color: PintuPayPalette.white),
     ),
     counterText: "",
     hintText: hint,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
     // labelText: "Search",
     // suffixIcon: suffixIcon,
-    hintStyle: const TextStyle(fontSize: 15.0, color: BenpayPalette.blue1, fontWeight: FontWeight.w500)
+    hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
   );
 
   static button({required String label, required VoidCallback? onPressed}){
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: BenpayPalette.darkBlue,
+        primary: PintuPayPalette.darkBlue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0)
         ),
@@ -156,7 +156,7 @@ class Component {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Divider(
-        color: BenpayPalette.grey,
+        color: PintuPayPalette.grey,
         height: 1,
       ),
     );
