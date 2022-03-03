@@ -3,6 +3,7 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:pintupay/ui/profile/provider/profile_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: PintuPayPalette.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: PintuPayConstant.paddingHorizontalScreen),
+          horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: ListView(
           children: [
             const SizedBox(
@@ -30,13 +31,18 @@ class ProfilePage extends StatelessWidget {
             Stack(
               alignment: Alignment.centerLeft,
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  child: Image.asset(
-                    "assets/images/card.png",
-                    fit: BoxFit.fill,
-                    height: SizeConfig.blockSizeHorizontal * 50,
-                    width: SizeConfig.blockSizeHorizontal * 100,
+                InkWell(
+                  onTap: (){
+                    ProfileProvider.profile();
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    child: Image.asset(
+                      "assets/images/card.png",
+                      fit: BoxFit.fill,
+                      height: SizeConfig.blockSizeHorizontal * 50,
+                      width: SizeConfig.blockSizeHorizontal * 100,
+                    ),
                   ),
                 ),
                 Padding(
