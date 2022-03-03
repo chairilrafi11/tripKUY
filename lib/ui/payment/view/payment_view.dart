@@ -1,5 +1,6 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/usecase/view_usecase.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/bill/model/bill_body_model.dart';
@@ -11,19 +12,28 @@ import 'package:nav_router/nav_router.dart';
 
 class PaymentView extends StatelessWidget {
 
-  PaymentView({ Key? key }) : super(key: key);
+  final List<Set<String>> listInformation;
+  final VoidCallback? paymentMethod;
+  final Feature feature;
+
+  PaymentView({
+    required this.listInformation, 
+    required this.paymentMethod,
+    required this.feature,
+    Key? key 
+  }) : super(key: key);
 
 
-  List<Set<String>> listInfomartion = [
-    {"Produk", "BPJS"},
-    {"Nama","Chairil Rafi Purnama"},
-    {"Nomor Referal", "62376587326856"},
-    {"Nomor Pelanggan", "0328497334"},
-    {"Jumlah Bulan", "1 Bulan"},
-    {"Total", "51.000"},
-    {"Biaya Admin", "2.500"},
-    {"Total Pembayaran", "55.000"}
-  ];
+  // List<Set<String>> listInfomartion = [
+  //   {"Produk", "BPJS"},
+  //   {"Nama","Chairil Rafi Purnama"},
+  //   {"Nomor Referal", "62376587326856"},
+  //   {"Nomor Pelanggan", "0328497334"},
+  //   {"Jumlah Bulan", "1 Bulan"},
+  //   {"Total", "51.000"},
+  //   {"Biaya Admin", "2.500"},
+  //   {"Total Pembayaran", "55.000"}
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +50,13 @@ class PaymentView extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset( 
-                      "assets/icons/icmn_bpjs.png",
+                      ViewUsecase.iconFeature(feature),
                       height: 50,
                     ),
                     const SizedBox(width: 10,),
-                    Component.textBold("BPJS")
+                    Component.textBold(
+                      ViewUsecase.nameFeature(feature)
+                    )
                   ],
                 ),
                 Component.divider(),
@@ -52,7 +64,7 @@ class PaymentView extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listInfomartion.length,
+                  itemCount: listInformation.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.5),
@@ -61,13 +73,13 @@ class PaymentView extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: SizeConfig.blockSizeHorizontal * 40,
-                            child: Component.textDefault(listInfomartion[index].first)
+                            child: Component.textDefault(listInformation[index].first)
                           ),
                           const Spacer(),
                           SizedBox(
                             width: SizeConfig.blockSizeHorizontal * 40,
                             child: Component.textBold(
-                              listInfomartion[index].last, 
+                              listInformation[index].last, 
                               colors: PintuPayPalette.darkBlue,
                               textAlign: TextAlign.start
                             )
@@ -135,24 +147,7 @@ class PaymentView extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      BillStatusModel billStatusModel = BillStatusModel(
-                        billBody: [
-                          BillBodyModel('ID Transaksi :', "#${212147515345237546}"),
-                          BillBodyModel('Id Pelanggan :', "123456874923" ),
-                          BillBodyModel('Nominal :', CoreFunction.moneyFormatter(50000)),
-                          BillBodyModel('Biaya Admin :', CoreFunction.moneyFormatter(2000)),
-                          BillBodyModel('Keterangan :', "Gitu aja")
-                        ],
-                        createdAt: DateTime.now().toString(), 
-                        status: "sukses"
-                      );
-
-                      routePush(
-                        BillStatus(
-                          billStatusModel
-                        ), 
-                        RouterType.material
-                      );
+                      paymentMethod!();
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),

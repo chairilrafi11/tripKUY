@@ -1,14 +1,24 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
+import 'package:pintupay/ui/menu/pulsa/cubit/pulsa_cubit.dart';
+import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
 class PulsaView extends StatelessWidget {
-  const PulsaView({ Key? key }) : super(key: key);
+
+  PulsaView({ Key? key }) : super(key: key);
+
+  final PulsaCubit pulsaCubit = PulsaCubit();
+
+  TextEditingController phoneContactController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +42,14 @@ class PulsaView extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                       child: TextFormField(
-                        // controller: phoneContactController,
+                        controller: phoneContactController,
                         decoration: Component.decorationNoBorder("No Handpone"),
+                        onChanged: (value) {
+                          CoreFunction.logPrint("Phone Number", value);
+                          CoreFunction.debouncer.debounce(() {
+                            pulsaCubit.onInquiry(value);
+                          });
+                        },
                         maxLength: 16,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
@@ -57,12 +73,37 @@ class PulsaView extends StatelessWidget {
                     ]
                   ),
                   Expanded(
-                    child: TabBarView(
-                      children: [
-                        pulsa(),
-                        dataPlan(),
-                      ]
-                    ),
+                    child: BlocProvider(
+                      create: (context) => pulsaCubit,
+                      child: BlocBuilder<PulsaCubit, PulsaState>(
+                        builder: (context, state) {
+                          if(state is PulsaInitial) {
+                            return TabBarView(
+                              children: [
+                                Container(),
+                                Container(),
+                              ]
+                            );
+                          } else if (state is PulsaLoaded){
+                            return TabBarView(
+                              children: [
+                                pulsa(state.responsePulsa.pulsa!),
+                                dataPlan(state.responsePulsa.data!),
+                              ]
+                            );
+                          } else if (state is PulsaLoading) {
+                            return TabBarView(
+                              children: [
+                                ShimmerPulsa(),
+                                ShimmerPulsa(),
+                              ]
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      )
+                    ) 
                   )
                 ],
               ),
@@ -73,15 +114,15 @@ class PulsaView extends StatelessWidget {
     ); 
   }
 
-  Widget pulsa(){
+  Widget pulsa(List<Pulsa> listPulsa){
     var size = MediaQuery.of(navGK.currentContext!).size;
-    const double itemHeight = 120;
+    const double itemHeight = 150;
     final double itemWidth = size.width / 1.8;
     return GridView.builder(
       // physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 20),
-      itemCount: 20,
+      itemCount: listPulsa.length,
       scrollDirection: Axis.vertical,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -89,7 +130,7 @@ class PulsaView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
-          onTap: () => routePush(PaymentView(), RouterType.material),
+          onTap: () => pulsaCubit.confirm(listPulsa[index], phoneContactController.text),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -99,30 +140,31 @@ class PulsaView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Component.textBold(
-                    "$index.000", 
-                    fontSize: PintuPayConstant.fontSizeLargeExtra
+                    listPulsa[index].name  ?? "", 
+                    fontSize: PintuPayConstant.fontSizeLarge,
+                    textAlign: TextAlign.center
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 20,),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Component.textBold(
-                        "RP 30.000",
-                        fontSize: PintuPayConstant.fontSizeMedium,
+                        CoreFunction.moneyFormatter(listPulsa[index].price), 
+                        fontSize: PintuPayConstant.fontSizeLarge,
                         colors: PintuPayPalette.orange
                       ),
                       const SizedBox(width: 10,),
-                      const Text(
-                        "RP 35.000",
-                        style: TextStyle(
-                          color: PintuPayPalette.grey,
-                          fontFamily: PintuPayConstant.avenirRegular,
-                          fontSize: PintuPayConstant.fontSizeSmall,
-                          overflow: TextOverflow.ellipsis,
-                          decoration: TextDecoration.lineThrough
-                        ),
-                      )
+                      // const Text(
+                      //   "RP 35.000",
+                      //   style: TextStyle(
+                      //     color: PintuPayPalette.grey,
+                      //     fontFamily: PintuPayConstant.avenirRegular,
+                      //     fontSize: PintuPayConstant.fontSizeSmall,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     decoration: TextDecoration.lineThrough
+                      //   ),
+                      // )
                     ],
                   )
                 ],
@@ -134,9 +176,9 @@ class PulsaView extends StatelessWidget {
     );
   }
 
-  Widget dataPlan(){
+  Widget dataPlan(List<Data> listData){
     return ListView.builder(
-      itemCount: 10,
+      itemCount: listData.length,
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 20),
       itemBuilder: (BuildContext context, int index) {
@@ -149,31 +191,31 @@ class PulsaView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [                
-                Component.textBold("AON 30GB", colors: PintuPayPalette.darkBlue),
+                // Component.textBold(listData[index].name ?? "", colors: PintuPayPalette.darkBlue),
                 const SizedBox(height: 10,),
-                Component.textDefault(
-                  "30GB Internet Unlimited* (01.00-17.00 di Semua Jaringan Tri Indonesia) selama 30 hari",
-                  fontSize: PintuPayConstant.fontSizeSmall
+                Component.textBold(
+                  listData[index].name ?? "",
+                  fontSize: PintuPayConstant.fontSizeMedium
                 ),
                 const SizedBox(height: 10,),
                 Row(
                   children: [
                     Component.textBold(
-                      "RP 30.000",
+                      CoreFunction.moneyFormatter(listData[index].price),
                       fontSize: 13,
                       colors: PintuPayPalette.orange
                     ),
-                    const SizedBox(width: 10,),
-                    const Text(
-                      "RP 35.000",
-                      style: TextStyle(
-                        color: PintuPayPalette.grey,
-                        fontFamily: PintuPayConstant.avenirRegular,
-                        fontSize: PintuPayConstant.fontSizeSmall,
-                        overflow: TextOverflow.ellipsis,
-                        decoration: TextDecoration.lineThrough
-                      ),
-                    )
+                    // const SizedBox(width: 10,),
+                    // const Text(
+                    //   "RP 35.000",
+                    //   style: TextStyle(
+                    //     color: PintuPayPalette.grey,
+                    //     fontFamily: PintuPayConstant.avenirRegular,
+                    //     fontSize: PintuPayConstant.fontSizeSmall,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     decoration: TextDecoration.lineThrough
+                    //   ),
+                    // )
                   ],
                 )
               ],

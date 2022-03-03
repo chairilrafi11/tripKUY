@@ -191,16 +191,18 @@ class DioService {
             'Cache-Control': CoreVariable.cacheControl,
             'Content-Type': CoreVariable.contentType,
             'ClientKey': CoreVariable.clientKey,
+            'User-Agent' : "Android"
             // 'Apps-Version': CoreFunction.version(),
-            'Apps-Origin': CoreVariable.appsOrigin,
+            // 'Apps-Origin': CoreVariable.appsOrigin,
             // 'Authorization': 'Bearer ' + (authUsecase.token ?? "")
           }
         : {
             'Cache-Control': CoreVariable.cacheControl,
             'Content-Type': CoreVariable.contentType,
             'ClientKey': CoreVariable.clientKey,
+            'User-Agent' : "Android"
             // 'Apps-Version': CoreFunction.version(),
-            'Apps-Origin': CoreVariable.appsOrigin
+            // 'Apps-Origin': CoreVariable.appsOrigin
           }
     );
   }
