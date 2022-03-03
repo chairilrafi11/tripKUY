@@ -1,4 +1,6 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/usecase/auth_usecase.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/topup/view/topup_input_view.dart';
 import 'package:pintupay/ui/topup/view/topup_select_bank.dart';
@@ -16,7 +18,7 @@ class Balance extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.money, color: PintuPayPalette.darkBlue, size: 30,),
+            const Icon(Icons.money, color: PintuPayPalette.darkBlue, size: 30,),
             const SizedBox(width: 10,),
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -26,7 +28,7 @@ class Balance extends StatelessWidget {
                   colors: PintuPayPalette.textGrey,
                   fontSize: 15
                 ),
-                Component.textBold("RP. 20.000", fontSize: 20)
+                Component.textBold(CoreFunction.moneyFormatter(authUsecase.responseLogin.totalBalance), fontSize: 20)
               ],
             )
           ],
@@ -94,7 +96,7 @@ class BalanceNew extends StatelessWidget {
                   fontSize: 15
                 ),
                 const SizedBox(height: 20,),
-                Component.textBold("RP 200.000", fontSize: 25)
+                Component.textBold(CoreFunction.moneyFormatter(authUsecase.responseLogin.totalBalance), fontSize: 25)
               ],
             ),
             const Spacer(),

@@ -32,9 +32,9 @@ class PinCubit extends Cubit<PinState> {
       var otpCode = digitOne.toString() +
         digitTwo.toString() +
         digitThree.toString() +
-        digitFour.toString() +
-        digitFive.toString() +
-        digitSix.toString();
+        digitFour.toString(); 
+        // digitFive.toString() +
+        // digitSix.toString();
 
       checkCode(otpCode);
     }

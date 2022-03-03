@@ -30,7 +30,7 @@ class Dashboard extends StatelessWidget {
                 case NavBarItem.home:
                   return Home();
                 case NavBarItem.transaction:
-                  return const TransactionView();
+                  return TransactionView();
                 case NavBarItem.notification:
                   return const NotificationView();    
                 case NavBarItem.profile:

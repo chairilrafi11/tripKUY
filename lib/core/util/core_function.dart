@@ -64,10 +64,7 @@ class CoreFunction {
     return pin;
   }
 
-  static showToast(String message,
-      {int duration = 3,
-        int position = 1,
-        Color backgroundColor = PintuPayPalette.darkBlue}) {
+  static showToast(String message, {int duration = 3, int position = 1, Color backgroundColor = PintuPayPalette.red}) {
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),

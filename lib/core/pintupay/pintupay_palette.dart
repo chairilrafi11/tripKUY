@@ -14,5 +14,7 @@ class PintuPayPalette {
   static const Color red = Color(0xFFdc1616);
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey = Color(0xFFBDBDBD);
+
+  static const Color grey200 = Color.fromARGB(50, 50, 50, 0);
   
 }

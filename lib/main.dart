@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/pintupay/pintupay_crypt.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +39,13 @@ Future<void> main() async {
 }
 
 Future<void> init() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
+
+  var appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.initFlutter(appDocumentDirectory.path);
 
   await flutterLocalNotificationsPlugin
     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -48,17 +56,6 @@ Future<void> init() async {
     badge: false,
     sound: false,
   );
-
-  // var appDocumentDirectory = await getApplicationDocumentsDirectory();
-  // Hive.initFlutter(appDocumentDirectory.path);
-  // Hive.registerAdapter(UserBoxAdapter());
-  // Hive.registerAdapter(OrderAdapter());
-  // Hive.registerAdapter(ProductBoxAdapter());
-  // Hive.registerAdapter(DiscountAdapter());
-  // Hive.registerAdapter(AddressesAdapter());
-  // Hive.registerAdapter(DataMenuAdapter());
-  // Hive.registerAdapter(MerchantsAdapter());
-  // Hive.registerAdapter(MenuResponseAdapter());
 }
 
 class MyApp extends StatefulWidget {
@@ -85,6 +82,7 @@ class _MyAppState extends State<MyApp> {
     Logger.root.onRecord.listen((rec) {
       CoreFunction.logPrint("", '${rec.level.name}: ${rec.time}; ${rec.message}');
     });
+    await PintuPayCrypt().setPassKey();
   }
 
   @override

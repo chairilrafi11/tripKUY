@@ -17,18 +17,18 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart' as permissionhandler;
 
-class BillStatus extends StatefulWidget {
+class BillView extends StatefulWidget {
 
   final BillStatusModel billStatusModel;
   final bool fromTrans;
 
-  const BillStatus(this.billStatusModel, {Key? key,this.fromTrans = false}) : super(key: key);
+  const BillView(this.billStatusModel, {Key? key,this.fromTrans = false}) : super(key: key);
 
   @override
-  _BillStatusState createState() => _BillStatusState();
+  _BillViewState createState() => _BillViewState();
 }
 
-class _BillStatusState extends State<BillStatus> {
+class _BillViewState extends State<BillView> {
   static GlobalKey billContainer = GlobalKey();
   late BillStatusModel billStatusModel = widget.billStatusModel;
 

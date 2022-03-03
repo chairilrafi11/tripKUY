@@ -70,11 +70,12 @@ class ComponentDialog {
                 // const JumpingDots(
                 //   numberOfDots: 3,
                 // ),
+                const CupertinoActivityIndicator(),
                 const SizedBox(height: 10),
                 Text(
                   "Mohon Tunggu",
                   style: TextStyle(
-                    color: PintuPayPalette.green,
+                    color: PintuPayPalette.darkBlue,
                     fontSize: SizeConfig.blockSizeHorizontal * 4),
                 )
               ],

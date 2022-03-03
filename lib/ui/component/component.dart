@@ -76,9 +76,10 @@ class Component {
   }
 
   static InputDecoration inputDecoration(String label, {String? hintText, Widget? suffixIcon}) => InputDecoration(
-    border: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.white),
-      borderRadius: BorderRadius.circular(10)
+    fillColor: PintuPayPalette.darkBlue,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
@@ -92,9 +93,9 @@ class Component {
     hintText: hintText,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     labelText: label,
-    labelStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeMedium),
+    labelStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeMedium, color: PintuPayPalette.darkBlue),
     suffixIcon: suffixIcon,
-    hintStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeSmall)
+    hintStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeSmall, color: PintuPayPalette.darkBlue)
   );
 
   static decorationNoBorder(String hint) => InputDecoration(

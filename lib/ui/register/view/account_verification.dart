@@ -2,12 +2,20 @@ import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pintupay/ui/verification/cubit/check_phone_number_cubit.dart';
+import 'package:pintupay/ui/verification/model/otp_register_model.dart';
+import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
 
 import '../../../core/util/size_config.dart';
 import '../../login/view/login.dart';
 
 class OTPVerification extends StatelessWidget {
-  const OTPVerification({Key? key}) : super(key: key);
+
+  final ResponseCheckPhoneNumber responseCheckPhoneNumber;
+
+  OTPVerification({required this.responseCheckPhoneNumber, Key? key}) : super(key: key);
+
+  String code = "";
 
   @override
   Widget build(BuildContext context) {
@@ -22,116 +30,84 @@ class OTPVerification extends StatelessWidget {
         ),
         child: SizedBox(
           width: double.infinity,
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 250.0),
-                    child: Text('Verifikasi Akun',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30)),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text('Kami baru saja mengirim kode untukmu..',
-                        textAlign: TextAlign.center),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50.0, vertical: 10.0),
-                    child: PinCodeTextField(
-                      appContext: context,
-                      length: 4,
-                      onChanged: (value) {
-                        print(value);
-                      },
+              const Padding(
+                padding: EdgeInsets.only(top: 250.0),
+                child: Text(
+                  'Verifikasi Akun',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Text(
+                  'Kami baru saja mengirim kode untukmu..',
+                  textAlign: TextAlign.center
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                child: PinCodeTextField(
+                  appContext: context,
+                  length: 4,
+                  onChanged: (value) {
+                    print(value);
+                    code = value;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: buildTimer(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    "Kirim ulang",
+                    style: TextStyle(
+                      color: PintuPayPalette.darkBlue,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: buildTimer(),
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                height: SizeConfig.screenHeight / 20,
+                width: SizeConfig.screenWidth / 1.35,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: PintuPayPalette.darkBlue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        "Kirim ulang",
-                        style: TextStyle(
-                            color: PintuPayPalette.darkBlue,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold),
-                      ),
+                  onPressed: () {
+                    CheckPhoneNumberCubit().onCheckOTP(OtpRegisterModel(
+                      id: responseCheckPhoneNumber.id,
+                      otpCode: code,
+                      phoneNumber: responseCheckPhoneNumber.phoneNumber
+                    ));
+                  },
+                  child: Text(
+                    'Lanjut',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: SizeConfig.screenHeight / 60
                     ),
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    height: SizeConfig.screenHeight / 20,
-                    width: SizeConfig.screenWidth / 1.35,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: PintuPayPalette.darkBlue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                      ),
-                      onPressed: () {
-                        routePush(const Login(), RouterType.cupertino);
-                      },
-                      child: Text(
-                        'Lanjut',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: SizeConfig.screenHeight / 60),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildButtonNext() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: InkWell(
-        onTap: () => routePush(const Login(), RouterType.cupertino),
-        child:
-            // Container(
-            //   width: SizeConfig.blockSizeHorizontal * 100,
-            //   padding: const EdgeInsets.symmetric(vertical: 10),
-            //   alignment: FractionalOffset.bottomCenter,
-            //   color: PintuPayPalette.darkBlue,
-            //   child: Component.textBold("Lanjut", colors: PintuPayPalette.white),
-            // ),
-            Container(
-          margin: const EdgeInsets.only(top: 10),
-          height: SizeConfig.screenHeight / 20,
-          width: SizeConfig.screenWidth / 1.35,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: PintuPayPalette.darkBlue,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-            ),
-            onPressed: () {
-              routePush(const OTPVerification(), RouterType.cupertino);
-            },
-            child: Text(
-              'Lanjut',
-              style: TextStyle(
-                  color: Colors.white, fontSize: SizeConfig.screenHeight / 60),
-            ),
           ),
         ),
       ),

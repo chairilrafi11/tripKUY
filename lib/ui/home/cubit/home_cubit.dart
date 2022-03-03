@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(const PDAMView(), RouterType.material);
         break;
       case "pulsa":
-        routePush(const PulsaView(), RouterType.material);
+        routePush(PulsaView(), RouterType.material);
         break;
       case "telepon":
         routePush(const TelephonePostpaid(), RouterType.material);

@@ -13,7 +13,7 @@ class CoreVariable {
   //? Config API
   static const String appsVersionAndroid = "v1.0.0";
   static const String appsversionIos = "v1.0.0";
-  static const String clientKey = "445b6b25ccb3647be9cda483546b67ed";
+  static const String clientKey = "f91f6194378f27fb58d8c5d59afa6778";
   static const String urlStagging = "https://core-pp.bfireship.com/api/";
   static const String urlProduction = "https://core-pp.bfireship.com/api/";
 
@@ -28,8 +28,8 @@ class CoreVariable {
   static const int durationShimmer = 1200;
 
   //? Encrypt Atributte (sample)
-  static const String password = "12S_09dxfcAjKABsa";
-  static const String salt = "LKMBx3cP8Tt37w6XF61U";
+  static const String password = "asf1t3QqsPySdssEj-sU";
+  static const String salt = "cWzFTEf9HAZeQ9zpgZZG";
 
   static const String notificationBroadcast = "notification_broadcast";
 
