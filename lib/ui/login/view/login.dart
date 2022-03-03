@@ -1,13 +1,16 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/forgot_password/view/forgot_password.dart';
 import 'package:pintupay/ui/login/cubit/login_cubit.dart';
+import 'package:pintupay/ui/login/model/login_model.dart';
 import 'package:pintupay/ui/register/view/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/ui/verification/view/check_phone_number.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -122,7 +125,23 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () {
-                              routePush(Dashboard(), RouterType.cupertino);
+                              loginCubit.onLogin(
+                                LoginModel(
+                                  session: Session(
+                                    email: _phoneNumberController.text,
+                                    imei: "",
+                                    deviceId: "",
+                                    deviceRegisterId: "",
+                                    latitude: "",
+                                    longitude: "",
+                                    password: _passwordController.text,
+                                    phoneNumber: _phoneNumberController.text,
+                                    radius: "",
+                                    simImei: ""
+                                  ),
+                                  version: "2.1.5"
+                                )
+                              );
                             },
                             child: Text(
                               'Masuk',
@@ -144,7 +163,7 @@ class _LoginState extends State<Login> {
                               ),
                               InkWell(
                                 onTap: () => routePush(
-                                    const Register(), RouterType.cupertino),
+                                    const CheckPhoneNumberView(), RouterType.cupertino),
                                 child: GestureDetector(
                                   child: Text(
                                     'Daftar',
