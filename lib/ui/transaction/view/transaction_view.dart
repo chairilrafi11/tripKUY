@@ -1,12 +1,18 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
+import 'package:pintupay/ui/transaction/cubit/transaction_cubit.dart';
+import 'package:pintupay/ui/transaction/model/response_transaction.dart';
 
 class TransactionView extends StatelessWidget {
-  const TransactionView({ Key? key }) : super(key: key);
 
+  TransactionView({ Key? key }) : super(key: key);
+
+  final TransactionCubit transactionCubit = TransactionCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class TransactionView extends StatelessWidget {
                   decoration: Component.decorationNoBorder("Search")
                 )
               ),
-              TabBar(
+              const TabBar(
                 labelColor: PintuPayPalette.darkBlue,
                 indicatorColor: PintuPayPalette.darkBlue,
                 unselectedLabelColor: PintuPayPalette.grey,
@@ -44,12 +50,39 @@ class TransactionView extends StatelessWidget {
                 ]
               ),
               Expanded(     
-                child: TabBarView(children: [
-                  listTransaction(),
-                  emptyTransaction(),
-                  emptyTransaction()
-                ]
-              ),)
+                child: BlocProvider(
+                  create: (context) => transactionCubit..onGetTransactionList(),
+                  child: BlocBuilder<TransactionCubit, TransactionState>(
+                    builder: (context, state) {
+                      if(state is TransactionLoading){
+                        return TabBarView(
+                          children: [
+                            ShimmerList(),
+                            ShimmerList(),
+                            ShimmerList(),
+                          ]
+                        );
+                      } else if ( state is TransactionLoaded){
+                        return TabBarView(
+                          children: [
+                            listTransaction(state.listTransaction),
+                            listTransaction(state.listTransaction),
+                            listTransaction(state.listTransaction),
+                          ],
+                        );
+                      } else {
+                        return TabBarView(
+                          children: [
+                            Container(),
+                            Container(),
+                            Container(),
+                          ]
+                        );
+                      }
+                    },
+                  )
+                ) 
+              ,)
             ],
           ),
         ),
@@ -57,10 +90,10 @@ class TransactionView extends StatelessWidget {
     );
   }
 
-  Widget listTransaction(){
+  Widget listTransaction(List<ResponseTransaction> listTransaction){
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal : PintuPayConstant.paddingHorizontalScreen),
-      itemCount: 10,
+      itemCount: listTransaction.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return Card(
@@ -80,15 +113,18 @@ class TransactionView extends StatelessWidget {
                       height: 20,
                     ),
                     const SizedBox(width: 10,),
-                    Component.textBold("BPJS"),
+                    Component.textBold(listTransaction[index].transactionName ?? ""),
                     const Spacer(),
-                    Component.textDefault("28 Februari 2022", fontSize: 11)
+                    Component.textDefault(listTransaction[index].createdAt.toString() ?? "", fontSize: 11)
                   ],
                 ),
                 Component.divider(),
                 const SizedBox(height: 10,),
+                Component.textBold(listTransaction[index].serialNumber ?? ""),
+                const SizedBox(height: 10,),
                 Component.textDefault(
-                  "BPJS kesehatan 2 BULAN dengan nomor 00000024676328764632",
+                  listTransaction[index].messages ?? "",
+                  maxLines: 5,
                   fontSize: PintuPayConstant.fontSizeSmall
                 ),
                 const SizedBox(height: 10,),
@@ -101,7 +137,7 @@ class TransactionView extends StatelessWidget {
                     ),
                     const SizedBox(width: 10,),
                     Component.textBold(
-                      "RP 130.000",
+                      CoreFunction.moneyFormatter(listTransaction[index].salePrice,),
                       fontSize: 13,
                       colors: PintuPayPalette.orange
                     ),
