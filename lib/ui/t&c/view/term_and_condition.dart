@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 
+import '../../../core/util/size_config.dart';
 import '../../component/component.dart';
 
 class TermsAndCondition extends StatefulWidget {
@@ -67,10 +69,34 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
                   "- Topup Virtual Account (BNI, BCA, Mandiri, BSI, Muamalat, Bank Lain) Rp1000,- \n - Transfer Bank Rp2000,-",
                   maxLines: 5
               ),
+              _buttonOK(),
               const SizedBox(height: 100),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buttonOK() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20.0),
+      child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          color: PintuPayPalette.darkBlue,
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).pop(true);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: SizeConfig.blockSizeVertical * 4,
+              child: const Text(
+                "OK",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          )
       ),
     );
   }

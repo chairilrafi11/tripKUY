@@ -14,23 +14,30 @@ import 'package:pintupay/ui/verification/model/otp_register_model.dart';
 import 'package:pintupay/ui/verification/model/register_activation.dart';
 import 'package:pintupay/ui/verification/model/register_form_model.dart';
 import 'package:pintupay/ui/verification/provider/verification_provider.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 part 'check_phone_number_state.dart';
 
 class CheckPhoneNumberCubit extends Cubit<CheckPhoneNumberState> {
-
   CheckPhoneNumberCubit() : super(CheckPhoneNumberInitial());
 
   onCheckPhoneNumber(String phoneNumber) async {
-    var phone = PintuPayCrypt().encrypt(jsonEncode(CheckPhoneNumberModel(userOtp: UserOtp(phoneNumber: phoneNumber))), await PintuPayCrypt().getPassKeyPref());
-    var result = await VerificationProvider.checkPhoneNumber(PostBody(phone).toJson());
-    routePush(OTPVerification(responseCheckPhoneNumber: result), RouterType.material);
+    var phone = PintuPayCrypt().encrypt(
+        jsonEncode(
+            CheckPhoneNumberModel(userOtp: UserOtp(phoneNumber: phoneNumber))),
+        await PintuPayCrypt().getPassKeyPref());
+    var result =
+        await VerificationProvider.checkPhoneNumber(PostBody(phone).toJson());
+    final signCode = await SmsAutoFill().getAppSignature;
+    print('print signcode: ' + signCode);
+    routePush(AccountVerification(responseCheckPhoneNumber: result),
+        RouterType.material);
   }
 
   onCheckOTP(OtpRegisterModel otpRegisterModel) async {
-    var otp = PintuPayCrypt().encrypt(jsonEncode(otpRegisterModel), await PintuPayCrypt().getPassKeyPref());
+    var otp = PintuPayCrypt().encrypt(
+        jsonEncode(otpRegisterModel), await PintuPayCrypt().getPassKeyPref());
     var result = await VerificationProvider.otpRegist(PostBody(otp).toJson());
     routePush(Register(responseCheckPhoneNumber: result), RouterType.material);
   }
-
 }

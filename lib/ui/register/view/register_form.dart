@@ -1,38 +1,55 @@
+import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/login/view/login.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/register/cubit/register_cubit.dart';
+import 'package:pintupay/ui/t&c/view/term_and_condition.dart';
 import 'package:pintupay/ui/verification/model/register_form_model.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
 
-class Register extends StatefulWidget {
+import '../../../core/util/core_function.dart';
+import 'dialog_confirm_register.dart';
 
+class Register extends StatefulWidget {
   final ResponseCheckPhoneNumber responseCheckPhoneNumber;
 
-  const Register({required this.responseCheckPhoneNumber ,Key? key}) : super(key: key);
+  const Register({required this.responseCheckPhoneNumber, Key? key})
+      : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController agentController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController genderController = TextEditingController();
+  final TextEditingController birthDateController = TextEditingController();
 
   bool isCanChangePassword = false;
   bool isHiddenPassword = true;
+  bool isHiddenPasswordConfirmation = true;
+  bool termsCondition = false;
+
+  late int? selectedRadioGender = 0;
+
+  RegisterCubit registerCubit = RegisterCubit();
+
+  void changeTermCondition(value) {
+    setState(() {
+      termsCondition = value;
+    });
+  }
 
   @override
   void initState() {
@@ -43,120 +60,215 @@ class _RegisterState extends State<Register> {
 
   ConnectivityResult result = ConnectivityResult.none;
 
+  Future dialogConfirm() {
+    return showDialog(
+        context: navGK.currentContext!,
+        barrierDismissible: true,
+        builder: (BuildContext contextDialog) {
+          return DialogConfirmRegister(onRegister: onRegister);
+        });
+  }
+
+  Future<void> validate() async {
+    var form = formKey.currentState;
+    if (form!.validate() && selectedRadioGender != 0) {
+      if (termsCondition) {
+        dialogConfirm();
+      } else {
+        CoreFunction.showToast("Checklist terlebih dahulu");
+      }
+    } else if (selectedRadioGender == 0) {
+      CoreFunction.showToast("Pilih jenis kelamin");
+    } else {
+      CoreFunction.showToast("Data belum lengkap");
+    }
+  }
+
+  Future<void> onRegister() async {
+    RegisterCubit().onRegisterForm(RegisterFormModel(
+        imei: "",
+        user: User(
+          address: addressController.text,
+          birthDate: "13-07-2001",
+          cityName: "Bandung",
+          birthPlace: "Bandung",
+          email: emailController.text,
+          gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
+          name: userNameController.text,
+          storeName: agentController.text,
+          parentReferral: "PEORANGAN",
+          password: passwordController.text,
+          passwordConfirmation: confirmPasswordController.text,
+          phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
+          id: widget.responseCheckPhoneNumber.id,
+          // areaId: 0,
+          // canTransactions: true,
+          // cashBalance: 0
+        ),
+        userLocation: UserLocation(latitude: "", longitude: "")));
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: PintuPayPalette.white,
       resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/header_login.png"),
-            fit: BoxFit.cover,
+      body: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: formKey,
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/header_login.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ListView(
-            children: <Widget>[
-              SizedBox(
-                height: SizeConfig.blockSizeVertical * 15,
-              ),
-              Component.textDefault(
-                'Sign Up',
-                colors: PintuPayPalette.darkBlue,
-                fontSize: 46,
-                fontWeight: FontWeight.bold
-              ),
-              SizedBox(
-                height: SizeConfig.blockSizeVertical * 10,
-              ),
-              _textFieldUserName(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldAgent(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldEmail(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldBirtDate(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldAddress(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldCity(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldGender(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldPassword(),
-              const SizedBox(
-                height: 4,
-              ),
-              _textFieldPasswordConfirm(),
-              Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 50),
-                height: SizeConfig.screenHeight / 20,
-                width: SizeConfig.screenWidth / 1.35,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: PintuPayPalette.darkBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: ListView(
+              children: <Widget>[
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical * 10,
+                ),
+                Component.textDefault('Sign Up',
+                    colors: PintuPayPalette.darkBlue,
+                    fontSize: 46,
+                    fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical * 10,
+                ),
+                _textFieldUserName(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldAgent(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldEmail(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldBirtDate(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldAddress(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldCity(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _radioGender(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldPassword(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldPasswordConfirm(),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      activeColor: PintuPayPalette.darkBlue,
+                      value: termsCondition,
+                      // onChanged: (value) => changeTermCondition(value)
+                      onChanged: (value) {},
                     ),
-                  ),
-                  onPressed: () {
-                    RegisterCubit().onRegisterForm(RegisterFormModel(
-                      imei: "",
-                      user: User(
-                        address: addressController.text,
-                        birthDate: "13-07-2001",
-                        cityName: "Bandung",
-                        birthPlace: "Bandung",
-                        email: emailController.text,
-                        gender: "L",
-                        name: userNameController.text,
-                        storeName: agentController.text,
-                        parentReferral: "PEORANGAN",
-                        password: passwordController.text,
-                        passwordConfirmation: passwordController.text,
-                        phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
-                        id: widget.responseCheckPhoneNumber.id,
-                        // areaId: 0,
-                        // canTransactions: true,
-                        // cashBalance: 0
+                    const Flexible(
+                      child: Text(
+                        "Setuju dengan syarat dan ketentuan",
+                        style: TextStyle(
+                            fontSize: 12, color: PintuPayPalette.darkBlue),
                       ),
-                      userLocation: UserLocation(
-                        latitude: "",
-                        longitude: ""
-                      )
-                    ));
-                  },
-                  child: Text(
-                    'Daftar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: SizeConfig.screenHeight / 60
+                    ),
+                    _buttonLihatSyaratKetentuan(),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 50),
+                  height: SizeConfig.screenHeight / 20,
+                  width: SizeConfig.screenWidth / 1.35,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: PintuPayPalette.darkBlue,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                    onPressed: () {
+                      validate();
+                      // RegisterCubit().onRegisterForm(RegisterFormModel(
+                      //     imei: "",
+                      //     user: User(
+                      //       address: addressController.text,
+                      //       birthDate: "13-07-2001",
+                      //       cityName: "Bandung",
+                      //       birthPlace: "Bandung",
+                      //       email: emailController.text,
+                      //       gender: selectedRadioGender == 1
+                      //           ? "Laki - Laki"
+                      //           : "Perempuan",
+                      //       name: userNameController.text,
+                      //       storeName: agentController.text,
+                      //       parentReferral: "PEORANGAN",
+                      //       password: passwordController.text,
+                      //       passwordConfirmation: passwordController.text,
+                      //       phoneNumber:
+                      //           widget.responseCheckPhoneNumber.phoneNumber,
+                      //       id: widget.responseCheckPhoneNumber.id,
+                      //       // areaId: 0,
+                      //       // canTransactions: true,
+                      //       // cashBalance: 0
+                      //     ),
+                      //     userLocation:
+                      //         UserLocation(latitude: "", longitude: "")));
+                    },
+                    child: Text(
+                      'Daftar',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: SizeConfig.screenHeight / 60),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buttonLihatSyaratKetentuan() {
+    return Card(
+        margin: const EdgeInsets.only(right: 20.0),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        color: PintuPayPalette.darkBlue,
+        child: InkWell(
+          onTap: () {
+            routePush(const TermsAndCondition(), RouterType.cupertino)
+                .then((value) {
+              if (value != null) {
+                changeTermCondition(true);
+              }
+            });
+          },
+          child: Container(
+            alignment: Alignment.center,
+            width: SizeConfig.blockSizeHorizontal * 25,
+            height: SizeConfig.blockSizeVertical * 3,
+            child: const Text(
+              "Lihat",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ));
   }
 
   Widget _textFieldUserName() {
@@ -176,12 +288,13 @@ class _RegisterState extends State<Register> {
         if (value == null || value.isEmpty) {
           return "Wajib diisi*";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child:
-              Icon(Icons.account_circle_rounded, color: PintuPayPalette.darkBlue),
+          child: Icon(Icons.account_circle_rounded,
+              color: PintuPayPalette.darkBlue),
         ),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
@@ -224,12 +337,13 @@ class _RegisterState extends State<Register> {
         if (value == null || value.isEmpty) {
           return "Wajib diisi*";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child:
-              Icon(Icons.account_circle_rounded, color: PintuPayPalette.darkBlue),
+          child: Icon(Icons.account_circle_rounded,
+              color: PintuPayPalette.darkBlue),
         ),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
@@ -258,9 +372,12 @@ class _RegisterState extends State<Register> {
   Widget _textFieldEmail() {
     return TextFormField(
       controller: emailController,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.emailAddress,
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.allow(
+            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+            replacementString: ''),
       ],
       textInputAction: TextInputAction.next,
       maxLength: 40,
@@ -269,6 +386,7 @@ class _RegisterState extends State<Register> {
         if (value == null || value.isEmpty) {
           return "Wajib diisi*";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(
@@ -304,7 +422,11 @@ class _RegisterState extends State<Register> {
       controller: addressController,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      inputFormatters: <TextInputFormatter>[
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.allow(
+            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+            replacementString: ''),
       ],
       maxLength: 50,
       style: const TextStyle(fontSize: 14, color: Colors.black),
@@ -312,6 +434,7 @@ class _RegisterState extends State<Register> {
         if (value == null || value.isEmpty) {
           return "Wajib diisi*";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(
@@ -343,11 +466,14 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldCity() {
     return TextFormField(
-      controller: addressController,
+      controller: cityController,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.digitsOnly
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.allow(
+            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+            replacementString: ''),
       ],
       maxLength: 14,
       style: const TextStyle(fontSize: 14, color: Colors.black),
@@ -355,6 +481,7 @@ class _RegisterState extends State<Register> {
         if (value == null || value.isEmpty) {
           return "Wajib diisi*";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(
@@ -451,7 +578,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldPasswordConfirm() {
     return TextFormField(
-      controller: passwordController,
+      controller: confirmPasswordController,
       keyboardType: TextInputType.text,
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
@@ -461,20 +588,24 @@ class _RegisterState extends State<Register> {
                 caseSensitive: false),
             replacementString: ''),
       ],
-      obscureText: isHiddenPassword,
+      obscureText: isHiddenPasswordConfirmation,
       enableSuggestions: false,
       autocorrect: false,
       textInputAction: TextInputAction.next,
       maxLength: 20,
       style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
       validator: (value) {
-        if (value == null || value.isEmpty) {
+        if (value == null) {
           isCanChangePassword = false;
-          return 'Wajib diisi*';
+          return 'Harap masukkan password baru 1x lagi';
         }
         if (value.length < 8) {
           isCanChangePassword = false;
           return CoreVariable.minlength8char;
+        }
+        if (value != passwordController.text) {
+          isCanChangePassword = false;
+          return 'Password tidak sama';
         }
         isCanChangePassword = true;
         return null;
@@ -489,7 +620,7 @@ class _RegisterState extends State<Register> {
               isHiddenPassword ? Icons.visibility : Icons.visibility_off,
               color: PintuPayPalette.darkBlue,
             ),
-            onPressed: _tooglePasswordView),
+            onPressed: _tooglePasswordConfirmationView),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
           color: PintuPayPalette.darkBlue,
@@ -516,7 +647,7 @@ class _RegisterState extends State<Register> {
 
   Widget _textFieldBirtDate() {
     return TextFormField(
-      controller: passwordController,
+      controller: birthDateController,
       keyboardType: TextInputType.text,
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
@@ -531,18 +662,7 @@ class _RegisterState extends State<Register> {
       textInputAction: TextInputAction.next,
       maxLength: 20,
       style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          isCanChangePassword = false;
-          return 'Wajib diisi*';
-        }
-        if (value.length < 8) {
-          isCanChangePassword = false;
-          return CoreVariable.minlength8char;
-        }
-        isCanChangePassword = true;
-        return null;
-      },
+      validator: (value) {},
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
@@ -572,61 +692,45 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _textFieldGender() {
-    return TextFormField(
-      controller: genderController,
-      keyboardType: TextInputType.text,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.deny(
-            RegExp(
-                r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
-                caseSensitive: false),
-            replacementString: ''),
+  Widget _radioGender() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: RadioListTile(
+            contentPadding: const EdgeInsets.all(0),
+            value: 1,
+            groupValue: selectedRadioGender,
+            onChanged: (val) {
+              setState(() {
+                selectedRadioGender = val as int?;
+              });
+            },
+            activeColor: PintuPayPalette.darkBlue,
+            title: const Text(
+              "Laki-Laki",
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+        ),
+        Flexible(
+          child: RadioListTile(
+            contentPadding: const EdgeInsets.all(0),
+            value: 2,
+            groupValue: selectedRadioGender,
+            onChanged: (val) {
+              setState(() {
+                selectedRadioGender = val as int?;
+              });
+            },
+            activeColor: PintuPayPalette.darkBlue,
+            title: const Text(
+              "Perempuan",
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+        ),
       ],
-      enableSuggestions: false,
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      maxLength: 1,
-      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          isCanChangePassword = false;
-          return 'Wajib diisi*';
-        }
-        if (value.length < 8) {
-          isCanChangePassword = false;
-          return CoreVariable.minlength8char;
-        }
-        isCanChangePassword = true;
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.person, color: PintuPayPalette.darkBlue),
-        ),
-        hintText: 'L/P',
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'Jenis Kelamin',
-        fillColor: PintuPayPalette.darkBlue,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-      ),
     );
   }
 
@@ -639,4 +743,13 @@ class _RegisterState extends State<Register> {
     setState(() {});
   }
 
+  void _tooglePasswordConfirmationView() {
+    if (isHiddenPasswordConfirmation) {
+      isHiddenPasswordConfirmation = false;
+    } else {
+      isHiddenPasswordConfirmation = true;
+    }
+
+    setState(() {});
+  }
 }
