@@ -95,7 +95,7 @@ dependency_overrides:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/pintupay_icon_launcher.png"
+  image_path: "assets/icons/ic_launcher.jpg"
   remove_alpha_ios: true
 
 # The following section is specific to Flutter.
