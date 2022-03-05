@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pintupay/core/notification/firebase_cloud_messaging.dart';
 import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/component/component_dialog.dart';
 
 import 'model/response_notification.dart';
 
@@ -91,7 +93,7 @@ class FirebaseMessagingCore {
         _broadcastNotificationData(remoteMessage);
         break;
       case CoreVariable.notificationTypeInfo:
-        //? TODO
+        ComponentDialog.info(remoteMessage.notification!.title, remoteMessage.notification!.body, remoteMessage.data['image']);
         break;
       default:
         CoreFunction.logPrint('Response Notification', responseNotification.toJson());

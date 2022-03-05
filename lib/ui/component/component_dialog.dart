@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
+
+import 'component.dart';
 
 class ComponentDialog {
   
@@ -50,8 +53,6 @@ class ComponentDialog {
     );
   }
 
-
-
   static void dialogLoading() {
     showDialog(
       context: navGK.currentContext!,
@@ -83,6 +84,44 @@ class ComponentDialog {
           ),
         );
       },
+    );
+  }
+
+  static info(String? title, String? body, String? image) {
+    return showDialog(
+      context: navGK.currentContext!,
+      barrierDismissible: true,
+      builder: (BuildContext contextDialog) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+                const SizedBox(height: 10,),
+                if(image != null) CachedNetworkImage(
+                  imageUrl: image,
+                  fit: BoxFit.fill,
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.payment,
+                    color: PintuPayPalette.darkBlue,
+                    size: 50,
+                  ),
+                ),
+                const SizedBox(height: 20,),
+                if(title != null) Component.textBold(
+                  title,
+                  fontSize: 20, colors: PintuPayPalette.darkBlue
+                ),
+              if(body != null) Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                child: Component.textDefault(body, textAlign: TextAlign.center, maxLines: 5),
+              ),
+              const SizedBox(height: 25),
+            ],
+          ),
+        );
+      }
     );
   }
 
