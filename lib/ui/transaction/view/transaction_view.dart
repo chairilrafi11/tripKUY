@@ -66,9 +66,9 @@ class TransactionView extends StatelessWidget {
                       } else if ( state is TransactionLoaded){
                         return TabBarView(
                           children: [
-                            listTransaction(state.listTransaction),
-                            listTransaction(state.listTransaction),
-                            listTransaction(state.listTransaction),
+                            state.listTransactionSuccess.isNotEmpty ? listTransaction(state.listTransactionSuccess) : emptyTransaction(),
+                            state.listTransactionPending.isNotEmpty ? listTransaction(state.listTransactionPending) : emptyTransaction(),
+                            state.listTransactionFailed.isNotEmpty ? listTransaction(state.listTransactionFailed) : emptyTransaction(),
                           ],
                         );
                       } else {

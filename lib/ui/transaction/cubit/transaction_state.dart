@@ -13,9 +13,13 @@ class TransactionLoading extends TransactionState {}
 
 class TransactionLoaded extends TransactionState {
 
-  List<ResponseTransaction> listTransaction;
+  final List<ResponseTransaction> listTransactionSuccess;
+  final List<ResponseTransaction> listTransactionPending;
+  final List<ResponseTransaction> listTransactionFailed;
 
-  TransactionLoaded({
-    required this.listTransaction
+  const TransactionLoaded({
+    required this.listTransactionSuccess,
+    required this.listTransactionPending,
+    required this.listTransactionFailed
   });
 }
