@@ -1,22 +1,16 @@
 
-enum Feature {pulsa, bpjs}
+enum Feature {pulsa, bpjs, telephone}
 
 class ViewUsecase {
 
   static String iconFeature(Feature feature){
-    // {"Bpjs",},
-    // {"E-Money", "assets/icons/icmn_emoney.png"},
-    // {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
-    // {"Listrik", "assets/icons/icmn_listrik.png"},
-    // {"PDAM", "assets/icons/icmn_pdam.png"},
-    // {"Pulsa",},
-    // {"Telepon", "assets/icons/icmn_telepon.png"},
-    // {"Paket \n Data", "assets/icons/icmn_tiket_kereta.png"}
     switch (feature) {
       case Feature.pulsa:
         return "assets/icons/icmn_pulsa.png";
       case Feature.bpjs:
         return "assets/icons/icmn_bpjs.png";
+      case Feature.telephone:
+        return "assets/icons/icmn_telepon.png";
       default:
         return "";
     }
@@ -28,6 +22,8 @@ class ViewUsecase {
         return "Pulsa";
       case Feature.bpjs:
         return "BPJS";
+      case Feature.telephone:
+        return "Telepon";
       default:
         return "";
     }

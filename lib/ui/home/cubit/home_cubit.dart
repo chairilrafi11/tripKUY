@@ -40,7 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
         );
         break;
       case "listrik":
-        routePush(const ElectricToken(), RouterType.material);
+        routePush( ElectricToken(), RouterType.material);
         break;
       case "pdam":
         // routePush(const PDAMView(), RouterType.material);
@@ -56,10 +56,10 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(PulsaView(), RouterType.material);
         break;
       case "telepon":
-        routePush(const TelephonePostpaid(), RouterType.material);
+        routePush(TelephonePostpaid(), RouterType.material);
         break;
       case "paket \n data":
-        routePush(const DataPlanView(), RouterType.material);
+        routePush( DataPlanView(), RouterType.material);
         break;
       // default:
     }

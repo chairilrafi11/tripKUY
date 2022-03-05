@@ -69,9 +69,16 @@ abstract class DioClient {
     @Query('auth_token') String authToken
   );
 
-  @GET(PintuPayEndpoint.bpjsInuiqry)
+  @POST(PintuPayEndpoint.bpjsInuiqry)
   Future<CoreModel> bpjsInquiry(@Body() Map<String, dynamic> body);
   
-  @GET(PintuPayEndpoint.bpjsPayment)
+  @POST(PintuPayEndpoint.bpjsPayment)
   Future<CoreModel> bpjsPayment(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.telephoneInquiry)
+  Future<CoreModel> telephoneInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.telephoneInquiry)
+  Future<CoreModel> telephonePayment(@Body() Map<String, dynamic> body);
+
 }

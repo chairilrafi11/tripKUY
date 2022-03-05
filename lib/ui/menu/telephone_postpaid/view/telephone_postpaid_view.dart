@@ -2,9 +2,13 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/ui/menu/telephone_postpaid/cubit/telephone_cubit.dart';
 
 class TelephonePostpaid extends StatelessWidget {
-  const TelephonePostpaid({ Key? key }) : super(key: key);
+
+  TelephonePostpaid({ Key? key }) : super(key: key);
+
+  final TextEditingController phonenumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,9 @@ class TelephonePostpaid extends StatelessWidget {
                         const SizedBox(height: 20,),
                         Component.button(
                           label: "Cek Tagihan",
-                          onPressed: (){}
+                          onPressed: (){
+                            TelephoneCubit().onInquiry(phonenumberController.text);
+                          }
                         ),
                       ],
                     ),

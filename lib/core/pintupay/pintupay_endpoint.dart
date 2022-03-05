@@ -44,4 +44,9 @@ class PintuPayEndpoint {
   static const String bpjsInuiqry = "v6/ppob/inquiry/bpjs";
 
   static const String bpjsPayment = "v6/ppob/payment/bpjs";
+
+  static const String telephoneInquiry = "v6/ppob/inquiry/telkoms";
+
+  static const String telephonePayment = "v6/ppob/payment/telkoms";
+
 }
