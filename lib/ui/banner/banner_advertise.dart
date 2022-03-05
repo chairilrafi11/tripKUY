@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
 
 import 'cubit/banner_cubit.dart';
 
@@ -22,7 +23,7 @@ class BannerAdvertise extends StatelessWidget {
           return _bannerLoaded(context, state);
         } else if (state is BannerLoading) {
           // return const ShimmerBanner();
-          return CupertinoActivityIndicator();
+          return const ShimmerBanner();
         } else {
           return Component.textBold("Error");
         }
@@ -56,24 +57,18 @@ class BannerAdvertise extends StatelessWidget {
                     onTap: () => routePush(BannerAdvertiseDetail(bannerAdvertiseResponse: i), RouterType.material),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                      child: Image.asset(
-                          i.imageUrl!,
-                          fit: BoxFit.fill,
+                      child: CachedNetworkImage(
+                        imageUrl: i.imageUrl!,
+                        fit: BoxFit.fill,
+                        width: 1000.0,
+                        placeholder: (context, url) => const ShimmerBanner(),
+                        errorWidget: (context, url, error) => Image.asset(
+                          "assets/images/banner_0.png",
+                          fit: BoxFit.cover,
                           width: SizeConfig.blockSizeHorizontal * 100,
                           height: SizeConfig.blockSizeHorizontal * 40,
                         ),
-                      // child: CachedNetworkImage(
-                      //   imageUrl: i.imageUrl!,
-                      //   fit: BoxFit.fill,
-                      //   width: 1000.0,
-                      //   placeholder: (context, url) => const ShimmerBanner(),
-                      //   errorWidget: (context, url, error) => Image.asset(
-                      //     "assets/images/banner_1.png",
-                      //     fit: BoxFit.cover,
-                      //     width: SizeConfig.blockSizeHorizontal * 100,
-                      //     height: SizeConfig.blockSizeHorizontal * 40,
-                      //   ),
-                      // ),
+                      ),
                     ),
                   ),
                 );

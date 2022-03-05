@@ -100,3 +100,23 @@ class ShimmerList extends StatelessWidget {
     );
   }
 }
+
+class ShimmerBanner extends StatelessWidget {
+  const ShimmerBanner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Shimmer.fromColors(
+        period: const Duration(milliseconds: CoreVariable.durationShimmer),
+        highlightColor: PintuPayPalette.white,
+        baseColor: PintuPayPalette.grey200,
+        child: Container(
+          height: 130,
+          color: PintuPayPalette.grey200,
+        ),
+      )
+    );
+  }
+}

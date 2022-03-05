@@ -24,7 +24,7 @@ class BannerResponse {
     createdAt = json['created_at'];
     linkUrl = json['link_url'];
     description = json['description'];
-    imageUrl = json['image_url'];
+    imageUrl = json['url_image'];
   }
 
   Map<String, dynamic> toJson() {
