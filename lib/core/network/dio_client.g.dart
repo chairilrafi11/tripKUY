@@ -48,9 +48,7 @@ class _DioClient implements DioClient {
   @override
   Future<CoreModel> area(query) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'query' : query
-    };
+    final queryParameters = <String, dynamic>{r'query': query};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -152,8 +150,8 @@ class _DioClient implements DioClient {
   Future<CoreModel> pulsaProduct(phoneNumber, authToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'auth_token' : authToken,
-      r'phone_number' : phoneNumber
+      r'phone_number': phoneNumber,
+      r'auth_token': authToken
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -171,8 +169,8 @@ class _DioClient implements DioClient {
   Future<CoreModel> pulsaProvider(phoneNumber, authToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'auth_token' : authToken,
-      r'phone_number' : phoneNumber
+      r'phone_number': phoneNumber,
+      r'auth_token': authToken
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -196,7 +194,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/transactions',
+                .compose(_dio.options, ' v6/transactions',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -206,9 +204,7 @@ class _DioClient implements DioClient {
   @override
   Future<CoreModel> transactionList(authToken) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'auth_token' : authToken
-    };
+    final queryParameters = <String, dynamic>{r'auth_token': authToken};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -230,7 +226,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v1/users/$authToken',
+                .compose(_dio.options, 'v1/users/${authToken}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);

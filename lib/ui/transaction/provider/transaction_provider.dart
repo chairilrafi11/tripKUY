@@ -8,7 +8,7 @@ class Transactionprovider {
     List<ResponseTransaction> list = [];
     var dio = await DioService.checkConnection(tryAgainMethod: list);
     DioClient dioClient = DioClient(dio);
-    var transactionData = await dioClient.transactionList(authUsecase.responseLogin.authToken ?? "");
+    var transactionData = await dioClient.transactionList(authUsecase.userBox.authToken ?? "");
     for (var i = 0; i < transactionData.data.length; i++) {
       list.add(ResponseTransaction.fromJson(transactionData.data[i]));
     }

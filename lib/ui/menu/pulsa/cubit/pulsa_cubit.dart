@@ -63,7 +63,7 @@ class PulsaCubit extends Cubit<PulsaState> {
     ];
 
     pulsaPaymentModel = PulsaPaymentModel(
-      authToken: authUsecase.responseLogin.authToken!,
+      authToken: authUsecase.userBox.authToken!,
       payment: true,
       transaction: Transaction(
         indentifierNumber: "08985722049",
@@ -72,7 +72,7 @@ class PulsaCubit extends Cubit<PulsaState> {
         providerId: pulsa.id,
         time: 1,
         transactionTypeId: 1,
-        userId: authUsecase.responseLogin.id
+        userId: authUsecase.userBox.id
       )
     );
 

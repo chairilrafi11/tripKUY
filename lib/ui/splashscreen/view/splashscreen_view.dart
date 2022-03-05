@@ -1,13 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/size_config.dart';
-import 'package:pintupay/ui/dashboard/view/dashboard.dart';
-import 'package:pintupay/ui/home/view/home.dart';
-import 'package:pintupay/ui/login/view/login.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 class SplashscreenView extends StatefulWidget {
-  const SplashscreenView({ Key? key }) : super(key: key);
+
+  const SplashscreenView({Key? key}) : super(key: key);
 
   @override
   State<SplashscreenView> createState() => _SplashscreenViewState();
@@ -17,9 +16,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), (){
-      pushAndRemoveUntil(const Login());
-    });
+    SplashscreenCubit().checkSessions();
     super.initState();
   }
 
@@ -49,7 +46,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
             ),
           ),
         ],
-      ),
+      )
     );
   }
 }

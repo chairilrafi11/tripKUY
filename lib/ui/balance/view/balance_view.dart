@@ -28,7 +28,7 @@ class Balance extends StatelessWidget {
                   colors: PintuPayPalette.textGrey,
                   fontSize: 15
                 ),
-                Component.textBold(CoreFunction.moneyFormatter(authUsecase.responseLogin.totalBalance), fontSize: 20)
+                Component.textBold(CoreFunction.moneyFormatter(authUsecase.userBox.totalBalance), fontSize: 20)
               ],
             )
           ],
@@ -96,7 +96,7 @@ class BalanceNew extends StatelessWidget {
                   fontSize: 15
                 ),
                 const SizedBox(height: 20,),
-                Component.textBold(CoreFunction.moneyFormatter(authUsecase.responseLogin.totalBalance), fontSize: 25)
+                Component.textBold(CoreFunction.moneyFormatter(authUsecase.userBox.totalBalance), fontSize: 25)
               ],
             ),
             const Spacer(),

@@ -1,6 +1,5 @@
 import 'package:pintupay/core/pintupay/pintupay_endpoint.dart';
 import 'package:dio/dio.dart';
-import 'package:pintupay/ui/verification/view/check_phone_number.dart';
 import 'package:retrofit/retrofit.dart';
 
 import 'model/core_model.dart';

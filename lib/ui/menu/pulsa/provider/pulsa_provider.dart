@@ -9,14 +9,14 @@ class PulsaProvider {
   static Future<ResponsePulsa> pulsa(String phoneNumber) async {
     var dio = await DioService.checkConnection(tryAgainMethod: pulsa);
     DioClient dioClient = DioClient(dio);
-    var pulsaProduct = await dioClient.pulsaProduct(phoneNumber, authUsecase.responseLogin.authToken!);
+    var pulsaProduct = await dioClient.pulsaProduct(phoneNumber, authUsecase.userBox.authToken!);
     return ResponsePulsa.fromJson(pulsaProduct.data);
   } 
 
   static Future<ResponsePulsa> providerIcon(String phoneNumber) async {
     var dio = await DioService.checkConnection(tryAgainMethod: pulsa);
     DioClient dioClient = DioClient(dio);
-    var pulsaProduct = await dioClient.pulsaProvider(phoneNumber, authUsecase.responseLogin.authToken!);
+    var pulsaProduct = await dioClient.pulsaProvider(phoneNumber, authUsecase.userBox.authToken!);
     return ResponsePulsa.fromJson(pulsaProduct.data);
   } 
 

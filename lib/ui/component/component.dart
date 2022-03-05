@@ -125,10 +125,10 @@ class Component {
     hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
   );
 
-  static button({required String label, required VoidCallback? onPressed}){
+  static button({required String label, required VoidCallback? onPressed, Color color = PintuPayPalette.darkBlue}){
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: PintuPayPalette.darkBlue,
+        primary: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0)
         ),

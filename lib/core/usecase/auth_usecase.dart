@@ -1,10 +1,12 @@
-import 'package:pintupay/ui/login/model/response_login.dart';
+import 'package:pintupay/core/database/box/user/user_box.dart';
 
 class AuthUsecase {
 
-  late ResponseLogin responseLogin;
+  late UserBox userBox;
 
-  setResponseLogin(value) => responseLogin = value;
+  setUser(UserBox value) => userBox = value;
+
+  removeUser() => userBox = UserBox();
 }
 
 AuthUsecase authUsecase = AuthUsecase();

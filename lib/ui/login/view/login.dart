@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           height: SizeConfig.screenHeight / 20,
-                          width: SizeConfig.screenWidth / 1.35,
+                          width: SizeConfig.screenWidth,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: PintuPayPalette.darkBlue,

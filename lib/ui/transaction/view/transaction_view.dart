@@ -115,7 +115,7 @@ class TransactionView extends StatelessWidget {
                     const SizedBox(width: 10,),
                     Component.textBold(listTransaction[index].transactionName ?? ""),
                     const Spacer(),
-                    Component.textDefault(listTransaction[index].createdAt.toString() ?? "", fontSize: 11)
+                    Component.textDefault(listTransaction[index].createdAt.toString(), fontSize: 11)
                   ],
                 ),
                 Component.divider(),
