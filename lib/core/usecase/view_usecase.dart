@@ -1,4 +1,6 @@
 
+import 'package:pintupay/core/util/util.dart';
+
 enum Feature {pulsa, bpjs, telephone}
 
 class ViewUsecase {
@@ -29,4 +31,17 @@ class ViewUsecase {
     }
   }
 
+  static String iconTransaction(String name){
+    CoreFunction.logPrint("transaction name", name.toLowerCase());
+    switch (name.toLowerCase()) {
+      case "pulsa":
+        return "assets/icons/icmn_pulsa.png";
+      case "bpjs":
+        return "assets/icons/icmn_bpjs.png";
+      case "ppob telkom":
+        return "assets/icons/icmn_telepon.png";
+      default:
+        return "";
+    }
+  }
 }

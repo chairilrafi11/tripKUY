@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/usecase/view_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class TransactionView extends StatelessWidget {
                   child: BlocBuilder<TransactionCubit, TransactionState>(
                     builder: (context, state) {
                       if(state is TransactionLoading){
-                        return TabBarView(
+                        return const TabBarView(
                           children: [
                             ShimmerList(),
                             ShimmerList(),
@@ -109,7 +110,7 @@ class TransactionView extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset( 
-                      "assets/icons/icmn_bpjs.png",
+                      ViewUsecase.iconTransaction(listTransaction[index].transactionName ?? ""),
                       height: 20,
                     ),
                     const SizedBox(width: 10,),
