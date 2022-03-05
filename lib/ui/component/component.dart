@@ -10,6 +10,7 @@ class Component {
     elevation: 0.0,
     title: Component.textBold(
       title, 
+      fontSize: PintuPayConstant.fontSizeLargeExtra,
       colors: transparet ? PintuPayPalette.white : PintuPayPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
@@ -152,13 +153,23 @@ class Component {
     width: SizeConfig.blockSizeHorizontal * 100,
   );
 
-
   static Widget divider({int padding = 8}) {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Divider(
         color: PintuPayPalette.grey,
         height: 1,
+      ),
+    );
+  }
+
+  static BoxDecoration backgroundPPOB()  {
+    return const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage(
+          "assets/images/header.png",
+        ),
+        fit: BoxFit.cover,
       ),
     );
   }

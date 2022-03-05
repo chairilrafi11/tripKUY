@@ -1,20 +1,27 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/menu/emoney/cubit/emoney_cubit.dart';
+import 'package:pintupay/ui/menu/emoney/cubit/emoney_detail_cubit.dart';
+import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
 class EmoneyDetailView extends StatelessWidget {
-  const EmoneyDetailView({ Key? key }) : super(key: key);
+
+  final EmoneyProviderResponse emoneyProviderResponse;
+
+  EmoneyDetailView({ required this.emoneyProviderResponse, Key? key }) : super(key: key);
+
+  final EmoneyDetailCubit emoneyDetailCubit = EmoneyDetailCubit();
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    const double itemHeight = 120;
-    final double itemWidth = size.width / 1.8;
     return Scaffold(
       body: Stack(
         children: [
@@ -23,7 +30,7 @@ class EmoneyDetailView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
-                Component.appBar("DANA", transparet: true),
+                Component.appBar(emoneyProviderResponse.name ?? "", transparet: true),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   shape: RoundedRectangleBorder(
@@ -33,7 +40,7 @@ class EmoneyDetailView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: TextFormField(
                       // controller: phoneContactController,
-                      decoration: Component.decorationNoBorder("Cari produk E-Money"),
+                      decoration: Component.decorationNoBorder("Masukan no pelanggan"),
                       maxLength: 16,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
@@ -50,66 +57,86 @@ class EmoneyDetailView extends StatelessWidget {
                 const SizedBox(height: 10,),
                 Component.textBold("Pilih Nominal"),
                 const SizedBox(height: 10,),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(0),
-                  itemCount: 10,
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: (itemWidth / itemHeight),
-                  ),
-                  itemBuilder: (BuildContext context, int index) { 
-                    return InkWell(
-                      // onTap: () => routePush(PaymentView(), RouterType.material),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Component.textBold(
-                                "${index+1}0.000", 
-                                fontSize: PintuPayConstant.fontSizeLargeExtra
-                              ),
-                              const SizedBox(height: 10,),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Component.textBold(
-                                    "${index+1}1.500",
-                                    fontSize: PintuPayConstant.fontSizeMedium,
-                                    colors: PintuPayPalette.orange
-                                  ),
-                                  const SizedBox(width: 10,),
-                                  Text(
-                                    "${index+1}2.000",
-                                    style: const TextStyle(
-                                      color: PintuPayPalette.grey,
-                                      fontFamily: PintuPayConstant.avenirRegular,
-                                      fontSize: PintuPayConstant.fontSizeSmall,
-                                      overflow: TextOverflow.ellipsis,
-                                      decoration: TextDecoration.lineThrough
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                BlocProvider(
+                  create: (context) => emoneyDetailCubit..onGetProviderDetail(emoneyProviderResponse.id.toString()),
+                  child: BlocBuilder<EmoneyDetailCubit, EmoneyDetailState>(
+                    builder: (context, state) {
+                      if (state is EmoneyLoading) {
+                        return const CupertinoActivityIndicator();
+                      } else if (state is EmoneyLoaded) {
+                        return listProduct([]);
+                      } else {
+                        return Container();
+                      }
+                    },
+                  )
+                )
               ],
             ),
           ),
         ],
       ),
     ); 
+  }
+
+  Widget listProduct(List list){
+    var size = MediaQuery.of(navGK.currentContext!).size;
+    const double itemHeight = 120;
+    final double itemWidth = size.width / 1.8;
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(0),
+      itemCount: list.length,
+      scrollDirection: Axis.vertical,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: (itemWidth / itemHeight),
+      ),
+      itemBuilder: (BuildContext context, int index) { 
+        return InkWell(
+          // onTap: () => routePush(PaymentView(), RouterType.material),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Component.textBold(
+                    "${index+1}0.000", 
+                    fontSize: PintuPayConstant.fontSizeLargeExtra
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Component.textBold(
+                        "${index+1}1.500",
+                        fontSize: PintuPayConstant.fontSizeMedium,
+                        colors: PintuPayPalette.orange
+                      ),
+                      const SizedBox(width: 10,),
+                      Text(
+                        "${index+1}2.000",
+                        style: const TextStyle(
+                          color: PintuPayPalette.grey,
+                          fontFamily: PintuPayConstant.avenirRegular,
+                          fontSize: PintuPayConstant.fontSizeSmall,
+                          overflow: TextOverflow.ellipsis,
+                          decoration: TextDecoration.lineThrough
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

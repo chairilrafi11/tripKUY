@@ -20,7 +20,7 @@ class PdamRepository {
       // baseUrl: BASE_URL.product,
       tryAgainMethod: getPdamDistricts,
     ).then((dio) async {
-      return await DioClient(dio).getProductPDAM();
+      // return await DioClient(dio).getProductPDAM();
     });
     CoreFunction.logPrint(
         'DioService getPdamDistricts', jsonEncode(pdamDistricts));
@@ -41,17 +41,17 @@ class PdamRepository {
         selectedDistrict,
       ],
     ).then((dio) async {
-      return await DioClient(dio).inquiryPDAM({
-        "act": "inquiry",
-        "id": customerId,
-        "product": selectedDistrict?.name,
-        "product_id": selectedDistrict?.id,
-      }).then((value) {
-        responseInquiryPDAM = ResponseInquiryPDAM.fromJson(value.toJson());
-        CoreFunction.logPrint(
-            'DioService responseInquiryPDAM', jsonEncode(responseInquiryPDAM));
-        return responseInquiryPDAM;
-      });
+      // return await DioClient(dio).inquiryPDAM({
+      //   "act": "inquiry",
+      //   "id": customerId,
+      //   "product": selectedDistrict?.name,
+      //   "product_id": selectedDistrict?.id,
+      // }).then((value) {
+      //   responseInquiryPDAM = ResponseInquiryPDAM.fromJson(value.toJson());
+      //   CoreFunction.logPrint(
+      //       'DioService responseInquiryPDAM', jsonEncode(responseInquiryPDAM));
+      //   return responseInquiryPDAM;
+      // });
     });
   }
 
@@ -63,17 +63,17 @@ class PdamRepository {
           tryAgainMethod: onPayment,
           isLoading: true,
         ).then((dio) async {
-          return await DioClient(dio).transactionPDAM(
-            TransactionPDAM(
-              transactionId: responseInquiryPDAM?.transactionId ?? -1,
-              id: responseInquiryPDAM?.noPel ?? '',
-              productId: selectedDistrict?.id ?? -1,
-              product: selectedDistrict?.name ?? '',
-              pin: pin,
-              act: CoreVariable.payment,
-              totalPayment: responseInquiryPDAM?.totTagihan.toString(),
-            ),
-          );
+          // return await DioClient(dio).transactionPDAM(
+          //   TransactionPDAM(
+          //     transactionId: responseInquiryPDAM?.transactionId ?? -1,
+          //     id: responseInquiryPDAM?.noPel ?? '',
+          //     productId: selectedDistrict?.id ?? -1,
+          //     product: selectedDistrict?.name ?? '',
+          //     pin: pin,
+          //     act: CoreVariable.payment,
+          //     totalPayment: responseInquiryPDAM?.totTagihan.toString(),
+          //   ),
+          // );
         });
       }
     });

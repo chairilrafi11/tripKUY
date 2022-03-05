@@ -1,12 +1,8 @@
 import 'package:pintupay/core/pintupay/pintupay_endpoint.dart';
 import 'package:dio/dio.dart';
+import 'package:pintupay/ui/verification/view/check_phone_number.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../ui/menu/pdam/model/district_pdam.dart';
-import '../../ui/menu/pdam/model/response_inquiry_pdam.dart';
-import '../../ui/menu/pdam/model/transaction_pdam.dart';
-import '../../ui/menu/phone_postpaid/model/phone_postpaid_model.dart';
-import '../../ui/menu/phone_postpaid/model/response_inquiry_postpaid.dart';
 import 'model/core_model.dart';
 
 part 'dio_client.g.dart';
@@ -64,29 +60,12 @@ abstract class DioClient {
     @Path('auth_token') String authToken
   );
 
-  @POST(PintuPayEndpoint.pdamInquiry)
-  Future<ResponseInquiryPDAM> inquiryPDAM(
-      @Body() Map<String, dynamic> body,
-      );
+  @GET(PintuPayEndpoint.emoneyProvider)
+  Future<CoreModel> empneyProvider();
 
-  @POST(PintuPayEndpoint.pdamPayment)
-  Future<Map<String, dynamic>> transactionPDAM(
-      @Body() TransactionPDAM body,
-      );
-
-  @GET(PintuPayEndpoint.productsPDAM)
-  Future<List<DistrictPDAM>> getProductPDAM();
-
-  @POST(PintuPayEndpoint.phonePaidInquiry)
-  Future<ResponseInquiryPhonePaid> inquiryCellularsPasca(
-      @Body() Map<String, dynamic> body,
-      );
-
-  @POST(PintuPayEndpoint.phonePaidPayment)
-  Future<Map<String, dynamic>> transactionCellularsPasca(
-      @Body() Map<String, dynamic> body,
-      );
-
-  @GET(PintuPayEndpoint.productsPasca)
-  Future<List<PhonePostpaidModel>> getProductCellularsPasca();
+  @GET(PintuPayEndpoint.emoneyProvider)
+  Future<CoreModel> empneyProviderDetail(
+    @Query('provider_id') String providerId, 
+    @Query('auth_token') String authToken
+  );
 }

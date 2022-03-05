@@ -194,7 +194,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, ' v6/transactions',
+                .compose(_dio.options, 'v6/transactions',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -233,6 +233,41 @@ class _DioClient implements DioClient {
     return value;
   }
 
+  @override
+  Future<CoreModel> empneyProvider() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v2/emoney/provider_emoney',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> empneyProviderDetail(providerId, authToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'provider_id': providerId,
+      r'auth_token': authToken
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v2/emoney/products',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
@@ -244,54 +279,5 @@ class _DioClient implements DioClient {
       }
     }
     return requestOptions;
-  }
-
-  @override
-  Future<List<DistrictPDAM>> getProductPDAM() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ResponseInquiryPDAM>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, 'v1/pdam_products',
-                queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-
-    List<DistrictPDAM> value = <DistrictPDAM>[];
-    for (var element in _result.data!['products']) {
-      value.add(DistrictPDAM.fromJson(element as Map<String, dynamic>));
-    }
-    return value;
-  }
-
-  @override
-  Future<ResponseInquiryPDAM> inquiryPDAM(Map<String, dynamic> body) {
-    // TODO: implement inquiryPDAM
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Map<String, dynamic>> transactionPDAM(TransactionPDAM body) {
-    // TODO: implement transactionPDAM
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<PhonePostpaidModel>> getProductCellularsPasca() {
-    // TODO: implement getProductCellularsPasca
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ResponseInquiryPhonePaid> inquiryCellularsPasca(Map<String, dynamic> body) {
-    // TODO: implement inquiryCellularsPasca
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Map<String, dynamic>> transactionCellularsPasca(Map<String, dynamic> body) {
-    // TODO: implement transactionCellularsPasca
-    throw UnimplementedError();
   }
 }

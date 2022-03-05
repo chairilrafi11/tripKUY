@@ -35,13 +35,14 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       birthDate: fields[16] as String?,
       birthPlace: fields[17] as String?,
       gender: fields[18] as String?,
+      fcmToken: fields[19] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserBox obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -77,7 +78,9 @@ class UserBoxAdapter extends TypeAdapter<UserBox> {
       ..writeByte(17)
       ..write(obj.birthPlace)
       ..writeByte(18)
-      ..write(obj.gender);
+      ..write(obj.gender)
+      ..writeByte(19)
+      ..write(obj.fcmToken);
   }
 
   @override

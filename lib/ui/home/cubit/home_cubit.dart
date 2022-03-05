@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(const BPJSView(), RouterType.material);
         break;
       case "e-money":
-        routePush(const EmoneyView(), RouterType.material);
+        routePush( EmoneyView(), RouterType.material);
         break;
       case "hp pascabayar":
         // routePush(const PhonePostpaidView(), RouterType.material);

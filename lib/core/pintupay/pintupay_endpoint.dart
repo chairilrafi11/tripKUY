@@ -36,4 +36,8 @@ class PintuPayEndpoint {
   static const String phonePaidInquiry = "v7/ppob/inquiry/cellulars";
 
   static const String phonePaidPayment = "v7/ppob/payment/cellulars";
+
+  static const String emoneyProvider = "v2/emoney/provider_emoney";
+
+  static const String emoneyProviderDetail = "v2/emoney/products";
 }
