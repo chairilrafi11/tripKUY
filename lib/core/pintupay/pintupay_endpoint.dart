@@ -40,4 +40,8 @@ class PintuPayEndpoint {
   static const String emoneyProvider = "v2/emoney/provider_emoney";
 
   static const String emoneyProviderDetail = "v2/emoney/products";
+
+  static const String bpjsInuiqry = "v6/ppob/inquiry/bpjs";
+
+  static const String bpjsPayment = "v6/ppob/payment/bpjs";
 }

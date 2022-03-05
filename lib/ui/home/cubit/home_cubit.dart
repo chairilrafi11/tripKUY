@@ -24,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
   void onClickMenu(String key) {
     switch (key.toLowerCase()) {
       case "bpjs":
-        routePush(const BPJSView(), RouterType.material);
+        routePush(BPJSView(), RouterType.material);
         break;
       case "e-money":
         routePush( EmoneyView(), RouterType.material);

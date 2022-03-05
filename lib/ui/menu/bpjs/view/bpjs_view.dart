@@ -3,9 +3,15 @@ import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/ui/menu/bpjs/cubit/bpjs_cubit.dart';
+import 'package:pintupay/ui/menu/bpjs/model/bpjs_inquiry_model.dart';
 
 class BPJSView extends StatelessWidget {
-  const BPJSView({ Key? key }) : super(key: key);
+
+  BPJSView({ Key? key }) : super(key: key);
+
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController monthController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class BPJSView extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          // controller: phoneContactController,
+                          controller: idController,
                           decoration: Component.inputDecoration("No Pelanggan"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
@@ -43,7 +49,7 @@ class BPJSView extends StatelessWidget {
                         ),
                         const SizedBox(height: 10,),
                         TextFormField(
-                          // controller: phoneContactController,
+                          controller: monthController,
                           decoration: Component.inputDecoration("Periode"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
@@ -60,7 +66,10 @@ class BPJSView extends StatelessWidget {
                         Component.button(
                           label: "Cek Tagihan",
                           onPressed: (){
-                            CoreFunction.showPin(context);
+                            BpjsCubit().onInquiry(
+                              idController.text,
+                              monthController.text
+                            );
                           }
                         ),
                       ],
