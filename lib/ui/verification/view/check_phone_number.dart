@@ -1,13 +1,8 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/login/view/login.dart';
-import 'package:pintupay/ui/register/view/account_verification.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/verification/cubit/check_phone_number_cubit.dart';
 
 class CheckPhoneNumberView extends StatefulWidget {
@@ -19,7 +14,6 @@ class CheckPhoneNumberView extends StatefulWidget {
 
 class _CheckPhoneNumberViewState extends State<CheckPhoneNumberView> {
   final TextEditingController phoneNumberController = TextEditingController();
-
 
   @override
   void initState() {
@@ -48,13 +42,11 @@ class _CheckPhoneNumberViewState extends State<CheckPhoneNumberView> {
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 15,
               ),
-              Component.textDefault(
-                'Verifikasi Number Telepon',
-                colors: PintuPayPalette.darkBlue,
-                fontSize: 30,
-                maxLines: 5,
-                fontWeight: FontWeight.bold
-              ),
+              Component.textDefault('Phone Number Verification',
+                  colors: PintuPayPalette.darkBlue,
+                  fontSize: 30,
+                  maxLines: 5,
+                  fontWeight: FontWeight.bold),
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 25,
               ),
@@ -73,18 +65,17 @@ class _CheckPhoneNumberViewState extends State<CheckPhoneNumberView> {
                   style: ElevatedButton.styleFrom(
                     primary: PintuPayPalette.darkBlue,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                    ),
+                        borderRadius: BorderRadius.circular(10.0)),
                   ),
                   onPressed: () {
-                    CheckPhoneNumberCubit().onCheckPhoneNumber(phoneNumberController.text);
+                    CheckPhoneNumberCubit()
+                        .onCheckPhoneNumber(phoneNumberController.text);
                   },
                   child: Text(
-                    'Verif',
+                    'Verification',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: SizeConfig.screenHeight / 60
-                    ),
+                        color: Colors.white,
+                        fontSize: SizeConfig.screenHeight / 60),
                   ),
                 ),
               ),
@@ -138,5 +129,4 @@ class _CheckPhoneNumberViewState extends State<CheckPhoneNumberView> {
       ),
     );
   }
-
 }

@@ -1,19 +1,29 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pintupay/ui/verification/cubit/check_phone_number_cubit.dart';
 import 'package:pintupay/ui/verification/model/otp_register_model.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../core/util/size_config.dart';
-import '../../login/view/login.dart';
 
-class OTPVerification extends StatelessWidget {
-
+class AccountVerification extends StatefulWidget {
   final ResponseCheckPhoneNumber responseCheckPhoneNumber;
 
-  OTPVerification({required this.responseCheckPhoneNumber, Key? key}) : super(key: key);
+  AccountVerification({required this.responseCheckPhoneNumber, Key? key})
+      : super(key: key);
+
+  @override
+  State<AccountVerification> createState() => _AccountVerificationState();
+}
+
+class _AccountVerificationState extends State<AccountVerification> {
+  @override
+  void initState() {
+    super.initState();
+    _listenOtp();
+  }
 
   String code = "";
 
@@ -34,32 +44,37 @@ class OTPVerification extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 250.0),
-                child: Text(
-                  'Verifikasi Akun',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)
-                ),
+                child: Text('Verifikasi Akun',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 20.0),
-                child: Text(
-                  'Kami baru saja mengirim kode untukmu..',
-                  textAlign: TextAlign.center
-                ),
+                child: Text('Kami baru saja mengirim kode untukmu..',
+                    textAlign: TextAlign.center),
               ),
               const SizedBox(
                 height: 50,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-                child: PinCodeTextField(
-                  appContext: context,
-                  length: 4,
-                  onChanged: (value) {
-                    print(value);
-                    code = value;
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 50.0, vertical: 10.0),
+                  child:
+                      // PinCodeTextField(
+                      //   appContext: context,
+                      //   length: 4,
+                      //   onChanged: (value) {
+                      //     print(value);
+                      //     code = value;
+                      //   },
+                      // ),
+                      PinFieldAutoFill(
+                    codeLength: 4,
+                    onCodeChanged: (value) {
+                      print(value);
+                      code = value!;
+                    },
+                  )),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: buildTimer(),
@@ -71,10 +86,9 @@ class OTPVerification extends StatelessWidget {
                   child: const Text(
                     "Kirim ulang",
                     style: TextStyle(
-                      color: PintuPayPalette.darkBlue,
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold
-                    ),
+                        color: PintuPayPalette.darkBlue,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -93,17 +107,16 @@ class OTPVerification extends StatelessWidget {
                   ),
                   onPressed: () {
                     CheckPhoneNumberCubit().onCheckOTP(OtpRegisterModel(
-                      id: responseCheckPhoneNumber.id,
-                      otpCode: code,
-                      phoneNumber: responseCheckPhoneNumber.phoneNumber
-                    ));
+                        id: widget.responseCheckPhoneNumber.id,
+                        otpCode: code,
+                        phoneNumber:
+                            widget.responseCheckPhoneNumber.phoneNumber));
                   },
                   child: Text(
                     'Lanjut',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: SizeConfig.screenHeight / 60
-                    ),
+                        color: Colors.white,
+                        fontSize: SizeConfig.screenHeight / 60),
                   ),
                 ),
               ),
@@ -129,5 +142,9 @@ class OTPVerification extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _listenOtp() async {
+    await SmsAutoFill().listenForCode;
   }
 }

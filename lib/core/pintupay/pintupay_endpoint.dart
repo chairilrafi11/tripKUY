@@ -1,7 +1,6 @@
 class PintuPayEndpoint {
-
   static const String sample = "user";
-  
+
   static const String banner = "v1/advertises";
 
   static const String checkPhoneRegist = "/v6/registration/agent/phones";
@@ -20,10 +19,21 @@ class PintuPayEndpoint {
 
   static const String pulsaProvider = "v2/products/provider_icon";
 
-  static const String pulsaPayment = " v6/transactions";
+  static const String pulsaPayment = "v6/transactions";
 
   static const String transactionList = "v1/transactions";
 
   static const String profile = "v1/users/{auth_token}";
 
+  static const String productsPDAM = "v1/pdam_products";
+
+  static const String pdamInquiry = "v7/ppob/inquiry/pdams";
+
+  static const String pdamPayment = "v7/ppob/payment/pdams";
+
+  static const String productsPasca = "v2/ppob/cellulars/pasca_products";
+
+  static const String phonePaidInquiry = "v7/ppob/inquiry/cellulars";
+
+  static const String phonePaidPayment = "v7/ppob/payment/cellulars";
 }
