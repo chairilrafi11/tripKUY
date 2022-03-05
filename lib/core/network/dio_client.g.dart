@@ -245,4 +245,53 @@ class _DioClient implements DioClient {
     }
     return requestOptions;
   }
+
+  @override
+  Future<List<DistrictPDAM>> getProductPDAM() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseInquiryPDAM>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, 'v1/pdam_products',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+
+    List<DistrictPDAM> value = <DistrictPDAM>[];
+    for (var element in _result.data!['products']) {
+      value.add(DistrictPDAM.fromJson(element as Map<String, dynamic>));
+    }
+    return value;
+  }
+
+  @override
+  Future<ResponseInquiryPDAM> inquiryPDAM(Map<String, dynamic> body) {
+    // TODO: implement inquiryPDAM
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Map<String, dynamic>> transactionPDAM(TransactionPDAM body) {
+    // TODO: implement transactionPDAM
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<PhonePostpaidModel>> getProductCellularsPasca() {
+    // TODO: implement getProductCellularsPasca
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResponseInquiryPhonePaid> inquiryCellularsPasca(Map<String, dynamic> body) {
+    // TODO: implement inquiryCellularsPasca
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Map<String, dynamic>> transactionCellularsPasca(Map<String, dynamic> body) {
+    // TODO: implement transactionCellularsPasca
+    throw UnimplementedError();
+  }
 }

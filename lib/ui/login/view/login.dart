@@ -1,3 +1,4 @@
+import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/core/util/util.dart';
@@ -20,7 +21,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   late String phoneNumber, password;
   bool isHiddenPassword = true;
 
@@ -82,15 +82,26 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(
-                          height: SizeConfig.blockSizeVertical * 15,
+                          height: SizeConfig.blockSizeVertical * 5,
                         ),
                         Image.asset(
-                          'assets/icons/logo.png',
-                          height: SizeConfig.blockSizeHorizontal * 10,
+                          'assets/icons/pintupay_logo.png',
+                          height: SizeConfig.blockSizeHorizontal * 20,
                           fit: BoxFit.contain,
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'PintuPay',
+                          style: TextStyle(
+                              fontFamily: PintuPayConstant.avenirRegular,
+                              color: PintuPayPalette.darkBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeConfig.screenHeight / 16),
+                        ),
                         SizedBox(
-                          height: SizeConfig.blockSizeVertical * 25,
+                          height: SizeConfig.blockSizeVertical * 15,
                         ),
                         _textFieldPhoneNumber(),
                         const SizedBox(
@@ -125,23 +136,19 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () {
-                              loginCubit.onLogin(
-                                LoginModel(
+                              loginCubit.onLogin(LoginModel(
                                   session: Session(
-                                    email: _phoneNumberController.text,
-                                    imei: "",
-                                    deviceId: "",
-                                    deviceRegisterId: "",
-                                    latitude: "",
-                                    longitude: "",
-                                    password: _passwordController.text,
-                                    phoneNumber: _phoneNumberController.text,
-                                    radius: "",
-                                    simImei: ""
-                                  ),
-                                  version: "2.1.5"
-                                )
-                              );
+                                      email: _phoneNumberController.text,
+                                      imei: "",
+                                      deviceId: "",
+                                      deviceRegisterId: "",
+                                      latitude: "",
+                                      longitude: "",
+                                      password: _passwordController.text,
+                                      phoneNumber: _phoneNumberController.text,
+                                      radius: "",
+                                      simImei: ""),
+                                  version: "2.1.5"));
                             },
                             child: Text(
                               'Masuk',
@@ -163,7 +170,8 @@ class _LoginState extends State<Login> {
                               ),
                               InkWell(
                                 onTap: () => routePush(
-                                    const CheckPhoneNumberView(), RouterType.cupertino),
+                                    const CheckPhoneNumberView(),
+                                    RouterType.cupertino),
                                 child: GestureDetector(
                                   child: Text(
                                     'Daftar',

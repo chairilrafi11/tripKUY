@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/ui/menu/bpjs/view/bpjs_view.dart';
 import 'package:pintupay/ui/menu/data_plan/view/data_plan_view.dart';
 import 'package:pintupay/ui/menu/electric/view/electric_token_view.dart';
@@ -9,6 +11,9 @@ import 'package:pintupay/ui/menu/telephone_postpaid/view/telephone_postpaid_view
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';
+
+import '../../menu/pdam/cubit/pdam_cubit.dart';
+import '../../menu/phone_postpaid/cubit/phone_postpaid_cubit.dart';
 
 part 'home_state.dart';
 
@@ -25,13 +30,27 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(const EmoneyView(), RouterType.material);
         break;
       case "hp pascabayar":
-        routePush(const PhonePostpaidView(), RouterType.material);
+        // routePush(const PhonePostpaidView(), RouterType.material);
+        routePush(
+          BlocProvider(
+            create: (BuildContext context) => PhonePostpaidCubit(),
+            child: const PhonePostpaidView(),
+          ),
+          RouterType.cupertino,
+        );
         break;
       case "listrik":
         routePush(const ElectricToken(), RouterType.material);
         break;
       case "pdam":
-        routePush(const PDAMView(), RouterType.material);
+        // routePush(const PDAMView(), RouterType.material);
+        routePush(
+          BlocProvider(
+            create: (BuildContext context) => PdamCubit(),
+            child: const PDAMView(),
+          ),
+          RouterType.cupertino,
+        );
         break;
       case "pulsa":
         routePush(PulsaView(), RouterType.material);

@@ -11,11 +11,13 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pintupay/ui/bill/view/bill_view.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
 import 'package:pintupay/ui/login/view/login.dart';
 import 'package:pintupay/ui/pin/view/pin_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../ui/bill/model/bill_status_model.dart';
 import 'core_variable.dart';
 import 'debouncer.dart';
 
@@ -257,5 +259,9 @@ class CoreFunction {
       const Login(),
       RouterType.material,
     );
+  }
+  
+  static openBillDetail(BillStatusModel billStatus) {
+    pushAndRemoveUntil(BillView(billStatus), RouterType.cupertino);
   }
 }
