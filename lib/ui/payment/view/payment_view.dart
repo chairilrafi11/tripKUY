@@ -16,24 +16,12 @@ class PaymentView extends StatelessWidget {
   final VoidCallback? paymentMethod;
   final Feature feature;
 
-  PaymentView({
+  const PaymentView({
     required this.listInformation, 
     required this.paymentMethod,
     required this.feature,
     Key? key 
   }) : super(key: key);
-
-
-  // List<Set<String>> listInfomartion = [
-  //   {"Produk", "BPJS"},
-  //   {"Nama","Chairil Rafi Purnama"},
-  //   {"Nomor Referal", "62376587326856"},
-  //   {"Nomor Pelanggan", "0328497334"},
-  //   {"Jumlah Bulan", "1 Bulan"},
-  //   {"Total", "51.000"},
-  //   {"Biaya Admin", "2.500"},
-  //   {"Total Pembayaran", "55.000"}
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +123,10 @@ class PaymentView extends StatelessWidget {
                     children: [
                       Component.textBold("Total Pembayaran"),
                       const SizedBox(height: 5,),
-                      Component.textBold("RP 20.000", colors: PintuPayPalette.orange)
+                      Component.textBold(
+                        CoreFunction.moneyFormatter(listInformation.last.last.replaceFirst("Rp", '')), 
+                        colors: PintuPayPalette.orange
+                      )
                     ],
                   ),
                   const Spacer(),

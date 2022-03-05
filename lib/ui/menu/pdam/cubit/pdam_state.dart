@@ -1,58 +1,27 @@
 part of 'pdam_cubit.dart';
 
 abstract class PdamState extends Equatable {
-  final List<DistrictPDAM>? pdamDistricts;
-
-  const PdamState(this.pdamDistricts);
-}
-
-class PdamEmpty extends PdamState {
-  const PdamEmpty() : super(null);
-
-  @override
-  List<Object?> get props => [];
-}
-
-class PdamInitial extends PdamState {
-  const PdamInitial(
-      List<DistrictPDAM>? pdamDistricts,
-      ) : super(pdamDistricts);
+  const PdamState();
 
   @override
   List<Object> get props => [];
 }
 
-class InquirySuccess extends PdamState {
-  final ResponseInquiryPDAM? responseInquiryPDAM;
+class PDAMInitial extends PdamState {}
 
-  const InquirySuccess({
-    required List<DistrictPDAM>? pdamDistricts,
-    required this.responseInquiryPDAM,
-  }) : super(pdamDistricts);
+class PDAMLoading extends PdamState {}
 
-  @override
-  List<Object?> get props => [responseInquiryPDAM];
-}
+class PDAMLoaded extends PdamState {
 
-class InquiryFailed extends PdamState {
-  final String errorMessage;
+  final List<PDAMDistricResponse> listDistric;
+  final PDAMDistricResponse distric;
 
-  const InquiryFailed({
-    required List<DistrictPDAM>? pdamDistricts,
-    required this.errorMessage,
-  }) : super(pdamDistricts);
+  const PDAMLoaded({
+    required this.listDistric,
+    required this.distric
+  });
 
   @override
-  List<Object> get props => [
-    errorMessage,
-  ];
+  List<Object> get props => [listDistric, distric];
 }
 
-class InquiryLoading extends PdamState {
-  const InquiryLoading({
-    List<DistrictPDAM>? pdamDistricts,
-  }) : super(pdamDistricts);
-
-  @override
-  List<Object> get props => [];
-}

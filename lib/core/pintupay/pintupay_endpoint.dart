@@ -27,10 +27,6 @@ class PintuPayEndpoint {
 
   static const String productsPDAM = "v1/pdam_products";
 
-  static const String pdamInquiry = "v7/ppob/inquiry/pdams";
-
-  static const String pdamPayment = "v7/ppob/payment/pdams";
-
   static const String productsPasca = "v2/ppob/cellulars/pasca_products";
 
   static const String phonePaidInquiry = "v7/ppob/inquiry/cellulars";
@@ -51,4 +47,9 @@ class PintuPayEndpoint {
 
   static const String listrikToken = "v2/product_token";
 
+  static const String pdamProduct = "v1/pdam_products";
+
+  static const String pdamInquiry = " v7/ppob/inquiry/pdams";
+
+  static const String pdamPayment = "v7/ppob/payment/pdams";
 }

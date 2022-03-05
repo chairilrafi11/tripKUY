@@ -2,89 +2,120 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/core/network/model/post_body.dart';
+import 'package:pintupay/core/pintupay/pintupay_crypt.dart';
+import 'package:pintupay/core/usecase/auth_usecase.dart';
+import 'package:pintupay/core/usecase/view_usecase.dart';
+import 'package:pintupay/ui/bill/model/bill_body_model.dart';
+import 'package:pintupay/ui/bill/model/bill_status_model.dart';
+import 'package:pintupay/ui/bill/view/bill_view.dart';
+import 'package:pintupay/ui/menu/pdam/model/pdam_disctric.dart';
+import 'package:pintupay/ui/menu/pdam/model/pdam_inquiry_model.dart';
+import 'package:pintupay/ui/menu/pdam/model/pdam_payment_model.dart';
+import 'package:pintupay/ui/menu/pdam/provider/pdam_provider.dart';
+import 'package:pintupay/ui/payment/view/payment_view.dart';
 
 import '../../../../core/util/core_function.dart';
-import '../../../bill/model/bill_body_model.dart';
-import '../../../bill/model/bill_model.dart';
-import '../../../bill/model/bill_status_model.dart';
-import '../model/district_pdam.dart';
-import '../model/response_inquiry_pdam.dart';
-import '../repository/pdam_repository.dart';
 
 part 'pdam_state.dart';
 
 class PdamCubit extends Cubit<PdamState> {
-  PdamCubit() : super(const PdamEmpty()) {
+  PdamCubit() : super(PDAMLoading()) {
     onGetDistrict();
   }
 
-  PdamRepository pdamRepository = PdamRepository();
+  List<Set<String>> listInformation = [];
+  late PDAMPaymentModel pdamPaymentModel;
 
   Future<void> onGetDistrict() async {
-    pdamRepository.getPdamDistricts().then((listDistrict) {
-      CoreFunction.logPrint('getPdamDistricts', jsonEncode(listDistrict));
-      emit(PdamInitial(listDistrict));
-    });
+    PDAMDistricResponse pdamDistricResponse = PDAMDistricResponse();
+    var districs = await PDAMProvider.distric();
+    districs.add(pdamDistricResponse);
+    emit(PDAMLoaded(
+      listDistric: districs,
+      distric: pdamDistricResponse
+    ));
   }
 
-  Future<void> onInquiry({
-    required String customerId,
-    DistrictPDAM? selectedDistrict,
-  }) async {
-    pdamRepository.onInquiry(customerId, selectedDistrict).then((response) {
-      CoreFunction.logPrint('DataDong', jsonEncode(response));
-      _navigateToBill(response, selectedDistrict);
-    });
+  void setDistric(PDAMDistricResponse pdamDistricResponse){
+    PDAMLoaded pdamLoaded = state as PDAMLoaded;
+    emit(PDAMLoaded(
+      listDistric: pdamLoaded.listDistric,
+      distric: pdamDistricResponse
+    ));
   }
 
-  Future<void> onPayment() async {
-    pdamRepository.onPayment().then((response) {
-      if (response != null) {
-        BillStatusModel status = BillStatusModel(
-          billBody: [
-            BillBodyModel(
-                'Transaction ID :', "#${response['transaction_id'] ?? ''}"),
-            BillBodyModel(
-                'ID Pelanggan : ', "${response['no_pel'] ?? ''}"),
-            BillBodyModel('Nama Pelanggan : ', "${response['nama'] ?? ''}"),
-            BillBodyModel('Nominal : ',
-                CoreFunction.moneyFormatter("${response['tagihan'] ?? "0"}")),
-            BillBodyModel('Biaya Admin : ',
-                CoreFunction.moneyFormatter("${response['bea_admin'] ?? "0"}")),
-            BillBodyModel('Keterangan : ', response['description'] ?? 'Pembayaran PDAM')
-          ],
-          createdAt: response['created_at'] ?? '',
-          status: response['status'] ?? '',
+  Future onInquiry(String customerId) async {
+    PDAMLoaded pdamLoaded = state as PDAMLoaded;
+    PDAMInquiryModel pdamInquiryModel = PDAMInquiryModel(
+      act: "inquiry",
+      authToken: authUsecase.userBox.authToken,
+      id: customerId,
+      product: pdamLoaded.distric.name,
+      productId: pdamLoaded.distric.id,
+      totalPayment: ""
+    );
+    var inquiry = PintuPayCrypt().encrypt(jsonEncode(pdamInquiryModel), await PintuPayCrypt().getPassKeyPref());
+    var result = await PDAMProvider.inquiry(BodyRequestV7(inquiry, inquiry).toJson());
+
+    if(result.noPel!= null){
+      
+      //? Create Object Payment
+      
+      PDAMPaymentModel paymentModel = PDAMPaymentModel(
+        act: "payment",
+        authToken: authUsecase.userBox.authToken,
+        id: customerId,
+        product: pdamLoaded.distric.name,
+        productId: pdamLoaded.distric.id,
+        totalPayment: result.totTagihan.toString(),
+      );
+
+      pdamPaymentModel = paymentModel;
+
+      listInformation = [
+        {"Nama Pengguna", result.nama.toString()},
+        {"No Pelanggan", result.noPel.toString()},
+        {"No Reff", result.referalNumber.toString()},
+        {"Periode", result.periode.toString()},
+        {"Stand", result.stand.toString()},
+        {"Tagihan", CoreFunction.moneyFormatter(result.tagihan)},
+        {"Biaya Admin", CoreFunction.moneyFormatter(result.beaAdmin)},
+        {"Total Tagihan", CoreFunction.moneyFormatter(result.totTagihan)},
+      ];
+
+      routePush(
+        PaymentView(
+          listInformation: listInformation,
+          paymentMethod: onPayment,
+          feature: Feature.pdam,
+        ), 
+        RouterType.material
+      );
+    }
+  }
+
+  Future onPayment() async {
+    CoreFunction.showPin(navGK.currentContext!).then((value) async {
+      if(value != null) {
+        pdamPaymentModel.pin = value;
+        var payment = PintuPayCrypt().encrypt(jsonEncode(pdamPaymentModel), await PintuPayCrypt().getPassKeyPref());
+        var result = await PDAMProvider.payment(BodyRequestV7(payment, payment).toJson());
+
+        BillStatusModel billStatusModel = BillStatusModel(
+          billBody: listInformation.map((e){
+            return BillBodyModel(e.first, e.last);
+          }).toList(),
+          status: ""
         );
-        CoreFunction.openBillDetail(status);
+
+        if(result.nama != null){
+          routePush(BillView(
+            billStatusModel
+          ));
+        }
       }
     });
-  }
-
-  void _navigateToBill(ResponseInquiryPDAM? responseInquiryPDAM,
-      DistrictPDAM? selectedDistrict) {
-    BillModel billModel = BillModel(users: [
-      {'Name', responseInquiryPDAM?.nama ?? ''},
-      {'Id pelanggan', responseInquiryPDAM?.noPel ?? ''},
-      // {"No Resi", responseInquiryPDAM.noResi},
-      {'Periode', responseInquiryPDAM?.periode ?? ''},
-      {"Stand", responseInquiryPDAM?.stand.toString() ?? ''},
-    ], cost: [
-      {'Tagihan', responseInquiryPDAM?.tagihan.toString() ?? ''},
-      {'Biaya Admin', responseInquiryPDAM?.beaAdmin.toString() ?? ''},
-    ], totalPayment: responseInquiryPDAM?.totTagihan.toString() ?? '');
-    String title = "Konfirmasi bayar PDAM";
-    String content =
-        "Anda akan Membayar tagihan PDAM atas nama ${responseInquiryPDAM?.nama} Id Pelanggan ${responseInquiryPDAM?.noPel} Untuk Periode ${responseInquiryPDAM?.periode} Bulan Seharga ${CoreFunction.moneyFormatter(responseInquiryPDAM?.totTagihan)}?\n Bukti transaksi pembayaran dikirim via E-mail. Pastikan E-mail yang terdaftar sudah benar.";
-    Set<String> contentDialog = {title, content};
-
-    // routePush(
-        // Bill(
-        //   billModel: billModel,
-        //   methodPayment: onPayment,
-        //   contentDialog: contentDialog,
-        //   userDataBox: UserBox(),
-        // ),
-        // RouterType.cupertino);
   }
 }

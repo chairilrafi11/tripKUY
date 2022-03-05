@@ -84,4 +84,13 @@ abstract class DioClient {
   @GET(PintuPayEndpoint.listrikToken)
   Future<CoreModel> electricToken(@Query('auth_token') String authToken);
 
+  @GET(PintuPayEndpoint.pdamProduct)
+  Future<CoreModel> pdamProduct(@Query('auth_token') String authToken);
+
+  @POST(PintuPayEndpoint.pdamInquiry)
+  Future<CoreModel> pdamInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.pdamPayment)
+  Future<CoreModel> pdamPayment(@Body() Map<String, dynamic> body);
+
 }

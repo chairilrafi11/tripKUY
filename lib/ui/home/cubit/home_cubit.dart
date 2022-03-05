@@ -43,12 +43,8 @@ class HomeCubit extends Cubit<HomeState> {
         routePush( ElectricToken(), RouterType.material);
         break;
       case "pdam":
-        // routePush(const PDAMView(), RouterType.material);
         routePush(
-          BlocProvider(
-            create: (BuildContext context) => PdamCubit(),
-            child: const PDAMView(),
-          ),
+          PDAMView(),
           RouterType.cupertino,
         );
         break;
