@@ -62,6 +62,9 @@ class UserBox {
   @HiveField(18)
   String? gender;
 
+  @HiveField(19)
+  String? fcmToken;
+
   UserBox({
     this.id,
     this.salesSaldo,
@@ -81,6 +84,7 @@ class UserBox {
     this.birthDate,
     this.birthPlace,
     this.gender,
+    this.fcmToken
   });
 
   UserBox.fromJson(Map<String, dynamic> json) {
@@ -102,6 +106,7 @@ class UserBox {
     birthDate = json['birth_date'];
     birthPlace = json['birth_place'];
     gender = json['gender'];
+    fcmToken = json['fcm_token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -124,6 +129,7 @@ class UserBox {
     data['birth_date'] = birthDate;
     data['birth_place'] = birthPlace;
     data['gender'] = gender;
+    data['fcm_token'] = fcmToken;
     return data;
   }
 }

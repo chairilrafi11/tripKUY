@@ -6,16 +6,16 @@ class LoginModel {
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     session =
-        json['session'] != null ? new Session.fromJson(json['session']) : null;
+        json['session'] != null ? Session.fromJson(json['session']) : null;
     version = json['version'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.session != null) {
-      data['session'] = this.session!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (session != null) {
+      data['session'] = session!.toJson();
     }
-    data['version'] = this.version;
+    data['version'] = version;
     return data;
   }
 }
@@ -25,6 +25,7 @@ class Session {
   String? deviceRegisterId;
   String? email;
   String? imei;
+  String? fcm;
   String? latitude;
   String? longitude;
   String? password;
@@ -32,17 +33,19 @@ class Session {
   String? radius;
   String? simImei;
 
-  Session(
-      {this.deviceId,
-      this.deviceRegisterId,
-      this.email,
-      this.imei,
-      this.latitude,
-      this.longitude,
-      this.password,
-      this.phoneNumber,
-      this.radius,
-      this.simImei});
+  Session({
+    this.deviceId,
+    this.deviceRegisterId,
+    this.email,
+    this.imei,
+    this.latitude,
+    this.longitude,
+    this.password,
+    this.phoneNumber,
+    this.radius,
+    this.simImei,
+    this.fcm
+  });
 
   Session.fromJson(Map<String, dynamic> json) {
     deviceId = json['device_id'];
@@ -55,20 +58,22 @@ class Session {
     phoneNumber = json['phone_number'];
     radius = json['radius'];
     simImei = json['sim_imei'];
+    fcm = json['fcm'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['device_id'] = this.deviceId;
-    data['device_register_id'] = this.deviceRegisterId;
-    data['email'] = this.email;
-    data['imei'] = this.imei;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['password'] = this.password;
-    data['phone_number'] = this.phoneNumber;
-    data['radius'] = this.radius;
-    data['sim_imei'] = this.simImei;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['device_id'] = deviceId;
+    data['device_register_id'] = deviceRegisterId;
+    data['email'] = email;
+    data['imei'] = imei;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['password'] = password;
+    data['phone_number'] = phoneNumber;
+    data['radius'] = radius;
+    data['fcm_token'] = fcm;
+    data['sim_imei'] = simImei;
     return data;
   }
 }
