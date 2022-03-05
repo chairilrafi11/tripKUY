@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-// import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
@@ -13,8 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
+import 'core/database/box/user/user_box.dart';
 import 'core/notification/firebase_cloud_messaging.dart';
 import 'core/notification/firebase_messaging_core.dart';
+import 'ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -44,8 +46,10 @@ Future<void> init() async {
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
 
+  //? Set Hive Database
   var appDocumentDirectory = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocumentDirectory.path);
+  Hive.registerAdapter(UserBoxAdapter());
 
   await flutterLocalNotificationsPlugin
     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -94,7 +98,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         fontFamily: PintuPayConstant.avenirRegular
       ),
-      home: const SplashscreenView(),
+      home: const SplashscreenView()
     );
   }
 }

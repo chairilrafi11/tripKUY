@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 
 class CoreDatabase {
@@ -9,7 +10,6 @@ class CoreDatabase {
   static Future<Box<dynamic>> openBoxDatabase(String boxName) async {
     try {
       CoreFunction.logPrint('BoxName', boxName);
-      CoreFunction.logPrint('Hive.isBoxOpen(boxName)', Hive.isBoxOpen(boxName));
       if (Hive.isBoxOpen(boxName)) {
         return Hive.box(boxName);
       } else {
@@ -69,5 +69,16 @@ class CoreDatabase {
     return Hive.deleteBoxFromDisk(boxName).then((_) async {
       return Hive.openBox(boxName);
     });
+  }
+
+
+  static Future deleteDatabase() async {
+    // var utilityBoxOld = await EtekadDatabase.openBoxDatabase(EtekadUtilityBox.tabelName);
+    // // var passKeyDB = await utilityBoxOld.get(EtekadUtilityBox.PASSKEY);
+    await Hive.deleteFromDisk();
+    await authUsecase.removeUser();
+
+    // var utilityBoxNew = await EtekadDatabase.openBoxDatabase(EtekadUtilityBox.tabelName);
+    // utilityBoxNew.put(EtekadUtilityBox.PASSKEY, passKeyDB);
   }
 }
