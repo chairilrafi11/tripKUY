@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'model/core_model.dart';
+
 enum BASE_URL { platform, product, province }
 
 class DioService {
@@ -79,23 +81,11 @@ class DioService {
             CoreFunction.logPrint("============= onResponse =============", "");
             CoreFunction.logPrint("Response", response!.toString());
 
-            try {
-              if(response.data is List<dynamic>){
-                CoreFunction.logPrint("response.data", response.data);
-              }else{
-                if (response.data['messages'] != null) {
-                  if(response.statusCode == 200){
-                    // CoreFunction.showToast(response.data['messages'][0], backgroundColor: EtekadPalette.green);
-                  }else {
-                    ErrorHandlingResponse(responseConverter: ResponseConverter(code: response.statusCode, message: response.data['messages'][0]),isPage: isPage, showMessage: showMessage).checkErrror();
-                  }
-                } else {
-                  // CoreFunction.showToast(response.data['message'], backgroundColor: EtekadPalette.green);
-                }
-              }
-            } catch (e, stackTrace) {
-              CoreFunction.logPrint("Error StackTrace", stackTrace.toString());
-              CoreFunction.logPrint("Error", e.toString());
+            ResponseConverter responseConverter = ResponseConverter();
+            responseConverter.createResponse(response.data['meta']);
+            
+            if (responseConverter.code! > 200 && responseConverter.code! < 600) {
+              ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage, isPage: isPage).checkErrror();
             }
 
             handler.next(response);
@@ -119,45 +109,25 @@ class DioService {
             } else if (e.type == DioErrorType.other) {
               CoreFunction.showToast("Periksa kembali koneksi anda", backgroundColor: PintuPayPalette.red);
             } else if (e.type == DioErrorType.response) {
-              CoreFunction.logPrint("response.statusCode", e.response!.statusCode.toString());
-              CoreFunction.logPrint("response.statusMessage", e.response!.statusMessage.toString());
-              CoreFunction.logPrint("response.data", e.response!.data.toString());
+              CoreFunction.logPrint(" =========== response.statusCode ===========", e.response!.statusCode);
+              
               ResponseConverter responseConverter = ResponseConverter();
-              responseConverter.code = e.response?.statusCode;
-              responseConverter.message = e.response?.statusMessage;
-
               try {
-                HandlerResponseError handlerResponseError = HandlerResponseError.fromJson(e.response!.data);
-                if (handlerResponseError.messages!.isNotEmpty) {
-                  responseConverter.message = handlerResponseError.messages!.first;
-                }
-              } catch (error1) {
-                try {
-                  responseConverter.message = e.response!.data['messages']; 
-                } catch (error3) {
-                  CoreFunction.logPrint("error parse", e.toString());
-                  if(e.response!.data != null){
-                    try {
-                      responseConverter.message = e.response!.data?['message'];
-                    } catch (error2) {
-                      responseConverter.message = e.response?.statusMessage;
-                    }
-                  } else if(e.response?.statusMessage != null && e.response!.statusCode! < 500) {
-                    responseConverter.message = e.response?.statusMessage;
-                  }else {
-                    responseConverter.message = "tidak bisa melakukan transaksi";
-                  }
-                }
-              }
+                CoreModel data = CoreModel.fromJson(e.response!.data);
+                responseConverter.createResponse(data.meta.toJson());
 
-              if (!showMessage) {
-                tryAgainMethod(e.response?.statusCode);
-              }
+                ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage, isPage: isPage).checkErrror();
+              } catch (error) {
 
-              await ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage).checkErrror();
+                responseConverter.code = e.response!.statusCode!;
+                responseConverter.message = e.response!.statusMessage!;
+
+                ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage, isPage: isPage).checkErrror();
+              }
             }
+
             handler.next(e);
-            // throw e.error;
+            throw e.error;
           },
         ),
       );

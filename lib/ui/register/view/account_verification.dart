@@ -1,6 +1,7 @@
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/verification/cubit/check_phone_number_cubit.dart';
 import 'package:pintupay/ui/verification/model/otp_register_model.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
@@ -11,7 +12,7 @@ import '../../../core/util/size_config.dart';
 class AccountVerification extends StatefulWidget {
   final ResponseCheckPhoneNumber responseCheckPhoneNumber;
 
-  AccountVerification({required this.responseCheckPhoneNumber, Key? key})
+  const AccountVerification({required this.responseCheckPhoneNumber, Key? key})
       : super(key: key);
 
   @override
@@ -38,43 +39,51 @@ class _AccountVerificationState extends State<AccountVerification> {
             fit: BoxFit.cover,
           ),
         ),
-        child: SizedBox(
-          width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 250.0),
-                child: Text('Verifikasi Akun',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 20,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Text('Kami baru saja mengirim kode untukmu..',
-                    textAlign: TextAlign.center),
+              Component.textDefault(
+                'Verifikasi Kode',
+                colors: PintuPayPalette.darkBlue,
+                fontSize: 30,
+                maxLines: 5,
+                fontWeight: FontWeight.bold
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Component.textDefault(
+                'Kami baru saja mengirim kode ke nomor Whatsapp kamu',
+                colors: PintuPayPalette.blue1,
+                textAlign: TextAlign.center,
+                fontSize: PintuPayConstant.fontSizeLarge,
+                maxLines: 5,
+                fontWeight: FontWeight.bold
               ),
               const SizedBox(
                 height: 50,
               ),
               Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 50.0, vertical: 10.0),
-                  child:
-                      // PinCodeTextField(
-                      //   appContext: context,
-                      //   length: 4,
-                      //   onChanged: (value) {
-                      //     print(value);
-                      //     code = value;
-                      //   },
-                      // ),
-                      PinFieldAutoFill(
-                    codeLength: 4,
-                    onCodeChanged: (value) {
-                      print(value);
-                      code = value!;
-                    },
-                  )),
+                padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                child: PinFieldAutoFill(
+                  // decoration: const UnderlineDecoration(
+                  //   textStyle: TextStyle(
+                  //     color: PintuPayPalette.darkBlue,
+                  //     fontSize: PintuPayConstant.fontSizeLargeExtra
+                  //   ),
+                  //   // colorBuilder: PintuPayPalette.blue1
+                  // ),
+                  codeLength: 4,
+                  onCodeChanged: (value) {
+                    print(value);
+                    code = value!;
+                  },
+                )
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: buildTimer(),
@@ -86,9 +95,10 @@ class _AccountVerificationState extends State<AccountVerification> {
                   child: const Text(
                     "Kirim ulang",
                     style: TextStyle(
-                        color: PintuPayPalette.darkBlue,
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.bold),
+                      color: PintuPayPalette.darkBlue,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
               ),
@@ -107,16 +117,17 @@ class _AccountVerificationState extends State<AccountVerification> {
                   ),
                   onPressed: () {
                     CheckPhoneNumberCubit().onCheckOTP(OtpRegisterModel(
-                        id: widget.responseCheckPhoneNumber.id,
-                        otpCode: code,
-                        phoneNumber:
-                            widget.responseCheckPhoneNumber.phoneNumber));
+                      id: widget.responseCheckPhoneNumber.id,
+                      otpCode: code,
+                      phoneNumber: widget.responseCheckPhoneNumber.phoneNumber
+                    ));
                   },
                   child: Text(
                     'Lanjut',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: SizeConfig.screenHeight / 60),
+                      color: Colors.white,
+                      fontSize: SizeConfig.screenHeight / 60
+                    ),
                   ),
                 ),
               ),

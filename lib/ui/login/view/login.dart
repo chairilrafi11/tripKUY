@@ -169,15 +169,14 @@ class _LoginState extends State<Login> {
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () => routePush(
-                                    const CheckPhoneNumberView(),
-                                    RouterType.cupertino),
+                                onTap: () => routePush(CheckPhoneNumberView(), RouterType.cupertino),
                                 child: GestureDetector(
                                   child: Text(
                                     'Daftar',
                                     style: TextStyle(
-                                        color: PintuPayPalette.yellow,
-                                        fontSize: SizeConfig.screenHeight / 60),
+                                      color: PintuPayPalette.yellow,
+                                      fontSize: SizeConfig.screenHeight / 60
+                                    ),
                                   ),
                                 ),
                               )

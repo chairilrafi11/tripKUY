@@ -1,11 +1,16 @@
+import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/core/database/box/user/user_box_controller.dart';
+import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/register/cubit/register_cubit.dart';
 import 'package:pintupay/ui/t&c/view/term_and_condition.dart';
 import 'package:pintupay/ui/verification/model/register_form_model.dart';
@@ -25,14 +30,15 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
   final TextEditingController userNameController = TextEditingController();
+  final TextEditingController uidNameController = TextEditingController();
   final TextEditingController agentController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
 
@@ -53,6 +59,7 @@ class _RegisterState extends State<Register> {
 
   @override
   void initState() {
+    CoreFunction.logPrint("tag", widget.responseCheckPhoneNumber.toJson());
     super.initState();
   }
 
@@ -62,11 +69,12 @@ class _RegisterState extends State<Register> {
 
   Future dialogConfirm() {
     return showDialog(
-        context: navGK.currentContext!,
-        barrierDismissible: true,
-        builder: (BuildContext contextDialog) {
-          return DialogConfirmRegister(onRegister: onRegister);
-        });
+      context: navGK.currentContext!,
+      barrierDismissible: true,
+      builder: (BuildContext contextDialog) {
+        return DialogConfirmRegister(onRegister: onRegister);
+      }
+    );
   }
 
   Future<void> validate() async {
@@ -85,27 +93,47 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> onRegister() async {
-    RegisterCubit().onRegisterForm(RegisterFormModel(
-        imei: "",
-        user: User(
-          address: addressController.text,
-          birthDate: "13-07-2001",
-          cityName: "Bandung",
-          birthPlace: "Bandung",
-          email: emailController.text,
-          gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
-          name: userNameController.text,
-          storeName: agentController.text,
-          parentReferral: "PEORANGAN",
-          password: passwordController.text,
-          passwordConfirmation: confirmPasswordController.text,
-          phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
-          id: widget.responseCheckPhoneNumber.id,
-          // areaId: 0,
-          // canTransactions: true,
-          // cashBalance: 0
-        ),
-        userLocation: UserLocation(latitude: "", longitude: "")));
+    await RegisterCubit().onRegisterForm(RegisterFormModel(
+      imei: "",
+      user: User(
+        uid: uidNameController.text,
+        address: addressController.text,
+        birthDate: birthDateController.text,
+        fcm: await CoreFunction.generateFirebaseToken(),
+        cityName: cityController.text,
+        birthPlace: birthDateController.text,
+        email: emailController.text,
+        gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
+        name: userNameController.text,
+        storeName: agentController.text,
+        parentReferral: "PEORANGAN",
+        password: passwordController.text,
+        passwordConfirmation: confirmPasswordController.text,
+        phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
+        id: widget.responseCheckPhoneNumber.id,
+      ),
+      userLocation: UserLocation(latitude: "", longitude: "")
+    ));
+  }
+
+  void onTapBirtDateOld() {
+    DateTime dateNow = DateTime.now();
+    int endYear = DateTime.now().year - 17;
+    DateTime endDate = DateTime(endYear, dateNow.month, dateNow.day);
+    showDatePicker(
+      context: context,
+      initialDate: endDate,
+      firstDate: DateTime(1960),
+      lastDate: endDate,
+      currentDate: endDate,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+    ).then((date) {
+      if (date is DateTime) {
+        setState(() {
+          birthDateController.text = DateFormat('dd/MM/yyyy').format(date);
+        });
+      }
+    });
   }
 
   @override
@@ -131,18 +159,36 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                   height: SizeConfig.blockSizeVertical * 10,
                 ),
-                Component.textDefault('Sign Up',
-                    colors: PintuPayPalette.darkBlue,
-                    fontSize: 46,
-                    fontWeight: FontWeight.bold),
+                Component.textDefault(
+                  'Daftar',
+                  colors: PintuPayPalette.darkBlue,
+                  textAlign: TextAlign.center,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Component.textDefault(
+                  'Isi form di bawah ini dengan sesuai',
+                  colors: PintuPayPalette.blue1,
+                  textAlign: TextAlign.center,
+                  fontSize: PintuPayConstant.fontSizeLarge,
+                  maxLines: 5,
+                  fontWeight: FontWeight.bold
+                ),
                 SizedBox(
-                  height: SizeConfig.blockSizeVertical * 10,
+                  height: SizeConfig.blockSizeVertical * 5,
                 ),
                 _textFieldUserName(),
                 const SizedBox(
                   height: 4,
                 ),
                 _textFieldAgent(),
+                const SizedBox(
+                  height: 4,
+                ),
+                _textFieldUid(),
                 const SizedBox(
                   height: 4,
                 ),
@@ -197,42 +243,17 @@ class _RegisterState extends State<Register> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: PintuPayPalette.darkBlue,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                     ),
                     onPressed: () {
                       validate();
-                      // RegisterCubit().onRegisterForm(RegisterFormModel(
-                      //     imei: "",
-                      //     user: User(
-                      //       address: addressController.text,
-                      //       birthDate: "13-07-2001",
-                      //       cityName: "Bandung",
-                      //       birthPlace: "Bandung",
-                      //       email: emailController.text,
-                      //       gender: selectedRadioGender == 1
-                      //           ? "Laki - Laki"
-                      //           : "Perempuan",
-                      //       name: userNameController.text,
-                      //       storeName: agentController.text,
-                      //       parentReferral: "PEORANGAN",
-                      //       password: passwordController.text,
-                      //       passwordConfirmation: passwordController.text,
-                      //       phoneNumber:
-                      //           widget.responseCheckPhoneNumber.phoneNumber,
-                      //       id: widget.responseCheckPhoneNumber.id,
-                      //       // areaId: 0,
-                      //       // canTransactions: true,
-                      //       // cashBalance: 0
-                      //     ),
-                      //     userLocation:
-                      //         UserLocation(latitude: "", longitude: "")));
                     },
                     child: Text(
                       'Daftar',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: SizeConfig.screenHeight / 60),
+                        color: Colors.white,
+                        fontSize: SizeConfig.screenHeight / 60
+                      ),
                     ),
                   ),
                 ),
@@ -246,29 +267,29 @@ class _RegisterState extends State<Register> {
 
   Widget _buttonLihatSyaratKetentuan() {
     return Card(
-        margin: const EdgeInsets.only(right: 20.0),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        color: PintuPayPalette.darkBlue,
-        child: InkWell(
-          onTap: () {
-            routePush(const TermsAndCondition(), RouterType.cupertino)
-                .then((value) {
-              if (value != null) {
-                changeTermCondition(true);
-              }
-            });
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: SizeConfig.blockSizeHorizontal * 25,
-            height: SizeConfig.blockSizeVertical * 3,
-            child: const Text(
-              "Lihat",
-              style: TextStyle(color: Colors.white),
-            ),
+      margin: const EdgeInsets.only(right: 20.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      color: PintuPayPalette.darkBlue,
+      child: InkWell(
+        onTap: () {
+          routePush(const TermsAndCondition(), RouterType.cupertino)
+              .then((value) {
+            if (value != null) {
+              changeTermCondition(true);
+            }
+          });
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: SizeConfig.blockSizeHorizontal * 25,
+          height: SizeConfig.blockSizeVertical * 3,
+          child: const Text(
+            "Lihat",
+            style: TextStyle(color: Colors.white),
           ),
-        ));
+        ),
+      )
+    );
   }
 
   Widget _textFieldUserName() {
@@ -278,11 +299,12 @@ class _RegisterState extends State<Register> {
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
         FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z])', caseSensitive: false),
-            replacementString: ''),
+          RegExp(r'([a-z A-Z])', caseSensitive: false),
+          replacementString: ''
+        ),
       ],
       textInputAction: TextInputAction.next,
-      maxLength: 20,
+      maxLength: 30,
       style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -293,8 +315,10 @@ class _RegisterState extends State<Register> {
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.account_circle_rounded,
-              color: PintuPayPalette.darkBlue),
+          child: Icon(
+            Icons.account_circle_rounded,
+            color: PintuPayPalette.darkBlue
+          ),
         ),
         hintText: 'xxxxxxxxx',
         hintStyle: TextStyle(
@@ -304,6 +328,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Nama Agen',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -327,8 +355,9 @@ class _RegisterState extends State<Register> {
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
         FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z])', caseSensitive: false),
-            replacementString: ''),
+          RegExp(r'([a-z A-Z])', caseSensitive: false),
+          replacementString: ''
+        ),
       ],
       textInputAction: TextInputAction.next,
       maxLength: 20,
@@ -353,6 +382,63 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Nama Toko',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldUid() {
+    return TextFormField(
+      controller: uidNameController,
+      keyboardType: TextInputType.name,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.digitsOnly
+      ],
+      textInputAction: TextInputAction.next,
+      maxLength: 16,
+      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Wajib diisi*";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child: Icon(
+            Icons.account_circle_rounded,
+            color: PintuPayPalette.darkBlue
+          ),
+        ),
+        hintText: 'xxxxxxxxx',
+        hintStyle: TextStyle(
+          color: PintuPayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+        labelText: 'No KTP',
+        fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -376,8 +462,9 @@ class _RegisterState extends State<Register> {
       inputFormatters: [
         LengthLimitingTextInputFormatter(255),
         FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
-            replacementString: ''),
+          RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+          replacementString: ''
+        ),
       ],
       textInputAction: TextInputAction.next,
       maxLength: 40,
@@ -393,7 +480,7 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(17.0),
           child: Icon(Icons.email, color: PintuPayPalette.darkBlue),
         ),
-        hintText: 'xxxxxxxxx',
+        hintText: '...@..',
         hintStyle: TextStyle(
           color: PintuPayPalette.darkBlue,
           fontSize: SizeConfig.screenHeight / 60,
@@ -401,6 +488,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Email',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -448,6 +539,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Alamat',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -495,6 +590,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Kota',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -560,6 +659,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Password',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -629,6 +732,10 @@ class _RegisterState extends State<Register> {
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Konfimasi Password',
         fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
@@ -646,47 +753,61 @@ class _RegisterState extends State<Register> {
   }
 
   Widget _textFieldBirtDate() {
-    return TextFormField(
-      controller: birthDateController,
-      keyboardType: TextInputType.text,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.deny(
-            RegExp(
-                r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
-                caseSensitive: false),
-            replacementString: ''),
-      ],
-      enableSuggestions: false,
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      maxLength: 20,
-      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {},
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.date_range, color: PintuPayPalette.darkBlue),
-        ),
-        hintText: 'xxxxxxxxx',
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'Tanggal Lahir',
-        fillColor: PintuPayPalette.darkBlue,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+    return InkWell(
+      onTap: (){
+        onTapBirtDateOld();
+      },
+      child: TextFormField(
+        controller: birthDateController,
+        keyboardType: TextInputType.text,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(255),
+          FilteringTextInputFormatter.deny(
+              RegExp(
+                  r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
+                  caseSensitive: false),
+              replacementString: ''),
+        ],
+        enabled: false,
+        enableSuggestions: false,
+        autocorrect: false,
+        textInputAction: TextInputAction.next,
+        maxLength: 20,
+        style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+        validator: (value) {},
+        decoration: InputDecoration(
+          prefixIcon: const Padding(
+            padding: EdgeInsets.all(17.0),
+            child: Icon(Icons.date_range, color: PintuPayPalette.darkBlue),
+          ),
+          hintText: 'xxxxxxxxx',
+          hintStyle: TextStyle(
+            color: PintuPayPalette.darkBlue,
+            fontSize: SizeConfig.screenHeight / 60,
+          ),
+          labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+          labelText: 'Tanggal Lahir',
+          fillColor: PintuPayPalette.darkBlue,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+          ),
         ),
       ),
     );

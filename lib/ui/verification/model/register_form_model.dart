@@ -8,19 +8,19 @@ class RegisterFormModel {
   RegisterFormModel.fromJson(Map<String, dynamic> json) {
     imei = json['imei'];
     userLocation = json['user_location'] != null
-        ? new UserLocation.fromJson(json['user_location'])
+        ? UserLocation.fromJson(json['user_location'])
         : null;
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['imei'] = this.imei;
-    if (this.userLocation != null) {
-      data['user_location'] = this.userLocation!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['imei'] = imei;
+    if (userLocation != null) {
+      data['user_location'] = userLocation!.toJson();
     }
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     data.removeWhere((key, value) => value == null);
     return data;
@@ -39,9 +39,9 @@ class UserLocation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
     data.removeWhere((key, value) => value == null);
     return data;
   }
@@ -79,39 +79,42 @@ class User {
   int? totalPoint;
   int? typeId;
   String? uid;
+  String? fcm;
 
-  User(
-      {this.address,
-      this.areaId,
-      this.birthDate,
-      this.birthPlace,
-      this.canTransactions,
-      this.cashBalance,
-      this.cityName,
-      this.email,
-      this.expiredIdCard,
-      this.gender,
-      this.id,
-      this.idCardType,
-      this.loanBalance,
-      this.merchantTypeId,
-      this.namaGadisIbu,
-      this.name,
-      this.otherBalance,
-      this.parentReferral,
-      this.password,
-      this.passwordConfirmation,
-      this.phoneNumber,
-      this.roleId,
-      this.salesBalance,
-      this.salesSaldo,
-      this.statusId,
-      this.storeName,
-      this.totalBalance,
-      this.totalBonus,
-      this.totalPoint,
-      this.typeId,
-      this.uid});
+  User({
+    this.address,
+    this.areaId,
+    this.birthDate,
+    this.birthPlace,
+    this.canTransactions,
+    this.cashBalance,
+    this.cityName,
+    this.email,
+    this.expiredIdCard,
+    this.gender,
+    this.id,
+    this.idCardType,
+    this.loanBalance,
+    this.merchantTypeId,
+    this.namaGadisIbu,
+    this.name,
+    this.otherBalance,
+    this.parentReferral,
+    this.password,
+    this.passwordConfirmation,
+    this.phoneNumber,
+    this.roleId,
+    this.salesBalance,
+    this.salesSaldo,
+    this.statusId,
+    this.storeName,
+    this.totalBalance,
+    this.totalBonus,
+    this.totalPoint,
+    this.typeId,
+    this.uid,
+    this.fcm
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     address = json['address'];
@@ -145,41 +148,43 @@ class User {
     totalPoint = json['total_point'];
     typeId = json['type_id'];
     uid = json['uid'];
+    fcm = json['fcm'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['address'] = this.address;
-    data['area_id'] = this.areaId;
-    data['birth_date'] = this.birthDate;
-    data['birth_place'] = this.birthPlace;
-    data['can_transactions'] = this.canTransactions;
-    data['cash_balance'] = this.cashBalance;
-    data['city_name'] = this.cityName;
-    data['email'] = this.email;
-    data['expired_id_card'] = this.expiredIdCard;
-    data['gender'] = this.gender;
-    data['id'] = this.id;
-    data['id_card_type'] = this.idCardType;
-    data['loan_balance'] = this.loanBalance;
-    data['merchant_type_id'] = this.merchantTypeId;
-    data['nama_gadis_ibu'] = this.namaGadisIbu;
-    data['name'] = this.name;
-    data['other_balance'] = this.otherBalance;
-    data['parent_referral'] = this.parentReferral;
-    data['password'] = this.password;
-    data['password_confirmation'] = this.passwordConfirmation;
-    data['phone_number'] = this.phoneNumber;
-    data['role_id'] = this.roleId;
-    data['sales_balance'] = this.salesBalance;
-    data['sales_saldo'] = this.salesSaldo;
-    data['status_id'] = this.statusId;
-    data['store_name'] = this.storeName;
-    data['total_balance'] = this.totalBalance;
-    data['total_bonus'] = this.totalBonus;
-    data['total_point'] = this.totalPoint;
-    data['type_id'] = this.typeId;
-    data['uid'] = this.uid;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['address'] = address;
+    data['area_id'] = areaId;
+    data['birth_date'] = birthDate;
+    data['birth_place'] = birthPlace;
+    data['can_transactions'] = canTransactions;
+    data['cash_balance'] = cashBalance;
+    data['city_name'] = cityName;
+    data['email'] = email;
+    data['expired_id_card'] = expiredIdCard;
+    data['gender'] = gender;
+    data['id'] = id;
+    data['id_card_type'] = idCardType;
+    data['loan_balance'] = loanBalance;
+    data['merchant_type_id'] = merchantTypeId;
+    data['nama_gadis_ibu'] = namaGadisIbu;
+    data['name'] = name;
+    data['other_balance'] = otherBalance;
+    data['parent_referral'] = parentReferral;
+    data['password'] = password;
+    data['password_confirmation'] = passwordConfirmation;
+    data['phone_number'] = phoneNumber;
+    data['role_id'] = roleId;
+    data['sales_balance'] = salesBalance;
+    data['sales_saldo'] = salesSaldo;
+    data['status_id'] = statusId;
+    data['store_name'] = storeName;
+    data['total_balance'] = totalBalance;
+    data['total_bonus'] = totalBonus;
+    data['total_point'] = totalPoint;
+    data['type_id'] = typeId;
+    data['uid'] = uid;
+    data['fcm_token'] = fcm;
     data.removeWhere((key, value) => value == null);
     return data;
   }
