@@ -1,19 +1,23 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
+import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
+import 'package:pintupay/ui/menu/electric/model/electric_token_response.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
 class ElectricToken extends StatelessWidget {
-  const ElectricToken({ Key? key }) : super(key: key);
+  ElectricToken({ Key? key }) : super(key: key);
+
+  final ElectricCubit electricCubit = ElectricCubit() ;
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    const double itemHeight = 120;
-    final double itemWidth = size.width / 1.8;
     return Scaffold(
       body: Stack(
         children: [
@@ -32,7 +36,7 @@ class ElectricToken extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: TextFormField(
                       // controller: phoneContactController,
-                      decoration: Component.inputDecoration("No Handpone"),
+                      decoration: Component.inputDecoration("No pelanggan"),
                       maxLength: 16,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
@@ -49,63 +53,20 @@ class ElectricToken extends StatelessWidget {
                 const SizedBox(height: 10,),
                 Component.textBold("Pilih Token"),
                 const SizedBox(height: 10,),
-                Flexible(
-                  child: GridView.builder(
-                    // physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(0),
-                    itemCount: 20,
-                    scrollDirection: Axis.vertical,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: (itemWidth / itemHeight),
-                    ),
-                    itemBuilder: (BuildContext context, int index) { 
-                      return InkWell(
-                        // onTap: () => routePush(PaymentView(), RouterType.material),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Component.textBold(
-                                  "$index.000", 
-                                  fontSize: PintuPayConstant.fontSizeLargeExtra
-                                ),
-                                const SizedBox(height: 10,),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Component.textBold(
-                                      "RP 30.000",
-                                      fontSize: PintuPayConstant.fontSizeMedium,
-                                      colors: PintuPayPalette.orange
-                                    ),
-                                    const SizedBox(width: 10,),
-                                    const Text(
-                                      "RP 35.000",
-                                      style: TextStyle(
-                                        color: PintuPayPalette.grey,
-                                        fontFamily: PintuPayConstant.avenirRegular,
-                                        fontSize: PintuPayConstant.fontSizeSmall,
-                                        overflow: TextOverflow.ellipsis,
-                                        decoration: TextDecoration.lineThrough
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                BlocProvider(
+                  create: (context) => electricCubit..onGetToken(),
+                  child: BlocBuilder<ElectricCubit, ElectricState>(
+                    builder: (context, state) {
+                      if (state is ElectricLoading) {
+                        return const Flexible(child: ShimmerPulsa());
+                      } else if (state is ElectricLoaded) {
+                        return listToken(state.electricTokenResponse);
+                      } else {
+                        return Container();
+                      }
                     },
-                  ),
-                ),
+                  )
+                      )
               ],
             ),
           ),
@@ -113,4 +74,68 @@ class ElectricToken extends StatelessWidget {
       ),
     ); 
   }
+
+  Widget listToken(ElectricTokenResponse electricTokenResponse){
+    var size = MediaQuery.of(navGK.currentContext!).size;
+    const double itemHeight = 120;
+    final double itemWidth = size.width / 1.8;
+    return Flexible(
+      child: GridView.builder(
+        // physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(0),
+        itemCount: electricTokenResponse.pulsaListrik!.length,
+        scrollDirection: Axis.vertical,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: (itemWidth / itemHeight),
+        ),
+        itemBuilder: (BuildContext context, int index) { 
+          return InkWell(
+            // onTap: () => routePush(PaymentView(), RouterType.material),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Component.textBold(
+                      electricTokenResponse.pulsaListrik![index].name ?? "", 
+                      fontSize: PintuPayConstant.fontSizeLargeExtra
+                    ),
+                    const SizedBox(height: 10,),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Component.textBold(
+                          CoreFunction.moneyFormatter(electricTokenResponse.pulsaListrik![index].salePrice),
+                          fontSize: PintuPayConstant.fontSizeMedium,
+                          colors: PintuPayPalette.orange
+                        ),
+                        const SizedBox(width: 10,),
+                        // const Text(
+                        //   "RP 35.000",
+                        //   style: TextStyle(
+                        //     color: PintuPayPalette.grey,
+                        //     fontFamily: PintuPayConstant.avenirRegular,
+                        //     fontSize: PintuPayConstant.fontSizeSmall,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     decoration: TextDecoration.lineThrough
+                        //   ),
+                        // )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
 }

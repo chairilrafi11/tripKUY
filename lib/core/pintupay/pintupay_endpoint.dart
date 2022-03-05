@@ -49,4 +49,6 @@ class PintuPayEndpoint {
 
   static const String telephonePayment = "v6/ppob/payment/telkoms";
 
+  static const String listrikToken = "v2/product_token";
+
 }

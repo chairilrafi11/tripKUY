@@ -81,4 +81,7 @@ abstract class DioClient {
   @POST(PintuPayEndpoint.telephoneInquiry)
   Future<CoreModel> telephonePayment(@Body() Map<String, dynamic> body);
 
+  @GET(PintuPayEndpoint.listrikToken)
+  Future<CoreModel> electricToken(@Query('auth_token') String authToken);
+
 }
