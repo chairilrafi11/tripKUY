@@ -1,7 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/topup/cubit/topup_cubit.dart';
 import 'package:pintupay/ui/topup/view/topup_input_view.dart';
 import 'package:pintupay/ui/topup/view/topup_select_bank.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +104,13 @@ class BalanceNew extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: (){
-                routePush(TopupSelectbank(), RouterType.material);
+                routePush(
+                  BlocProvider(
+                    create: (context) => TopupCubit(),
+                    child: TopupSelectbank(), 
+                  ),
+                  RouterType.material
+                );
               },
               child: Card(
                 color: PintuPayPalette.yellow,

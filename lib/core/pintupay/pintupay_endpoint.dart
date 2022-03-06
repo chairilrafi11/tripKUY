@@ -52,4 +52,10 @@ class PintuPayEndpoint {
   static const String pdamInquiry = " v7/ppob/inquiry/pdams";
 
   static const String pdamPayment = "v7/ppob/payment/pdams";
+
+  static const String bank = "v2/bank_accounts/get_bank";
+
+  static const String topupRequest = "v6/topup/transactions";
+
+  static const String topupConfirm = "v6/topup/confirms";
 }

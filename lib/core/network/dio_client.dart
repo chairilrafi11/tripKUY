@@ -93,4 +93,13 @@ abstract class DioClient {
   @POST(PintuPayEndpoint.pdamPayment)
   Future<CoreModel> pdamPayment(@Body() Map<String, dynamic> body);
 
+  @GET(PintuPayEndpoint.bank)
+  Future<CoreModel> banks();
+
+  @POST(PintuPayEndpoint.topupRequest)
+  Future<CoreModel> topupRequest(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.topupConfirm)
+  Future<CoreModel> topupConfirm(@Body() Map<String, dynamic> body);
+
 }

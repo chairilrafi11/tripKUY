@@ -37,18 +37,20 @@ class PulsaCubit extends Cubit<PulsaState> {
       if(value != null) {
         pulsaPaymentModel.pin = value;
         var pulsaPayment = PintuPayCrypt().encrypt(jsonEncode(pulsaPaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await PulsaProvider.payment(PostBody(pulsaPayment).toJson());
+        var result = await PulsaProvider.payment(BodyRequestV7(pulsaPayment, pulsaPayment).toJson());
+        
+        if(result.authToken != null){
+          BillStatusModel billStatusModel = BillStatusModel(
+            billBody: listInformation.map((e){
+              return BillBodyModel(e.first, e.last);
+            }).toList(),
+            status: ""
+          );
 
-        BillStatusModel billStatusModel = BillStatusModel(
-          billBody: listInformation.map((e){
-            return BillBodyModel(e.first, e.last);
-          }).toList(),
-          status: ""
-        );
-
-        routePush(BillView(
-          billStatusModel
-        ));
+          routePush(BillView(
+            billStatusModel
+          ));
+        }
       }
     });
   }
@@ -58,8 +60,8 @@ class PulsaCubit extends Cubit<PulsaState> {
     listInformation = [
       {"Provider", "Three"},
       {"Produk", pulsa.name ?? ""},
-      {"Harga", CoreFunction.moneyFormatter(pulsa.price)},
       {"No Pengguna", phoneNumber},
+      {"Harga", CoreFunction.moneyFormatter(pulsa.price)},
     ];
 
     pulsaPaymentModel = PulsaPaymentModel(
