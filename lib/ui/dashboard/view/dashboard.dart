@@ -1,5 +1,6 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/dashboard/cubit/dashboard_cubit.dart';
 import 'package:pintupay/ui/home/view/home.dart';
 import 'package:pintupay/ui/notification/view/notification_view.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Dashboard extends StatelessWidget {
-  Dashboard({Key? key,this.page = 0}) : super(key: key);
+  Dashboard({Key? key, this.page = 0}) : super(key: key);
   final int page;
 
   final DashboardCubit dashboardCubit = DashboardCubit();
@@ -18,34 +19,36 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return BlocProvider(
-      create: (context) => dashboardCubit..pickItem(page),
-      child: Scaffold(
-        extendBody: true,
-        resizeToAvoidBottomInset: false,
-        body: WillPopScope(
-          onWillPop: () => dashboardCubit.handleWillPop(),
-          child: BlocBuilder<DashboardCubit, DashboardState>(
-            builder: (context, state) {
-              switch (state.navBarItem) {
-                case NavBarItem.home:
-                  return Home();
-                case NavBarItem.transaction:
-                  return TransactionView();
-                case NavBarItem.notification:
-                  return const NotificationView();    
-                case NavBarItem.profile:
-                  return ProfilePage();
-                default:
-                  return Container();
-              }
-            },
-          )
-        ),
-        bottomNavigationBar: buildBottomNavigation(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: _buildFloatingActionButton(),
-      )
-    );
+        create: (context) => dashboardCubit..pickItem(page),
+        child: Scaffold(
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
+          body: WillPopScope(
+              onWillPop: () => dashboardCubit.handleWillPop(),
+              child: BlocBuilder<DashboardCubit, DashboardState>(
+                builder: (context, state) {
+                  switch (state.navBarItem) {
+                    case NavBarItem.home:
+                      return BlocProvider(
+                        create: (context) => BalanceCubit(),
+                        child: Home(),
+                      );
+                    case NavBarItem.transaction:
+                      return TransactionView();
+                    case NavBarItem.notification:
+                      return const NotificationView();
+                    case NavBarItem.profile:
+                      return const ProfilePage();
+                    default:
+                      return Container();
+                  }
+                },
+              )),
+          bottomNavigationBar: buildBottomNavigation(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: _buildFloatingActionButton(),
+        ));
   }
 
   Widget buildBottomNavigation() {
@@ -69,7 +72,8 @@ class Dashboard extends StatelessWidget {
               label: "Transaksi",
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.notifications, color: PintuPayPalette.darkBlue),
+              activeIcon:
+                  Icon(Icons.notifications, color: PintuPayPalette.darkBlue),
               icon: Icon(Icons.notifications, color: PintuPayPalette.grey),
               label: "Notifikasi",
             ),
@@ -85,17 +89,17 @@ class Dashboard extends StatelessWidget {
   }
 
   Widget _buildFloatingActionButton() => Transform.translate(
-    offset: const Offset(0, -10),
-    child: FloatingActionButton(
-      elevation: 15.0,
-      focusElevation: 2.0,
-      autofocus: false,
-      backgroundColor: PintuPayPalette.darkBlue,
-      child: const Icon(Icons.qr_code_scanner, color: PintuPayPalette.white, size: 40),
-      onPressed: () {
-        // routePush(const QRPage());
-        // CoreFunction.showToast("Segera datang", backgroundColor: PintuPayPalette.green);
-      }
-    ),
-  );
+        offset: const Offset(0, -10),
+        child: FloatingActionButton(
+            elevation: 15.0,
+            focusElevation: 2.0,
+            autofocus: false,
+            backgroundColor: PintuPayPalette.darkBlue,
+            child: const Icon(Icons.qr_code_scanner,
+                color: PintuPayPalette.white, size: 40),
+            onPressed: () {
+              // routePush(const QRPage());
+              // CoreFunction.showToast("Segera datang", backgroundColor: PintuPayPalette.green);
+            }),
+      );
 }

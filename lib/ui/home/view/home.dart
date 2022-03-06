@@ -1,6 +1,7 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/size_config.dart';
+import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/balance/view/balance_view.dart';
 import 'package:pintupay/ui/banner/banner_advertise.dart';
 import 'package:pintupay/ui/banner/cubit/banner_cubit.dart';
@@ -8,12 +9,13 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pintupay/ui/profile/provider/profile_provider.dart';
 
 class Home extends StatelessWidget {
 
   Home({ Key? key }) : super(key: key);
 
-  List<Set<String>> listMenu = [
+  final List<Set<String>> listMenu = [
     {"Bpjs", "assets/icons/icmn_bpjs.png"},
     {"E-Money", "assets/icons/icmn_emoney.png"},
     {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
@@ -33,23 +35,26 @@ class Home extends StatelessWidget {
       backgroundColor: PintuPayPalette.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
-        child: ListView(
-          children: [
-            const SizedBox(height: 10,),
-            const BalanceNew(),
-            const SizedBox(height: 10,),
-            BlocProvider(
-              create: (context) => BannerCubit('primary'),
-              child: const BannerAdvertise(),
-            ),
-            const SizedBox(height: 20,),
-            Component.textBold("Menu", colors: PintuPayPalette.darkBlue),
-            const SizedBox(height: 20,),
-            menu(),
-            const SizedBox(height: 10,),
-            feeds(),
-            const SizedBox(height: 20,),
-          ],
+        child: RefreshIndicator(
+          onRefresh: () => BlocProvider.of<BalanceCubit>(context).onGetBalance(),
+          child: ListView(
+            children: [
+              const SizedBox(height: 10,),
+              const BalanceNew(),
+              const SizedBox(height: 10,),
+              BlocProvider(
+                create: (context) => BannerCubit('primary'),
+                child: const BannerAdvertise(),
+              ),
+              const SizedBox(height: 20,),
+              Component.textBold("Menu", colors: PintuPayPalette.darkBlue),
+              const SizedBox(height: 20,),
+              menu(),
+              const SizedBox(height: 10,),
+              feeds(),
+              const SizedBox(height: 20,),
+            ],
+          ),
         ),
       ),
     );
