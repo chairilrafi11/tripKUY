@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:pintupay/ui/menu/phone_postpaid/model/pascabayar_provider.dart';
+import 'package:pintupay/ui/menu/phone_postpaid/model/pascabayar_provider_response.dart';
 import 'package:pintupay/ui/menu/phone_postpaid/model/pascabayar_payment_model.dart';
 import 'package:pintupay/ui/menu/phone_postpaid/provider/pascabayar_provider.dart';
 
@@ -29,8 +29,7 @@ class PhonePostpaidCubit extends Cubit<PhonePostpaidState> {
   late PascabayarPaymentModel pascabayarPaymentModel;
 
   Future<void> onGetProvider() async {
-    PascabayarProviderResponse pascabayarProviderResponse =
-        PascabayarProviderResponse();
+    PascabayarProviderResponse pascabayarProviderResponse = PascabayarProviderResponse();
     var provider = await PascabayarProvider.provider();
     provider.add(pascabayarProviderResponse);
     emit(PascabayarLoaded(

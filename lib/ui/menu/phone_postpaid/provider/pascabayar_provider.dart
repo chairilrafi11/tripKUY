@@ -1,6 +1,6 @@
 import 'package:pintupay/core/network/network.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
-import 'package:pintupay/ui/menu/phone_postpaid/model/pascabayar_provider.dart';
+import 'package:pintupay/ui/menu/phone_postpaid/model/pascabayar_provider_response.dart';
 
 import '../model/pascabayar_inquiry_response.dart';
 

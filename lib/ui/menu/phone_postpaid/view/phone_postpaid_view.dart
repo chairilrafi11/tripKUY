@@ -3,12 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
-import 'package:pintupay/ui/menu/phone_postpaid/model/provider_pascabayar.dart';
-
-import '../../../../core/util/core_variable.dart';
 import '../../../../core/util/size_config.dart';
 import '../cubit/phone_postpaid_cubit.dart';
-import '../model/pascabayar_provider.dart';
+import '../model/pascabayar_provider_response.dart';
 
 class PhonePostpaidView extends StatefulWidget {
   const PhonePostpaidView({Key? key}) : super(key: key);
@@ -18,7 +15,6 @@ class PhonePostpaidView extends StatefulWidget {
 }
 
 class _PhonePostpaidViewState extends State<PhonePostpaidView> {
-  PhonePostpaidModel? tempdata;
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController custCodeController = TextEditingController();
 
@@ -46,8 +42,8 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                     child: Column(
                       children: [
                         TextFormField(
-                          // controller: phoneContactController,
-                          decoration:Component.decorationNoBorder("No Pelanggan"),
+                          decoration:
+                              Component.decorationNoBorder("No Pelanggan"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -62,8 +58,10 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                         const SizedBox(
                           height: 10,
                         ),
-                        BlocProvider(create: (context) => phonePostpaidCubit,
-                        child: providerList(),),
+                        BlocProvider(
+                          create: (context) => phonePostpaidCubit,
+                          child: providerList(),
+                        ),
                         // providerList(),
                         const SizedBox(
                           height: 20,
@@ -73,19 +71,18 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                           margin: const EdgeInsets.symmetric(vertical: 25),
                           child: InkWell(
                             onTap: () {
-                              phonePostpaidCubit.onInquiry(custCodeController.text);
+                              phonePostpaidCubit
+                                  .onInquiry(custCodeController.text);
                             },
                             child: Container(
                               width: SizeConfig.blockSizeHorizontal * 100,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10
-                              ),
+                                  horizontal: 10, vertical: 10),
                               decoration: const BoxDecoration(
                                   color: PintuPayPalette.darkBlue,
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                              ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
                               child: Component.textBold(
                                 'Tagihan',
                                 colors: PintuPayPalette.white,
@@ -94,14 +91,6 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                             ),
                           ),
                         ),
-                        // Component.button(
-                        //     label: "Cek Tagihan",
-                        //     onPressed: () {
-                        //       PhonePostpaidCubit().onInquiry(
-                        //         custId: custCodeController.text,
-                        //         providerName: tempdata?.product ?? '',
-                        //       );
-                        //     }),
                       ],
                     ),
                   ),
@@ -113,64 +102,6 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
       ),
     );
   }
-
-  List<Widget> inputArea(BuildContext context) {
-    return [
-      Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Component.textBold(
-          'Provider Pascabayar',
-          colors: PintuPayPalette.darkBlue,
-          fontSize: 15,
-        ),
-      ),
-      providerList(),
-      const SizedBox(
-        height: 10,
-      ),
-      Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.symmetric(
-          vertical: 25,
-        ),
-        child: InkWell(
-          child: Container(
-            padding: const EdgeInsets.all(10.0),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            width: SizeConfig.blockSizeHorizontal * 80,
-            decoration: BoxDecoration(
-                borderRadius: CoreVariable.borderRadius10,
-                color: PintuPayPalette.green),
-            alignment: Alignment.center,
-            child: Component.textBold('Cek Tagihan',
-                colors: PintuPayPalette.white, fontSize: 15),
-          ),
-        ),
-      ),
-    ];
-  }
-
-  // Widget inquiryView() {
-  //   return BlocBuilder<PhonePostpaidCubit, PhonePostpaidState>(
-  //     builder: (context, state) {
-  //       if (state is InquirySuccess) {
-  //         return InquiryPasca(
-  //           responseInquiryPasca: state.responseInquiryPasca,
-  //         );
-  //       } else if (state is InquiryFailed) {
-  //         return const SizedBox();
-  //       } else if (state is InquiryLoading) {
-  //         return const Expanded(
-  //           child: Center(
-  //             child: CircularProgressIndicator(),
-  //           ),
-  //         );
-  //       } else {
-  //         return const SizedBox();
-  //       }
-  //     },
-  //   );
-  // }
 
   Widget providerList() {
     return Container(
@@ -202,9 +133,7 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                   );
                 }).toList(),
                 onChanged: (newValue) {
-                  setState(() {
-                    tempdata = newValue as PhonePostpaidModel?;
-                  });
+                  phonePostpaidCubit.setProvider(newValue!);
                 });
           } else {
             return const Center(child: CircularProgressIndicator());
