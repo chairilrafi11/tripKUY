@@ -47,6 +47,10 @@ class PintuPayEndpoint {
 
   static const String listrikToken = "v2/product_token";
 
+  static const String listrikPostpaidInquiry = "v6/ppob/inquiry/plns";
+
+  static const String listrikPostpaidPayment = "api/v6/ppob/payment/plns";
+
   static const String pdamProduct = "v1/pdam_products";
 
   static const String pdamInquiry = " v7/ppob/inquiry/pdams";

@@ -137,7 +137,7 @@ class Component {
       onPressed: onPressed,
       child: Container(
         width: SizeConfig.blockSizeHorizontal * 100,
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
         child: Text(
           label,
           textAlign: TextAlign.center,
@@ -173,4 +173,24 @@ class Component {
       ),
     );
   }
+
+  static Widget notice(String notice) {
+    return Flexible(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.info, color: PintuPayPalette.darkBlue,),
+          const SizedBox(width: 10,),
+          Flexible(
+            child: Component.textDefault(
+              notice,
+              fontSize: PintuPayConstant.fontSizeMedium,
+              maxLines: 10
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
 }

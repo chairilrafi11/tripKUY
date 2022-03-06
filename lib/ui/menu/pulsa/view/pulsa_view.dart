@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
@@ -7,7 +6,6 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/pulsa/cubit/pulsa_cubit.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
-import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -18,7 +16,7 @@ class PulsaView extends StatelessWidget {
 
   final PulsaCubit pulsaCubit = PulsaCubit();
 
-  TextEditingController phoneContactController = TextEditingController();
+  final TextEditingController phoneContactController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
