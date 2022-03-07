@@ -13,7 +13,7 @@ class BPJSProvider {
   static Future<BPJSInquiryResponse> payment(Map<String, dynamic> body) async {
     var dio = await DioService.checkConnection(tryAgainMethod: inquiry, isLoading: true);
     DioClient dioClient = DioClient(dio);
-    var result = await dioClient.bpjsInquiry(body);
+    var result = await dioClient.bpjsPayment(body);
     return BPJSInquiryResponse.fromJson(result.data);
   } 
 

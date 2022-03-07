@@ -32,11 +32,7 @@ class ErrorHandlingResponse {
           
         });
       } else if (responseConverter.code == 402) {
-        if(responseConverter.message!.toLowerCase().contains("saldo")){
-          // EtekadDialog().dialogTopup();
-        }else  if(showMessage){
-          CoreFunction.showToast(responseConverter.message!, duration: 2);
-        }
+        CoreFunction.showToast(responseConverter.message!, duration: 2);
       } else if (responseConverter.code == 403) {
       } else if (responseConverter.code == 404) {
         CoreFunction.showToast(responseConverter.message ?? "", duration: 2);

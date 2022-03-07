@@ -52,7 +52,7 @@ class PaymentView extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listInformation.length,
+                  itemCount: listInformation.length - 1,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.5),
@@ -124,7 +124,7 @@ class PaymentView extends StatelessWidget {
                       Component.textBold("Total Pembayaran"),
                       const SizedBox(height: 5,),
                       Component.textBold(
-                        CoreFunction.moneyFormatter(listInformation.last.last.replaceFirst("Rp", '')), 
+                        listInformation.last.last, 
                         colors: PintuPayPalette.orange
                       )
                     ],

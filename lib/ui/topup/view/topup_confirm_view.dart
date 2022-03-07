@@ -1,21 +1,25 @@
+import 'package:flutter/services.dart';
+import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
+import 'package:pintupay/ui/topup/model/bank_response.dart';
+import 'package:pintupay/ui/topup/model/topup_request_response.dart';
 
 class TopupConfirmView extends StatelessWidget {
 
-  TopupConfirmView({ Key? key }) : super(key: key);
+  final BankResponse bankResponse;
+  final TopupRequestResponse topupRequestResponse;
 
-  final List<Set<String>> listProfile = [
-    {"Bank", "Bank Negara Indonesia"},
-    {"Nomor Rekening", "2210075324"},
-    {"Nama Rekening", "Chairil Rafi Purnama"},
-    // {"No KTP", "1234567890123456"},
-  ];
+  TopupConfirmView({ 
+    required this.bankResponse,
+    required this.topupRequestResponse,
+    Key? key 
+  }) : super(key: key);
 
   List<String> info = [
     "Pilih m-Transfer > Daftar Transfer > Antar Rekening",
@@ -33,6 +37,7 @@ class TopupConfirmView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 20,),
             Component.textBold("Informasi Rekening", fontSize: PintuPayConstant.fontSizeLargeExtra),
@@ -48,47 +53,59 @@ class TopupConfirmView extends StatelessWidget {
                     Row(
                       children: [
                         CachedNetworkImage(
-                          imageUrl: "https://1.bp.blogspot.com/-r636Aob_z_A/XicFI0zvA-I/AAAAAAAABe8/dIi1moSFZpMO7TFwhXAIEeaIpQhMCK9yACLcBGAsYHQ/s1600/Logo%2Bbank%2BBNI.png",
+                          imageUrl: bankResponse.logo ?? "",
                           width: SizeConfig.blockSizeHorizontal * 15,
                           height: 50,
                         ),
                         const SizedBox(width: 10,),
                         Component.textBold(
-                          "Bank Negara Indonesia",
+                          bankResponse.bankName ?? "",
                           colors: PintuPayPalette.darkBlue,
                           fontSize: PintuPayConstant.fontSizeLarge
                         )
                       ],
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 30,),
                     Component.textDefault(
                       "Nomor Rekening",
                       colors: PintuPayPalette.greyText,
                       fontSize: PintuPayConstant.fontSizeMedium
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 5,),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Component.textBold(
-                          "2210075324",
+                          bankResponse.accountNumber ?? "",
                           colors: PintuPayPalette.darkBlue,
                           fontSize: PintuPayConstant.fontSizeLarge
                         ),
                         const Spacer(),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                              color: PintuPayPalette.orange,
-                              width: 1
-                            )
-                          ),
-                          child: Component.textDefault(
-                            "Salin",
-                            colors: PintuPayPalette.orange,
-                            fontSize: PintuPayConstant.fontSizeSmall
+                        InkWell(
+                          onTap: () {
+                            Clipboard.setData(ClipboardData(
+                              text: (bankResponse.accountNumber).toString()
+                            )).then((value) {
+                              CoreFunction.showToast(
+                                "Nomor Rekening telah di salin",
+                                backgroundColor: PintuPayPalette.darkBlue
+                              );
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: PintuPayPalette.orange,
+                                width: 1
+                              )
+                            ),
+                            child: Component.textDefault(
+                              "Salin",
+                              colors: PintuPayPalette.orange,
+                              fontSize: PintuPayConstant.fontSizeSmall
+                            ),
                           ),
                         )
                       ],
@@ -103,12 +120,58 @@ class TopupConfirmView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10,),
                     Component.textBold(
-                      "Chairil Rafi Purnama",
+                      bankResponse.name ?? "",
                       colors: PintuPayPalette.darkBlue,
                       fontSize: PintuPayConstant.fontSizeLarge
                     ),
                     const SizedBox(height: 5,),
-                    Component.divider()
+                    Component.divider(), 
+                    const SizedBox(height: 10,),
+                    Component.textDefault(
+                      "Total Topup",
+                      colors: PintuPayPalette.greyText,
+                      fontSize: PintuPayConstant.fontSizeMedium
+                    ),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Component.textBold(
+                          CoreFunction.moneyFormatter(topupRequestResponse.amount),
+                          colors: PintuPayPalette.red,
+                          fontSize: PintuPayConstant.fontSizeLarge
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: (){
+                            Clipboard.setData(ClipboardData(
+                              text: (topupRequestResponse.amount).toString()
+                            )).then((value) {
+                              CoreFunction.showToast(
+                                "Nominal transfer telah di salin",
+                                backgroundColor: PintuPayPalette.darkBlue
+                              );
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: PintuPayPalette.orange,
+                                width: 1
+                              )
+                            ),
+                            child: Component.textDefault(
+                              "Salin",
+                              colors: PintuPayPalette.orange,
+                              fontSize: PintuPayConstant.fontSizeSmall
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                   
                   ],
                 ),
               ),
@@ -143,6 +206,13 @@ class TopupConfirmView extends StatelessWidget {
                 },
               ),
             ),
+            const Spacer(),
+            Component.button(
+              label: "Beranda", 
+              onPressed: (){
+                pushAndRemoveUntil(Dashboard(), RouterType.material);
+              }
+            )
           ],
         ),
       ),
