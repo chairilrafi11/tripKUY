@@ -4,13 +4,12 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pintupay/ui/menu/pdam/model/pdam_disctric.dart';
+import 'package:pintupay/ui/menu/pdam/model/pdam_disctric_response.dart';
 
 import '../../../../core/util/size_config.dart';
 import '../cubit/pdam_cubit.dart';
 
 class PDAMView extends StatelessWidget {
-
   PDAMView({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -25,22 +24,24 @@ class PDAMView extends StatelessWidget {
         children: [
           Component.header(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(
+                horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [
                 Component.appBar("PDAM", transparet: true),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30, horizontal: 20),
                     child: Column(
                       children: [
                         TextFormField(
                           // controller: phoneContactController,
-                          decoration:Component.decorationNoBorder("No Pelanggan"),
+                          decoration:
+                              Component.decorationNoBorder("No Pelanggan"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -73,13 +74,11 @@ class PDAMView extends StatelessWidget {
                               width: SizeConfig.blockSizeHorizontal * 100,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 10, 
-                                vertical: 10
-                              ),
+                                  horizontal: 10, vertical: 10),
                               decoration: const BoxDecoration(
-                                color: PintuPayPalette.darkBlue,
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))
-                              ),
+                                  color: PintuPayPalette.darkBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
                               child: Component.textBold(
                                 'Tagihan',
                                 colors: PintuPayPalette.white,
@@ -105,15 +104,15 @@ class PDAMView extends StatelessWidget {
       padding: const EdgeInsets.only(top: 15),
       width: SizeConfig.screenWidth * 1,
       child: TextFormField(
-        key: formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        controller: idController,
-        keyboardType: TextInputType.phone,
-        textInputAction: TextInputAction.done,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        maxLength: 18,
-        decoration:Component.inputDecoration("Kode Pelanggan", hintText: "12345")
-      ),
+          key: formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: idController,
+          keyboardType: TextInputType.phone,
+          textInputAction: TextInputAction.done,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          maxLength: 18,
+          decoration:
+              Component.inputDecoration("Kode Pelanggan", hintText: "12345")),
     );
   }
 

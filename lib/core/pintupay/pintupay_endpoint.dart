@@ -25,13 +25,11 @@ class PintuPayEndpoint {
 
   static const String profile = "v1/users/{auth_token}";
 
-  static const String productsPDAM = "v1/pdam_products";
+  static const String pascabayarProduct = "v2/ppob/cellulars/pasca_products";
 
-  static const String productsPasca = "v2/ppob/cellulars/pasca_products";
+  static const String pascabayarInquiry = "v7/ppob/inquiry/cellulars";
 
-  static const String phonePaidInquiry = "v7/ppob/inquiry/cellulars";
-
-  static const String phonePaidPayment = "v7/ppob/payment/cellulars";
+  static const String pascabayarPayment = "v7/ppob/payment/cellulars";
 
   static const String emoneyProvider = "v2/emoney/provider_emoney";
 

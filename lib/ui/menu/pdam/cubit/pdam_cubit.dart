@@ -10,7 +10,7 @@ import 'package:pintupay/core/usecase/view_usecase.dart';
 import 'package:pintupay/ui/bill/model/bill_body_model.dart';
 import 'package:pintupay/ui/bill/model/bill_status_model.dart';
 import 'package:pintupay/ui/bill/view/bill_view.dart';
-import 'package:pintupay/ui/menu/pdam/model/pdam_disctric.dart';
+import 'package:pintupay/ui/menu/pdam/model/pdam_disctric_response.dart';
 import 'package:pintupay/ui/menu/pdam/model/pdam_inquiry_model.dart';
 import 'package:pintupay/ui/menu/pdam/model/pdam_payment_model.dart';
 import 'package:pintupay/ui/menu/pdam/provider/pdam_provider.dart';
