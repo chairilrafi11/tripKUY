@@ -16,14 +16,14 @@ class Home extends StatelessWidget {
   Home({ Key? key }) : super(key: key);
 
   final List<Set<String>> listMenu = [
-    {"Bpjs", "assets/icons/icmn_bpjs.png"},
-    {"E-Money", "assets/icons/icmn_emoney.png"},
-    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
+    {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
     {"Listrik", "assets/icons/icmn_listrik.png"},
     {"PDAM", "assets/icons/icmn_pdam.png"},
-    {"Pulsa", "assets/icons/icmn_pulsa.png"},
+    {"Bpjs", "assets/icons/icmn_bpjs.png"},
+    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
     {"Telepon", "assets/icons/icmn_telepon.png"},
-    {"Paket \n Data", "assets/icons/icmn_tiket_kereta.png"}
+    {"E-Money", "assets/icons/icmn_emoney.png"},
+    {"Game", "assets/icons/icmn_game.png"}
   ];
 
   final HomeCubit _homeCubit = HomeCubit();

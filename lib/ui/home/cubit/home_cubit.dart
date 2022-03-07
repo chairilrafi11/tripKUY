@@ -54,7 +54,7 @@ class HomeCubit extends Cubit<HomeState> {
           RouterType.cupertino,
         );
         break;
-      case "pulsa":
+      case "pulsa & data":
         routePush(PulsaView(), RouterType.material);
         break;
       case "telepon":
@@ -63,6 +63,8 @@ class HomeCubit extends Cubit<HomeState> {
       case "paket \n data":
         routePush(DataPlanView(), RouterType.material);
         break;
+      case "game":
+      break;  
       // default:
     }
   }
