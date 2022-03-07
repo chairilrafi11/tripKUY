@@ -25,7 +25,7 @@ class PintuPayEndpoint {
 
   static const String profile = "v1/users/{auth_token}";
 
-  static const String productsPDAM = "v1/pdam_products";
+  static const String pascabayarProduct = "v2/ppob/cellulars/pasca_products";
 
   static const String phonePostpaidProvider = "v2/ppob/cellulars/pasca_products";
 
