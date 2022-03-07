@@ -19,3 +19,4 @@ class ElectricLoaded extends ElectricState {
     required this.electricTokenResponse
   });
 }
+class ElectricEmpty extends ElectricState {}

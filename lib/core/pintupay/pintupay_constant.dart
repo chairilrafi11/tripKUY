@@ -13,4 +13,35 @@ class PintuPayConstant {
   static const transactionPending = "02";
   static const transactionSuccess = "03";
   static const transactionfailed = "04";
+
+  static const List<String> codedMonth = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  static const List<String> decodedMonth = [
+    r'Januari',
+    r'Februari',
+    r'Maret',
+    r'April',
+    r'Mei',
+    r'Juni',
+    r'Juli',
+    r'Agustus',
+    r'September',
+    r'Oktober',
+    r'November',
+    r'Desember'
+  ];
+
 }

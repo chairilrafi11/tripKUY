@@ -91,4 +91,20 @@ abstract class DioClient {
 
   @POST(PintuPayEndpoint.pascabayarPayment)
   Future<CoreModel> pascabayarPayment(@Body() Map<String, dynamic> body);
+
+  @GET(PintuPayEndpoint.bank)
+  Future<CoreModel> banks();
+
+  @POST(PintuPayEndpoint.topupRequest)
+  Future<CoreModel> topupRequest(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.topupConfirm)
+  Future<CoreModel> topupConfirm(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.listrikPostpaidInquiry)
+  Future<CoreModel> electricPostpaidInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.listrikPostpaidPayment)
+  Future<CoreModel> electricPostpaidPayment(@Body() Map<String, dynamic> body);
+
 }

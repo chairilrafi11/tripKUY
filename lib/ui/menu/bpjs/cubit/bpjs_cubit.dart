@@ -73,19 +73,21 @@ class BpjsCubit extends Cubit<BpjsState> {
     CoreFunction.showPin(navGK.currentContext!).then((value) async {
       if(value != null) {
         bpjsPaymentModel.pin = value;
-        var pulsaPayment = PintuPayCrypt().encrypt(jsonEncode(bpjsPaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await BPJSProvider.payment(PostBody(pulsaPayment).toJson());
+        var payment = PintuPayCrypt().encrypt(jsonEncode(bpjsPaymentModel), await PintuPayCrypt().getPassKeyPref());
+        var result = await BPJSProvider.payment(PostBody(payment).toJson());
 
-        BillStatusModel billStatusModel = BillStatusModel(
-          billBody: listInformation.map((e){
-            return BillBodyModel(e.first, e.last);
-          }).toList(),
-          status: ""
-        );
+        if(result.noVa != null) {
+          BillStatusModel billStatusModel = BillStatusModel(
+            billBody: listInformation.map((e){
+              return BillBodyModel(e.first, e.last);
+            }).toList(),
+            status: ""
+          );
 
-        routePush(BillView(
-          billStatusModel
-        ));
+          routePush(BillView(
+            billStatusModel
+          ));
+        }
       }
     });
   }

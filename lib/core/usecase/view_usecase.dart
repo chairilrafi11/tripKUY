@@ -1,7 +1,7 @@
 
 import 'package:pintupay/core/util/util.dart';
 
-enum Feature {pulsa, bpjs, telephone, pdam, pascabayar}
+enum Feature {pulsa, bpjs, telephone, pdam, electric, pascabayar}
 
 class ViewUsecase {
 
@@ -17,6 +17,8 @@ class ViewUsecase {
         return "assets/icons/icmn_pdam.png";
       case Feature.pascabayar:
         return "assets/icons/icmn_hppascabayar.png";
+      case Feature.electric:
+        return "assets/icons/icmn_listrik.png";
       default:
         return "";
     }
@@ -34,6 +36,8 @@ class ViewUsecase {
         return "PDAM";
       case Feature.pascabayar:
         return "Pascabayar";
+      case Feature.electric:
+        return "Listrik";
       default:
         return "";
     }
