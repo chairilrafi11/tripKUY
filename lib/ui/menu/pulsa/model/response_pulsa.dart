@@ -33,14 +33,16 @@ class Pulsa {
   String? name;
   int? price;
   int? statusId;
+  String? providerName;
 
-  Pulsa({this.id, this.name, this.price, this.statusId});
+  Pulsa({this.id, this.name, this.price, this.statusId, this.providerName});
 
   Pulsa.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     price = json['price'];
     statusId = json['status_id'];
+    providerName = json['provider_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +51,7 @@ class Pulsa {
     data['name'] = this.name;
     data['price'] = this.price;
     data['status_id'] = this.statusId;
+    data['provider_name'] = this.providerName;
     return data;
   }
 }
@@ -58,14 +61,16 @@ class Data {
   String? name;
   int? price;
   int? statusId;
+  String? providerName;
 
-  Data({this.id, this.name, this.price, this.statusId});
+  Data({this.id, this.name, this.price, this.statusId, this.providerName});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     price = json['price'];
     statusId = json['status_id'];
+    providerName = json['provider_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +79,7 @@ class Data {
     data['name'] = this.name;
     data['price'] = this.price;
     data['status_id'] = this.statusId;
+    data['provider_name'] = this.providerName;
     return data;
   }
 }
