@@ -6,6 +6,8 @@ class ElectricPospaidPaymentModel {
   String? totalPayment;
   String? type;
   String? authToken;
+  String? balance;
+  String? transactionId;
 
   ElectricPospaidPaymentModel({
     this.pin,
@@ -14,7 +16,9 @@ class ElectricPospaidPaymentModel {
     this.id,
     this.totalPayment,
     this.type,
-    this.authToken
+    this.authToken,
+    this.balance,
+    this.transactionId
   });
 
   ElectricPospaidPaymentModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,8 @@ class ElectricPospaidPaymentModel {
     totalPayment = json['total_payment'];
     type = json['type'];
     authToken = json['auth_token'];
+    balance = json['balance'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +42,8 @@ class ElectricPospaidPaymentModel {
     data['total_payment'] = totalPayment;
     data['type'] = type;
     data['auth_token'] = authToken;
+    data['balance'] = balance;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

@@ -194,7 +194,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/transactions',
+                .compose(_dio.options, 'v7/transactions',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -278,7 +278,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/inquiry/bpjs',
+                .compose(_dio.options, 'v7/ppob/inquiry/bpjs',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -295,7 +295,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/payment/bpjs',
+                .compose(_dio.options, 'v7/ppob/payment/bpjs',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -312,7 +312,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/inquiry/telkoms',
+                .compose(_dio.options, 'v7/ppob/inquiry/telkoms',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -329,7 +329,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/payment/telkoms',
+                .compose(_dio.options, 'v7/ppob/payment/telkoms',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -466,7 +466,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/inquiry/plns',
+                .compose(_dio.options, 'v7/ppob/inquiry/plns',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -483,7 +483,59 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v6/ppob/payment/plns',
+                .compose(_dio.options, 'v7/ppob/payment/plns',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> phonePostpaidProvider(authToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'auth_token' : authToken
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v2/ppob/cellulars/pasca_products',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> phonePostpaidInquiry(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v7/ppob/inquiry/cellulars',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> phonePostpaidPayment(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v7/ppob/payment/cellulars',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);

@@ -68,6 +68,7 @@ class PulsaCubit extends Cubit<PulsaState> {
       authToken: authUsecase.userBox.authToken!,
       payment: true,
       transaction: Transaction(
+        balance: "cash",
         indentifierNumber: "08985722049",
         messages: pulsa.name,
         productPriceId: pulsa.id,

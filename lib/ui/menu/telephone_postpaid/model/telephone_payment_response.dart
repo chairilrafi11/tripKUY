@@ -8,6 +8,7 @@ class TelephonePaymentResponse {
   int? admin;
   int? total;
   String? refnum;
+  dynamic id;
 
   TelephonePaymentResponse({
     this.idPelanggan,
@@ -18,7 +19,8 @@ class TelephonePaymentResponse {
     this.totalBill,
     this.admin,
     this.total,
-    this.refnum
+    this.refnum,
+    this.id
   });
 
   TelephonePaymentResponse.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class TelephonePaymentResponse {
     admin = json['admin'];
     total = json['total'];
     refnum = json['refnum'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +47,7 @@ class TelephonePaymentResponse {
     data['admin'] = admin;
     data['total'] = total;
     data['refnum'] = refnum;
+    data['id'] = id;
     return data;
   }
 }

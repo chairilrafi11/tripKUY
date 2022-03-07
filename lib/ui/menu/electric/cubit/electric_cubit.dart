@@ -46,8 +46,8 @@ class ElectricCubit extends Cubit<ElectricState> {
       totalPayment: "",
       type: "postpaid"
     );
-    var bpjsInquiry = PintuPayCrypt().encrypt(jsonEncode(electricPospaidInquiryModel), await PintuPayCrypt().getPassKeyPref());
-    var result = await ElectricProvider.inquiry(PostBody(bpjsInquiry).toJson());
+    var inquiry = PintuPayCrypt().encrypt(jsonEncode(electricPospaidInquiryModel), await PintuPayCrypt().getPassKeyPref());
+    var result = await ElectricProvider.inquiry(BodyRequestV7(inquiry, inquiry).toJson());
 
     if(result.idPel != null){
       
@@ -57,8 +57,10 @@ class ElectricCubit extends Cubit<ElectricState> {
         authToken: authUsecase.userBox.authToken,
         categoryId: -1,
         id: id,
+        transactionId: result.transactionId.toString(),
         totalPayment: result.total.toString(),
         type: "postpaid",
+        balance: "cash"
       );
 
       electricPospaidPaymentModel = payment;
@@ -92,7 +94,7 @@ class ElectricCubit extends Cubit<ElectricState> {
       if(value != null) {
         electricPospaidPaymentModel.pin = value;
         var payment = PintuPayCrypt().encrypt(jsonEncode(electricPospaidPaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await ElectricProvider.payment(PostBody(payment).toJson());
+        var result = await ElectricProvider.payment(BodyRequestV7(payment, payment).toJson());
 
         if(result.id != null) {
           BillStatusModel billStatusModel = BillStatusModel(

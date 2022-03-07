@@ -17,12 +17,12 @@ class PulsaPaymentModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['payment'] = this.payment;
-    data['pin'] = this.pin;
-    if (this.transaction != null) {
-      data['transaction'] = this.transaction!.toJson();
+    data['payment'] = payment;
+    data['pin'] = pin;
+    if (transaction != null) {
+      data['transaction'] = transaction!.toJson();
     }
-    data['auth_token'] = this.authToken;
+    data['auth_token'] = authToken;
     return data;
   }
 }
@@ -35,15 +35,18 @@ class Transaction {
   int? time;
   int? transactionTypeId;
   int? userId;
+  String? balance;
 
-  Transaction(
-      {this.messages,
-      this.indentifierNumber,
-      this.productPriceId,
-      this.providerId,
-      this.time,
-      this.transactionTypeId,
-      this.userId});
+  Transaction({
+    this.messages,
+    this.indentifierNumber,
+    this.productPriceId,
+    this.providerId,
+    this.time,
+    this.transactionTypeId,
+    this.userId,
+    this.balance
+  });
 
   Transaction.fromJson(Map<String, dynamic> json) {
     messages = json['messages'];
@@ -53,17 +56,19 @@ class Transaction {
     time = json['time'];
     transactionTypeId = json['transaction_type_id'];
     userId = json['user_id'];
+    balance = json['balance'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['messages'] = this.messages;
-    data['indentifier_number'] = this.indentifierNumber;
-    data['product_price_id'] = this.productPriceId;
-    data['provider_id'] = this.providerId;
-    data['time'] = this.time;
-    data['transaction_type_id'] = this.transactionTypeId;
-    data['user_id'] = this.userId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['messages'] = messages;
+    data['indentifier_number'] = indentifierNumber;
+    data['product_price_id'] = productPriceId;
+    data['provider_id'] = providerId;
+    data['time'] = time;
+    data['transaction_type_id'] = transactionTypeId;
+    data['user_id'] = userId;
+    data['balance'] = balance;
     return data;
   }
 }

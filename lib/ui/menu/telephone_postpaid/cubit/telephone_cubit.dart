@@ -34,7 +34,7 @@ class TelephoneCubit extends Cubit<TelephoneState> {
       totalPayment: ""
     );
     var telephoneInquiry = PintuPayCrypt().encrypt(jsonEncode(telephoneInquiryModel), await PintuPayCrypt().getPassKeyPref());
-    var result = await TelephoneProvider.inquiry(PostBody(telephoneInquiry).toJson());
+    var result = await TelephoneProvider.inquiry(BodyRequestV7(telephoneInquiry, telephoneInquiry).toJson());
 
     if(result.idPelanggan != null){
       
@@ -44,7 +44,9 @@ class TelephoneCubit extends Cubit<TelephoneState> {
         authToken: authUsecase.userBox.authToken,
         categoryId: -1,
         id: number,
-        totalPayment: ""
+        totalPayment: "",
+        balance: "cash",
+        transactionId: result.transactionId.toString()
       );
 
       telephonePaymentModel = telephonePayment;
@@ -75,19 +77,23 @@ class TelephoneCubit extends Cubit<TelephoneState> {
     CoreFunction.showPin(navGK.currentContext!).then((value) async {
       if(value != null) {
         telephonePaymentModel.pin = value;
-        var pulsaPayment = PintuPayCrypt().encrypt(jsonEncode(telephonePaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await TelephoneProvider.payment(PostBody(pulsaPayment).toJson());
+        var payment = PintuPayCrypt().encrypt(jsonEncode(telephonePaymentModel), await PintuPayCrypt().getPassKeyPref());
+        var result = await TelephoneProvider.payment(BodyRequestV7(payment, payment).toJson());
 
-        BillStatusModel billStatusModel = BillStatusModel(
-          billBody: listInformation.map((e){
-            return BillBodyModel(e.first, e.last);
-          }).toList(),
-          status: ""
-        );
+        if(result.id != null){
 
-        routePush(BillView(
-          billStatusModel
-        ));
+          BillStatusModel billStatusModel = BillStatusModel(
+            billBody: listInformation.map((e){
+              return BillBodyModel(e.first, e.last);
+            }).toList(),
+            status: ""
+          );
+
+          routePush(BillView(
+            billStatusModel
+          ));
+
+        }
       }
     });
   }

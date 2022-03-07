@@ -10,9 +10,9 @@ class BalanceCubit extends Cubit<BalanceState> {
 
   BalanceCubit() : super(BalanceLoaded(balance: authUsecase.userBox.totalBalance!));
 
-  onGetBalance() async {
+  onGetBalance({bool isLoading = false}) async {
     emit(BalanceLoading());
-    var userBox = await ProfileProvider.profile();
+    var userBox = await ProfileProvider.profile(isLoading: isLoading);
     userBox.authToken = authUsecase.userBox.authToken!;
     emit(BalanceLoaded(balance: userBox.totalBalance!));
     authUsecase.setUser(userBox);

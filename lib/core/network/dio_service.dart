@@ -115,6 +115,7 @@ class DioService {
               try {
                 CoreModel data = CoreModel.fromJson(e.response!.data);
                 responseConverter.createResponse(data.meta.toJson());
+                responseConverter.code ??= e.response?.statusCode!;
 
                 ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage, isPage: isPage).checkErrror();
               } catch (error) {

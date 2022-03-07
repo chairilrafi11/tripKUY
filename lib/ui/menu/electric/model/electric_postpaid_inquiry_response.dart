@@ -11,6 +11,7 @@ class ElectricPospaidInquiryResponse {
   String? refnum;
   String? plnToken;
   String? respCode;
+  dynamic transactionId;
 
   ElectricPospaidInquiryResponse({
     this.idPel,
@@ -24,7 +25,8 @@ class ElectricPospaidInquiryResponse {
     this.daya,
     this.refnum,
     this.plnToken,
-    this.respCode
+    this.respCode,
+    this.transactionId
   });
 
   ElectricPospaidInquiryResponse.fromJson(Map<String, dynamic> json) {
@@ -40,22 +42,24 @@ class ElectricPospaidInquiryResponse {
     refnum = json['refnum'];
     plnToken = json['pln_token'];
     respCode = json['resp_code'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_pel'] = this.idPel;
-    data['nama'] = this.nama;
-    data['rcm'] = this.rcm;
-    data['jml_bln'] = this.jmlBln;
-    data['amount'] = this.amount;
-    data['jml_bln_tagihan'] = this.jmlBlnTagihan;
-    data['total'] = this.total;
-    data['admin'] = this.admin;
-    data['daya'] = this.daya;
-    data['refnum'] = this.refnum;
-    data['pln_token'] = this.plnToken;
-    data['resp_code'] = this.respCode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id_pel'] = idPel;
+    data['nama'] = nama;
+    data['rcm'] = rcm;
+    data['jml_bln'] = jmlBln;
+    data['amount'] = amount;
+    data['jml_bln_tagihan'] = jmlBlnTagihan;
+    data['total'] = total;
+    data['admin'] = admin;
+    data['daya'] = daya;
+    data['refnum'] = refnum;
+    data['pln_token'] = plnToken;
+    data['resp_code'] = respCode;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

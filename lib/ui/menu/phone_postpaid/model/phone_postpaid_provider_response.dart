@@ -1,11 +1,11 @@
-class PhonePostpaidModel {
+class PhonePostpaidProviderResponse {
   int? id;
   String? product;
   String? name;
 
-  PhonePostpaidModel({this.id, this.product, this.name});
+  PhonePostpaidProviderResponse({this.id, this.product, this.name});
 
-  PhonePostpaidModel.fromJson(Map<String, dynamic> json) {
+  PhonePostpaidProviderResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product = json['product'];
     name = json['name'];

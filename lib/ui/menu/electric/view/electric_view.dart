@@ -168,7 +168,7 @@ class ElectricView extends StatelessWidget {
           children: [
             Flexible(
               child: TextFormField(
-                // controller: phoneContactController,
+                controller: idContactController,
                 decoration: Component.inputDecoration("No Pelanggan / No Meter"),
                 maxLength: 16,
                 keyboardType: TextInputType.number,

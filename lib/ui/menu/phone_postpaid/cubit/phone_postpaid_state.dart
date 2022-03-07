@@ -1,58 +1,25 @@
 part of 'phone_postpaid_cubit.dart';
 
 abstract class PhonePostpaidState extends Equatable {
-  final List<PhonePostpaidModel>? pascaProviders;
 
-  const PhonePostpaidState(this.pascaProviders);
-}
-
-class PascaEmpty extends PhonePostpaidState {
-  const PascaEmpty() : super(null);
+  const PhonePostpaidState();
 
   @override
-  List<Object> get props => [];
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
 
-class PascaInitial extends PhonePostpaidState {
-  const PascaInitial({
-    required List<PhonePostpaidModel>? pascaProviders,
-  }) : super(pascaProviders);
+class PhonePostpaidInitial extends PhonePostpaidState {}
 
-  @override
-  List<Object> get props => [];
-}
+class PhonePostpaidLoading extends PhonePostpaidState {}
 
-class InquirySuccess extends PhonePostpaidState {
-  final ResponseInquiryPhonePaid? responseInquiryPasca;
+class PhonePostpaidLoaded extends PhonePostpaidState {
 
-  const InquirySuccess({
-    required List<PhonePostpaidModel>? pascaProviders,
-    required this.responseInquiryPasca,
-  }) : super(pascaProviders);
+  final List<PhonePostpaidProviderResponse> listProvider;
+  final PhonePostpaidProviderResponse phonePostpaidProviderResponse;
 
-  @override
-  List<Object?> get props => [responseInquiryPasca];
-}
-
-class InquiryFailed extends PhonePostpaidState {
-  final String errorMessage;
-
-  const InquiryFailed({
-    required List<PhonePostpaidModel>? pascaProviders,
-    required this.errorMessage,
-  }) : super(pascaProviders);
-
-  @override
-  List<Object> get props => [
-        errorMessage,
-      ];
-}
-
-class InquiryLoading extends PhonePostpaidState {
-  const InquiryLoading({
-    List<PhonePostpaidModel>? pascaProviders,
-  }) : super(pascaProviders);
-
-  @override
-  List<Object> get props => [];
+  const PhonePostpaidLoaded({
+    required this.listProvider,
+    required this.phonePostpaidProviderResponse
+  });
 }
