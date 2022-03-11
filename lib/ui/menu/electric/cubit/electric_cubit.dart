@@ -31,7 +31,7 @@ class ElectricCubit extends Cubit<ElectricState> {
   Future onGetToken() async {
     var electricTokenResponse = await ElectricProvider.token();
     if(electricTokenResponse.pulsaListrik!.isNotEmpty){
-    emit(ElectricLoaded(electricTokenResponse: electricTokenResponse));
+      emit(ElectricLoaded(electricTokenResponse: electricTokenResponse));
     } else {
       emit(ElectricEmpty());
     }

@@ -52,6 +52,7 @@ class TopupRequestModel {
     data['type_id'] = typeId;
     data['type_name'] = typeName;
     data['auth_token'] = authToken;
+    data.removeWhere((key, value) => value == null);
     return data;
   }
 }

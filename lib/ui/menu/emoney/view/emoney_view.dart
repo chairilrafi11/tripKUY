@@ -62,7 +62,7 @@ class EmoneyView extends StatelessWidget {
                         child: BlocBuilder<EmoneyCubit, EmoneyState>(
                           builder: (context, state) {
                             if (state is EmoneyLoading) {
-                              return const ShimmerPulsa();
+                              return const ShimmerList();
                             } else if (state is EmoneyLoaded) {
                               return listEmoney(state.list);
                             } else {

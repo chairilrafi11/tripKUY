@@ -33,7 +33,7 @@ class BpjsCubit extends Cubit<BpjsState> {
       van: month
     );
     var bpjsInquiry = PintuPayCrypt().encrypt(jsonEncode(bpjsInquiryModel), await PintuPayCrypt().getPassKeyPref());
-    var result = await BPJSProvider.inquiry(PostBody(bpjsInquiry).toJson());
+    var result = await BPJSProvider.inquiry(BodyRequestV7(bpjsInquiry ,bpjsInquiry).toJson());
 
     if(result.noVa != null){
       

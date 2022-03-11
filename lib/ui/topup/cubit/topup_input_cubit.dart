@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/network/model/post_body.dart';
 import 'package:pintupay/core/util/util.dart';
+import 'package:pintupay/ui/component/component_dialog.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:pintupay/ui/topup/model/topup_confirm_model.dart';
 import 'package:pintupay/ui/topup/provider/topup_provider.dart';
@@ -34,10 +35,7 @@ class TopupInputCubit extends Cubit<TopupInputState> {
       var topupConfirm = PintuPayCrypt().encrypt(jsonEncode(topupConfirmModel), await PintuPayCrypt().getPassKeyPref());
       await TopupProvider.confirm(PostBody(topupConfirm).toJson());
 
-      routePush(TopupConfirmView(
-        bankResponse: bankResponse,
-        topupRequestResponse: result,
-      ), RouterType.material);
+      ComponentDialog.successTopup();
 
     }
   }

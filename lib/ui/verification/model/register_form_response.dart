@@ -65,25 +65,25 @@ class RegisterFormResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['sales_saldo'] = this.salesSaldo;
-    data['referral'] = this.referral;
-    data['uid'] = this.uid;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['role_id'] = this.roleId;
-    data['sales_code'] = this.salesCode;
-    data['address'] = this.address;
-    data['phone_number'] = this.phoneNumber;
-    data['store_name'] = this.storeName;
-    data['type_id'] = this.typeId;
-    data['total_bonus'] = this.totalBonus;
-    data['total_balance'] = this.totalBalance;
-    data['total_point'] = this.totalPoint;
-    data['parent_referral'] = this.parentReferral;
-    data['parent_name'] = this.parentName;
-    data['can_transcation'] = this.canTranscation;
-    data['auth_token'] = this.authToken;
+    data['id'] = id;
+    data['sales_saldo'] = salesSaldo;
+    data['referral'] = referral;
+    data['uid'] = uid;
+    data['name'] = name;
+    data['email'] = email;
+    data['role_id'] = roleId;
+    data['sales_code'] = salesCode;
+    data['address'] = address;
+    data['phone_number'] = phoneNumber;
+    data['store_name'] = storeName;
+    data['type_id'] = typeId;
+    data['total_bonus'] = totalBonus;
+    data['total_balance'] = totalBalance;
+    data['total_point'] = totalPoint;
+    data['parent_referral'] = parentReferral;
+    data['parent_name'] = parentName;
+    data['can_transcation'] = canTranscation;
+    data['auth_token'] = authToken;
     return data;
   }
 }

@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/menu/emoney/cubit/emoney_cubit.dart';
 import 'package:pintupay/ui/menu/emoney/cubit/emoney_detail_cubit.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
-import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
+
+import '../../../component/shimmer.dart';
 
 class EmoneyDetailView extends StatelessWidget {
 
@@ -61,9 +59,9 @@ class EmoneyDetailView extends StatelessWidget {
                   create: (context) => emoneyDetailCubit..onGetProviderDetail(emoneyProviderResponse.id.toString()),
                   child: BlocBuilder<EmoneyDetailCubit, EmoneyDetailState>(
                     builder: (context, state) {
-                      if (state is EmoneyLoading) {
-                        return const CupertinoActivityIndicator();
-                      } else if (state is EmoneyLoaded) {
+                      if (state is EmoneyDetailLoading) {
+                        return const ShimmerList();
+                      } else if (state is EmoneyDetailLoaded) {
                         return listProduct([]);
                       } else {
                         return Container();
