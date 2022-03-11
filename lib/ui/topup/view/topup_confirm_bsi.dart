@@ -96,7 +96,7 @@ class _TopupConfirmBSIState extends State<TopupConfirmBSI> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),
@@ -112,7 +112,7 @@ class _TopupConfirmBSIState extends State<TopupConfirmBSI> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),
@@ -128,7 +128,7 @@ class _TopupConfirmBSIState extends State<TopupConfirmBSI> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),

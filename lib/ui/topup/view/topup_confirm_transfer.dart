@@ -110,7 +110,7 @@ class _TopupConfirmTransferState extends State<TopupConfirmTransfer> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),
@@ -126,7 +126,7 @@ class _TopupConfirmTransferState extends State<TopupConfirmTransfer> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),
@@ -142,7 +142,7 @@ class _TopupConfirmTransferState extends State<TopupConfirmTransfer> {
                               color: PintuPayPalette.white,
                             ),
                           ),
-                          collapsedBackgroundColor: PintuPayPalette.yellow,
+                          collapsedBackgroundColor: PintuPayPalette.darkBlue,
                           backgroundColor: PintuPayPalette.darkBlue,
                           children: [
                             _buildInputInfoTopupAtm(),

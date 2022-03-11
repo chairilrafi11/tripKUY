@@ -9,10 +9,14 @@ import 'package:flutter/services.dart';
 import 'package:pintupay/ui/topup/view/topup_confirm_bsi.dart';
 import 'package:pintupay/ui/topup/view/topup_confirm_transfer.dart';
 
+import '../../../core/util/core_function.dart';
+
+enum ListTopup { a, bsi, transferbank }
+
 class TopupInputNew extends StatefulWidget {
   final BankResponse bankResponse;
 
-  const TopupInputNew({required this.bankResponse, Key? key}) : super(key: key);
+  TopupInputNew({required this.bankResponse, Key? key}) : super(key: key);
 
   @override
   State<TopupInputNew> createState() => _TopupInputNewState();
@@ -21,28 +25,13 @@ class TopupInputNew extends StatefulWidget {
 class _TopupInputNewState extends State<TopupInputNew> {
   final TextEditingController nomController = TextEditingController();
 
-  final TextEditingController nameController = TextEditingController();
+  late int? selectedRadioListTopup = 0;
 
-  final TextEditingController noController = TextEditingController();
-
-  bool bsiTopup = false;
-
-  bool bankTransfer = false;
+  ListTopup defaultValue = ListTopup.a;
+  String topup = "";
 
   String _formatNumber(String s) => NumberFormat.decimalPattern('id')
       .format(int.parse(s.replaceAll('.', '').replaceAll(',', '')));
-
-  void changeBsiTopup(value) {
-    setState(() {
-      bsiTopup = value;
-    });
-  }
-
-  void changeBankTransfer(value) {
-    setState(() {
-      bankTransfer = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,39 +114,7 @@ class _TopupInputNewState extends State<TopupInputNew> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Checkbox(
-                                activeColor: PintuPayPalette.darkBlue,
-                                value: bsiTopup,
-                                onChanged: (value) => changeBsiTopup(value)),
-                            const Flexible(
-                              child: Text(
-                                "BSI",
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Checkbox(
-                                activeColor: PintuPayPalette.darkBlue,
-                                value: bankTransfer,
-                                onChanged: (value) =>
-                                    changeBankTransfer(value)),
-                            const Flexible(
-                              child: Text(
-                                "Via Bank Transfer",
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                              ),
-                            ),
-                          ],
-                        ),
+                        _radioListTopup(),
                       ],
                     ),
                   ),
@@ -168,8 +125,17 @@ class _TopupInputNewState extends State<TopupInputNew> {
                   child: Component.button(
                       label: "Lanjutkan",
                       onPressed: () {
-                        routePush(
-                            const TopupConfirmBSI(), RouterType.cupertino);
+                        print(topup);
+                        // if (topup == "bsi") {
+                        //   routePush(
+                        //       const TopupConfirmBSI(), RouterType.cupertino);
+                        // } else if (topup == "transferbank") {
+                        //   routePush(const TopupConfirmTransfer(),
+                        //       RouterType.cupertino);
+                        // } else {
+                        //   CoreFunction.showToast(
+                        //       "Pilih salah satu tujuan Topup");
+                        // }
                       }),
                 )
               ],
@@ -177,6 +143,53 @@ class _TopupInputNewState extends State<TopupInputNew> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _radioListTopup() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: RadioListTile(
+            contentPadding: const EdgeInsets.all(0),
+            value: ListTopup.bsi,
+            groupValue: defaultValue,
+            onChanged: (val) {
+              setState(() {
+                defaultValue = ListTopup.bsi;
+                topup = "bsi";
+                // selectedRadioListTopup = val as int?;
+                // routePush(const TopupConfirmBSI(), RouterType.cupertino);
+              });
+            },
+            activeColor: PintuPayPalette.darkBlue,
+            title: const Text(
+              "BSI",
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+        ),
+        Flexible(
+          child: RadioListTile(
+            contentPadding: const EdgeInsets.all(0),
+            value: ListTopup.transferbank,
+            groupValue: defaultValue,
+            onChanged: (val) {
+              setState(() {
+                // selectedRadioListTopup = val as int?;
+                defaultValue = ListTopup.transferbank;
+                topup = "transferbank";
+              });
+            },
+            activeColor: PintuPayPalette.darkBlue,
+            title: const Text(
+              "Via Transfer Bank",
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
