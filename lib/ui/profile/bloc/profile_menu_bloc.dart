@@ -1,5 +1,6 @@
 import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/about_app/view/about_app.dart';
+import 'package:pintupay/ui/contact_us/view/contact_us.dart';
 import 'package:pintupay/ui/profile/bloc/profile_bloc.dart';
 
 class ProfileMenuBloc {
@@ -13,7 +14,7 @@ class ProfileMenuBloc {
         // routePush(const Login(), RouterType.cupertino);
         break;
       case ProfileMenu.cs:
-        // routePush(const Login(), RouterType.cupertino);
+        routePush(const ContactUs(), RouterType.cupertino);
         break;
       case ProfileMenu.rate:
         // TODO: Handle this case.
