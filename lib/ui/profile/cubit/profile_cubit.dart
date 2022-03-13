@@ -37,8 +37,8 @@ class ProfileCubit extends Cubit<ProfileState> {
         routePush(const Login(), RouterType.cupertino);
         break;
       case "Logout":
-        String? fcm = await CoreFunction.generateFirebaseToken();
-        CoreFunction.logPrint("Fcm", fcm);
+        // String? fcm = await CoreFunction.generateFirebaseToken();
+        // CoreFunction.logPrint("Fcm", fcm);
         break;
       default:
     }

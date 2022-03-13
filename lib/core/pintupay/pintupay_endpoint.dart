@@ -27,27 +27,35 @@ class PintuPayEndpoint {
 
   static const String pascabayarProduct = "v2/ppob/cellulars/pasca_products";
 
-  static const String pascabayarInquiry = "v7/ppob/inquiry/cellulars";
+  static const String phonePostpaidProvider = "v2/ppob/cellulars/pasca_products";
 
-  static const String pascabayarPayment = "v7/ppob/payment/cellulars";
+  static const String phonePostpaidInquiry = "v7/ppob/inquiry/cellulars";
+
+  static const String phonePostpaidPayment = "v7/ppob/payment/cellulars";
 
   static const String emoneyProvider = "v2/emoney/provider_emoney";
 
   static const String emoneyProviderDetail = "v2/emoney/products";
 
-  static const String bpjsInuiqry = "v6/ppob/inquiry/bpjs";
+  static const String emoneyPayment = "v7/transactions";
 
-  static const String bpjsPayment = "v6/ppob/payment/bpjs";
+  static const String bpjsInuiqry = "v7/ppob/inquiry/bpjs";
 
-  static const String telephoneInquiry = "v6/ppob/inquiry/telkoms";
+  static const String bpjsPayment = "v7/ppob/payment/bpjs";
 
-  static const String telephonePayment = "v6/ppob/payment/telkoms";
+  static const String telephoneInquiry = "v7/ppob/inquiry/telkoms";
+
+  static const String telephonePayment = "v7/ppob/payment/telkoms";
 
   static const String listrikToken = "v2/product_token";
 
-  static const String listrikPostpaidInquiry = "v6/ppob/inquiry/plns";
+  static const String listrikPrepaidInquiry = "v7/ppob/inquiry/pln_prepaids";
 
-  static const String listrikPostpaidPayment = "api/v6/ppob/payment/plns";
+  static const String listrikPrepaidPayment = "v7/ppob/payment/plns";
+
+  static const String listrikPostpaidInquiry = "v7/ppob/inquiry/plns";
+
+  static const String listrikPostpaidPayment = "v7/ppob/payment/plns";
 
   static const String pdamProduct = "v1/pdam_products";
 
@@ -60,4 +68,14 @@ class PintuPayEndpoint {
   static const String topupRequest = "v6/topup/transactions";
 
   static const String topupConfirm = "v6/topup/confirms";
+
+  static const String pgnInquiry = "v6/ppob/inquiry/pgns";
+
+  static const String pgnPayment = "v6/ppob/payment/pgns";
+
+  static const String menus = "v3/android_menus";
+
+  static const String gameProvider = "v2/game/provider_games";
+
+  static const String gameProduct = "v2/game/get_list_games";
 }

@@ -137,9 +137,11 @@ class PintuPayCrypt {
 
   Future setPassKey() async {
     var utilityBox = await CoreDatabase.openBoxDatabase(PintuPayutilityBox.tabelName);
-    var passKey = getPassKey();
-    utilityBox.put(PintuPayutilityBox.passkey, base64.encode(passKey));
-    CoreFunction.logPrint('Set Key', 'complete');
+    if(utilityBox.get(PintuPayutilityBox.passkey) == null){
+      var passKey = getPassKey();
+      utilityBox.put(PintuPayutilityBox.passkey, base64.encode(passKey));
+      CoreFunction.logPrint('Set Key', 'complete');
+    }
   }
 
   Future<Uint8List> getPassKeyPref() async {

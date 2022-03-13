@@ -1,22 +1,25 @@
 part of 'phone_postpaid_cubit.dart';
 
 abstract class PhonePostpaidState extends Equatable {
+
   const PhonePostpaidState();
 
   @override
-  List<Object> get props => [];
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
 
-class PascabayarInitial extends PhonePostpaidState {}
+class PhonePostpaidInitial extends PhonePostpaidState {}
 
-class PascabayarLoading extends PhonePostpaidState {}
+class PhonePostpaidLoading extends PhonePostpaidState {}
 
-class PascabayarLoaded extends PhonePostpaidState {
-  final List<PascabayarProviderResponse> listProvider;
-  final PascabayarProviderResponse provider;
+class PhonePostpaidLoaded extends PhonePostpaidState {
 
-  const PascabayarLoaded({required this.listProvider, required this.provider});
+  final List<PhonePostpaidProviderResponse> listProvider;
+  final PhonePostpaidProviderResponse phonePostpaidProviderResponse;
 
-  @override
-  List<Object> get props => [listProvider, provider];
+  const PhonePostpaidLoaded({
+    required this.listProvider,
+    required this.phonePostpaidProviderResponse
+  });
 }

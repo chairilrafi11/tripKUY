@@ -80,6 +80,7 @@ class User {
   int? typeId;
   String? uid;
   String? fcm;
+  String? pin;
 
   User({
     this.address,
@@ -113,7 +114,8 @@ class User {
     this.totalPoint,
     this.typeId,
     this.uid,
-    this.fcm
+    this.fcm,
+    this.pin
   });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -149,6 +151,7 @@ class User {
     typeId = json['type_id'];
     uid = json['uid'];
     fcm = json['fcm'];
+    pin = json['pin'];
   }
 
   Map<String, dynamic> toJson() {
@@ -185,6 +188,7 @@ class User {
     data['type_id'] = typeId;
     data['uid'] = uid;
     data['fcm_token'] = fcm;
+    data['pin'] = pin;
     data.removeWhere((key, value) => value == null);
     return data;
   }

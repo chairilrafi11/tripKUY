@@ -22,4 +22,7 @@ class TransactionLoaded extends TransactionState {
     required this.listTransactionPending,
     required this.listTransactionFailed
   });
+
+  @override
+  List<Object> get props => [listTransactionSuccess, listTransactionPending, listTransactionFailed];
 }

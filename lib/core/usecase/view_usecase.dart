@@ -1,7 +1,7 @@
 
 import 'package:pintupay/core/util/util.dart';
 
-enum Feature {pulsa, bpjs, telephone, pdam, electric, pascabayar}
+enum Feature {pulsa, bpjs, telephone, pdam, electric, phone, emoney, pgn}
 
 class ViewUsecase {
 
@@ -15,10 +15,14 @@ class ViewUsecase {
         return "assets/icons/icmn_telepon.png";
       case Feature.pdam:
         return "assets/icons/icmn_pdam.png";
-      case Feature.pascabayar:
-        return "assets/icons/icmn_hppascabayar.png";
       case Feature.electric:
         return "assets/icons/icmn_listrik.png";
+      case Feature.phone:
+        return "assets/icons/icmn_hppascabayar.png";
+      case Feature.emoney:
+        return "assets/icons/icmn_emoney.png";
+      case Feature.pgn:
+        return "assets/icons/icmn_pgn.png";
       default:
         return "";
     }
@@ -34,10 +38,14 @@ class ViewUsecase {
         return "Telepon";
       case Feature.pdam:
         return "PDAM";
-      case Feature.pascabayar:
-        return "Pascabayar";
       case Feature.electric:
         return "Listrik";
+      case Feature.phone:
+        return "HP Pascabayar";  
+      case Feature.emoney:
+        return "Emoney";  
+      case Feature.pgn:
+        return "PGN";  
       default:
         return "";
     }
@@ -54,8 +62,14 @@ class ViewUsecase {
         return "assets/icons/icmn_telepon.png";
       case "pdam":
         return "assets/icons/icmn_pdam.png";
-      case "pascabayar":
+      case "ppob pln postpaid":
+        return "assets/icons/icmn_listrik.png";
+      case "cellular pasca bayar":
         return "assets/icons/icmn_hppascabayar.png";
+      case "top up":
+        return "assets/icons/icmn_hppascabayar.png";
+      case "pgn":
+        return "assets/icons/icmn_pgn.png";
       default:
         return "";
     }

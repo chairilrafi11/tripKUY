@@ -4,6 +4,7 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 
 import 'component.dart';
 
@@ -116,6 +117,60 @@ class ComponentDialog {
               if(body != null) Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
                 child: Component.textDefault(body, textAlign: TextAlign.center, maxLines: 5),
+              ),
+              const SizedBox(height: 25),
+            ],
+          ),
+        );
+      }
+    );
+  }
+  
+  static successTopup() {
+    return showDialog(
+      context: navGK.currentContext!,
+      barrierDismissible: false,
+      builder: (BuildContext contextDialog) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+                const SizedBox(height: 10,),
+                // if(image != null) CachedNetworkImage(
+                //   imageUrl: image,
+                //   fit: BoxFit.fill,
+                //   placeholder: (context, url) => const CupertinoActivityIndicator(),
+                //   errorWidget: (context, url, error) => const Icon(
+                //     Icons.payment,
+                //     color: PintuPayPalette.darkBlue,
+                //     size: 50,
+                //   ),
+                // ),
+                const SizedBox(height: 20,),
+                Component.textBold(
+                  "Top Up berhasil di kirim",
+                  fontSize: 20, colors: PintuPayPalette.darkBlue
+                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                child: Component.textDefault("Topup anda sedang kami proses, mohon untuk mnunggu konfirmasi", textAlign: TextAlign.center, maxLines: 5),
+              ),
+              const SizedBox(height: 25),
+              InkWell(
+                onTap: () async {
+                  pushAndRemoveUntil(Dashboard(), RouterType.material);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(8),
+                  width: SizeConfig.blockSizeHorizontal * 30,
+                  color: PintuPayPalette.darkBlue,
+                  child: const Text(
+                    'Mengerti',
+                    style: TextStyle(color: PintuPayPalette.white),
+                  ),
+                ),
               ),
               const SizedBox(height: 25),
             ],

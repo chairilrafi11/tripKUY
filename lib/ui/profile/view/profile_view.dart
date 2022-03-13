@@ -184,7 +184,7 @@ class ProfilePage extends StatelessWidget {
                             EdgeInsets.all(SizeConfig.safeBlockVertical * 2),
                         width: SizeConfig.safeBlockHorizontal * 100,
                         decoration: const BoxDecoration(
-                            color: PintuPayPalette.whiteBackground,
+                            color: PintuPayPalette.white,
                             border: Border(
                                 bottom: BorderSide(
                                     color: PintuPayPalette.darkBlue,

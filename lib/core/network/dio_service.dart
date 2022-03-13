@@ -1,6 +1,5 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/error/error.dart';
-import 'package:pintupay/core/network/model/handler_response_error.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
@@ -115,6 +114,7 @@ class DioService {
               try {
                 CoreModel data = CoreModel.fromJson(e.response!.data);
                 responseConverter.createResponse(data.meta.toJson());
+                responseConverter.code ??= e.response?.statusCode!;
 
                 ErrorHandlingResponse(responseConverter: responseConverter, showMessage: showMessage, isPage: isPage).checkErrror();
               } catch (error) {

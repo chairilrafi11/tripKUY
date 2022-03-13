@@ -56,8 +56,12 @@ abstract class DioClient {
 
   @GET(PintuPayEndpoint.emoneyProvider)
   Future<CoreModel> empneyProviderDetail(
-      @Query('provider_id') String providerId,
-      @Query('auth_token') String authToken);
+    @Query('provider_id') String providerId,
+    @Query('auth_token') String authToken
+  );
+
+  @POST(PintuPayEndpoint.emoneyPayment)
+  Future<CoreModel> emoneyPayment(@Body() Map<String, dynamic> body);
 
   @POST(PintuPayEndpoint.bpjsInuiqry)
   Future<CoreModel> bpjsInquiry(@Body() Map<String, dynamic> body);
@@ -86,10 +90,10 @@ abstract class DioClient {
   @GET(PintuPayEndpoint.pascabayarProduct)
   Future<CoreModel> pasbayarProduct(@Query('auth_token') String authToken);
 
-  @POST(PintuPayEndpoint.pascabayarInquiry)
+  @POST(PintuPayEndpoint.phonePostpaidInquiry)
   Future<CoreModel> pasbayarInquiry(@Body() Map<String, dynamic> body);
 
-  @POST(PintuPayEndpoint.pascabayarPayment)
+  @POST(PintuPayEndpoint.phonePostpaidPayment)
   Future<CoreModel> pascabayarPayment(@Body() Map<String, dynamic> body);
 
   @GET(PintuPayEndpoint.bank)
@@ -106,5 +110,32 @@ abstract class DioClient {
 
   @POST(PintuPayEndpoint.listrikPostpaidPayment)
   Future<CoreModel> electricPostpaidPayment(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.listrikPrepaidInquiry)
+  Future<CoreModel> electricPrepaidInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.listrikPrepaidPayment)
+  Future<CoreModel> electricPrepaidPayment(@Body() Map<String, dynamic> body);
+
+  @GET(PintuPayEndpoint.phonePostpaidProvider)
+  Future<CoreModel> phonePostpaidProvider(@Query('auth_token') String authToken);
+
+  @POST(PintuPayEndpoint.phonePostpaidInquiry)
+  Future<CoreModel> phonePostpaidInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.phonePostpaidPayment)
+  Future<CoreModel> phonePostpaidPayment(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.pgnInquiry)
+  Future<CoreModel> pgnInquiry(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.pgnPayment)
+  Future<CoreModel> pgnPayment(@Body() Map<String, dynamic> body);
+
+  @GET(PintuPayEndpoint.menus)
+  Future<CoreModel> menus(@Query('auth_token') String authToken);
+
+  @GET(PintuPayEndpoint.gameProvider)
+  Future<CoreModel> gameProvider();
 
 }

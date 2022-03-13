@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:nav_router/nav_router.dart';
 
+import '../../balance/cubit/balance_cubit.dart';
+
 class BillView extends StatefulWidget {
 
   final BillStatusModel billStatusModel;
@@ -340,7 +342,8 @@ class _BillViewState extends State<BillView> {
     return Future.value(false);
   }
 
-  navToDashboard() {
+  Future navToDashboard() async {
+    await BalanceCubit().onGetBalance(isLoading: true);
     pushAndRemoveUntil(Dashboard(), RouterType.material);
   }
 }

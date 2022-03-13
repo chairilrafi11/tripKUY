@@ -1,14 +1,9 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/usecase/view_usecase.dart';
-import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/core/util/util.dart';
-import 'package:pintupay/ui/bill/model/bill_body_model.dart';
-import 'package:pintupay/ui/bill/model/bill_status_model.dart';
-import 'package:pintupay/ui/bill/view/bill_view.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
 
 class PaymentView extends StatelessWidget {
 
@@ -55,7 +50,7 @@ class PaymentView extends StatelessWidget {
                   itemCount: listInformation.length - 1,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.5),
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

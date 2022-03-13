@@ -62,7 +62,7 @@ class EmoneyView extends StatelessWidget {
                         child: BlocBuilder<EmoneyCubit, EmoneyState>(
                           builder: (context, state) {
                             if (state is EmoneyLoading) {
-                              return const ShimmerPulsa();
+                              return const ShimmerList();
                             } else if (state is EmoneyLoaded) {
                               return listEmoney(state.list);
                             } else {
@@ -90,10 +90,7 @@ class EmoneyView extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => routePush(
-              EmoneyDetailView(emoneyProviderResponse: list[index]), 
-              RouterType.material
-            ),
+            onTap: () => emoneyCubit.navDetail(list[index]),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)

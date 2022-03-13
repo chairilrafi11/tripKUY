@@ -8,6 +8,7 @@ class TelephoneInquiryResponse {
   int? admin;
   int? total;
   String? refnum;
+  dynamic transactionId;
 
   TelephoneInquiryResponse({
     this.idPelanggan,
@@ -18,7 +19,8 @@ class TelephoneInquiryResponse {
     this.totalBill,
     this.admin,
     this.total,
-    this.refnum
+    this.refnum,
+    this.transactionId
   });
 
   TelephoneInquiryResponse.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class TelephoneInquiryResponse {
     admin = json['admin'];
     total = json['total'];
     refnum = json['refnum'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +47,7 @@ class TelephoneInquiryResponse {
     data['admin'] = admin;
     data['total'] = total;
     data['refnum'] = refnum;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

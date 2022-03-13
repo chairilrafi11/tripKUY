@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pintupay/ui/menu/phone_postpaid/model/phone_postpaid_provider_response.dart';
+
 import '../../../../core/util/size_config.dart';
 import '../cubit/phone_postpaid_cubit.dart';
-import '../model/pascabayar_provider_response.dart';
 
 class PhonePostpaidView extends StatefulWidget {
   const PhonePostpaidView({Key? key}) : super(key: key);
@@ -15,9 +17,10 @@ class PhonePostpaidView extends StatefulWidget {
 }
 
 class _PhonePostpaidViewState extends State<PhonePostpaidView> {
+
+  PhonePostpaidProviderResponse? phonePostpaidProviderResponse;
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController custCodeController = TextEditingController();
-
   final PhonePostpaidCubit phonePostpaidCubit = PhonePostpaidCubit();
 
   @override
@@ -42,8 +45,9 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                     child: Column(
                       children: [
                         TextFormField(
-                          decoration:
-                              Component.decorationNoBorder("No Pelanggan"),
+                          // controller: phoneContactController,
+                          controller: custCodeController,
+                          decoration: Component.inputDecoration("No Pelanggan"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -62,34 +66,16 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                           create: (context) => phonePostpaidCubit,
                           child: providerList(),
                         ),
-                        // providerList(),
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 25),
-                          child: InkWell(
-                            onTap: () {
-                              phonePostpaidCubit
-                                  .onInquiry(custCodeController.text);
-                            },
-                            child: Container(
-                              width: SizeConfig.blockSizeHorizontal * 100,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              decoration: const BoxDecoration(
-                                  color: PintuPayPalette.darkBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              child: Component.textBold(
-                                'Tagihan',
-                                colors: PintuPayPalette.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
+                        Component.button(
+                          label: "Cek Tagihan",
+                          onPressed: () {
+                            phonePostpaidCubit.onInquiry(
+                              custCodeController.text,
+                            );
+                          }
                         ),
                       ],
                     ),
@@ -103,38 +89,60 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
     );
   }
 
-  Widget providerList() {
+  Widget inputNumber() {
     return Container(
       padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
       width: SizeConfig.screenWidth * 1,
+      child: TextFormField(
+        key: formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        controller: custCodeController,
+        keyboardType: TextInputType.phone,
+        textInputAction: TextInputAction.done,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        maxLength: 18,
+        decoration: Component.inputDecoration("Kode Pelanggan"),
+        validator: (value) {
+          if (value == null) return 'Nomor Pelanggan Tidak Boleh Kosong';
+          if (value.length < 8) return 'Nomor Pelanggan Harus Lebih dari 8';
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget providerList() {
+    return Container(
+      padding: const EdgeInsets.only(top: 15),
+      width: SizeConfig.screenWidth * 1,
       child: BlocBuilder<PhonePostpaidCubit, PhonePostpaidState>(
         builder: (context, state) {
-          if ((state is PascabayarLoaded)) {
-            return DropdownButton<PascabayarProviderResponse>(
-                isExpanded: true,
-                icon: const Icon(Icons.arrow_drop_down_outlined),
-                value: state.provider,
-                underline: Container(
-                  height: 1,
-                  color: PintuPayPalette.darkBlue,
-                ),
-                hint: const Text(
-                  'Pilih provider',
-                  style: TextStyle(fontSize: 18),
-                ),
-                items:
-                    state.listProvider.map((PascabayarProviderResponse data) {
-                  return DropdownMenuItem(
-                    value: data,
-                    child: Text(
-                      data.product ?? 'Pilih provider',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  phonePostpaidCubit.setProvider(newValue!);
+          if (state is PhonePostpaidLoaded) {
+            return DropdownButton<PhonePostpaidProviderResponse>(
+              isExpanded: true,
+              icon: const Icon(Icons.arrow_drop_down_outlined),
+              value: phonePostpaidProviderResponse,
+              underline: Container(
+                height: 1,
+                color: PintuPayPalette.darkBlue,
+              ),
+              hint: Component.textDefault("Pilih Provider"),
+              items: state.listProvider.map((PhonePostpaidProviderResponse data) {
+                return DropdownMenuItem(
+                  value: data,
+                  child: Text(
+                    data.name ?? 'Pilih Provider',
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  phonePostpaidProviderResponse = newValue;
                 });
+                phonePostpaidCubit.setProvder(newValue!);
+              }
+            );
           } else {
             return const Center(child: CircularProgressIndicator());
           }

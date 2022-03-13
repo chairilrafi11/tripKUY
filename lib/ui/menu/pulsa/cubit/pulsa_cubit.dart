@@ -58,17 +58,19 @@ class PulsaCubit extends Cubit<PulsaState> {
   confirm(Pulsa pulsa, String phoneNumber){
 
     listInformation = [
-      {"Provider", "Three"},
+      {"Provider", pulsa.providerName ?? ""},
       {"Produk", pulsa.name ?? ""},
       {"No Pengguna", phoneNumber},
       {"Harga", CoreFunction.moneyFormatter(pulsa.price)},
+      {"Total Pembayaran", CoreFunction.moneyFormatter(pulsa.price)},
     ];
 
     pulsaPaymentModel = PulsaPaymentModel(
       authToken: authUsecase.userBox.authToken!,
       payment: true,
       transaction: Transaction(
-        indentifierNumber: "08985722049",
+        balance: "cash",
+        indentifierNumber: phoneNumber,
         messages: pulsa.name,
         productPriceId: pulsa.id,
         providerId: pulsa.id,

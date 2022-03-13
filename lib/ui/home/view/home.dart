@@ -6,27 +6,23 @@ import 'package:pintupay/ui/balance/view/balance_view.dart';
 import 'package:pintupay/ui/banner/banner_advertise.dart';
 import 'package:pintupay/ui/banner/cubit/banner_cubit.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pintupay/ui/profile/provider/profile_provider.dart';
 
 class Home extends StatelessWidget {
 
-  Home({ Key? key }) : super(key: key);
-
   final List<Set<String>> listMenu = [
-    {"Bpjs", "assets/icons/icmn_bpjs.png"},
-    {"E-Money", "assets/icons/icmn_emoney.png"},
-    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
+    {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
     {"Listrik", "assets/icons/icmn_listrik.png"},
     {"PDAM", "assets/icons/icmn_pdam.png"},
-    {"Pulsa", "assets/icons/icmn_pulsa.png"},
+    {"Bpjs", "assets/icons/icmn_bpjs.png"},
+    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
     {"Telepon", "assets/icons/icmn_telepon.png"},
-    {"Paket \n Data", "assets/icons/icmn_tiket_kereta.png"}
+    {"E-Money", "assets/icons/icmn_emoney.png"},
+    {"Game", "assets/icons/icmn_game.png"}
   ];
-
-  final HomeCubit _homeCubit = HomeCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +45,18 @@ class Home extends StatelessWidget {
               const SizedBox(height: 20,),
               Component.textBold("Menu", colors: PintuPayPalette.darkBlue),
               const SizedBox(height: 20,),
-              menu(),
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  if(state is HomeLoading){
+                    return menu();
+                    // return const ShimmerMenu();
+                  } else if (state is HomeLoaded) {
+                    return menu();
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
               const SizedBox(height: 10,),
               feeds(),
               const SizedBox(height: 20,),
@@ -75,14 +82,12 @@ class Home extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) { 
           return InkWell(
-            onTap: () => _homeCubit.onClickMenu(listMenu[index].first),
+            onTap: () => BlocProvider.of<HomeCubit>(context).onClickMenu(listMenu[index].first),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                // const Icon(Icons.star, size: 50, color: PintuPayPalette.darkBlue),
                 Image.asset(
                   listMenu[index].last,
-                  // height: SizeConfig.blockSizeHorizontal * 13,
                 ),
                 const SizedBox(height: 10,),
                 Component.textBold(listMenu[index].first, textAlign: TextAlign.center)

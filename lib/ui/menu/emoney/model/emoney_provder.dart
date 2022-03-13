@@ -17,11 +17,11 @@ class EmoneyProviderResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['icon_path'] = this.iconPath;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['created_at'] = this.createdAt;
+    data['id'] = id;
+    data['icon_path'] = iconPath;
+    data['name'] = name;
+    data['description'] = description;
+    data['created_at'] = createdAt;
     return data;
   }
 }

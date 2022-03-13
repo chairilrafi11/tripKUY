@@ -1,3 +1,4 @@
+import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/size_config.dart';
@@ -14,7 +15,12 @@ class Component {
       colors: transparet ? PintuPayPalette.white : PintuPayPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
-    leading: const Icon(Icons.arrow_back, color: PintuPayPalette.darkBlue)
+    leading: InkWell(
+      onTap: (){
+        Navigator.of(navGK.currentContext!).pop();
+      },
+      child: const Icon(Icons.arrow_back, color: PintuPayPalette.darkBlue)
+    )
   );
 
   static AppBar appBarLogo(){

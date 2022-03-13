@@ -1,34 +1,41 @@
-class ResponseInquiryPhonePaid {
+class PhonePostpaidInquiryResponse {
   String? idPelanggan;
   String? nama;
   String? bulan;
+  String? bulanTagihan;
+  String? daya;
   dynamic tagihan;
   dynamic admin;
-  int? total;
-  String? transactionCode;
+  dynamic total;
   String? noResi;
-  int? transactionId;
+  String? transactionCode;
+  dynamic transactionId;
 
-  ResponseInquiryPhonePaid(
-      {this.idPelanggan,
-        this.nama,
-        this.bulan,
-        this.tagihan,
-        this.admin,
-        this.total,
-        this.transactionCode,
-        this.noResi,
-        this.transactionId});
+  PhonePostpaidInquiryResponse({
+    this.idPelanggan,
+    this.nama,
+    this.bulan,
+    this.bulanTagihan,
+    this.daya,
+    this.tagihan,
+    this.admin,
+    this.total,
+    this.noResi,
+    this.transactionCode,
+    this.transactionId
+  });
 
-  ResponseInquiryPhonePaid.fromJson(Map<String, dynamic> json) {
+  PhonePostpaidInquiryResponse.fromJson(Map<String, dynamic> json) {
     idPelanggan = json['id_pelanggan'];
     nama = json['nama'];
     bulan = json['bulan'];
+    bulanTagihan = json['bulan_tagihan'];
+    daya = json['daya'];
     tagihan = json['tagihan'];
     admin = json['admin'];
     total = json['total'];
-    transactionCode = json['transaction_code'];
     noResi = json['no_resi'];
+    transactionCode = json['transaction_code'];
     transactionId = json['transaction_id'];
   }
 
@@ -37,11 +44,13 @@ class ResponseInquiryPhonePaid {
     data['id_pelanggan'] = idPelanggan;
     data['nama'] = nama;
     data['bulan'] = bulan;
+    data['bulan_tagihan'] = bulanTagihan;
+    data['daya'] = daya;
     data['tagihan'] = tagihan;
     data['admin'] = admin;
     data['total'] = total;
-    data['transaction_code'] = transactionCode;
     data['no_resi'] = noResi;
+    data['transaction_code'] = transactionCode;
     data['transaction_id'] = transactionId;
     return data;
   }

@@ -7,6 +7,8 @@ class TelephonePaymentModel {
   String? id;
   String? totalPayment;
   String? authToken;
+  String? balance;
+  String? transactionId;
 
   TelephonePaymentModel({
     this.pin,
@@ -14,7 +16,9 @@ class TelephonePaymentModel {
     this.categoryId,
     this.id,
     this.totalPayment,
-    this.authToken
+    this.authToken,
+    this.balance,
+    this.transactionId
   });
 
   TelephonePaymentModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +28,8 @@ class TelephonePaymentModel {
     id = json['id'];
     totalPayment = json['total_payment'];
     authToken = json['auth_token'];
+    balance = json['balance'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +40,8 @@ class TelephonePaymentModel {
     data['id'] = id;
     data['total_payment'] = totalPayment;
     data['auth_token'] = authToken;
+    data['balance'] = balance;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

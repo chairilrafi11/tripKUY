@@ -66,7 +66,38 @@ class ElectricView extends StatelessWidget {
                         return Expanded(
                           child: TabBarView(
                             children: [
-                              listToken(state.electricTokenResponse),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Card(
+                                    margin: const EdgeInsets.symmetric(vertical: 10),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                                      child: TextFormField(
+                                        controller: idContactController,
+                                        decoration: Component.inputDecoration("No pelanggan"),
+                                        maxLength: 16,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly,
+                                        ],
+                                        validator: (value) {
+                                          if (value?.isEmpty ?? true) {
+                                            return "Wajib diisi*";
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10,),
+                                  Component.textBold("Pilih Token"),
+                                  const SizedBox(height: 10,),
+                                  listToken(state.electricTokenResponse),
+                                ],
+                              ),
                               postpaid(context)
                             ]
                           ),
@@ -109,7 +140,13 @@ class ElectricView extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) { 
           return InkWell(
-            // onTap: () => routePush(PaymentView(), RouterType.material),
+            onTap: () { 
+              if (idContactController.text.isEmpty){
+                CoreFunction.showToast("Masukan No pelanggan", backgroundColor: PintuPayPalette.red);
+              } else {
+                BlocProvider.of<ElectricCubit>(context).onPrepaidInquiry(idContactController.text, electricTokenResponse.pulsaListrik![index]);
+              }
+            },
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -168,7 +205,7 @@ class ElectricView extends StatelessWidget {
           children: [
             Flexible(
               child: TextFormField(
-                // controller: phoneContactController,
+                controller: idContactController,
                 decoration: Component.inputDecoration("No Pelanggan / No Meter"),
                 maxLength: 16,
                 keyboardType: TextInputType.number,

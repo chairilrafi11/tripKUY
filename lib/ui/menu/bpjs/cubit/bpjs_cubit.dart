@@ -29,11 +29,11 @@ class BpjsCubit extends Cubit<BpjsState> {
     BPJSInquiryModel bpjsInquiryModel = BPJSInquiryModel(
       act: "inquiry",
       authToken: authUsecase.userBox.authToken,
-      numbers: number,
-      van: month
+      numbers: month,
+      van: number
     );
     var bpjsInquiry = PintuPayCrypt().encrypt(jsonEncode(bpjsInquiryModel), await PintuPayCrypt().getPassKeyPref());
-    var result = await BPJSProvider.inquiry(PostBody(bpjsInquiry).toJson());
+    var result = await BPJSProvider.inquiry(BodyRequestV7(bpjsInquiry ,bpjsInquiry).toJson());
 
     if(result.noVa != null){
       
@@ -43,7 +43,9 @@ class BpjsCubit extends Cubit<BpjsState> {
         authToken: authUsecase.userBox.authToken,
         numbers: month,
         totalPayment: result.totTagihan.toString(),
-        van: number
+        van: number,
+        balance: "cash",
+        transactionId: result.transactionId.toString()
       );
 
       bpjsPaymentModel = bpjsPayment;
@@ -52,6 +54,7 @@ class BpjsCubit extends Cubit<BpjsState> {
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.noVa.toString()},
         {"No Reff", result.reff.toString()},
+        {"Nama Cabang", result.namaCabang.toString()},
         {"Periode", result.periode.toString()},
         {"Tagihan", CoreFunction.moneyFormatter(result.tagihan)},
         {"Biaya Admin", CoreFunction.moneyFormatter(result.beaAdmin)},
@@ -74,7 +77,7 @@ class BpjsCubit extends Cubit<BpjsState> {
       if(value != null) {
         bpjsPaymentModel.pin = value;
         var payment = PintuPayCrypt().encrypt(jsonEncode(bpjsPaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await BPJSProvider.payment(PostBody(payment).toJson());
+        var result = await BPJSProvider.payment(BodyRequestV7(payment, payment).toJson());
 
         if(result.noVa != null) {
           BillStatusModel billStatusModel = BillStatusModel(
