@@ -13,7 +13,7 @@ class TransactionView extends StatelessWidget {
 
   TransactionView({ Key? key }) : super(key: key);
 
-  final TransactionCubit transactionCubit = TransactionCubit();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,14 @@ class TransactionView extends StatelessWidget {
               Container(
                 padding: PintuPayConstant.paddingScreen,
                 child: TextFormField(
-                  decoration: Component.decorationNoBorder("Search")
+                  // controller: searchController,
+                  decoration: Component.decorationNoBorder("Search"),
+                  onChanged: (value){
+                    CoreFunction.debouncer.debounce(() {
+                      CoreFunction.logPrint("value", value);
+                      BlocProvider.of<TransactionCubit>(context).onSearch(value);
+                    });
+                  },
                 )
               ),
               const TabBar(
@@ -51,37 +58,34 @@ class TransactionView extends StatelessWidget {
                 ]
               ),
               Expanded(     
-                child: BlocProvider(
-                  create: (context) => transactionCubit..onGetTransactionList(),
-                  child: BlocBuilder<TransactionCubit, TransactionState>(
-                    builder: (context, state) {
-                      if(state is TransactionLoading){
-                        return const TabBarView(
-                          children: [
-                            ShimmerList(),
-                            ShimmerList(),
-                            ShimmerList(),
-                          ]
-                        );
-                      } else if ( state is TransactionLoaded){
-                        return TabBarView(
-                          children: [
-                            state.listTransactionSuccess.isNotEmpty ? listTransaction(state.listTransactionSuccess) : emptyTransaction(),
-                            state.listTransactionPending.isNotEmpty ? listTransaction(state.listTransactionPending) : emptyTransaction(),
-                            state.listTransactionFailed.isNotEmpty ? listTransaction(state.listTransactionFailed) : emptyTransaction(),
-                          ],
-                        );
-                      } else {
-                        return TabBarView(
-                          children: [
-                            Container(),
-                            Container(),
-                            Container(),
-                          ]
-                        );
-                      }
-                    },
-                  )
+                child: BlocBuilder<TransactionCubit, TransactionState>(
+                  builder: (context, state) {
+                    if(state is TransactionLoading){
+                      return const TabBarView(
+                        children: [
+                          ShimmerList(),
+                          ShimmerList(),
+                          ShimmerList(),
+                        ]
+                      );
+                    } else if ( state is TransactionLoaded){
+                      return TabBarView(
+                        children: [
+                          state.listTransactionSuccess.isNotEmpty ? listTransaction(state.listTransactionSuccess) : emptyTransaction(),
+                          state.listTransactionPending.isNotEmpty ? listTransaction(state.listTransactionPending) : emptyTransaction(),
+                          state.listTransactionFailed.isNotEmpty ? listTransaction(state.listTransactionFailed) : emptyTransaction(),
+                        ],
+                      );
+                    } else {
+                      return TabBarView(
+                        children: [
+                          Container(),
+                          Container(),
+                          Container(),
+                        ]
+                      );
+                    }
+                  },
                 ) 
               ,)
             ],
