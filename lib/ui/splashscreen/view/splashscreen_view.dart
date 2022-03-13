@@ -24,6 +24,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: PintuPayPalette.darkBlue,
       body: Stack(
         children: [

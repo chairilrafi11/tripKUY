@@ -93,27 +93,33 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> onRegister() async {
-    await RegisterCubit().onRegisterForm(RegisterFormModel(
-      imei: "",
-      user: User(
-        uid: uidNameController.text,
-        address: addressController.text,
-        birthDate: birthDateController.text,
-        fcm: await CoreFunction.generateFirebaseToken(),
-        cityName: cityController.text,
-        birthPlace: birthDateController.text,
-        email: emailController.text,
-        gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
-        name: userNameController.text,
-        storeName: agentController.text,
-        parentReferral: "PEORANGAN",
-        password: passwordController.text,
-        passwordConfirmation: confirmPasswordController.text,
-        phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
-        id: widget.responseCheckPhoneNumber.id,
-      ),
-      userLocation: UserLocation(latitude: "", longitude: "")
-    ));
+    CoreFunction.showPin(context).then((pin) async {
+      if(pin != null){
+        await RegisterCubit().onRegisterForm(RegisterFormModel(
+          imei: "",
+          user: User(
+            pin: pin,
+            uid: uidNameController.text,
+            address: addressController.text,
+            birthDate: birthDateController.text,
+            fcm: await CoreFunction.generateFirebaseToken(),
+            cityName: cityController.text,
+            birthPlace: birthDateController.text,
+            email: emailController.text,
+            gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
+            name: userNameController.text,
+            storeName: agentController.text,
+            parentReferral: "PEORANGAN",
+            password: passwordController.text,
+            typeId: 1,
+            passwordConfirmation: confirmPasswordController.text,
+            phoneNumber: widget.responseCheckPhoneNumber.phoneNumber,
+            id: widget.responseCheckPhoneNumber.id,
+          ),
+          userLocation: UserLocation(latitude: "", longitude: "")
+        ));
+      }
+    });
   }
 
   void onTapBirtDateOld() {
