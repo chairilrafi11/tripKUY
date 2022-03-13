@@ -2,14 +2,16 @@ class BPJSInquiryResponse {
   dynamic noVa;
   String? nama;
   String? kdCabang;
+  String? namaCabang;
   dynamic jmlPst;
   dynamic periode;
-  int? tagihan;
+  dynamic tagihan;
   int? beaAdmin;
-  int? totTagihan;
-  int? totalPremi;
-  int? bpjsBalance;
+  dynamic totTagihan;
+  dynamic totalPremi;
+  dynamic bpjsBalance;
   dynamic reff;
+  int? transactionId;
 
   BPJSInquiryResponse({
     this.noVa,
@@ -22,13 +24,15 @@ class BPJSInquiryResponse {
     this.totTagihan,
     this.totalPremi,
     this.bpjsBalance,
-    this.reff
+    this.reff,
+    this.transactionId
   });
 
   BPJSInquiryResponse.fromJson(Map<String, dynamic> json) {
     noVa = json['no_va'];
     nama = json['nama'];
     kdCabang = json['kd_cabang'];
+    namaCabang = json['nama_cabang'];
     jmlPst = json['jml_pst'];
     periode = json['periode'];
     tagihan = json['tagihan'];
@@ -37,21 +41,24 @@ class BPJSInquiryResponse {
     totalPremi = json['total_premi'];
     bpjsBalance = json['bpjs_balance'];
     reff = json['reff'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['no_va'] = this.noVa;
-    data['nama'] = this.nama;
-    data['kd_cabang'] = this.kdCabang;
-    data['jml_pst'] = this.jmlPst;
-    data['periode'] = this.periode;
-    data['tagihan'] = this.tagihan;
-    data['bea_admin'] = this.beaAdmin;
-    data['tot_tagihan'] = this.totTagihan;
-    data['total_premi'] = this.totalPremi;
-    data['bpjs_balance'] = this.bpjsBalance;
-    data['reff'] = this.reff;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['no_va'] = noVa;
+    data['nama'] = nama;
+    data['kd_cabang'] = kdCabang;
+    data['nama_cabang'] = kdCabang;
+    data['jml_pst'] = jmlPst;
+    data['periode'] = periode;
+    data['tagihan'] = tagihan;
+    data['bea_admin'] = beaAdmin;
+    data['tot_tagihan'] = totTagihan;
+    data['total_premi'] = totalPremi;
+    data['bpjs_balance'] = bpjsBalance;
+    data['reff'] = reff;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }
