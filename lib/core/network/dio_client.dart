@@ -138,4 +138,17 @@ abstract class DioClient {
   @GET(PintuPayEndpoint.gameProvider)
   Future<CoreModel> gameProvider();
 
+  @PUT(PintuPayEndpoint.setPin)
+  Future<Map<String, dynamic>> updatePIN(
+      @Body() Map<String, dynamic> body,
+      );
+
+  @POST(PintuPayEndpoint.checkPin)
+  Future<Map<String, dynamic>> checkPIN(
+      @Body() Map<String, dynamic> body,
+      );
+
+  @POST(PintuPayEndpoint.logout)
+  Future<Map<String, dynamic>> logout();
+
 }

@@ -74,7 +74,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         controller: phoneNumberController,
                         style: TextStyle(
                             fontSize: SizeConfig.screenHeight / 60,
-                            color: PintuPayPalette.white),
+                            color: PintuPayPalette.darkBlue),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
                         cursorColor: PintuPayPalette.darkBlue,

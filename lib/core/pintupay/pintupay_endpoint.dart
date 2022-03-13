@@ -83,4 +83,10 @@ class PintuPayEndpoint {
   static const String getProfileUser = "v1/users/{auth_token}";
 
   static const String updateProfileUser = "v6/account/profile}";
+
+  static const String setPin = "v6/account/pin";
+
+  static const String checkPin = "v1/users/{user_id}/get_pin";
+
+  static const String logout = "v2/sessions/{auth_token}";
 }
