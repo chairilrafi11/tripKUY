@@ -1,4 +1,7 @@
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/telephone_formatter.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,12 +34,15 @@ class TelephonePostpaid extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          // controller: phoneContactController,
+                          controller: phonenumberController,
                           decoration: Component.inputDecoration("Nomor Telephone"),
                           maxLength: 16,
+                          onChanged: (value){
+                          },
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
+                            // TelephoneTextFormatter()
                           ],
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
@@ -48,7 +54,11 @@ class TelephonePostpaid extends StatelessWidget {
                         Component.button(
                           label: "Cek Tagihan",
                           onPressed: (){
-                            TelephoneCubit().onInquiry(phonenumberController.text);
+                            if(phonenumberController.text.length > 6){
+                              TelephoneCubit().onInquiry(phonenumberController.text);
+                            } else {
+                              CoreFunction.showToast("Masukan No Pelanggan dengan benar", backgroundColor: PintuPayPalette.red);
+                            }
                           }
                         ),
                       ],

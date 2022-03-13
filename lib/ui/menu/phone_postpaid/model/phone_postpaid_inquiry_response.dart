@@ -4,9 +4,9 @@ class PhonePostpaidInquiryResponse {
   String? bulan;
   String? bulanTagihan;
   String? daya;
-  int? tagihan;
-  int? admin;
-  int? total;
+  dynamic tagihan;
+  dynamic admin;
+  dynamic total;
   String? noResi;
   String? transactionCode;
   dynamic transactionId;
