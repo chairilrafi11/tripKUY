@@ -1,12 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/pintupay/pintupay_crypt.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +14,6 @@ import 'package:nav_router/nav_router.dart';
 import 'core/database/box/user/user_box.dart';
 import 'core/notification/firebase_cloud_messaging.dart';
 import 'core/notification/firebase_messaging_core.dart';
-import 'ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -86,7 +83,6 @@ class _MyAppState extends State<MyApp> {
     Logger.root.onRecord.listen((rec) {
       CoreFunction.logPrint("", '${rec.level.name}: ${rec.time}; ${rec.message}');
     });
-    await PintuPayCrypt().setPassKey();
   }
 
   @override

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pintupay/core/database/pintupay_box.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 
@@ -73,12 +74,9 @@ class CoreDatabase {
 
 
   static Future deleteDatabase() async {
-    // var utilityBoxOld = await EtekadDatabase.openBoxDatabase(EtekadUtilityBox.tabelName);
-    // // var passKeyDB = await utilityBoxOld.get(EtekadUtilityBox.PASSKEY);
-    await Hive.deleteFromDisk();
+    var userBox = await openBoxDatabase(PintuPayBox.user);
+    userBox.clear();
+    
     await authUsecase.removeUser();
-
-    // var utilityBoxNew = await EtekadDatabase.openBoxDatabase(EtekadUtilityBox.tabelName);
-    // utilityBoxNew.put(EtekadUtilityBox.PASSKEY, passKeyDB);
   }
 }

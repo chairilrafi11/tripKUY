@@ -2,9 +2,11 @@ import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/dashboard/cubit/dashboard_cubit.dart';
+import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:pintupay/ui/home/view/home.dart';
 import 'package:pintupay/ui/notification/view/notification_view.dart';
 import 'package:pintupay/ui/profile/view/profile_view.dart';
+import 'package:pintupay/ui/transaction/cubit/transaction_cubit.dart';
 import 'package:pintupay/ui/transaction/view/transaction_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,12 +31,22 @@ class Dashboard extends StatelessWidget {
                 builder: (context, state) {
                   switch (state.navBarItem) {
                     case NavBarItem.home:
-                      return BlocProvider(
-                        create: (context) => BalanceCubit(),
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => BalanceCubit(),
+                          ),
+                          BlocProvider(
+                            create: (context) => HomeCubit(),
+                          ),
+                        ],
                         child: Home(),
                       );
                     case NavBarItem.transaction:
-                      return TransactionView();
+                      return BlocProvider(
+                        create: (context) => TransactionCubit(),
+                        child: TransactionView(),
+                      );
                     case NavBarItem.notification:
                       return const NotificationView();
                     case NavBarItem.profile:
@@ -47,7 +59,7 @@ class Dashboard extends StatelessWidget {
           bottomNavigationBar: buildBottomNavigation(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: _buildFloatingActionButton(),
+          // floatingActionButton: _buildFloatingActionButton(),
         ));
   }
 

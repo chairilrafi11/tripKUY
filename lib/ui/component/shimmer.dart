@@ -120,3 +120,37 @@ class ShimmerBanner extends StatelessWidget {
     );
   }
 }
+  
+class ShimmerMenu extends StatelessWidget {
+  const ShimmerMenu({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 230,
+      width: SizeConfig.blockSizeHorizontal * 100,
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 8,
+        scrollDirection: Axis.vertical,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          childAspectRatio: (80 / 100),
+        ),
+        itemBuilder: (BuildContext context, int index) { 
+          return Shimmer.fromColors(
+            period: const Duration(milliseconds: CoreVariable.durationShimmer),
+            highlightColor: PintuPayPalette.white,
+            baseColor: PintuPayPalette.grey200,
+            child: Container(
+              height: 70,
+              margin: const EdgeInsets.symmetric(),
+              color: PintuPayPalette.grey200,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

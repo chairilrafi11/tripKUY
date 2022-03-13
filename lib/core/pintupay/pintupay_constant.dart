@@ -13,6 +13,8 @@ class PintuPayConstant {
   static const transactionPending = "02";
   static const transactionSuccess = "03";
   static const transactionfailed = "04";
+  static const transactionWaitingApproval = "05";
+  static const transactionApproved = "06";
 
   static const List<String> codedMonth = [
     'January',
