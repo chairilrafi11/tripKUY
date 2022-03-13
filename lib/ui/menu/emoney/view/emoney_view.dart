@@ -90,10 +90,7 @@ class EmoneyView extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => routePush(
-              EmoneyDetailView(emoneyProviderResponse: list[index]), 
-              RouterType.material
-            ),
+            onTap: () => emoneyCubit.navDetail(list[index]),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)

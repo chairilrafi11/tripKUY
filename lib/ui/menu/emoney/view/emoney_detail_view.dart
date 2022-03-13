@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/menu/emoney/cubit/emoney_detail_cubit.dart';
+import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,11 +14,9 @@ import '../../../component/shimmer.dart';
 
 class EmoneyDetailView extends StatelessWidget {
 
-  final EmoneyProviderResponse emoneyProviderResponse;
+  EmoneyDetailView({Key? key }) : super(key: key);
 
-  EmoneyDetailView({ required this.emoneyProviderResponse, Key? key }) : super(key: key);
-
-  final EmoneyDetailCubit emoneyDetailCubit = EmoneyDetailCubit();
+  final TextEditingController idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,13 @@ class EmoneyDetailView extends StatelessWidget {
           Component.header(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Component.appBar(emoneyProviderResponse.name ?? "", transparet: true),
+                Component.appBar(
+                  BlocProvider.of<EmoneyDetailCubit>(context).emoneyProviderResponse.name ?? "", 
+                  transparet: true
+                ),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   shape: RoundedRectangleBorder(
@@ -37,7 +41,7 @@ class EmoneyDetailView extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: TextFormField(
-                      // controller: phoneContactController,
+                      controller: idController,
                       decoration: Component.decorationNoBorder("Masukan no pelanggan"),
                       maxLength: 16,
                       keyboardType: TextInputType.number,
@@ -55,19 +59,18 @@ class EmoneyDetailView extends StatelessWidget {
                 const SizedBox(height: 10,),
                 Component.textBold("Pilih Nominal"),
                 const SizedBox(height: 10,),
-                BlocProvider(
-                  create: (context) => emoneyDetailCubit..onGetProviderDetail(emoneyProviderResponse.id.toString()),
-                  child: BlocBuilder<EmoneyDetailCubit, EmoneyDetailState>(
-                    builder: (context, state) {
-                      if (state is EmoneyDetailLoading) {
-                        return const ShimmerList();
-                      } else if (state is EmoneyDetailLoaded) {
-                        return listProduct([]);
-                      } else {
-                        return Container();
-                      }
-                    },
-                  )
+                BlocBuilder<EmoneyDetailCubit, EmoneyDetailState>(
+                  builder: (context, state) {
+                    if (state is EmoneyDetailLoading) {
+                      return const ShimmerList();
+                    } else if (state is EmoneyDetailLoaded) {
+                      return Flexible(child: listProduct(state.emoneyProductResponse));
+                    } else if (state is EmoneyDetailEmpty) {
+                        return Center(child: Component.textBold("Product Kosong"),);
+                    } else {
+                      return Container();
+                    }
+                  },
                 )
               ],
             ),
@@ -77,15 +80,15 @@ class EmoneyDetailView extends StatelessWidget {
     ); 
   }
 
-  Widget listProduct(List list){
+  Widget listProduct(EmoneyProductResponse emoneyProductResponse){
     var size = MediaQuery.of(navGK.currentContext!).size;
-    const double itemHeight = 120;
+    const double itemHeight = 140;
     final double itemWidth = size.width / 1.8;
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      // physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: const EdgeInsets.all(0),
-      itemCount: list.length,
+      itemCount: emoneyProductResponse.emoney!.length,
       scrollDirection: Axis.vertical,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -93,7 +96,13 @@ class EmoneyDetailView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
-          // onTap: () => routePush(PaymentView(), RouterType.material),
+          onTap: () {
+            if(idController.text.isNotEmpty){
+              BlocProvider.of<EmoneyDetailCubit>(context).inquiry(idController.text, emoneyProductResponse.emoney![index]);
+            } else {
+              CoreFunction.showToast("Harap masukan no pelanggan");
+            }
+          },
           child: Card(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -103,8 +112,9 @@ class EmoneyDetailView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Component.textBold(
-                    "${index+1}0.000", 
-                    fontSize: PintuPayConstant.fontSizeLargeExtra
+                    emoneyProductResponse.emoney![index].name ?? "", 
+                    fontSize: PintuPayConstant.fontSizeLargeExtra,
+                    textAlign: TextAlign.center
                   ),
                   const SizedBox(height: 10,),
                   Row(
@@ -112,21 +122,22 @@ class EmoneyDetailView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Component.textBold(
-                        "${index+1}1.500",
+                        CoreFunction.moneyFormatter(emoneyProductResponse.emoney![index].salePrice),
                         fontSize: PintuPayConstant.fontSizeMedium,
-                        colors: PintuPayPalette.orange
+                        colors: PintuPayPalette.orange,
+                        textAlign: TextAlign.center
                       ),
-                      const SizedBox(width: 10,),
-                      Text(
-                        "${index+1}2.000",
-                        style: const TextStyle(
-                          color: PintuPayPalette.grey,
-                          fontFamily: PintuPayConstant.avenirRegular,
-                          fontSize: PintuPayConstant.fontSizeSmall,
-                          overflow: TextOverflow.ellipsis,
-                          decoration: TextDecoration.lineThrough
-                        ),
-                      )
+                      // const SizedBox(width: 10,),
+                      // Text(
+                      //   CoreFunction.moneyFormatter(emoneyProductResponse.emoney![index].priceMerchant),
+                      //   style: const TextStyle(
+                      //     color: PintuPayPalette.grey,
+                      //     fontFamily: PintuPayConstant.avenirRegular,
+                      //     fontSize: PintuPayConstant.fontSizeSmall,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     decoration: TextDecoration.lineThrough
+                      //   ),
+                      // )
                     ],
                   )
                 ],
