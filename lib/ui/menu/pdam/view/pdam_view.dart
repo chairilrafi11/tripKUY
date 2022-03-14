@@ -39,7 +39,7 @@ class PDAMView extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          // controller: phoneContactController,
+                          controller: idController,
                           decoration:
                               Component.decorationNoBorder("No Pelanggan"),
                           maxLength: 16,
