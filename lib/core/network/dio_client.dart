@@ -151,4 +151,9 @@ abstract class DioClient {
   @POST(PintuPayEndpoint.logout)
   Future<Map<String, dynamic>> logout();
 
+  @PUT(PintuPayEndpoint.changePassword)
+  Future<Map<String, dynamic>> changePassword(
+      @Body() Map<String, dynamic> body,
+      );
+
 }
