@@ -138,4 +138,9 @@ abstract class DioClient {
   @GET(PintuPayEndpoint.gameProvider)
   Future<CoreModel> gameProvider();
 
+  @GET(PintuPayEndpoint.gameProduct)
+  Future<CoreModel> gameProviderDetail(
+    @Query('provider_id') String providerId,
+    @Query('auth_token') String authToken
+  );
 }
