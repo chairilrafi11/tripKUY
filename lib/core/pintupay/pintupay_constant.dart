@@ -46,4 +46,6 @@ class PintuPayConstant {
     r'Desember'
   ];
 
+  static const String paymentCash = "cash";
+
 }

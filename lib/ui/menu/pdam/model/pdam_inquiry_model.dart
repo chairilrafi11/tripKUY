@@ -25,13 +25,13 @@ class PDAMInquiryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['act'] = this.act;
-    data['id'] = this.id;
-    data['total_payment'] = this.totalPayment;
-    data['product'] = this.product;
-    data['product_id'] = this.productId;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['act'] = act;
+    data['id'] = id;
+    data['total_payment'] = totalPayment;
+    data['product'] = product;
+    data['product_id'] = productId;
+    data['auth_token'] = authToken;
     return data;
   }
 }

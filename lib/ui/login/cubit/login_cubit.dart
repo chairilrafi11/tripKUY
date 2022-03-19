@@ -24,9 +24,13 @@ class LoginCubit extends Cubit<LoginState> {
     loginModel.session!.fcm = fcm;
     var login = PintuPayCrypt().encrypt(jsonEncode(loginModel), await PintuPayCrypt().getPassKeyPref());
     UserBox userBox = await LoginProvider.login(PostBody(login).toJson());
-    userBox.fcmToken = fcm;
-    await authUsecase.setUser(userBox);
-    await UserBoxController.saveUser(userBox);
-    pushAndRemoveUntil(Dashboard(), RouterType.material);
+
+    //? Login sukses
+    if(userBox.id != null) {
+      userBox.fcmToken = fcm;
+      await authUsecase.setUser(userBox);
+      await UserBoxController.saveUser(userBox);
+      pushAndRemoveUntil(Dashboard(), RouterType.material);
+    }
   }
 }
