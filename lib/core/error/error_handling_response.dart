@@ -29,7 +29,7 @@ class ErrorHandlingResponse {
       } else if (responseConverter.code == 401) {
         CoreFunction.showToast("Not Authorized");
         debouncer.debounce(() async {
-          
+          CoreFunction.logout();
         });
       } else if (responseConverter.code == 402) {
         CoreFunction.showToast(responseConverter.message!, duration: 2);
