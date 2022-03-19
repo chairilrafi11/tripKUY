@@ -143,4 +143,7 @@ abstract class DioClient {
     @Query('provider_id') String providerId,
     @Query('auth_token') String authToken
   );
+
+  @POST(PintuPayEndpoint.gamePayment)
+  Future<CoreModel> gamePayment(@Body() Map<String, dynamic> body);
 }

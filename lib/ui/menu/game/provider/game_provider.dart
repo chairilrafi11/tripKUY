@@ -6,6 +6,8 @@ import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
 import 'package:pintupay/ui/menu/game/model/game_product_response.dart';
 import 'package:pintupay/ui/menu/game/model/game_provder_response.dart';
 
+import '../model/game_payment_response.dart';
+
 class GameProvider {
 
   static Future<List<GameProviderResponse>> provider() async {
@@ -26,11 +28,11 @@ class GameProvider {
     return GameProductResponse.fromJson(product.data);
   } 
 
-  static Future<EmoneyPaymentResponse> payment(Map<String, dynamic> body) async {
+  static Future<GamePaymentResponse> payment(Map<String, dynamic> body) async {
     var dio = await DioService.checkConnection(tryAgainMethod: providerDetail, isLoading: true);
     DioClient dioClient = DioClient(dio);
-    var product = await dioClient.emoneyPayment(body);
-    return EmoneyPaymentResponse.fromJson(product.data);
+    var product = await dioClient.gamePayment(body);
+    return GamePaymentResponse.fromJson(product.data);
   } 
 
 }

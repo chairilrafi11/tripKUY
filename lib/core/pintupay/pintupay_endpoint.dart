@@ -78,4 +78,7 @@ class PintuPayEndpoint {
   static const String gameProvider = "v2/game/provider_games";
 
   static const String gameProduct = "v2/game/get_list_games";
+
+  static const String gamePayment = "v7/game/transactions";
+  
 }

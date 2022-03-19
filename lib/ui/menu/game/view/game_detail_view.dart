@@ -6,7 +6,6 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
 import 'package:pintupay/ui/menu/game/model/game_product_response.dart';
 
 import '../../../component/shimmer.dart';
@@ -96,7 +95,7 @@ class GameDetailView extends StatelessWidget {
         return InkWell(
           onTap: () {
             if(idController.text.isNotEmpty){
-              // BlocProvider.of<GameDetailCubit>(context).inquiry(idController.text, GameProductResponse.Game![index]);
+              BlocProvider.of<GameDetailCubit>(context).onInquiry(idController.text, gameProductResponse.game![index]);
             } else {
               CoreFunction.showToast("Harap masukan no pelanggan");
             }
