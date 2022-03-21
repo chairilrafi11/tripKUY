@@ -1,16 +1,12 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/topup/cubit/topup_cubit.dart';
 import 'package:pintupay/ui/topup/cubit/topup_input_cubit.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:pintupay/ui/topup/model/topup_request_model.dart';
-import 'package:pintupay/ui/topup/view/topup_confirm_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 class TopupInputView extends StatelessWidget {
 
@@ -76,6 +72,7 @@ class TopupInputView extends StatelessWidget {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 20,),
@@ -100,6 +97,7 @@ class TopupInputView extends StatelessWidget {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 20,),
@@ -117,6 +115,7 @@ class TopupInputView extends StatelessWidget {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 20,),

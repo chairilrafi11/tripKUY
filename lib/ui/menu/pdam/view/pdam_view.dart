@@ -1,12 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
-import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pintupay/ui/menu/pdam/model/pdam_disctric_response.dart';
 
-import '../../../../core/util/core_function.dart';
 import '../../../../core/util/size_config.dart';
 import '../cubit/pdam_cubit.dart';
 
@@ -55,6 +53,7 @@ class PDAMView extends StatelessWidget {
                               if (value?.isEmpty ?? true) {
                                 return "Wajib diisi*";
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(

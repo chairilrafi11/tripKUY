@@ -148,6 +148,7 @@ class CoreFunction {
               .replaceAll(' ', '');
         }
       }
+      return null;
     });
   }
 
@@ -237,6 +238,7 @@ class CoreFunction {
     try {
       launch("market://details?id=" "com.ecoop.customer");
     } on PlatformException catch(e) {
+      CoreFunction.logPrint("Error open store", e.toString());
       launch("https://play.google.com/store/apps/details?id=" "com.ecoop.customer");
     } finally {
       launch("https://play.google.com/store/apps/details?id=" "com.ecoop.customer");

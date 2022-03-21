@@ -100,18 +100,20 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildFloatingActionButton() => Transform.translate(
-        offset: const Offset(0, -10),
-        child: FloatingActionButton(
-            elevation: 15.0,
-            focusElevation: 2.0,
-            autofocus: false,
-            backgroundColor: PintuPayPalette.darkBlue,
-            child: const Icon(Icons.qr_code_scanner,
-                color: PintuPayPalette.white, size: 40),
-            onPressed: () {
-              // routePush(const QRPage());
-              // CoreFunction.showToast("Segera datang", backgroundColor: PintuPayPalette.green);
-            }),
-      );
+  //* Widget Scan
+  // Widget _buildFloatingActionButton() => Transform.translate(
+  //   offset: const Offset(0, -10),
+  //   child: FloatingActionButton(
+  //     elevation: 15.0,
+  //     focusElevation: 2.0,
+  //     autofocus: false,
+  //     backgroundColor: PintuPayPalette.darkBlue,
+  //     child: const Icon(Icons.qr_code_scanner,
+  //         color: PintuPayPalette.white, size: 40),
+  //     onPressed: () {
+  //       // routePush(const QRPage());
+  //       // CoreFunction.showToast("Segera datang", backgroundColor: PintuPayPalette.green);
+  //     }
+  //   ),
+  // );
 }

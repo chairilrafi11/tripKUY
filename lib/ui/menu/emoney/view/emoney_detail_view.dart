@@ -5,10 +5,8 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/menu/emoney/cubit/emoney_detail_cubit.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
-import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 import '../../../component/shimmer.dart';
 
@@ -52,6 +50,7 @@ class EmoneyDetailView extends StatelessWidget {
                         if (value?.isEmpty ?? true) {
                           return "Wajib diisi*";
                         }
+                        return null;
                       },
                     ),
                   ),

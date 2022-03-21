@@ -1,19 +1,14 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 class DataPlanView extends StatelessWidget {
   const DataPlanView({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    const double itemHeight = 120;
-    final double itemWidth = size.width / 1.8;
     return Scaffold(
       body: Stack(
         children: [
@@ -42,6 +37,7 @@ class DataPlanView extends StatelessWidget {
                         if (value?.isEmpty ?? true) {
                           return "Wajib diisi*";
                         }
+                        return null;
                       },
                     ),
                   ),

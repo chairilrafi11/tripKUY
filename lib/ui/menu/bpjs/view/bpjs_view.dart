@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pintupay/ui/menu/bpjs/cubit/bpjs_cubit.dart';
-import 'package:pintupay/ui/menu/bpjs/model/bpjs_inquiry_model.dart';
 
 import '../../../../core/util/util.dart';
 
 class BPJSView extends StatefulWidget {
 
-  BPJSView({ Key? key }) : super(key: key);
+  const BPJSView({ Key? key }) : super(key: key);
 
   @override
   State<BPJSView> createState() => _BPJSViewState();
@@ -145,6 +142,7 @@ class _BPJSViewState extends State<BPJSView> {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 10,),

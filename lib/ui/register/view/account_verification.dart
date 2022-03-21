@@ -79,7 +79,6 @@ class _AccountVerificationState extends State<AccountVerification> {
                   // ),
                   codeLength: 4,
                   onCodeChanged: (value) {
-                    print(value);
                     code = value!;
                   },
                 )
@@ -156,6 +155,6 @@ class _AccountVerificationState extends State<AccountVerification> {
   }
 
   void _listenOtp() async {
-    await SmsAutoFill().listenForCode;
+    SmsAutoFill().listenForCode;
   }
 }

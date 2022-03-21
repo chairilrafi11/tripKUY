@@ -5,7 +5,6 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/pin/cubit/pin_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nav_router/nav_router.dart';
 
 class PinPage extends StatefulWidget {
 

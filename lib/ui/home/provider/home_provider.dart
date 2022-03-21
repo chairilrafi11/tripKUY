@@ -1,4 +1,3 @@
-import 'package:pintupay/core/database/box/user/user_box.dart';
 import 'package:pintupay/core/network/network.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/ui/home/model/menu_response.dart';

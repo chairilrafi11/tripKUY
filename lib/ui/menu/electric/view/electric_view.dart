@@ -5,7 +5,6 @@ import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
-import 'package:pintupay/ui/menu/electric/view/electric_bill_view.dart';
 
 import '../../../../core/pintupay/pintupay.dart';
 import '../../../../core/util/core_function.dart';
@@ -88,6 +87,7 @@ class ElectricView extends StatelessWidget {
                                           if (value?.isEmpty ?? true) {
                                             return "Wajib diisi*";
                                           }
+                                          return null;
                                         },
                                       ),
                                     ),
@@ -216,6 +216,7 @@ class ElectricView extends StatelessWidget {
                   if (value?.isEmpty ?? true) {
                     return "Wajib diisi*";
                   }
+                  return null;
                 },
               ),
             ),

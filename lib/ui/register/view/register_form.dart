@@ -1,16 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:pintupay/core/database/box/user/user_box_controller.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/register/cubit/register_cubit.dart';
 import 'package:pintupay/ui/t&c/view/term_and_condition.dart';
 import 'package:pintupay/ui/verification/model/register_form_model.dart';
@@ -780,7 +776,9 @@ class _RegisterState extends State<Register> {
         textInputAction: TextInputAction.next,
         maxLength: 20,
         style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-        validator: (value) {},
+        validator: (value) {
+          return null;
+        },
         decoration: InputDecoration(
           prefixIcon: const Padding(
             padding: EdgeInsets.all(17.0),

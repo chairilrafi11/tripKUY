@@ -119,6 +119,7 @@ class CheckPhoneNumberView extends StatelessWidget {
         if (value.length < 10 ) {
           return "No handphone tidak sesuai";
         }
+        return null;
       },
       decoration: InputDecoration(
         prefixIcon: const Padding(

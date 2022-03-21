@@ -14,7 +14,7 @@ class RegisterFormModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['imei'] = imei;
     if (userLocation != null) {
       data['user_location'] = userLocation!.toJson();
@@ -39,7 +39,7 @@ class UserLocation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['latitude'] = latitude;
     data['longitude'] = longitude;
     data.removeWhere((key, value) => value == null);
@@ -155,7 +155,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['address'] = address;
     data['area_id'] = areaId;
     data['birth_date'] = birthDate;

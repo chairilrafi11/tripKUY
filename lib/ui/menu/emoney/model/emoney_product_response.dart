@@ -7,7 +7,7 @@ class EmoneyProductResponse {
     if (json['Emoney'] != null) {
       emoney = <Emoney>[];
       json['Emoney'].forEach((v) {
-        emoney!.add(new Emoney.fromJson(v));
+        emoney!.add(Emoney.fromJson(v));
       });
     }
   }

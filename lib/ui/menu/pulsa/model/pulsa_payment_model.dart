@@ -10,13 +10,13 @@ class PulsaPaymentModel {
     payment = json['payment'];
     pin = json['pin'];
     transaction = json['transaction'] != null
-        ? new Transaction.fromJson(json['transaction'])
+        ? Transaction.fromJson(json['transaction'])
         : null;
     authToken = json['auth_token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['payment'] = payment;
     data['pin'] = pin;
     if (transaction != null) {

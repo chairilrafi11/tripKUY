@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nav_router/nav_router.dart';
@@ -6,8 +5,6 @@ import 'package:pintupay/ui/menu/game/cubit/game_detail_cubit.dart';
 import 'package:pintupay/ui/menu/game/model/game_provder_response.dart';
 import 'package:pintupay/ui/menu/game/provider/game_provider.dart';
 import 'package:pintupay/ui/menu/game/view/game_detail_view.dart';
-
-import '../../emoney/model/emoney_provder.dart';
 
 part 'game_state.dart';
 

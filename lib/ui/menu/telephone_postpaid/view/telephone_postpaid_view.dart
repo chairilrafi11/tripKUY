@@ -1,6 +1,5 @@
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/telephone_formatter.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +47,7 @@ class TelephonePostpaid extends StatelessWidget {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 20,),

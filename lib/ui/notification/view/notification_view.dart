@@ -1,6 +1,5 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +37,7 @@ class NotificationView extends StatelessWidget {
                             //   "assets/icons/icmn_bpjs.png",
                             //   height: 20,
                             // ),
-                            Icon(
+                            const Icon(
                               Icons.info,
                               size: 25,
                               color: PintuPayPalette.darkBlue,

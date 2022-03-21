@@ -209,7 +209,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   Future sendPhoneNumber() async {
     FocusScope.of(context).requestFocus(FocusNode());
-    var form = _formKey.currentState;
+    // var form = _formKey.currentState;
     // if (form != null && form.validate()) {
     //   form.save();
     //   BlocProvider.of<ForgotPasswordCubit>(context).onRequestOTP(

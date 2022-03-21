@@ -10,9 +10,9 @@ class RegisterActivation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['auth_token'] = this.authToken;
-    data['code'] = this.code;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['auth_token'] = authToken;
+    data['code'] = code;
     return data;
   }
 }

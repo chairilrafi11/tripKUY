@@ -19,7 +19,7 @@ class UserBoxController {
       }
     } catch (e) {
       CoreFunction.logPrint("Check Login", e.toString());
-      //? TODO Logout
+      CoreFunction.logout();
     }
     return isLogin;
   }

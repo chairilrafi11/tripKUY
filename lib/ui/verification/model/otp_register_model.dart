@@ -12,10 +12,10 @@ class OtpRegisterModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['otp_code'] = this.otpCode;
-    data['phone_number'] = this.phoneNumber;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['otp_code'] = otpCode;
+    data['phone_number'] = phoneNumber;
     return data;
   }
 }

@@ -8,15 +8,16 @@ class ResponsePulsaPayment {
   int? totalBalance;
   String? authToken;
 
-  ResponsePulsaPayment(
-      {this.id,
-      this.transactionName,
-      this.statusName,
-      this.messages,
-      this.statusId,
-      this.statusDescription,
-      this.totalBalance,
-      this.authToken});
+  ResponsePulsaPayment({
+    this.id,
+    this.transactionName,
+    this.statusName,
+    this.messages,
+    this.statusId,
+    this.statusDescription,
+    this.totalBalance,
+    this.authToken
+  });
 
   ResponsePulsaPayment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -30,15 +31,15 @@ class ResponsePulsaPayment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['transaction_name'] = this.transactionName;
-    data['status_name'] = this.statusName;
-    data['messages'] = this.messages;
-    data['status_id'] = this.statusId;
-    data['status_description'] = this.statusDescription;
-    data['total_balance'] = this.totalBalance;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['transaction_name'] = transactionName;
+    data['status_name'] = statusName;
+    data['messages'] = messages;
+    data['status_id'] = statusId;
+    data['status_description'] = statusDescription;
+    data['total_balance'] = totalBalance;
+    data['auth_token'] = authToken;
     return data;
   }
 }

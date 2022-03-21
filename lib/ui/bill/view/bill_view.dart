@@ -8,8 +8,6 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:nav_router/nav_router.dart';
 
 import '../../balance/cubit/balance_cubit.dart';
 
@@ -130,6 +128,7 @@ class _BillViewState extends State<BillView> {
   }
 
   Future<void> _saveBill(String fileName, bool isShare, String transactionId) async {
+    // TODO
     // return Future.delayed(const Duration(milliseconds: 20), () async {
     //   RenderRepaintBoundary? boundary = billContainer.currentContext!.findRenderObject() as RenderRepaintBoundary?;
     //   ui.Image image = await boundary!.toImage();
@@ -180,6 +179,7 @@ class _BillViewState extends State<BillView> {
   }
 
   _openFile(String fileName, File file) {
+    // TODO
     // CoreFunction.logPrint("childDetail", "_openFile");
     // showEtikadCupertionDialog(builder: (BuildContext buildContext) {
     //   return EtikadCupertinoDialog(

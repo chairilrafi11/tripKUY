@@ -6,15 +6,12 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/topup/cubit/topup_cubit.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
-import 'package:pintupay/ui/topup/provider/topup_provider.dart';
-import 'package:pintupay/ui/topup/view/topup_input_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
 
 class TopupSelectbank extends StatelessWidget {
 
-  TopupSelectbank({ Key? key }) : super(key: key);
+  const TopupSelectbank({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

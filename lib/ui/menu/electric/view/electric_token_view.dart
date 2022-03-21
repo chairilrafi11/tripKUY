@@ -6,10 +6,8 @@ import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
 import 'package:pintupay/ui/menu/electric/model/electric_token_response.dart';
-import 'package:pintupay/ui/payment/view/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 class ElectricToken extends StatelessWidget {
   ElectricToken({ Key? key }) : super(key: key);
@@ -46,6 +44,7 @@ class ElectricToken extends StatelessWidget {
                         if (value?.isEmpty ?? true) {
                           return "Wajib diisi*";
                         }
+                        return null;
                       },
                     ),
                   ),

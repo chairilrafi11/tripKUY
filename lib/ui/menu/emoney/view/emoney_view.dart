@@ -2,16 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/emoney/cubit/emoney_cubit.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
-import 'package:pintupay/ui/menu/emoney/view/emoney_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 class EmoneyView extends StatelessWidget {
 
@@ -53,6 +50,7 @@ class EmoneyView extends StatelessWidget {
                               if (value?.isEmpty ?? true) {
                                 return "Wajib diisi*";
                               }
+                              return null;
                             },
                           ),
                         ),

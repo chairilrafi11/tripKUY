@@ -5,14 +5,14 @@ class CheckPhoneNumberModel {
 
   CheckPhoneNumberModel.fromJson(Map<String, dynamic> json) {
     userOtp = json['user_otp'] != null
-        ? new UserOtp.fromJson(json['user_otp'])
+        ? UserOtp.fromJson(json['user_otp'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.userOtp != null) {
-      data['user_otp'] = this.userOtp!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (userOtp != null) {
+      data['user_otp'] = userOtp!.toJson();
     }
     return data;
   }
@@ -28,8 +28,8 @@ class UserOtp {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phone_number'] = this.phoneNumber;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phone_number'] = phoneNumber;
     return data;
   }
 }

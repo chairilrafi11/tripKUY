@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
@@ -21,7 +20,7 @@ class TopupConfirmView extends StatelessWidget {
     Key? key 
   }) : super(key: key);
 
-  List<String> info = [
+  final List<String> info = [
     "Pilih m-Transfer > Daftar Transfer > Antar Rekening",
     "Masukan No Rekening 2210075324 dan kirim",
     "Masuk Antar Rekening > pilih rekening a/n Chairil Rafi Purnama dengan no Rek 2210075324",

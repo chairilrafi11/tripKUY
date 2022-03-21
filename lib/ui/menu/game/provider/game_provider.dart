@@ -1,8 +1,6 @@
 import 'package:pintupay/core/network/dio_client.dart';
 import 'package:pintupay/core/network/dio_service.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
-import 'package:pintupay/ui/menu/emoney/model/emoney_payment_response.dart';
-import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
 import 'package:pintupay/ui/menu/game/model/game_product_response.dart';
 import 'package:pintupay/ui/menu/game/model/game_provder_response.dart';
 

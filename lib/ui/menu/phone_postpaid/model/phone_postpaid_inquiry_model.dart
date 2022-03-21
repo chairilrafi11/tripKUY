@@ -31,15 +31,15 @@ class PhonePostpaidInquiryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['act'] = this.act;
-    data['no_resi'] = this.noResi;
-    data['total_payment'] = this.totalPayment;
-    data['payment'] = this.payment;
-    data['phone_number'] = this.phoneNumber;
-    data['product'] = this.product;
-    data['transaction_code'] = this.transactionCode;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['act'] = act;
+    data['no_resi'] = noResi;
+    data['total_payment'] = totalPayment;
+    data['payment'] = payment;
+    data['phone_number'] = phoneNumber;
+    data['product'] = product;
+    data['transaction_code'] = transactionCode;
+    data['auth_token'] = authToken;
     return data;
   }
 }
