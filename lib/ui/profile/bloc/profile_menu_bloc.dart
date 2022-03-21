@@ -16,9 +16,9 @@ class ProfileMenuBloc {
       case ProfileMenu.termCondition:
         // routePush(const Login(), RouterType.cupertino);
         break;
-      case ProfileMenu.contactus:
-        routePush(const ContactUs(), RouterType.cupertino);
-        break;
+      // case ProfileMenu.contactus:
+      //   routePush(const ContactUs(), RouterType.cupertino);
+      //   break;
       case ProfileMenu.cs:
         routePush(const ContactUs(), RouterType.cupertino);
         break;

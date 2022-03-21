@@ -41,7 +41,6 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
     }
   }
 
-
   Future inquiry(String id, Emoney value) async {
     emoney = value;
       

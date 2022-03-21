@@ -56,9 +56,8 @@ abstract class DioClient {
 
   @GET(PintuPayEndpoint.emoneyProvider)
   Future<CoreModel> empneyProviderDetail(
-    @Query('provider_id') String providerId,
-    @Query('auth_token') String authToken
-  );
+      @Query('provider_id') String providerId,
+      @Query('auth_token') String authToken);
 
   @POST(PintuPayEndpoint.emoneyPayment)
   Future<CoreModel> emoneyPayment(@Body() Map<String, dynamic> body);
@@ -118,7 +117,8 @@ abstract class DioClient {
   Future<CoreModel> electricPrepaidPayment(@Body() Map<String, dynamic> body);
 
   @GET(PintuPayEndpoint.phonePostpaidProvider)
-  Future<CoreModel> phonePostpaidProvider(@Query('auth_token') String authToken);
+  Future<CoreModel> phonePostpaidProvider(
+      @Query('auth_token') String authToken);
 
   @POST(PintuPayEndpoint.phonePostpaidInquiry)
   Future<CoreModel> phonePostpaidInquiry(@Body() Map<String, dynamic> body);
@@ -140,20 +140,37 @@ abstract class DioClient {
 
   @PUT(PintuPayEndpoint.setPin)
   Future<Map<String, dynamic>> updatePIN(
-      @Body() Map<String, dynamic> body,
-      );
+    @Body() Map<String, dynamic> body,
+  );
 
   @POST(PintuPayEndpoint.checkPin)
   Future<Map<String, dynamic>> checkPIN(
-      @Body() Map<String, dynamic> body,
-      );
+    @Body() Map<String, dynamic> body,
+  );
 
   @POST(PintuPayEndpoint.logout)
   Future<Map<String, dynamic>> logout();
 
   @PUT(PintuPayEndpoint.changePassword)
   Future<Map<String, dynamic>> changePassword(
-      @Body() Map<String, dynamic> body,
-      );
+    @Body() Map<String, dynamic> body,
+  );
 
+  @GET(PintuPayEndpoint.gameProduct)
+  Future<CoreModel> gameProviderDetail(@Query('provider_id') String providerId,
+      @Query('auth_token') String authToken);
+
+  @POST(PintuPayEndpoint.gamePayment)
+  Future<CoreModel> gamePayment(@Body() Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.forgotPassword)
+  // Future<Map<String, dynamic>> requestOTPForgotPassword(
+  //   @Body() Map<String, dynamic> body,
+  // Future<CoreModel> requestOTPForgotPassword(@Body() Map<String, dynamic> body);
+  Future<CoreModel> requestOTPForgotPassword(Map<String, dynamic> body);
+
+  @PUT(PintuPayEndpoint.forgotPassword)
+  // Future<Map<String, dynamic>> requestForgotPassword(
+  //   @Body() Map<String, dynamic> body,
+  Future<CoreModel> requestForgotPassword(@Body() Map<String, dynamic> body);
 }

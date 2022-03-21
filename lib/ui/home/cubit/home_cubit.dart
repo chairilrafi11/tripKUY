@@ -7,6 +7,7 @@ import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
 import 'package:pintupay/ui/menu/electric/view/electric_token_view.dart';
 import 'package:pintupay/ui/menu/electric/view/electric_view.dart';
 import 'package:pintupay/ui/menu/emoney/view/emoney_view.dart';
+import 'package:pintupay/ui/menu/game/view/game_view.dart';
 import 'package:pintupay/ui/menu/pdam/view/pdam_view.dart';
 import 'package:pintupay/ui/menu/pgn/view/telephone_postpaid_view.dart';
 import 'package:pintupay/ui/menu/phone_postpaid/view/phone_postpaid_view.dart';
@@ -70,7 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(DataPlanView(), RouterType.material);
         break;
       case "game":
-        routePush(PGNView(), RouterType.material);
+        routePush(GameView(), RouterType.material);
         break;
       break;  
       // default:

@@ -92,4 +92,7 @@ class PintuPayEndpoint {
 
   static const String changePassword = "v6/account/credential";
 
+  static const String gamePayment = "v7/game/transactions";
+
+  static const String forgotPassword = "v7/reset/passwords";
 }

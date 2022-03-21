@@ -1,11 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/core_variable.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/forgot_password/view/forgot_password_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
+
+import '../cubit/forgot_password_cubit.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -91,7 +92,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             return 'masukkan nomor telepon';
                           }
                           if (value.length < 8) {
-                            return 'data tidak lengkap';
+                            return 'Nomor telepon tidak lengkap';
                           }
                           return null;
                         },
@@ -145,10 +146,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             borderRadius: BorderRadius.all(Radius.circular(30))),
         color: PintuPayPalette.darkBlue,
         child: InkWell(
-          // onTap: sendPhoneNumber,
-          onTap: () =>
-              routePush(const ForgotPasswordForm(), RouterType.cupertino),
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          onTap: sendPhoneNumber,
+          // onTap: () =>
+          //     routePush(const ForgotPasswordForm(), RouterType.cupertino),
+          // borderRadius: const BorderRadius.all(Radius.circular(30)),
           child: Container(
             alignment: Alignment.center,
             width: SizeConfig.screenWidth,
@@ -210,11 +211,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Future sendPhoneNumber() async {
     FocusScope.of(context).requestFocus(FocusNode());
     var form = _formKey.currentState;
-    // if (form != null && form.validate()) {
-    //   form.save();
-    //   BlocProvider.of<ForgotPasswordCubit>(context).onRequestOTP(
-    //     phoneNumberController.text,
-    //   );
-    // }
+    if (form != null && form.validate()) {
+      form.save();
+      BlocProvider.of<ForgotPasswordCubit>(context).onRequestOTP(
+        phoneNumberController.text,
+      );
+    }
   }
 }

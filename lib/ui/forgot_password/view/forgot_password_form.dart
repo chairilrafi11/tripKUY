@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
-  const ForgotPasswordForm({Key? key}) : super(key: key);
+  final String secretKey;
+  final bool isFromUpdatePassword;
+
+  const ForgotPasswordForm({Key? key, required this.secretKey, required this.isFromUpdatePassword})
+      : super(key: key);
 
   @override
   _ForgotPasswordFormState createState() => _ForgotPasswordFormState();

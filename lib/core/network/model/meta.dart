@@ -6,7 +6,11 @@ class Meta {
   Meta({this.code, this.messages, this.pagination});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
+    if(json['error_code'] != null){
+      code = json['error_code'];
+    } else {
+      code = json['code'];
+    }
     messages = json['messages'];
     if (json['pagination'] != null) {
       pagination = Pagination.fromJson(json['pagination']);

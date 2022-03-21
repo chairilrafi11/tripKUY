@@ -57,19 +57,16 @@ class EmoneyView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      BlocProvider(
-                        create: (context) => emoneyCubit,
-                        child: BlocBuilder<EmoneyCubit, EmoneyState>(
-                          builder: (context, state) {
-                            if (state is EmoneyLoading) {
-                              return const ShimmerList();
-                            } else if (state is EmoneyLoaded) {
-                              return listEmoney(state.list);
-                            } else {
-                              return Container();
-                            }
-                          },
-                        )
+                      BlocBuilder<EmoneyCubit, EmoneyState>(
+                        builder: (context, state) {
+                          if (state is EmoneyLoading) {
+                            return const ShimmerList();
+                          } else if (state is EmoneyLoaded) {
+                            return listEmoney(state.list);
+                          } else {
+                            return Container();
+                          }
+                        },
                       )
                     ],
                   ),

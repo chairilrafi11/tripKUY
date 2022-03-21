@@ -1,17 +1,15 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/forgot_password/view/forgot_password.dart';
 import 'package:pintupay/ui/login/cubit/login_cubit.dart';
 import 'package:pintupay/ui/login/model/login_model.dart';
-import 'package:pintupay/ui/register/view/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/verification/view/check_phone_number.dart';
+
+import '../../forgot_password/cubit/forgot_password_cubit.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -112,9 +110,9 @@ class _LoginState extends State<Login> {
                           margin: const EdgeInsets.only(top: 10, bottom: 20),
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            // onTap: _routeToForgotPassword,
-                            onTap: () => routePush(
-                                const ForgotPassword(), RouterType.cupertino),
+                            onTap: _routeToForgotPassword,
+                            // onTap: () => routePush(
+                            //     const ForgotPassword(), RouterType.cupertino),
                             child: GestureDetector(
                               child: Text(
                                 'Lupa Kata Sandi?',
@@ -307,6 +305,15 @@ class _LoginState extends State<Login> {
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> _routeToForgotPassword() {
+    return routePush(
+      BlocProvider(
+        create: (context) => ForgotPasswordCubit(),
+        child: const ForgotPassword(),
       ),
     );
   }
