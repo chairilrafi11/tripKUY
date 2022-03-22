@@ -4,6 +4,8 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/util/benpay_cupertino_dialog.dart';
+
 class Component {
 
   static appBar(String title, {bool transparet = false}) => AppBar(
@@ -197,6 +199,26 @@ class Component {
         ],
       ),
     );
+  }
+
+  static Future<bool> showDialogWithRichText(RichText? text, {bool barrierDismissible = true}) async {
+    bool isClosed = false;
+    await showEtikadCupertionDialog(
+      builder: (BuildContext buildContext) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.pop(buildContext);
+          },
+          child: BenpayCupertinoDialog(
+            content: text,
+          ),
+        );
+      },
+      barrierDismissible: barrierDismissible,
+    ).whenComplete(() {
+      isClosed = true;
+    });
+    return isClosed;
   }
 
 }
