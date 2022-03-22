@@ -1,5 +1,5 @@
 import 'package:pintupay/core/util/util.dart';
-import 'package:pintupay/ui/banner/banner_advertise_detail.dart';
+import 'package:pintupay/ui/banner/view/banner_advertise_detail.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 
-import 'cubit/banner_cubit.dart';
+import '../cubit/banner_cubit.dart';
 
-class BannerAdvertise extends StatelessWidget {
-  const BannerAdvertise({Key? key}) : super(key: key);
+class BannerAdvertiseView extends StatelessWidget {
+  const BannerAdvertiseView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class BannerAdvertise extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(right: 10),
                   child: GestureDetector(
-                    onTap: () => routePush(BannerAdvertiseDetail(bannerAdvertiseResponse: i), RouterType.material),
+                    onTap: () => routePush(BannerAdvertiseDetailView(bannerAdvertiseResponse: i), RouterType.material),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                       child: CachedNetworkImage(

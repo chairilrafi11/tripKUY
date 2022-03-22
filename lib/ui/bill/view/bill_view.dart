@@ -6,25 +6,41 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/bill/model/bill_status_model.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../balance/cubit/balance_cubit.dart';
 
-class BillView extends StatefulWidget {
+enum BillStatus {success, failed, pending}
+
+class BillView extends StatelessWidget {
 
   final BillStatusModel billStatusModel;
+  final String? messages;
   final bool fromTrans;
+  final BillStatus billStatus;
 
-  const BillView(this.billStatusModel, {Key? key,this.fromTrans = false}) : super(key: key);
+  const BillView({
+    Key? key,
+    required this.billStatusModel, 
+    required this.billStatus,
+    this.messages,
+    this.fromTrans = false
+  }) : super(key: key);
 
-  @override
-  _BillViewState createState() => _BillViewState();
-}
-
-class _BillViewState extends State<BillView> {
   static GlobalKey billContainer = GlobalKey();
-  late BillStatusModel billStatusModel = widget.billStatusModel;
+
+  String titleTransaction(){
+    switch (billStatus) {
+      case BillStatus.pending:
+        return "Transaksi sedang kami proses";
+      case BillStatus.success:
+        return "Transaksi Berhasil";
+      case BillStatus.failed:
+        return "Transaksi Gagal";
+      default:
+        return "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +69,7 @@ class _BillViewState extends State<BillView> {
                 children: [
                   SizedBox(height: SizeConfig.blockSizeHorizontal * 3),
                   Component.textBold(
-                    "Transaksi Berhasil!",
+                    titleTransaction(),
                     colors: PintuPayPalette.white,
                     fontSize: SizeConfig.blockSizeHorizontal * 5
                   ),
@@ -99,6 +115,14 @@ class _BillViewState extends State<BillView> {
                             billStatusModel.billBody[i].value,
                             padding: 10
                           ),
+                          if(messages != null) Padding(
+                            padding: EdgeInsets.only(top: SizeConfig.blockSizeHorizontal * 5),
+                            child: Component.textDefault(
+                              messages ?? "",
+                              fontSize: PintuPayConstant.fontSizeLarge,
+                              colors: PintuPayPalette.orange
+                            ),
+                          ),
                           SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
                           const Divider(
                             thickness: 1.5,
@@ -117,7 +141,7 @@ class _BillViewState extends State<BillView> {
                   ),
                   SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
                   _buttonOK(),
-                  _buttonReceipt(),
+                  // _buttonReceipt(),
                 ],
               ),
             ),
@@ -213,38 +237,38 @@ class _BillViewState extends State<BillView> {
   }
 
   _downloadCardBottomSheet() {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (BuildContext buildContext) {
-        return CupertinoActionSheet(
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: const Text('Unduh'),
-              onPressed: () {
-                Navigator.pop(buildContext);
-                _downloadBill(false);
-              },
-            ),
-            CupertinoDialogAction(
-              child: const Text('Bagikan'),
-              onPressed: () {
-                Navigator.pop(buildContext);
-                _downloadBill(true);
-              },
-            ),
-          ],
-          cancelButton: CupertinoDialogAction(
-            child: const Text('Batalkan'),
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(buildContext);
-            },
-          ),
-          title: const Text('Pilih Aksi'),
-        );
-      },
-    );
+    // showModalBottomSheet(
+    //   backgroundColor: Colors.transparent,
+    //   context: context,
+    //   builder: (BuildContext buildContext) {
+    //     return CupertinoActionSheet(
+    //       actions: <Widget>[
+    //         CupertinoDialogAction(
+    //           child: const Text('Unduh'),
+    //           onPressed: () {
+    //             Navigator.pop(buildContext);
+    //             _downloadBill(false);
+    //           },
+    //         ),
+    //         CupertinoDialogAction(
+    //           child: const Text('Bagikan'),
+    //           onPressed: () {
+    //             Navigator.pop(buildContext);
+    //             _downloadBill(true);
+    //           },
+    //         ),
+    //       ],
+    //       cancelButton: CupertinoDialogAction(
+    //         child: const Text('Batalkan'),
+    //         isDestructiveAction: true,
+    //         onPressed: () {
+    //           Navigator.pop(buildContext);
+    //         },
+    //       ),
+    //       title: const Text('Pilih Aksi'),
+    //     );
+    //   },
+    // );
   }
 
   Widget _textBill(String first, String last, {double padding = 0}) {
@@ -288,8 +312,8 @@ class _BillViewState extends State<BillView> {
           ),
         ),
         onPressed: () {
-          if(widget.fromTrans){
-            Navigator.pop(context);
+          if(fromTrans){
+            Navigator.pop(navGK.currentContext!);
           } else {
             navToDashboard();
           }

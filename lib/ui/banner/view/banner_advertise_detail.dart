@@ -4,17 +4,16 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
 
-import '../component/shimmer.dart';
-import 'model/banner_advertise_model.dart';
+import '../model/banner_advertise_model.dart';
 
-// ignore: must_be_immutable
-class BannerAdvertiseDetail extends StatelessWidget {
+class BannerAdvertiseDetailView extends StatelessWidget {
 
   final String? title;
   final BannerResponse? bannerAdvertiseResponse;
 
-  const BannerAdvertiseDetail({Key? key, this.title, this.bannerAdvertiseResponse}) : super(key: key);
+  const BannerAdvertiseDetailView({Key? key, this.title, this.bannerAdvertiseResponse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

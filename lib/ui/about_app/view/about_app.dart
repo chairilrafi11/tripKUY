@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/util/size_config.dart';
+import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/util/util.dart';
 import '../../component/component.dart';
 
 class AboutApp extends StatefulWidget {
@@ -16,46 +17,33 @@ class _AboutAppState extends State<AboutApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Component.appBar('Tentang Aplikasi'),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Image.asset('assets/icons/logo.png', height: SizeConfig.blockSizeVertical * 20,),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 0.0),
-            child: Text(
-              "Versi 1.0.0",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: MediaQuery.of(context).size.height / 50,
-              ),
+      backgroundColor: PintuPayPalette.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: SizeConfig.blockSizeVertical * 10),
+            Image.asset('assets/icons/logo.png', height: SizeConfig.blockSizeVertical * 20,),
+            Component.textBold(
+              CoreFunction.version(),
               textAlign: TextAlign.center,
+              fontSize: PintuPayConstant.fontSizeLargeExtra
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.only(top: 30, left: 10.0, right: 10.0),
-              child: Text(
-                "Aplikasi PintuPay merupakan aplikasi yang dikembangkan oleh Beben Alex, aplikasi ini bisa dijadikan alat transaksi PPOB",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: MediaQuery.of(context).size.height / 50,
-                ),
-                textAlign: TextAlign.center,
-              )
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Text(
+            const SizedBox(height: 20,),
+            Component.textDefault(
+              "Aplikasi PintuPay merupakan aplikasi yang dikembangkan oleh Beben Alex, aplikasi ini bisa dijadikan alat transaksi PPOB",
+              textAlign: TextAlign.center,
+              maxLines: 10
+            ),
+            const SizedBox(height: 20,),
+            Component.textDefault(
               "Copyright@2022 PintuPay \n All right reserved",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: MediaQuery.of(context).size.height / 50,
-              ),
               textAlign: TextAlign.center,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
