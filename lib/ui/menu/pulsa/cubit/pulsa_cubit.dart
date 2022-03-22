@@ -13,6 +13,8 @@ import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:pintupay/ui/menu/pulsa/provider/pulsa_provider.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 
+import '../model/pulsa_provider_response.dart';
+
 part 'pulsa_state.dart';
 
 class PulsaCubit extends Cubit<PulsaState> {
@@ -25,8 +27,15 @@ class PulsaCubit extends Cubit<PulsaState> {
   onInquiry(String phoneNumber) async {
     emit(PulsaLoading());
     var responsePulsa = await PulsaProvider.pulsa(phoneNumber);
-    // var responsePuls = await PulsaProvider.providerIcon(phoneNumber);
-    emit(PulsaLoaded(responsePulsa: responsePulsa));
+    var provider = await PulsaProvider.providerIcon(phoneNumber);
+    if(responsePulsa.pulsa != null) {
+      emit(PulsaLoaded(
+        responsePulsa: responsePulsa,
+        pulsaProviderResponse: provider
+      ));
+    } else {
+      emit(PulsaEmpty());
+    }
   }
 
   onPayment(){
@@ -44,9 +53,14 @@ class PulsaCubit extends Cubit<PulsaState> {
             status: ""
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              messages: result.messages,
+              billStatus: BillStatus.pending,
+            ),
+            RouterType.material
+          );
         }
       }
     });

@@ -4,6 +4,8 @@ import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa_payment.dart';
 
+import '../model/pulsa_provider_response.dart';
+
 class PulsaProvider {
 
   static Future<ResponsePulsa> pulsa(String phoneNumber) async {
@@ -13,11 +15,11 @@ class PulsaProvider {
     return ResponsePulsa.fromJson(pulsaProduct.data);
   } 
 
-  static Future<ResponsePulsa> providerIcon(String phoneNumber) async {
+  static Future<PulsaProviderResponse> providerIcon(String phoneNumber) async {
     var dio = await DioService.checkConnection(tryAgainMethod: pulsa);
     DioClient dioClient = DioClient(dio);
     var pulsaProduct = await dioClient.pulsaProvider(phoneNumber, authUsecase.userBox.authToken!);
-    return ResponsePulsa.fromJson(pulsaProduct.data);
+    return PulsaProviderResponse.fromJson(pulsaProduct.data);
   } 
 
   static Future<ResponsePulsaPayment> payment(Map<String, dynamic> pulsaPayment) async {

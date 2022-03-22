@@ -14,9 +14,13 @@ class PulsaLoading extends PulsaState {}
 class PulsaLoaded extends PulsaState {
   
   final ResponsePulsa responsePulsa;
+  final PulsaProviderResponse pulsaProviderResponse;
 
   const PulsaLoaded({
-    required this.responsePulsa
+    required this.responsePulsa,
+    required this.pulsaProviderResponse
   });
 
 }
+
+class PulsaEmpty extends PulsaState {}

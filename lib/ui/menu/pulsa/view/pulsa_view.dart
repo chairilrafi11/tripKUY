@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
@@ -12,8 +14,6 @@ import 'package:flutter/services.dart';
 class PulsaView extends StatelessWidget {
 
   PulsaView({ Key? key }) : super(key: key);
-
-  final PulsaCubit pulsaCubit = PulsaCubit();
 
   final TextEditingController phoneContactController = TextEditingController();
 
@@ -38,26 +38,62 @@ class PulsaView extends StatelessWidget {
                     ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                      child: TextFormField(
-                        controller: phoneContactController,
-                        decoration: Component.decorationNoBorder("No Handpone"),
-                        onChanged: (value) {
-                          CoreFunction.logPrint("Phone Number", value);
-                          CoreFunction.debouncer.debounce(() {
-                            pulsaCubit.onInquiry(value);
-                          });
-                        },
-                        maxLength: 16,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BlocBuilder<PulsaCubit, PulsaState>(
+                            builder: (context, state) {
+                              if(state is PulsaLoaded){
+                                return CachedNetworkImage(
+                                  width: 50,
+                                  imageUrl: state.pulsaProviderResponse.pulsa?.iconPath ?? "",
+                                  placeholder: (context, string) => const CupertinoActivityIndicator(),
+                                  errorWidget: (context, string, dynamic) => const SizedBox(
+                                    width: 50,
+                                    child: Icon(
+                                      Icons.phone, 
+                                      size: 30,
+                                      color: PintuPayPalette.darkBlue,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox(
+                                  width: 50,
+                                  child: Icon(
+                                    Icons.phone, 
+                                    size: 30,
+                                    color: PintuPayPalette.darkBlue,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                          const SizedBox(width: 10,),
+                          Flexible(
+                            child: TextFormField(
+                              controller: phoneContactController,
+                              decoration: Component.decorationNoBorder("No Handpone"),
+                              onChanged: (value) {
+                                CoreFunction.logPrint("Phone Number", value);
+                                CoreFunction.debouncer.debounce(() {
+                                  BlocProvider.of<PulsaCubit>(context).onInquiry(value);
+                                });
+                              },
+                              maxLength: 16,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return "Wajib diisi*";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
                         ],
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return "Wajib diisi*";
-                          }
-                          return null;
-                        },
                       ),
                     ),
                   ),
@@ -71,36 +107,33 @@ class PulsaView extends StatelessWidget {
                     ]
                   ),
                   Expanded(
-                    child: BlocProvider(
-                      create: (context) => pulsaCubit,
-                      child: BlocBuilder<PulsaCubit, PulsaState>(
-                        builder: (context, state) {
-                          if(state is PulsaInitial) {
-                            return TabBarView(
-                              children: [
-                                Container(),
-                                Container(),
-                              ]
-                            );
-                          } else if (state is PulsaLoaded){
-                            return TabBarView(
-                              children: [
-                                pulsa(state.responsePulsa.pulsa!),
-                                dataPlan(state.responsePulsa.data!),
-                              ]
-                            );
-                          } else if (state is PulsaLoading) {
-                            return const TabBarView(
-                              children: [
-                                ShimmerPulsa(),
-                                ShimmerPulsa(),
-                              ]
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
-                      )
+                    child: BlocBuilder<PulsaCubit, PulsaState>(
+                      builder: (context, state) {
+                        if(state is PulsaEmpty) {
+                          return TabBarView(
+                            children: [
+                              Center(child: Component.textBold("Tidak ada produk")),
+                              Center(child: Component.textBold("Tidak ada produk")),
+                            ]
+                          );
+                        } else if (state is PulsaLoaded){
+                          return TabBarView(
+                            children: [
+                              pulsa(state.responsePulsa.pulsa!),
+                              dataPlan(state.responsePulsa.data!),
+                            ]
+                          );
+                        } else if (state is PulsaLoading) {
+                          return const TabBarView(
+                            children: [
+                              ShimmerPulsa(),
+                              ShimmerPulsa(),
+                            ]
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
                     ) 
                   )
                 ],
@@ -128,7 +161,7 @@ class PulsaView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
-          onTap: () => pulsaCubit.confirm(listPulsa[index], phoneContactController.text),
+          onTap: () => BlocProvider.of<PulsaCubit>(context).confirm(listPulsa[index], phoneContactController.text),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
