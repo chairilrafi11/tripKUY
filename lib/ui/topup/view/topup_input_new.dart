@@ -1,22 +1,17 @@
 import 'package:intl/intl.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pintupay/ui/topup/view/topup_confirm_bsi.dart';
-import 'package:pintupay/ui/topup/view/topup_confirm_transfer.dart';
-
-import '../../../core/util/core_function.dart';
 
 enum ListTopup { a, bsi, transferbank }
 
 class TopupInputNew extends StatefulWidget {
   final BankResponse bankResponse;
 
-  TopupInputNew({required this.bankResponse, Key? key}) : super(key: key);
+  const TopupInputNew({required this.bankResponse, Key? key}) : super(key: key);
 
   @override
   State<TopupInputNew> createState() => _TopupInputNewState();
