@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:pintupay/ui/topup/provider/topup_provider.dart';
+import 'package:pintupay/ui/topup/view/topup_input_new.dart';
 
 import '../view/topup_input_view.dart';
 
@@ -19,6 +20,6 @@ class TopupCubit extends Cubit<TopupState> {
   }
 
   void navNominal(BankResponse value){
-    routePush(TopupInputView(bankResponse: value,), RouterType.material);
+    routePush(TopupInputNew(bankResponse: value,), RouterType.material);
   }
 }

@@ -27,7 +27,8 @@ class PintuPayEndpoint {
 
   static const String pascabayarProduct = "v2/ppob/cellulars/pasca_products";
 
-  static const String phonePostpaidProvider = "v2/ppob/cellulars/pasca_products";
+  static const String phonePostpaidProvider =
+      "v2/ppob/cellulars/pasca_products";
 
   static const String phonePostpaidInquiry = "v7/ppob/inquiry/cellulars";
 
@@ -79,6 +80,19 @@ class PintuPayEndpoint {
 
   static const String gameProduct = "v2/game/get_list_games";
 
+  static const String getProfileUser = "v1/users/{auth_token}";
+
+  static const String updateProfileUser = "v6/account/profile}";
+
+  static const String setPin = "v6/account/pin";
+
+  static const String checkPin = "v1/users/{user_id}/get_pin";
+
+  static const String logout = "v2/sessions/{auth_token}";
+
+  static const String changePassword = "v6/account/credential";
+
   static const String gamePayment = "v7/game/transactions";
-  
+
+  static const String forgotPassword = "v6/reset/passwords";
 }
