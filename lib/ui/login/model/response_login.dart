@@ -2,7 +2,7 @@ class ResponseLogin {
   int? id;
   int? salesSaldo;
   String? referral;
-  Null? uid;
+  String? uid;
   String? name;
   String? email;
   int? roleId;
@@ -10,7 +10,7 @@ class ResponseLogin {
   String? address;
   String? phoneNumber;
   String? storeName;
-  Null? typeId;
+  int? typeId;
   int? totalBonus;
   int? totalBalance;
   int? totalPoint;
@@ -35,8 +35,8 @@ class ResponseLogin {
   String? expiredIdCard;
   String? namaGadisIbu;
 
-  ResponseLogin(
-      {this.id,
+  ResponseLogin({
+    this.id,
       this.salesSaldo,
       this.referral,
       this.uid,
@@ -111,42 +111,42 @@ class ResponseLogin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['sales_saldo'] = this.salesSaldo;
-    data['referral'] = this.referral;
-    data['uid'] = this.uid;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['role_id'] = this.roleId;
-    data['sales_code'] = this.salesCode;
-    data['address'] = this.address;
-    data['phone_number'] = this.phoneNumber;
-    data['store_name'] = this.storeName;
-    data['type_id'] = this.typeId;
-    data['total_bonus'] = this.totalBonus;
-    data['total_balance'] = this.totalBalance;
-    data['total_point'] = this.totalPoint;
-    data['device_id'] = this.deviceId;
-    data['device_register_id'] = this.deviceRegisterId;
-    data['other_balance'] = this.otherBalance;
-    data['parent_referral'] = this.parentReferral;
-    data['version'] = this.version;
-    data['parent_referral_name'] = this.parentReferralName;
-    data['can_transactions'] = this.canTransactions;
-    data['auth_token'] = this.authToken;
-    data['updated_at'] = this.updatedAt;
-    data['api_key_id'] = this.apiKeyId;
-    data['merchant_type_id'] = this.merchantTypeId;
-    data['photo_profile'] = this.photoProfile;
-    data['finnet_type_id'] = this.finnetTypeId;
-    data['area_id'] = this.areaId;
-    data['pekerjaan'] = this.pekerjaan;
-    data['birth_date'] = this.birthDate;
-    data['birth_place'] = this.birthPlace;
-    data['gender'] = this.gender;
-    data['expired_id_card'] = this.expiredIdCard;
-    data['nama_gadis_ibu'] = this.namaGadisIbu;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['sales_saldo'] = salesSaldo;
+    data['referral'] = referral;
+    data['uid'] = uid;
+    data['name'] = name;
+    data['email'] = email;
+    data['role_id'] = roleId;
+    data['sales_code'] = salesCode;
+    data['address'] = address;
+    data['phone_number'] = phoneNumber;
+    data['store_name'] = storeName;
+    data['type_id'] = typeId;
+    data['total_bonus'] = totalBonus;
+    data['total_balance'] = totalBalance;
+    data['total_point'] = totalPoint;
+    data['device_id'] = deviceId;
+    data['device_register_id'] = deviceRegisterId;
+    data['other_balance'] = otherBalance;
+    data['parent_referral'] = parentReferral;
+    data['version'] = version;
+    data['parent_referral_name'] = parentReferralName;
+    data['can_transactions'] = canTransactions;
+    data['auth_token'] = authToken;
+    data['updated_at'] = updatedAt;
+    data['api_key_id'] = apiKeyId;
+    data['merchant_type_id'] = merchantTypeId;
+    data['photo_profile'] = photoProfile;
+    data['finnet_type_id'] = finnetTypeId;
+    data['area_id'] = areaId;
+    data['pekerjaan'] = pekerjaan;
+    data['birth_date'] = birthDate;
+    data['birth_place'] = birthPlace;
+    data['gender'] = gender;
+    data['expired_id_card'] = expiredIdCard;
+    data['nama_gadis_ibu'] = namaGadisIbu;
     return data;
   }
 }

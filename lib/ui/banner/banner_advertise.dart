@@ -1,4 +1,3 @@
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/banner/banner_advertise_detail.dart';
 import 'package:pintupay/ui/component/component.dart';
@@ -7,7 +6,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 
 import 'cubit/banner_cubit.dart';

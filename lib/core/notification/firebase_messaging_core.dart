@@ -3,11 +3,9 @@ import 'dart:io';
 
 import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pintupay/core/notification/firebase_cloud_messaging.dart';
 import 'package:pintupay/core/util/util.dart';
-import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
 
 import 'model/response_notification.dart';

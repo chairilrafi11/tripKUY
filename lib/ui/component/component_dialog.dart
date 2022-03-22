@@ -3,7 +3,6 @@ import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 
 import 'component.dart';

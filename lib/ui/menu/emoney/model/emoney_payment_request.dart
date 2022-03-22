@@ -16,7 +16,7 @@ class EmoneyPaymentRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['payment'] = payment;
     data['pin'] = pin;
     if (transaction != null) {
@@ -60,7 +60,7 @@ class Transaction {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['messages'] = messages;
     data['indentifier_number'] = indentifierNumber;
     data['product_price_id'] = productPriceId;

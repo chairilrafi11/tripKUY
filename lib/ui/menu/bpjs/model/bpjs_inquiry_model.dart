@@ -14,11 +14,11 @@ class BPJSInquiryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['act'] = this.act;
-    data['van'] = this.van;
-    data['numbers'] = this.numbers;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['act'] = act;
+    data['van'] = van;
+    data['numbers'] = numbers;
+    data['auth_token'] = authToken;
     return data;
   }
 }

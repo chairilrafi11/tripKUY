@@ -37,17 +37,17 @@ class PascabayarInquiryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['act'] = this.action;
-    data['phone_number'] = this.phoneNumber;
-    data['product'] = this.product;
-    data['total_payment'] = this.totalPayment;
-    data['payment'] = this.paymentBill;
-    data['transaction_code'] = this.trxCode;
-    data['no_resi'] = this.noResi;
-    data['balance'] = this.balance;
-    data['transaction_id'] = this.trancationId;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['act'] = action;
+    data['phone_number'] = phoneNumber;
+    data['product'] = product;
+    data['total_payment'] = totalPayment;
+    data['payment'] = paymentBill;
+    data['transaction_code'] = trxCode;
+    data['no_resi'] = noResi;
+    data['balance'] = balance;
+    data['transaction_id'] = trancationId;
+    data['auth_token'] = authToken;
     return data;
   }
 }

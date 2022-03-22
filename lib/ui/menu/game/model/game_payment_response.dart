@@ -34,16 +34,16 @@ class GamePaymentResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['transaction_name'] = this.transactionName;
-    data['status_name'] = this.statusName;
-    data['messages'] = this.messages;
-    data['status_id'] = this.statusId;
-    data['status_description'] = this.statusDescription;
-    data['cash_balance'] = this.cashBalance;
-    data['loan_balance'] = this.loanBalance;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['transaction_name'] = transactionName;
+    data['status_name'] = statusName;
+    data['messages'] = messages;
+    data['status_id'] = statusId;
+    data['status_description'] = statusDescription;
+    data['cash_balance'] = cashBalance;
+    data['loan_balance'] = loanBalance;
+    data['auth_token'] = authToken;
     return data;
   }
 }

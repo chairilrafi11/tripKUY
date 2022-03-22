@@ -150,6 +150,7 @@ class _EditProfileState extends State<EditProfile> {
           if (value == null || value.isEmpty) {
             return "Wajib diisi*";
           }
+          return null;
         },
         decoration: Component.inputDecoration("Nama Lengkap")
     );

@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+
 class GameProductResponse {
   List<Game>? game;
+  List<FormData>? form;
 
-  GameProductResponse({this.game});
+  GameProductResponse({this.game, this.form});
 
   GameProductResponse.fromJson(Map<String, dynamic> json) {
     if (json['Topup Game'] != null) {
@@ -10,12 +13,21 @@ class GameProductResponse {
         game!.add(Game.fromJson(v));
       });
     }
+    if (json['form'] != null) {
+      form = <FormData>[];
+      json['form'].forEach((v) {
+        form!.add(FormData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (game != null) {
       data['Game'] = game!.map((v) => v.toJson()).toList();
+    } 
+    if (form != null) {
+      data['form'] = form!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -67,6 +79,29 @@ class Game {
     data['product_id'] = productId;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    return data;
+  }
+}
+
+class FormData {
+  String? label;
+  String? formType;
+  int? sequence;
+  TextEditingController textEditingController = TextEditingController();
+
+  FormData({this.label, this.formType, this.sequence, required this.textEditingController});
+
+  FormData.fromJson(Map<String, dynamic> json) {
+    label = json['label'];
+    formType = json['form_type'];
+    sequence = json['sequence'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['label'] = label;
+    data['form_type'] = formType;
+    data['sequence'] = sequence;
     return data;
   }
 }

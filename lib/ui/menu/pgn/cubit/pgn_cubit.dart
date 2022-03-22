@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/network/model/post_body.dart';
 import 'package:pintupay/core/pintupay/pintupay_crypt.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
@@ -11,7 +8,7 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/bill/model/bill_body_model.dart';
 import 'package:pintupay/ui/bill/model/bill_status_model.dart';
 import 'package:pintupay/ui/bill/view/bill_view.dart';
-import 'package:pintupay/ui/menu/pgn/model/pgn_inquiry_request%20copy.dart';
+import 'package:pintupay/ui/menu/pgn/model/pgn_inquiry_request_new.dart';
 import 'package:pintupay/ui/menu/pgn/model/pgn_inquiry_request.dart';
 import 'package:pintupay/ui/menu/pgn/provider/pgn_provider.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';

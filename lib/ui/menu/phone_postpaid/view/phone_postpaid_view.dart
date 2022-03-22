@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pintupay/ui/menu/phone_postpaid/model/phone_postpaid_provider_response.dart';
 
 import '../../../../core/util/size_config.dart';
@@ -57,6 +56,7 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(

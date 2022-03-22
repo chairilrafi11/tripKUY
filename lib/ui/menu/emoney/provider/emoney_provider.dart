@@ -4,7 +4,6 @@ import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_payment_response.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_product_response.dart';
 import 'package:pintupay/ui/menu/emoney/model/emoney_provder.dart';
-import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 
 class EmoneyProvider {
 

@@ -3,7 +3,6 @@ import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../component/shimmer.dart';

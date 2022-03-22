@@ -6,14 +6,23 @@ import 'package:pintupay/ui/balance/view/balance_view.dart';
 import 'package:pintupay/ui/banner/banner_advertise.dart';
 import 'package:pintupay/ui/banner/cubit/banner_cubit.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
 
+  Home({Key? key}) : super(key: key);
+
   final List<Set<String>> listMenu = [
+    {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
+    {"Listrik", "assets/icons/icmn_listrik.png"},
+    {"PDAM", "assets/icons/icmn_pdam.png"},
+    {"Bpjs", "assets/icons/icmn_bpjs.png"},
+    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
+    {"Telepon", "assets/icons/icmn_telepon.png"},
+    {"E-Money", "assets/icons/icmn_emoney.png"},
+    {"Game", "assets/icons/icmn_game.png"},
     {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
     {"Listrik", "assets/icons/icmn_listrik.png"},
     {"PDAM", "assets/icons/icmn_pdam.png"},
@@ -72,22 +81,28 @@ class Home extends StatelessWidget {
       height: 230,
       width: SizeConfig.blockSizeHorizontal * 100,
       child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: listMenu.length,
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          childAspectRatio: (80 / 100),
+          crossAxisCount: 2,
+          childAspectRatio: (120 / 100),
         ),
         itemBuilder: (BuildContext context, int index) { 
           return InkWell(
             onTap: () => BlocProvider.of<HomeCubit>(context).onClickMenu(listMenu[index].first),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset(
-                  listMenu[index].last,
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Image.asset(
+                    listMenu[index].last,
+                  ),
                 ),
                 const SizedBox(height: 10,),
                 Component.textBold(listMenu[index].first, textAlign: TextAlign.center)
@@ -115,6 +130,7 @@ class Home extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 margin: const EdgeInsets.only(right: 10),
+                color: PintuPayPalette.darkBlue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -132,14 +148,15 @@ class Home extends StatelessWidget {
                           Image.asset(
                             listMenu[5].last,
                             height: 20,
+                            color: PintuPayPalette.white,
                             // height: SizeConfig.blockSizeHorizontal * 13,
                           ),
                           const SizedBox(width: 10,),
-                          Component.textBold("Pulsa Three", colors: PintuPayPalette.darkBlue),
+                          Component.textBold("Pulsa Three", colors: PintuPayPalette.white),
                         ],
                       ),
                       const SizedBox(height: 10,),
-                      Component.textBold("AON 30GB", colors: PintuPayPalette.grey),
+                      Component.textBold("AON 30GB", colors: PintuPayPalette.white),
                       const SizedBox(height: 5,),
                       Row(
                         children: [

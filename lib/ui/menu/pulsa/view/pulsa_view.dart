@@ -8,7 +8,6 @@ import 'package:pintupay/ui/menu/pulsa/cubit/pulsa_cubit.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 class PulsaView extends StatelessWidget {
 
@@ -57,6 +56,7 @@ class PulsaView extends StatelessWidget {
                           if (value?.isEmpty ?? true) {
                             return "Wajib diisi*";
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -90,7 +90,7 @@ class PulsaView extends StatelessWidget {
                               ]
                             );
                           } else if (state is PulsaLoading) {
-                            return TabBarView(
+                            return const TabBarView(
                               children: [
                                 ShimmerPulsa(),
                                 ShimmerPulsa(),

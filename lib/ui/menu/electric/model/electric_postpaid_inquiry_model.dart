@@ -25,13 +25,13 @@ class ElectricPospaidInquiryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['act'] = this.act;
-    data['category_id'] = this.categoryId;
-    data['id'] = this.id;
-    data['total_payment'] = this.totalPayment;
-    data['type'] = this.type;
-    data['auth_token'] = this.authToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['act'] = act;
+    data['category_id'] = categoryId;
+    data['id'] = id;
+    data['total_payment'] = totalPayment;
+    data['type'] = type;
+    data['auth_token'] = authToken;
     return data;
   }
 }

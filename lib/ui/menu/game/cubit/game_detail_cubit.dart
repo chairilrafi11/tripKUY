@@ -21,7 +21,7 @@ part 'game_detail_state.dart';
 class GameDetailCubit extends Cubit<GameDetailState> {
   final GameProviderResponse gameProviderResponse;
 
-  GameDetailCubit({required this.gameProviderResponse}) : super(GameDetailInitial()){
+  GameDetailCubit({required this.gameProviderResponse}) : super(GameDetailLoading()){
     onGetProviderDetail(gameProviderResponse.id.toString());
   }
   
@@ -44,7 +44,9 @@ class GameDetailCubit extends Cubit<GameDetailState> {
     }
 
     if(products.game != null) {
-      emit(GameDetailLoaded(gameProductResponse: GameProductResponse(game: listGame)));
+      emit(GameDetailLoaded(
+        gameProductResponse: GameProductResponse(game: listGame, form: products.form)
+      ));
     } else {
       emit(GameDetailEmpty()); 
     }
@@ -59,37 +61,46 @@ class GameDetailCubit extends Cubit<GameDetailState> {
     }
   }
 
-  onInquiry(String id, Game game) {
+  onInquiry(String idServer, String id, Game game) {
 
-      listInformation = [
-        {"No Pelanggan", id},
-        {"Game", gameProviderResponse.name ?? "",},
-        {"Product", game.name ?? ""},
-        {"Harga", CoreFunction.moneyFormatter(game.salePrice)},
-        {"Total Pembayaran", CoreFunction.moneyFormatter(game.salePrice)},
-      ];
+    GameDetailLoaded gameDetailLoaded = state as GameDetailLoaded;
 
-      gamePaymentRequest = GamePaymentRequest(
-        authToken: authUsecase.userBox.authToken,
-        transaction: Transaction(
-          balance: PintuPayConstant.paymentCash,
-          indentifierNumber: id,
-          messages: game.name,
-          transactionTypeId: 36,
-          productPriceId: game.id,
-          providerId: gameProviderResponse.id,
-          userId: authUsecase.userBox.id
-        )
-      );
+    listInformation.clear();
+    late String identifierNumber;
 
-      routePush(
-        PaymentView(
-          listInformation: listInformation,
-          paymentMethod: onPayment,
-          feature: Feature.game,
-        ), 
-        RouterType.material
-      );
+    for (var element in gameDetailLoaded.gameProductResponse.form!) {
+      listInformation.add({element.label ?? "" , (element.textEditingController.text)});
+      identifierNumber += element.textEditingController.text;
+    }
+
+    listInformation.addAll([
+      {"Game", gameProviderResponse.name ?? "",},
+      {"Product", game.name ?? ""},
+      {"Harga", CoreFunction.moneyFormatter(game.salePrice)},
+      {"Total Pembayaran", CoreFunction.moneyFormatter(game.salePrice)},
+    ]);
+
+    gamePaymentRequest = GamePaymentRequest(
+      authToken: authUsecase.userBox.authToken,
+      transaction: Transaction(
+        balance: PintuPayConstant.paymentCash,
+        indentifierNumber: identifierNumber,
+        messages: game.name,
+        transactionTypeId: 36,
+        productPriceId: game.id,
+        providerId: gameProviderResponse.id,
+        userId: authUsecase.userBox.id
+      )
+    );
+
+    routePush(
+      PaymentView(
+        listInformation: listInformation,
+        paymentMethod: onPayment,
+        feature: Feature.game,
+      ), 
+      RouterType.material
+    );
   }
 
   onPayment(){

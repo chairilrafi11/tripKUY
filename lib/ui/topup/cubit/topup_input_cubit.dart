@@ -1,15 +1,10 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/network/model/post_body.dart';
-import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:pintupay/ui/topup/model/topup_confirm_model.dart';
 import 'package:pintupay/ui/topup/provider/topup_provider.dart';
-import 'package:pintupay/ui/topup/view/topup_confirm_view.dart';
 
 import '../../../core/pintupay/pintupay_crypt.dart';
 import '../../../core/usecase/auth_usecase.dart';

@@ -1,3 +1,4 @@
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/topup/model/bank_response.dart';
 import 'package:pintupay/ui/topup/model/topup_request_response.dart';
 
@@ -27,6 +28,7 @@ class TopupProvider {
     var dio = await DioService.checkConnection(tryAgainMethod: confirm, isLoading: true);
     DioClient dioClient = DioClient(dio);
     var result = await dioClient.topupConfirm(body);
+    CoreFunction.logPrint("Confirm Response", result.toJson());
   } 
 
 }

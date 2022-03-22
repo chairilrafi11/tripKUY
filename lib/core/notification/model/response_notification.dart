@@ -27,14 +27,14 @@ class ResponseNotification {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['data_title'] = this.dataTitle;
-    data['data_body'] = this.dataBody;
-    data['data_image'] = this.dataImage;
-    data['click_action'] = this.clickAction;
-    data['notification_type'] = this.notificationType;
-    data['statuc_code'] = this.statucCode;
-    data['status_name'] = this.statusName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['data_title'] = dataTitle;
+    data['data_body'] = dataBody;
+    data['data_image'] = dataImage;
+    data['click_action'] = clickAction;
+    data['notification_type'] = notificationType;
+    data['statuc_code'] = statucCode;
+    data['status_name'] = statusName;
     return data;
   }
 }

@@ -113,18 +113,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           fillColor: PintuPayPalette.darkBlue,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                const BorderSide(color: PintuPayPalette.darkBlue),
+                            borderSide: const BorderSide(
+                                color: PintuPayPalette.darkBlue),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                const BorderSide(color: PintuPayPalette.darkBlue),
+                            borderSide: const BorderSide(
+                                color: PintuPayPalette.darkBlue),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                const BorderSide(color: PintuPayPalette.darkBlue),
+                            borderSide: const BorderSide(
+                                color: PintuPayPalette.darkBlue),
                           ),
                         ),
                       ),
@@ -217,5 +217,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         phoneNumberController.text,
       );
     }
+
+    // var form = _formKey.currentState;
+    // if (form != null && form.validate()) {
+    //   form.save();
+    //   BlocProvider.of<ForgotPasswordCubit>(context).onRequestOTP(
+    //     phoneNumberController.text,
+    //   );
+    // }
   }
 }

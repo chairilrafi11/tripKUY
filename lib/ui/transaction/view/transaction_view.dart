@@ -15,6 +15,102 @@ class TransactionView extends StatelessWidget {
 
   final TextEditingController searchController = TextEditingController();
 
+  bottomSheetTransaction(ResponseTransaction responseTransaction) {
+    showModalBottomSheet(
+      enableDrag: true,
+      isDismissible: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25))
+      ),
+      context: navGK.currentContext!,
+      builder: (BuildContext buildContext) {
+        var createdAt = DateTime.fromMillisecondsSinceEpoch(responseTransaction.createdAt! * 1000).toLocal();
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Component.textBold("No Order ${responseTransaction.serialNumber ?? "-"}"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        '${ViewUsecase.twoDigitNumber(createdAt.day.toString())}-'
+                        '${ViewUsecase.twoDigitNumber(createdAt.month.toString())}-'
+                        '${createdAt.year} ${ViewUsecase.twoDigitNumber(createdAt.hour.toString())}:'
+                        '${ViewUsecase.twoDigitNumber(createdAt.minute.toString())}'
+                      ),
+                      SizedBox(
+                        width: SizeConfig.blockSizeHorizontal * 63,
+                        child: Component.textBold(
+                          'No Pelanggan : ${responseTransaction.indentifierNumber.toString()}',
+                          colors: Colors.black54)
+                        ),
+                      Component.textBold(
+                          'Total Tagihan : ${responseTransaction.salePrice.toString()}',
+                          colors: Colors.black54),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: SizeConfig.blockSizeHorizontal * 60,
+                        child: Component.textDefault(
+                          responseTransaction.messages ?? "",
+                            maxLines: 15
+                          )
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // Component.textDefault(
+                      //   '*${responseTransaction.statusDesc.toString()}',
+                      //   colors: PintuPayPalette.red
+                      // ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal * 30,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          ViewUsecase.iconTransaction(responseTransaction.transactionName!),
+                          height: 40,
+                        ),
+                        const SizedBox(height: 10),
+                        Component.textBold(
+                          responseTransaction.transactionName!,
+                          colors: PintuPayPalette.darkBlue,
+                          textAlign: TextAlign.center
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              Component.button(label: "Tutup", onPressed: (){
+                Navigator.of(navGK.currentContext!).pop();
+              })
+            ],
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -101,54 +197,57 @@ class TransactionView extends StatelessWidget {
       itemCount: listTransaction.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          margin: EdgeInsets.only(top: 5, bottom: index == 9 ? 100 : 5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [                
-                Row(
-                  children: [
-                    Image.asset( 
-                      ViewUsecase.iconTransaction(listTransaction[index].transactionName ?? ""),
-                      height: 20,
-                    ),
-                    const SizedBox(width: 10,),
-                    Component.textBold(listTransaction[index].transactionName ?? ""),
-                    const Spacer(),
-                    Component.textDefault(listTransaction[index].createdAt.toString(), fontSize: 11)
-                  ],
-                ),
-                Component.divider(),
-                const SizedBox(height: 10,),
-                Component.textBold(listTransaction[index].serialNumber ?? ""),
-                const SizedBox(height: 10,),
-                Component.textDefault(
-                  listTransaction[index].messages ?? "",
-                  maxLines: 5,
-                  fontSize: PintuPayConstant.fontSizeSmall
-                ),
-                const SizedBox(height: 10,),
-                Row(
-                  children: [
-                    Component.textBold(
-                      "Total",
-                      fontSize: 13,
-                      colors: PintuPayPalette.darkBlue
-                    ),
-                    const SizedBox(width: 10,),
-                    Component.textBold(
-                      CoreFunction.moneyFormatter(listTransaction[index].salePrice,),
-                      fontSize: 13,
-                      colors: PintuPayPalette.orange
-                    ),
-                  ],
-                )
-              ],
+        return InkWell(
+          onTap: () => bottomSheetTransaction(listTransaction[index]),
+          child: Card(
+            margin: EdgeInsets.only(top: 5, bottom: index == 9 ? 100 : 5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [                
+                  Row(
+                    children: [
+                      Image.asset( 
+                        ViewUsecase.iconTransaction(listTransaction[index].transactionName ?? ""),
+                        height: 20,
+                      ),
+                      const SizedBox(width: 10,),
+                      Component.textBold(listTransaction[index].transactionName ?? ""),
+                      const Spacer(),
+                      Component.textDefault(listTransaction[index].createdAt.toString(), fontSize: 11)
+                    ],
+                  ),
+                  Component.divider(),
+                  const SizedBox(height: 10,),
+                  Component.textBold(listTransaction[index].serialNumber ?? ""),
+                  const SizedBox(height: 10,),
+                  Component.textDefault(
+                    listTransaction[index].messages ?? "",
+                    maxLines: 5,
+                    fontSize: PintuPayConstant.fontSizeSmall
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      Component.textBold(
+                        "Total",
+                        fontSize: 13,
+                        colors: PintuPayPalette.darkBlue
+                      ),
+                      const SizedBox(width: 10,),
+                      Component.textBold(
+                        CoreFunction.moneyFormatter(listTransaction[index].salePrice,),
+                        fontSize: 13,
+                        colors: PintuPayPalette.orange
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );

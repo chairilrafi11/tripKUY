@@ -5,7 +5,6 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/menu/game/model/game_product_response.dart';
 
 import '../../../component/shimmer.dart';
@@ -15,6 +14,7 @@ class GameDetailView extends StatelessWidget {
 
   GameDetailView({Key? key }) : super(key: key);
 
+  final TextEditingController serverId = TextEditingController();
   final TextEditingController idController = TextEditingController();
 
   @override
@@ -25,52 +25,40 @@ class GameDetailView extends StatelessWidget {
           Component.header(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Component.appBar(
-                  BlocProvider.of<GameDetailCubit>(context).gameProviderResponse.name ?? "", 
-                  transparet: true
-                ),
-                Card(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: TextFormField(
-                      controller: idController,
-                      decoration: Component.decorationNoBorder("Masukan id"),
-                      maxLength: 16,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return "Wajib diisi*";
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10,),
-                BlocBuilder<GameDetailCubit, GameDetailState>(
-                  builder: (context, state) {
-                    if (state is GameDetailLoading) {
-                      return const ShimmerList();
-                    } else if (state is GameDetailLoaded) {
-                      return Flexible(child: listProduct(state.gameProductResponse));
-                    } else if (state is GameDetailEmpty) {
-                        return Center(child: Component.textBold("Product Kosong"),);
-                    } else {
-                      return Container();
-                    }
-                  },
-                )
-              ],
-            ),
+            child: BlocBuilder<GameDetailCubit, GameDetailState>(
+              builder: (context, state) {
+                if (state is GameDetailLoading) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 20),
+                    child: const ShimmerPulsa(),
+                  );
+                } else if (state is GameDetailLoaded) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Component.appBar(
+                        BlocProvider.of<GameDetailCubit>(context).gameProviderResponse.name ?? "", 
+                        transparet: true
+                      ),
+                      Card(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: form(state.gameProductResponse.form ?? [])
+                      ),
+                      const SizedBox(height: 10,),
+                      Flexible(child: listProduct(state.gameProductResponse)),
+
+                    ],
+                  );
+                } else if (state is GameDetailEmpty) {
+                    return Center(child: Component.textBold("Product Kosong"),);
+                } else {
+                  return Container();
+                }
+              },
+            )
           ),
         ],
       ),
@@ -94,11 +82,15 @@ class GameDetailView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
           onTap: () {
-            if(idController.text.isNotEmpty){
-              BlocProvider.of<GameDetailCubit>(context).onInquiry(idController.text, gameProductResponse.game![index]);
-            } else {
-              CoreFunction.showToast("Harap masukan no pelanggan");
-            }
+            // if(idController.text.isNotEmpty && serverId.text.isNotEmpty){
+              BlocProvider.of<GameDetailCubit>(context).onInquiry(
+                serverId.text,
+                idController.text, 
+                gameProductResponse.game![index]
+              );
+            // } else {
+            //   CoreFunction.showToast("Harap masukan no pelanggan");
+            // }
           },
           child: Card(
             child: Padding(
@@ -140,6 +132,34 @@ class GameDetailView extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget form(List<FormData> form){
+    return ListView.builder(
+      itemCount: form.length,
+      padding: const EdgeInsets.all(0),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: TextFormField(
+            controller: form[index].textEditingController,
+            decoration: Component.inputDecoration(form[index].label ?? ""),
+            maxLength: 16,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return "Wajib diisi*";
+              }
+              return null;
+            },
           ),
         );
       },

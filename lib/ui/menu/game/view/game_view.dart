@@ -10,7 +10,6 @@ import '../../../../core/pintupay/pintupay_palette.dart';
 import '../../../../core/util/size_config.dart';
 import '../../../component/component.dart';
 import '../../../component/shimmer.dart';
-import '../../emoney/model/emoney_provder.dart';
 
 class GameView extends StatelessWidget {
   
@@ -52,6 +51,7 @@ class GameView extends StatelessWidget {
                               if (value?.isEmpty ?? true) {
                                 return "Wajib diisi*";
                               }
+                              return null;
                             },
                           ),
                         ),

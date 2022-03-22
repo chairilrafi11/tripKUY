@@ -47,6 +47,7 @@ class PGNView extends StatelessWidget {
                             if (value?.isEmpty ?? true) {
                               return "Wajib diisi*";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 20,),

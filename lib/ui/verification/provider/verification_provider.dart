@@ -1,10 +1,6 @@
 import 'package:pintupay/core/network/dio_client.dart';
 import 'package:pintupay/core/network/dio_service.dart';
-import 'package:pintupay/ui/verification/model/check_phone_number.dart';
-import 'package:pintupay/ui/verification/model/otp_register_model.dart';
-import 'package:pintupay/ui/verification/model/register_activation.dart';
 import 'package:pintupay/ui/verification/model/register_activation_response.dart';
-import 'package:pintupay/ui/verification/model/register_form_model.dart';
 import 'package:pintupay/ui/verification/model/register_form_response.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
 

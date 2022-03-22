@@ -8,21 +8,21 @@ class ResponsePulsa {
     if (json['pulsa'] != null) {
       pulsa = <Pulsa>[];
       json['pulsa'].forEach((v) {
-        pulsa!.add(new Pulsa.fromJson(v));
+        pulsa!.add(Pulsa.fromJson(v));
       });
     }
     if (json['paket'] != null) {
       data = <Data>[];
       json['paket'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.pulsa != null) {
-      data['pulsa'] = this.pulsa!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (pulsa != null) {
+      data['pulsa'] = pulsa!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -46,12 +46,12 @@ class Pulsa {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['status_id'] = this.statusId;
-    data['provider_name'] = this.providerName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['price'] = price;
+    data['status_id'] = statusId;
+    data['provider_name'] = providerName;
     return data;
   }
 }
@@ -74,12 +74,12 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['status_id'] = this.statusId;
-    data['provider_name'] = this.providerName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['price'] = price;
+    data['status_id'] = statusId;
+    data['provider_name'] = providerName;
     return data;
   }
 }

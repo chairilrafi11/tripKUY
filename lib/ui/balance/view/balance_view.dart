@@ -1,14 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/topup/cubit/topup_cubit.dart';
-import 'package:pintupay/ui/topup/view/topup_input_view.dart';
 import 'package:pintupay/ui/topup/view/topup_select_bank.dart';
 import 'package:flutter/material.dart';
-import 'package:nav_router/nav_router.dart';
 
 // class Balance extends StatelessWidget {
 //   const Balance({ Key? key }) : super(key: key);
@@ -79,7 +76,7 @@ class BalanceNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: PintuPayPalette.white,
+      color: PintuPayPalette.darkBlue,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -95,7 +92,7 @@ class BalanceNew extends StatelessWidget {
               children: [
                 Component.textDefault(
                   "saldo anda", 
-                  colors: PintuPayPalette.textGrey,
+                  colors: PintuPayPalette.white,
                   fontSize: 15
                 ),
                 const SizedBox(height: 20,),
@@ -104,7 +101,7 @@ class BalanceNew extends StatelessWidget {
                     if(state is BalanceLoading){
                       return const CircularProgressIndicator(color: PintuPayPalette.darkBlue,);
                     } else if(state is BalanceLoaded) {
-                      return Component.textBold(CoreFunction.moneyFormatter(state.balance), fontSize: 25);
+                      return Component.textBold(CoreFunction.moneyFormatter(state.balance), fontSize: 25, colors: PintuPayPalette.white);
                     } else {
                       return Container();
                     }
@@ -118,7 +115,7 @@ class BalanceNew extends StatelessWidget {
                 routePush(
                   BlocProvider(
                     create: (context) => TopupCubit(),
-                    child: TopupSelectbank(), 
+                    child: const TopupSelectbank(), 
                   ),
                   RouterType.material
                 );
@@ -128,8 +125,8 @@ class BalanceNew extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Icon(Icons.add_outlined, color: Colors.white, size: 30,),
                 )
               ),
