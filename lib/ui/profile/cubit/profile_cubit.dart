@@ -1,46 +1,43 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/core/database/box/user/user_box_controller.dart';
+import 'package:pintupay/ui/about_app/view/about_app.dart';
 import 'package:pintupay/ui/profile/provider/profile_provider.dart';
 import '../../../core/util/core_function.dart';
-import '../../login/view/login.dart';
+import '../../login/view/login_view.dart';
+import '../model/profile_menu_model.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
+  
   ProfileCubit() : super(ProfileInitial());
 
   Future getProfile() async {
     await ProfileProvider.profile();
   }
-
-  Future<void> onClickMenu(String key, bool isPin) async {
-    CoreFunction.logPrint("onTapMenu", key);
-    switch (key) {
-      case "Password & Pin":
-        routePush(const Login(), RouterType.cupertino);
+ 
+  Future<void> navMenu(ProfileMenu profileMenu) async {
+    switch (profileMenu) {
+      case ProfileMenu.info:
+        routePush(const AboutApp(), RouterType.material);
         break;
-      case "Info PintuPay":
-        routePush(const Login(), RouterType.cupertino);
+      case ProfileMenu.termCondition:
+        // routePush(const Login(), RouterType.cupertino);
         break;
-      case "PIN":
-        if (isPin) {
-          // onChangePIN();
-        } else {
-          // setPin();
-        }
+      case ProfileMenu.cs:
+        var user = await UserBoxController.getUser();
+        CoreFunction.logPrint("fcm", user?.fcmToken);
+        // routePush(const Login(), RouterType.cupertino);
         break;
-      case "Contact Us":
-        routePush(const Login(), RouterType.cupertino);
+      case ProfileMenu.rate:
+        // TODO: Handle this case.
         break;
-      case "Chat Customer Service":
-        routePush(const Login(), RouterType.cupertino);
+      case ProfileMenu.password:
+        // TODO: Handle this case.
         break;
-      case "Logout":
-        // String? fcm = await CoreFunction.generateFirebaseToken();
-        // CoreFunction.logPrint("Fcm", fcm);
-        break;
-      default:
     }
   }
 

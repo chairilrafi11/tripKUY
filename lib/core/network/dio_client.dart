@@ -146,4 +146,7 @@ abstract class DioClient {
 
   @POST(PintuPayEndpoint.gamePayment)
   Future<CoreModel> gamePayment(@Body() Map<String, dynamic> body);
+
+  @GET(PintuPayEndpoint.recommended)
+  Future<CoreModel> recommended();
 }

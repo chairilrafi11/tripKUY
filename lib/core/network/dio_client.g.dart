@@ -755,8 +755,24 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v7/game/transactions',
+                .compose(_dio.options, 'v7/transactions',
                 queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> recommended() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v2/get_data_recomended_product',
+                    queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
     return value;
