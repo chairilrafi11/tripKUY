@@ -1,4 +1,4 @@
-import '../bloc/profile_bloc.dart';
+enum ProfileMenu { rate, termCondition, cs, password, info }
 
 class ProfileMenuModel {
   String? key;

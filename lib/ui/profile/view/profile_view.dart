@@ -1,26 +1,45 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
+import 'package:pintupay/ui/profile/cubit/profile_cubit.dart';
+import 'package:pintupay/ui/profile/model/profile_menu_model.dart';
 import 'package:pintupay/ui/profile/provider/profile_provider.dart';
 
-import '../bloc/profile_bloc.dart';
-import '../bloc/profile_menu_bloc.dart';
-
 class ProfilePage extends StatelessWidget {
+
   ProfilePage({Key? key}) : super(key: key);
 
-  final ProfileBloc _profileBloc = ProfileBloc();
-  final ProfileMenuBloc _profileMenuBloc = ProfileMenuBloc();
-
-  // final List<Set<String>> listProfile = [
-  //   {"Nama", "Chairil Rafi Purnama"},
-  //   {"No Handphone", "08985722049"},
-  //   {"Email", "chairilrafi11@gmail.com"},
-  //   {"No KTP", "1234567890123456"},
-  // ];
+  final List<ProfileMenuModel> listMenu = [
+    // ProfileMenuModel(
+    //   label: "Password & PIN",
+    //   icons: Icons.password,
+    //   profileMenu: ProfileMenu.password
+    // ),
+    ProfileMenuModel(
+      label: "Beri Rating",
+      icons: Icons.thumb_up,
+      profileMenu: ProfileMenu.rate
+    ),
+    ProfileMenuModel(
+      label: "Chat Customer Service",
+      icons: Icons.headset_mic_rounded,
+      profileMenu: ProfileMenu.cs
+    ),
+    ProfileMenuModel(
+      label: "Tentang Pintupay",
+      icons: Icons.info,
+      profileMenu: ProfileMenu.info
+    ),
+    ProfileMenuModel(
+      label: "Syarat & Ketentuan",
+      icons: Icons.task,
+      profileMenu: ProfileMenu.termCondition
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +48,8 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: PintuPayPalette.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: PintuPayConstant.paddingHorizontalScreen),
+          horizontal: PintuPayConstant.paddingHorizontalScreen
+        ),
         child: ListView(
           children: [
             const SizedBox(
@@ -70,8 +90,10 @@ class ProfilePage extends StatelessWidget {
                                 fontSize: PintuPayConstant.fontSizeMedium,
                               ),
                               const Spacer(),
-                              const Icon(Icons.edit,
-                                  color: PintuPayPalette.white),
+                              const Icon(
+                                Icons.edit,
+                                color: PintuPayPalette.white
+                              ),
                               // IconButton(
                               //   onPressed: () {
                               //     routePush(const EditProfile(),
@@ -84,9 +106,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Component.textDefault(authUsecase.userBox.name ?? "",
-                          fontSize: PintuPayConstant.fontSizeLargeExtra,
-                          colors: PintuPayPalette.white),
+                      Component.textDefault(
+                        authUsecase.userBox.name ?? "",
+                        fontSize: PintuPayConstant.fontSizeLargeExtra,
+                        colors: PintuPayPalette.white
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -103,16 +127,19 @@ class ProfilePage extends StatelessWidget {
                                 fontSize: PintuPayConstant.fontSizeMedium,
                               ),
                               const Spacer(),
-                              const Icon(Icons.qr_code,
-                                  color: PintuPayPalette.white),
+                              const Icon(
+                                Icons.qr_code,
+                                color: PintuPayPalette.white
+                              ),
                             ],
                           ),
                         ],
                       ),
                       Component.textDefault(
-                          authUsecase.userBox.phoneNumber ?? "",
-                          fontSize: PintuPayConstant.fontSizeLargeExtra,
-                          colors: PintuPayPalette.white),
+                        authUsecase.userBox.phoneNumber ?? "",
+                        fontSize: PintuPayConstant.fontSizeLargeExtra,
+                        colors: PintuPayPalette.white
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -129,15 +156,19 @@ class ProfilePage extends StatelessWidget {
                                 fontSize: PintuPayConstant.fontSizeMedium,
                               ),
                               const Spacer(),
-                              Component.textBold('Referral',
-                                  fontSize: 12, colors: PintuPayPalette.white),
+                              Component.textBold(
+                                'Referral',
+                                fontSize: 12, colors: PintuPayPalette.white
+                              ),
                             ],
                           ),
                         ],
                       ),
-                      Component.textDefault(authUsecase.userBox.email ?? "",
-                          fontSize: PintuPayConstant.fontSizeLargeExtra,
-                          colors: PintuPayPalette.white),
+                      Component.textDefault(
+                        authUsecase.userBox.email ?? "",
+                        fontSize: PintuPayConstant.fontSizeLargeExtra,
+                        colors: PintuPayPalette.white
+                      ),
                     ],
                   ),
                 ),
@@ -169,57 +200,60 @@ class ProfilePage extends StatelessWidget {
             //   },
             // ),
             ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(top: 20),
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _profileBloc.listMenu.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      _profileMenuBloc
-                          .navFeature(_profileBloc.listMenu[index].profileMenu);
-                    },
-                    child: Container(
-                        padding:
-                            EdgeInsets.all(SizeConfig.safeBlockVertical * 2),
-                        width: SizeConfig.safeBlockHorizontal * 100,
-                        decoration: const BoxDecoration(
-                            color: PintuPayPalette.white,
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: PintuPayPalette.darkBlue,
-                                    width: 0.5))),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Icon(
-                              _profileBloc.listMenu[index].icons,
-                              color: PintuPayPalette.darkBlue,
-                              size: 30,
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              _profileBloc.listMenu[index].label!,
-                              style: const TextStyle(
-                                  color: Colors.black54, fontSize: 18),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios,
-                                color: PintuPayPalette.darkBlue, size: 15)
-                          ],
-                        )),
-                  );
-                }),
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(top: 20),
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: listMenu.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
+                  onTap: () {
+                    BlocProvider.of<ProfileCubit>(context).navMenu(listMenu[index].profileMenu);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(SizeConfig.safeBlockVertical * 2),
+                    width: SizeConfig.safeBlockHorizontal * 100,
+                    decoration: const BoxDecoration(
+                      color: PintuPayPalette.white,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: PintuPayPalette.darkBlue,
+                          width: 0.5
+                        )
+                      )
+                    ),
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Icon(
+                          listMenu[index].icons,
+                          color: PintuPayPalette.darkBlue,
+                          size: 30,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          listMenu[index].label!,
+                          style: const TextStyle(color: Colors.black54, fontSize: 18),
+                        ),
+                        const Spacer(),
+                        const Icon(Icons.arrow_forward_ios,
+                            color: PintuPayPalette.darkBlue, size: 15)
+                      ],
+                    )
+                  ),
+                );
+              }
+            ),
             const SizedBox(
               height: 20,
             ),
             Component.button(
-                label: "Keluar",
-                color: PintuPayPalette.red,
-                onPressed: () {
-                  CoreFunction.logout();
-                })
+              label: "Keluar",
+              color: PintuPayPalette.red,
+              onPressed: () {
+                CoreFunction.logout();
+              }
+            )
           ],
         ),
       ),
