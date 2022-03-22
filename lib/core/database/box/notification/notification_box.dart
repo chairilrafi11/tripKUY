@@ -1,22 +1,46 @@
-class ResponseNotification {
+
+
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pintupay/core/database/pintupay_box.dart';
+
+part 'notification_box.g.dart';
+
+@HiveType(typeId: PintuPayBox.hiveType2)
+
+class NotificationBox {
+
+  @HiveField(1)
   String? dataTitle;
+
+  @HiveField(2)
   String? dataBody;
+
+  @HiveField(3)
   String? dataImage;
+
+  @HiveField(4)
   String? clickAction;
+
+  @HiveField(5)
   String? notificationType;
+
+  @HiveField(6)
   String? statucCode;
+
+  @HiveField(7)
   String? statusName;
 
-  ResponseNotification(
-      {this.dataTitle,
-      this.dataBody,
-      this.dataImage,
-      this.clickAction,
-      this.notificationType,
-      this.statucCode,
-      this.statusName});
+  NotificationBox({
+    this.dataTitle,
+    this.dataBody,
+    this.dataImage,
+    this.clickAction,
+    this.notificationType,
+    this.statucCode,
+    this.statusName
+  });
 
-  ResponseNotification.fromJson(Map<String, dynamic> json) {
+  NotificationBox.fromJson(Map<String, dynamic> json) {
     dataTitle = json['data_title'];
     dataBody = json['data_body'];
     dataImage = json['data_image'];

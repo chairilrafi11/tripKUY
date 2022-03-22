@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pintupay/core/util/util.dart';
 
-import 'model/response_notification.dart';
+import '../database/box/notification/notification_box.dart';
 
 class FirebaseCloudMessaging {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -126,9 +126,9 @@ class FirebaseCloudMessaging {
 
       CoreFunction.logPrint("PayLoad map", map);
 
-      ResponseNotification responseNotification = ResponseNotification.fromJson(map);
+      NotificationBox notificationBox = NotificationBox.fromJson(map);
 
-      switch (responseNotification.clickAction?.toUpperCase()) {
+      switch (notificationBox.clickAction?.toUpperCase()) {
         case CoreVariable.notificationClickActionChat:
           break;
         case CoreVariable.notificationClickActionOrder:
@@ -159,7 +159,7 @@ class FirebaseCloudMessaging {
           // );
           // break;
         default:
-          CoreFunction.logPrint('Payload', jsonEncode(responseNotification));
+          CoreFunction.logPrint('Payload', jsonEncode(notificationBox));
           break;
       }
     }

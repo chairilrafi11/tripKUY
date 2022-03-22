@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pintupay/core/database/box/notification/notification_box.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/splashscreen/view/splashscreen_view.dart';
@@ -47,6 +48,7 @@ Future<void> init() async {
   var appDocumentDirectory = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocumentDirectory.path);
   Hive.registerAdapter(UserBoxAdapter());
+  Hive.registerAdapter(NotificationBoxAdapter());
 
   await flutterLocalNotificationsPlugin
     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()

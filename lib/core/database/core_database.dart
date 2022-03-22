@@ -75,8 +75,10 @@ class CoreDatabase {
 
   static Future deleteDatabase() async {
     var userBox = await openBoxDatabase(PintuPayBox.user);
+    var notificationBox = await openBoxDatabase(PintuPayBox.notification);
     userBox.clear();
-    
+    notificationBox.clear();
+
     await authUsecase.removeUser();
   }
 }

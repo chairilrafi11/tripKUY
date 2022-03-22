@@ -4,16 +4,16 @@ import 'dart:io';
 import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:pintupay/core/database/box/notification/notification_box_controller.dart';
 import 'package:pintupay/core/notification/firebase_cloud_messaging.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
 
-import 'model/response_notification.dart';
+import '../database/box/notification/notification_box.dart';
 
 class FirebaseMessagingCore {
   static configFirebase() async {
     final firebaseMessaging = FirebaseMessaging.instance;
-    // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
     if (Platform.isIOS) {
       firebaseMessaging.requestPermission(
@@ -60,20 +60,14 @@ class FirebaseMessagingCore {
 
   static processNotification(RemoteMessage remoteMessage, bool fromOpened) async {
 
-    ResponseNotification responseNotification = ResponseNotification.fromJson(remoteMessage.data);
-    // responseNotification.createdAtInMs = DateTime.now().millisecondsSinceEpoch.toString();
-    CoreFunction.logPrint('Response Notication', responseNotification.toJson());
-    CoreFunction.logPrint('responseNotification.notificationType', responseNotification.notificationType);
+    NotificationBox notificationBox = NotificationBox.fromJson(remoteMessage.data);
+    CoreFunction.logPrint('Response Notication', notificationBox.toJson());
 
-    switch (responseNotification.notificationType?.toLowerCase()) {
+    switch (notificationBox.notificationType?.toLowerCase()) {
       case CoreVariable.notificationTypeChat:
         break;
       case CoreVariable.notificationTypeOrder:
-        // await EtekadDatabase.saveNotification(
-        //   responseNotification,
-        //   EtekadUtilityBox.listNotification,
-        // );
-
+        await NotficationBoxController.save(notificationBox);
         _broadcastNotificationUpdateOrder(remoteMessage);
         break;
       case CoreVariable.notificationTypeTopUp:
@@ -83,18 +77,15 @@ class FirebaseMessagingCore {
       case CoreVariable.notificationTypeTransfer:
       case CoreVariable.notificationTypePulsaAndEMoney:
       case CoreVariable.notificationClickActionWitdraw:
-        //? TODO
-        // await EtekadDatabase.saveNotification(
-        //   responseNotification,
-        //   EtekadUtilityBox.listNotification,
-        // );
+        await NotficationBoxController.save(notificationBox);
         _broadcastNotificationData(remoteMessage);
         break;
       case CoreVariable.notificationTypeInfo:
+        await NotficationBoxController.save(notificationBox);
         ComponentDialog.info(remoteMessage.notification!.title, remoteMessage.notification!.body, remoteMessage.data['image']);
         break;
       default:
-        CoreFunction.logPrint('Response Notification', responseNotification.toJson());
+        CoreFunction.logPrint('Response Notification', notificationBox.toJson());
         break;
     }
   }

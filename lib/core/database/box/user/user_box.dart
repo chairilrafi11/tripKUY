@@ -5,7 +5,8 @@ import 'package:pintupay/core/database/pintupay_box.dart';
 
 part 'user_box.g.dart';
 
-@HiveType(typeId: PintuPayBox.hiveType3)
+@HiveType(typeId: PintuPayBox.hiveType1)
+
 class UserBox {
   
   @HiveField(1)
