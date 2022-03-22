@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
-import 'package:pintupay/ui/forgot_password/view/forgot_password.dart';
+import 'package:pintupay/ui/forgot_password/view/forgot_password_view.dart';
 import 'package:pintupay/ui/login/cubit/login_cubit.dart';
 import 'package:pintupay/ui/login/model/login_model.dart';
 import 'package:flutter/material.dart';
@@ -313,7 +313,7 @@ class _LoginState extends State<Login> {
     return routePush(
       BlocProvider(
         create: (context) => ForgotPasswordCubit(),
-        child: const ForgotPassword(),
+        child: const ForgotPasswordView(),
       ),
     );
   }

@@ -164,13 +164,8 @@ abstract class DioClient {
   Future<CoreModel> gamePayment(@Body() Map<String, dynamic> body);
 
   @POST(PintuPayEndpoint.forgotPassword)
-  // Future<Map<String, dynamic>> requestOTPForgotPassword(
-  //   @Body() Map<String, dynamic> body,
-  // Future<CoreModel> requestOTPForgotPassword(@Body() Map<String, dynamic> body);
   Future<CoreModel> requestOTPForgotPassword(Map<String, dynamic> body);
 
   @PUT(PintuPayEndpoint.forgotPassword)
-  // Future<Map<String, dynamic>> requestForgotPassword(
-  //   @Body() Map<String, dynamic> body,
   Future<CoreModel> requestForgotPassword(@Body() Map<String, dynamic> body);
 }

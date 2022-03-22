@@ -94,5 +94,5 @@ class PintuPayEndpoint {
 
   static const String gamePayment = "v7/game/transactions";
 
-  static const String forgotPassword = "v7/reset/passwords";
+  static const String forgotPassword = "v6/reset/passwords";
 }
