@@ -86,9 +86,13 @@ class TelephoneCubit extends Cubit<TelephoneState> {
             status: ""
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.success,
+            ),
+            RouterType.material
+          );
 
         }
       }

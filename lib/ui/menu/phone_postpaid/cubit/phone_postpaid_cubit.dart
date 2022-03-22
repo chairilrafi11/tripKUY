@@ -108,9 +108,12 @@ class PhonePostpaidCubit extends Cubit<PhonePostpaidState> {
         );
 
         if(result.id != null){
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.success,
+            )
+          );
         }
       }
     });

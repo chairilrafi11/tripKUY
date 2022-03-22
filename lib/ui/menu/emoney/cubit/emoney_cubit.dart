@@ -10,7 +10,9 @@ import '../view/emoney_detail_view.dart';
 part 'emoney_state.dart';
 
 class EmoneyCubit extends Cubit<EmoneyState> {
-  EmoneyCubit() : super(EmoneyLoading());
+  EmoneyCubit() : super(EmoneyLoading()){
+    onGetProvider();
+  }
 
   Future onGetProvider() async {
     var emoneys = await EmoneyProvider.provider();
@@ -19,10 +21,11 @@ class EmoneyCubit extends Cubit<EmoneyState> {
 
   void navDetail(EmoneyProviderResponse emoneyProviderResponse) {
     routePush(
-        BlocProvider(
-          create: (context) => EmoneyDetailCubit(emoneyProviderResponse: emoneyProviderResponse),
-          child: EmoneyDetailView(),
-        ),
-        RouterType.material);
+      BlocProvider(
+        create: (context) => EmoneyDetailCubit(emoneyProviderResponse: emoneyProviderResponse),
+        child: EmoneyDetailView(),
+      ),
+      RouterType.material
+    );
   }
 }

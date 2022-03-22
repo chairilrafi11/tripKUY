@@ -109,9 +109,13 @@ class PdamCubit extends Cubit<PdamState> {
         );
 
         if(result.nama != null){
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.success,
+            ),
+            RouterType.material
+          );
         }
       }
     });

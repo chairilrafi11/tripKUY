@@ -84,9 +84,13 @@ class PGNCubit extends Cubit<PGNState> {
             status: ""
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.success,
+            ),
+            RouterType.material
+          );
 
         }
       }

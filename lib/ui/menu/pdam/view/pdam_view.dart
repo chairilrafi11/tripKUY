@@ -14,8 +14,6 @@ class PDAMView extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController idController = TextEditingController();
 
-  final PdamCubit pdamCubit = PdamCubit();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +21,7 @@ class PDAMView extends StatelessWidget {
         children: [
           Component.header(),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: PintuPayConstant.paddingHorizontalScreen),
+            padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [
                 Component.appBar("PDAM", transparet: true),
@@ -42,8 +39,7 @@ class PDAMView extends StatelessWidget {
                         children: [
                           TextFormField(
                             controller: idController,
-                            decoration:
-                                Component.decorationNoBorder("No Pelanggan"),
+                            decoration: Component.decorationNoBorder("No Pelanggan"),
                             maxLength: 16,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -59,10 +55,7 @@ class PDAMView extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          BlocProvider(
-                            create: (context) => pdamCubit,
-                            child: districtList(),
-                          ),
+                          districtList(),
                           const SizedBox(
                             height: 20,
                           ),
@@ -71,20 +64,18 @@ class PDAMView extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(vertical: 25),
                             child: InkWell(
                               onTap: () {
-                                // pdamCubit.onInquiry(idController.text);
                                 if(formKey.currentState!.validate()){
-                                  pdamCubit.onInquiry(idController.text);
+                                  BlocProvider.of<PdamCubit>(context).onInquiry(idController.text);
                                 }
                               },
                               child: Container(
                                 width: SizeConfig.blockSizeHorizontal * 100,
                                 alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                 decoration: const BoxDecoration(
-                                    color: PintuPayPalette.darkBlue,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0))),
+                                  color: PintuPayPalette.darkBlue,
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                ),
                                 child: Component.textBold(
                                   'Tagihan',
                                   colors: PintuPayPalette.white,
@@ -149,7 +140,7 @@ class PDAMView extends StatelessWidget {
                   );
                 }).toList(),
                 onChanged: (newValue) {
-                  pdamCubit.setDistric(newValue!);
+                  BlocProvider.of<PdamCubit>(context).setDistric(newValue!);
                 });
           } else {
             return const Center(child: CircularProgressIndicator());
