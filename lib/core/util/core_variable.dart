@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 class CoreVariable {
 
   //? Global Attributte
-  static const bool debug = true;
+  static const bool debug = false;
   static const bool production = true;
-
-  //? LatLng Jakarta
-  static const double latitude = -6.200000;
-  static const double longitude = 106.816666;
 
   //? Config API
   static const String appsVersionAndroid = "v1.0.0";

@@ -82,7 +82,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
         if (isFromUpdatePassword) {
           pushAndRemoveUntil(Dashboard());
         } else {
-          pushAndRemoveUntil(const Login());
+          // pushAndRemoveUntil(const Login());
         }
       });
     });

@@ -3,7 +3,7 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/size_config.dart';
 import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/balance/view/balance_view.dart';
-import 'package:pintupay/ui/banner/banner_advertise.dart';
+import 'package:pintupay/ui/banner/view/banner_advertise_view.dart';
 import 'package:pintupay/ui/banner/cubit/banner_cubit.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/home/cubit/home_cubit.dart';
@@ -15,14 +15,6 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   final List<Set<String>> listMenu = [
-    {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
-    {"Listrik", "assets/icons/icmn_listrik.png"},
-    {"PDAM", "assets/icons/icmn_pdam.png"},
-    {"Bpjs", "assets/icons/icmn_bpjs.png"},
-    {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
-    {"Telepon", "assets/icons/icmn_telepon.png"},
-    {"E-Money", "assets/icons/icmn_emoney.png"},
-    {"Game", "assets/icons/icmn_game.png"},
     {"Pulsa & Data", "assets/icons/icmn_pulsa.png"},
     {"Listrik", "assets/icons/icmn_listrik.png"},
     {"PDAM", "assets/icons/icmn_pdam.png"},
@@ -49,7 +41,7 @@ class Home extends StatelessWidget {
               const SizedBox(height: 10,),
               BlocProvider(
                 create: (context) => BannerCubit('primary'),
-                child: const BannerAdvertise(),
+                child: const BannerAdvertiseView(),
               ),
               const SizedBox(height: 20,),
               Component.textBold("Menu", colors: PintuPayPalette.darkBlue),
@@ -67,7 +59,7 @@ class Home extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 10,),
-              feeds(),
+              // feeds(),
               const SizedBox(height: 20,),
             ],
           ),
@@ -81,7 +73,7 @@ class Home extends StatelessWidget {
       height: 230,
       width: SizeConfig.blockSizeHorizontal * 100,
       child: GridView.builder(
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: listMenu.length,
         scrollDirection: Axis.horizontal,
@@ -119,7 +111,7 @@ class Home extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Component.textBold("Recommended", colors: PintuPayPalette.darkBlue),
+        Component.textBold("Rekomendasi", colors: PintuPayPalette.darkBlue),
         const SizedBox(height: 20,),
         SizedBox(
           height: 105,
@@ -130,7 +122,7 @@ class Home extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 margin: const EdgeInsets.only(right: 10),
-                color: PintuPayPalette.darkBlue,
+                color: PintuPayPalette.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
@@ -148,15 +140,14 @@ class Home extends StatelessWidget {
                           Image.asset(
                             listMenu[5].last,
                             height: 20,
-                            color: PintuPayPalette.white,
                             // height: SizeConfig.blockSizeHorizontal * 13,
                           ),
                           const SizedBox(width: 10,),
-                          Component.textBold("Pulsa Three", colors: PintuPayPalette.white),
+                          Component.textBold("Pulsa Three", colors: PintuPayPalette.darkBlue),
                         ],
                       ),
                       const SizedBox(height: 10,),
-                      Component.textBold("AON 30GB", colors: PintuPayPalette.white),
+                      Component.textBold("AON 30GB", colors: PintuPayPalette.darkBlue),
                       const SizedBox(height: 5,),
                       Row(
                         children: [

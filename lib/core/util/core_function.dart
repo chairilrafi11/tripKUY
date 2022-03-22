@@ -4,16 +4,13 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pintupay/core/database/core_database.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pintupay/ui/bill/view/bill_view.dart';
 import 'package:pintupay/ui/component/component_dialog.dart';
-import 'package:pintupay/ui/login/view/login.dart';
+import 'package:pintupay/ui/login/view/login_view.dart';
 import 'package:pintupay/ui/pin/view/pin_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -126,76 +123,76 @@ class CoreFunction {
     }
   }
 
-  static Future<String> getContact() async {
-    String? phoneNumber;
-    final PermissionStatus permissionStatus =
-    await _getPermission(Permission.contacts);
-    if (permissionStatus.isGranted) {
-      phoneNumber = await _openContact();
-    }
-    return phoneNumber ?? '';
-  }
+  // static Future<String> getContact() async {
+  //   String? phoneNumber;
+  //   final PermissionStatus permissionStatus =
+  //   await _getPermission(Permission.contacts);
+  //   if (permissionStatus.isGranted) {
+  //     phoneNumber = await _openContact();
+  //   }
+  //   return phoneNumber ?? '';
+  // }
 
-  static Future<String?> _openContact() async {
-    return await FlutterContacts.openExternalPick().then((contact) async {
-      if (contact != null) {
-        if (contact.phones.length > 1) {
-          return await _selectIfPhoneNumberIsMultiple(
-              contact.phones, contact.displayName);
-        } else {
-          return contact.phones.first.number
-              .replaceAll('-', '')
-              .replaceAll(' ', '');
-        }
-      }
-      return null;
-    });
-  }
+  // static Future<String?> _openContact() async {
+  //   return await FlutterContacts.openExternalPick().then((contact) async {
+  //     if (contact != null) {
+  //       if (contact.phones.length > 1) {
+  //         return await _selectIfPhoneNumberIsMultiple(
+  //             contact.phones, contact.displayName);
+  //       } else {
+  //         return contact.phones.first.number
+  //             .replaceAll('-', '')
+  //             .replaceAll(' ', '');
+  //       }
+  //     }
+  //     return null;
+  //   });
+  // }
 
-  static Future<String?> _selectIfPhoneNumberIsMultiple(
-      List<Phone> listPhone,
-      String contactName,
-      ) async {
-    return await showCupertinoModalPopup<String?>(
-      barrierColor: Colors.black38,
-      context: navGK.currentContext!,
-      builder: (BuildContext buildContext) {
-        return CupertinoActionSheet(
-          actions: listPhone
-              .map((e) => CupertinoDialogAction(
-            child:
-            Text(e.number.replaceAll('-', '').replaceAll(' ', '')),
-            onPressed: () {
-              Navigator.pop(buildContext,
-                  e.number.replaceAll('-', '').replaceAll(' ', ''));
-            },
-          ))
-              .toList(),
-          cancelButton: CupertinoDialogAction(
-            child: const Text('Batalkan'),
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(buildContext);
-            },
-          ),
-          message: const Text('Pilih Nomor'),
-          title: Text(contactName),
-        );
-      },
-    );
-  }
+  // static Future<String?> _selectIfPhoneNumberIsMultiple(
+  //     List<Phone> listPhone,
+  //     String contactName,
+  //     ) async {
+  //   return await showCupertinoModalPopup<String?>(
+  //     barrierColor: Colors.black38,
+  //     context: navGK.currentContext!,
+  //     builder: (BuildContext buildContext) {
+  //       return CupertinoActionSheet(
+  //         actions: listPhone
+  //             .map((e) => CupertinoDialogAction(
+  //           child:
+  //           Text(e.number.replaceAll('-', '').replaceAll(' ', '')),
+  //           onPressed: () {
+  //             Navigator.pop(buildContext,
+  //                 e.number.replaceAll('-', '').replaceAll(' ', ''));
+  //           },
+  //         ))
+  //             .toList(),
+  //         cancelButton: CupertinoDialogAction(
+  //           child: const Text('Batalkan'),
+  //           isDestructiveAction: true,
+  //           onPressed: () {
+  //             Navigator.pop(buildContext);
+  //           },
+  //         ),
+  //         message: const Text('Pilih Nomor'),
+  //         title: Text(contactName),
+  //       );
+  //     },
+  //   );
+  // }
 
-  static Future<PermissionStatus> _getPermission(Permission permission) async {
-    PermissionStatus permissionStatus = await permission.status;
-    if (!permissionStatus.isGranted) {
-      final status = await permission.request();
-      permissionStatus = status;
-    }
-    if (permissionStatus.isPermanentlyDenied) {
-      openAppSettings();
-    }
-    return permissionStatus;
-  }
+  // static Future<PermissionStatus> _getPermission(Permission permission) async {
+  //   PermissionStatus permissionStatus = await permission.status;
+  //   if (!permissionStatus.isGranted) {
+  //     final status = await permission.request();
+  //     permissionStatus = status;
+  //   }
+  //   if (permissionStatus.isPermanentlyDenied) {
+  //     openAppSettings();
+  //   }
+  //   return permissionStatus;
+  // }
 
   static String validatePhoneNumber(String phoneNumberUnvalidate) {
     String? phoneNumber;
@@ -258,12 +255,25 @@ class CoreFunction {
   static Future<void> logout() async {
     await CoreDatabase.deleteDatabase();
     pushAndRemoveUntil(
-      const Login(),
+      const LoginView(),
       RouterType.material,
     );
   }
   
   static openBillDetail(BillStatusModel billStatus) {
-    pushAndRemoveUntil(BillView(billStatus), RouterType.cupertino);
+    pushAndRemoveUntil(
+      BillView(billStatusModel: billStatus, billStatus: BillStatus.success), 
+      RouterType.material
+    );
+  }
+
+  static String version() {
+    if (Platform.isAndroid) {
+      return CoreVariable.appsVersionAndroid;
+    } else if (Platform.isIOS) {
+      return CoreVariable.appsversionIos;
+    } else {
+      return "";
+    }
   }
 }

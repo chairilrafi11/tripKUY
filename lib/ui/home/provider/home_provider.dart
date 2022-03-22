@@ -14,4 +14,15 @@ class HomeProvider {
     }
     return list;
   }
+
+  static Future<List<MenuResponse>> recommended() async {
+    List<MenuResponse> list = [];
+    var dio = await DioService.checkConnection(tryAgainMethod: menus);
+    DioClient dioClient = DioClient(dio);
+    var menu = await dioClient.recommended();
+    for (var i = 0; i < menu.data.length; i++) {
+      list.add(MenuResponse.fromJson(menu.data[i]));
+    }
+    return list;
+  }
 }

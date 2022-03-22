@@ -176,7 +176,7 @@ class PaymentView extends StatelessWidget {
 
   Widget buttonPayment(){
     return Component.button(
-      label: "bayar", 
+      label: "Bayar", 
       onPressed:() {
         paymentMethod!();
       }

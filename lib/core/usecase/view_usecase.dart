@@ -71,9 +71,13 @@ class ViewUsecase {
       case "cellular pasca bayar":
         return "assets/icons/icmn_hppascabayar.png";
       case "top up":
-        return "assets/icons/icmn_hppascabayar.png";
+        return "assets/icons/icmn_topup.png";
       case "pgn":
         return "assets/icons/icmn_pgn.png";
+      case "topup game":
+        return "assets/icons/icmn_game.png";
+      case "refund saldo":
+        return "assets/icons/icmn_refund.png";
       default:
         return "";
     }

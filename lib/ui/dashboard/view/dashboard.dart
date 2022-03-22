@@ -4,7 +4,9 @@ import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
 import 'package:pintupay/ui/dashboard/cubit/dashboard_cubit.dart';
 import 'package:pintupay/ui/home/cubit/home_cubit.dart';
 import 'package:pintupay/ui/home/view/home.dart';
+import 'package:pintupay/ui/notification/cubit/notification_cubit.dart';
 import 'package:pintupay/ui/notification/view/notification_view.dart';
+import 'package:pintupay/ui/profile/cubit/profile_cubit.dart';
 import 'package:pintupay/ui/profile/view/profile_view.dart';
 import 'package:pintupay/ui/transaction/cubit/transaction_cubit.dart';
 import 'package:pintupay/ui/transaction/view/transaction_view.dart';
@@ -48,9 +50,15 @@ class Dashboard extends StatelessWidget {
                         child: TransactionView(),
                       );
                     case NavBarItem.notification:
-                      return const NotificationView();
+                      return BlocProvider(
+                        create: (context) => NotificationCubit(),
+                        child: const NotificationView(),
+                      );
                     case NavBarItem.profile:
-                      return ProfilePage();
+                      return BlocProvider(
+                        create: (context) => ProfileCubit(),
+                        child: ProfilePage(),
+                      );
                     default:
                       return Container();
                   }
