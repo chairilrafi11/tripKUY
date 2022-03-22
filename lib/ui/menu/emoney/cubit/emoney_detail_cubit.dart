@@ -90,9 +90,14 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
             status: ""
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              messages: result.messages,
+              billStatus: BillStatus.success,
+            ),
+            RouterType.material
+          );
         }
       }
     });

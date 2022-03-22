@@ -39,8 +39,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
           ),
           Center(
             child: Image.asset(
-              "assets/icons/logo.png",
-              color: PintuPayPalette.white,
+              "assets/icons/logo_pintupay_white.png",
               width: SizeConfig.blockSizeHorizontal * 70,
               fit: BoxFit.fill,
             ),

@@ -106,7 +106,8 @@ class ElectricCubit extends Cubit<ElectricState> {
           );
 
           routePush(BillView(
-            billStatusModel
+            billStatusModel: billStatusModel,
+            billStatus: BillStatus.success,
           ));
         }
       }
@@ -180,9 +181,13 @@ class ElectricCubit extends Cubit<ElectricState> {
             status: ""
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.success,
+            ),
+            RouterType.material
+          );
         }
       }
     });

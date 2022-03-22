@@ -12,67 +12,62 @@ import 'package:flutter/services.dart';
 
 class EmoneyView extends StatelessWidget {
 
-  EmoneyView({ Key? key }) : super(key: key);
-
-  final EmoneyCubit emoneyCubit = EmoneyCubit();
+  const EmoneyView({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => emoneyCubit..onGetProvider(),
-        child: BlocBuilder<EmoneyCubit, EmoneyState>(
-          builder: (context, state) {
-            return Stack(
-              children: [
-                Component.header(),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      Component.appBar("E-Money", transparet: true),
-                      Card(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          child: TextFormField(
-                            // controller: phoneContactController,
-                            decoration: Component.decorationNoBorder("Cari produk E-Money"),
-                            maxLength: 16,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            validator: (value) {
-                              if (value?.isEmpty ?? true) {
-                                return "Wajib diisi*";
-                              }
-                              return null;
-                            },
-                          ),
+      body: BlocBuilder<EmoneyCubit, EmoneyState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              Component.header(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Component.appBar("E-Money", transparet: true),
+                    Card(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: TextFormField(
+                          // controller: phoneContactController,
+                          decoration: Component.decorationNoBorder("Cari produk E-Money"),
+                          maxLength: 16,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return "Wajib diisi*";
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      BlocBuilder<EmoneyCubit, EmoneyState>(
-                        builder: (context, state) {
-                          if (state is EmoneyLoading) {
-                            return const ShimmerList();
-                          } else if (state is EmoneyLoaded) {
-                            return listEmoney(state.list);
-                          } else {
-                            return Container();
-                          }
-                        },
-                      )
-                    ],
-                  ),
+                    ),
+                    BlocBuilder<EmoneyCubit, EmoneyState>(
+                      builder: (context, state) {
+                        if (state is EmoneyLoading) {
+                          return const ShimmerList();
+                        } else if (state is EmoneyLoaded) {
+                          return listEmoney(state.list);
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  ],
                 ),
-              ],
-            );
-          },
-        )
+              ),
+            ],
+          );
+        },
       ) 
     ); 
   }
@@ -85,7 +80,7 @@ class EmoneyView extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => emoneyCubit.navDetail(list[index]),
+            onTap: () => BlocProvider.of<EmoneyCubit>(context).navDetail(list[index]),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)
@@ -98,7 +93,7 @@ class EmoneyView extends StatelessWidget {
                     CachedNetworkImage(
                       imageUrl: list[index].iconPath ?? "",
                       fit: BoxFit.fill,
-                      width: SizeConfig.blockSizeHorizontal * 10,
+                      width: SizeConfig.blockSizeHorizontal * 20,
                       placeholder: (context, url) => const CupertinoActivityIndicator(),
                       errorWidget: (context, url, error) => const Icon(
                         Icons.wallet_giftcard, 

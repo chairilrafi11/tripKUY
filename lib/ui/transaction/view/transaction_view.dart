@@ -52,7 +52,7 @@ class TransactionView extends StatelessWidget {
                         '${createdAt.year} ${ViewUsecase.twoDigitNumber(createdAt.hour.toString())}:'
                         '${ViewUsecase.twoDigitNumber(createdAt.minute.toString())}'
                       ),
-                      SizedBox(
+                      if(responseTransaction.indentifierNumber != null) SizedBox(
                         width: SizeConfig.blockSizeHorizontal * 63,
                         child: Component.textBold(
                           'No Pelanggan : ${responseTransaction.indentifierNumber.toString()}',
@@ -87,7 +87,7 @@ class TransactionView extends StatelessWidget {
                       children: [
                         Image.asset(
                           ViewUsecase.iconTransaction(responseTransaction.transactionName!),
-                          height: 40,
+                          height: 50,
                         ),
                         const SizedBox(height: 10),
                         Component.textBold(
@@ -213,7 +213,7 @@ class TransactionView extends StatelessWidget {
                     children: [
                       Image.asset( 
                         ViewUsecase.iconTransaction(listTransaction[index].transactionName ?? ""),
-                        height: 20,
+                        height: 30,
                       ),
                       const SizedBox(width: 10,),
                       Component.textBold(listTransaction[index].transactionName ?? ""),
@@ -258,7 +258,7 @@ class TransactionView extends StatelessWidget {
   Widget emptyTransaction(){
     return Column(
       children: [
-        SizedBox(height: SizeConfig.blockSizeHorizontal * 50,),
+        SizedBox(height: SizeConfig.blockSizeHorizontal * 20,),
         Image.asset(
           "assets/images/empty_transaction.png",
           height: SizeConfig.blockSizeHorizontal * 50,

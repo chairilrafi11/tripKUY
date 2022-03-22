@@ -19,7 +19,7 @@ class Register extends StatefulWidget {
   final ResponseCheckPhoneNumber responseCheckPhoneNumber;
 
   const Register({required this.responseCheckPhoneNumber, Key? key})
-      : super(key: key);
+    : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -37,6 +37,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController confirmPasswordController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
+  final TextEditingController referalController = TextEditingController();
 
   bool isCanChangePassword = false;
   bool isHiddenPassword = true;
@@ -44,8 +45,6 @@ class _RegisterState extends State<Register> {
   bool termsCondition = false;
 
   late int? selectedRadioGender = 0;
-
-  RegisterCubit registerCubit = RegisterCubit();
 
   void changeTermCondition(value) {
     setState(() {
@@ -105,7 +104,7 @@ class _RegisterState extends State<Register> {
             gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
             name: userNameController.text,
             storeName: agentController.text,
-            parentReferral: "PEORANGAN",
+            parentReferral: referalController.text.isEmpty ? "PEORANGAN" : referalController.text,
             password: passwordController.text,
             typeId: 1,
             passwordConfirmation: confirmPasswordController.text,
@@ -143,7 +142,7 @@ class _RegisterState extends State<Register> {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: PintuPayPalette.white,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         key: formKey,
@@ -219,25 +218,28 @@ class _RegisterState extends State<Register> {
                   height: 4,
                 ),
                 _textFieldPasswordConfirm(),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Checkbox(
-                      activeColor: PintuPayPalette.darkBlue,
-                      value: termsCondition,
-                      // onChanged: (value) => changeTermCondition(value)
-                      onChanged: (value) {},
-                    ),
-                    const Flexible(
-                      child: Text(
-                        "Setuju dengan syarat dan ketentuan",
-                        style: TextStyle(
-                            fontSize: 12, color: PintuPayPalette.darkBlue),
-                      ),
-                    ),
-                    _buttonLihatSyaratKetentuan(),
-                  ],
+                const SizedBox(
+                  height: 4,
                 ),
+                _textFieldReferal(),
+                // Row(
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: [
+                //     Checkbox(
+                //       activeColor: PintuPayPalette.darkBlue,
+                //       value: termsCondition,
+                //       // onChanged: (value) => changeTermCondition(value)
+                //       onChanged: (value) {},
+                //     ),
+                //     const Text(
+                //       "Setuju dengan syarat \ndan ketentuan",
+                //       style: TextStyle(
+                //           fontSize: 12, color: PintuPayPalette.darkBlue),
+                //     ),
+                //     const Spacer(),
+                //     _buttonLihatSyaratKetentuan(),
+                //   ],
+                // ),
                 Container(
                   margin: const EdgeInsets.only(top: 10, bottom: 50),
                   height: SizeConfig.screenHeight / 20,
@@ -733,6 +735,56 @@ class _RegisterState extends State<Register> {
         ),
         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
         labelText: 'Konfimasi Password',
+        fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldReferal() {
+    return TextField(
+      controller: referalController,
+      keyboardType: TextInputType.text,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.deny(
+            RegExp(
+                r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
+                caseSensitive: false),
+            replacementString: ''),
+      ],
+      enableSuggestions: false,
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      maxLength: 20,
+      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child: Icon(Icons.money, color: PintuPayPalette.darkBlue),
+        ),
+        hintText: 'Masukan Referal',
+        hintStyle: TextStyle(
+          color: PintuPayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+        labelText: 'Kode Referal',
         fillColor: PintuPayPalette.darkBlue,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),

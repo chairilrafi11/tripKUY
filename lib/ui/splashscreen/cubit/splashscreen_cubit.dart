@@ -4,7 +4,7 @@ import 'package:pintupay/core/database/box/user/user_box_controller.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
-import 'package:pintupay/ui/login/view/login.dart';
+import 'package:pintupay/ui/login/view/login_view.dart';
 
 import '../../../core/pintupay/pintupay_crypt.dart';
 
@@ -23,7 +23,7 @@ class SplashscreenCubit extends Cubit<SplashscreenState> {
       pushAndRemoveUntil(Dashboard(), RouterType.material);
     } else {
       await PintuPayCrypt().setPassKey();
-      pushAndRemoveUntil(const Login(), RouterType.material);
+      pushAndRemoveUntil(const LoginView(), RouterType.material);
     }
   }
 
