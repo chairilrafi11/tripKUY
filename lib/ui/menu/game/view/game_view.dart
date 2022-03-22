@@ -13,67 +13,62 @@ import '../../../component/shimmer.dart';
 
 class GameView extends StatelessWidget {
   
-  GameView({ Key? key }) : super(key: key);
-
-  final GameCubit _gameCubit = GameCubit();
+  const GameView({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => _gameCubit..onGetProvider(),
-        child: BlocBuilder<GameCubit, GameState>(
-          builder: (context, state) {
-            return Stack(
-              children: [
-                Component.header(),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      Component.appBar("Game - Voucher", transparet: true),
-                      Card(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          child: TextFormField(
-                            // controller: phoneContactController,
-                            decoration: Component.decorationNoBorder("Cari game"),
-                            maxLength: 16,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            validator: (value) {
-                              if (value?.isEmpty ?? true) {
-                                return "Wajib diisi*";
-                              }
-                              return null;
-                            },
-                          ),
+      body: BlocBuilder<GameCubit, GameState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              Component.header(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Component.appBar("Game - Voucher", transparet: true),
+                    Card(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: TextFormField(
+                          // controller: phoneContactController,
+                          decoration: Component.decorationNoBorder("Cari game"),
+                          maxLength: 16,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return "Wajib diisi*";
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      BlocBuilder<GameCubit, GameState>(
-                        builder: (context, state) {
-                          if (state is GameLoading) {
-                            return const ShimmerList();
-                          } else if (state is GameLoaded) {
-                            return listGame(state.list);
-                          } else {
-                            return Container();
-                          }
-                        },
-                      )
-                    ],
-                  ),
+                    ),
+                    BlocBuilder<GameCubit, GameState>(
+                      builder: (context, state) {
+                        if (state is GameLoading) {
+                          return const ShimmerList();
+                        } else if (state is GameLoaded) {
+                          return listGame(state.list);
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  ],
                 ),
-              ],
-            );
-          },
-        )
+              ),
+            ],
+          );
+        },
       ) 
     ); 
   }
@@ -86,7 +81,7 @@ class GameView extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => _gameCubit.navDetail(list[index]),
+            onTap: () => BlocProvider.of<GameCubit>(context).navDetail(list[index]),
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 10, 

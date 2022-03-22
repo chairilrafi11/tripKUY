@@ -10,7 +10,9 @@ part 'game_state.dart';
 
 class GameCubit extends Cubit<GameState> {
 
-  GameCubit() : super(GameLoading());
+  GameCubit() : super(GameLoading()){
+    onGetProvider();
+  }
 
   Future onGetProvider() async {
     var provides = await GameProvider.provider();

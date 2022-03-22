@@ -3,10 +3,10 @@ class GamePaymentResponse {
   String? transactionName;
   String? statusName;
   String? messages;
-  String? statusId;
+  int? statusId;
   String? statusDescription;
   int? cashBalance;
-  int? loanBalance;
+  String? loanBalance;
   String? authToken;
 
   GamePaymentResponse({

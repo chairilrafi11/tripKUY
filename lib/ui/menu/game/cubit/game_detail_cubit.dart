@@ -66,7 +66,7 @@ class GameDetailCubit extends Cubit<GameDetailState> {
     GameDetailLoaded gameDetailLoaded = state as GameDetailLoaded;
 
     listInformation.clear();
-    late String identifierNumber;
+    String identifierNumber = "";
 
     for (var element in gameDetailLoaded.gameProductResponse.form!) {
       listInformation.add({element.label ?? "" , (element.textEditingController.text)});
@@ -121,9 +121,14 @@ class GameDetailCubit extends Cubit<GameDetailState> {
             status: "",
           );
 
-          routePush(BillView(
-            billStatusModel
-          ));
+          routePush(
+            BillView(
+              billStatusModel: billStatusModel,
+              billStatus: BillStatus.pending,
+              messages: result.messages,
+            ),
+            RouterType.material
+          );
         }
       }
     });

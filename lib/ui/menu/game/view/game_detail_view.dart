@@ -149,11 +149,8 @@ class GameDetailView extends StatelessWidget {
           child: TextFormField(
             controller: form[index].textEditingController,
             decoration: Component.inputDecoration(form[index].label ?? ""),
-            maxLength: 16,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
+            maxLength: 20,
+            keyboardType: textInputType(form[index].formType ?? ""),
             validator: (value) {
               if (value?.isEmpty ?? true) {
                 return "Wajib diisi*";
@@ -164,5 +161,16 @@ class GameDetailView extends StatelessWidget {
         );
       },
     );
+  }
+
+  TextInputType textInputType(String type){
+    switch (type.toLowerCase()) {
+      case "number":
+        return TextInputType.number;
+      case "text":
+        return TextInputType.text;
+      default:
+        return TextInputType.text;
+    }
   }
 }
