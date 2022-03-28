@@ -12,6 +12,8 @@ import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../core/usecase/view_usecase.dart';
+
 class PulsaView extends StatelessWidget {
 
   PulsaView({ Key? key }) : super(key: key);
@@ -325,17 +327,19 @@ class PulsaView extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [                
-                    // Component.textBold(listData[index].name ?? "", colors: PintuPayPalette.darkBlue),
-                    const SizedBox(height: 10,),
-                    Component.textDefault(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [                    
+                    Image.asset( 
+                      ViewUsecase.iconFeature(Feature.pulsa),
+                      height: 40,
+                    ),        
+                    const SizedBox(width: 10,),
+                    Component.textBold(
                       listRecent[index].numbers ?? "",
-                      fontSize: PintuPayConstant.fontSizeLargeExtra,
+                      fontSize: PintuPayConstant.fontSizeLarge,
                       colors: PintuPayPalette.darkBlue
                     ),
-                    const SizedBox(height: 10,),
                   ],
                 ),
               ),
