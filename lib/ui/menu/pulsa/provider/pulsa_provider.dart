@@ -1,6 +1,7 @@
 import 'package:pintupay/core/network/dio_client.dart';
 import 'package:pintupay/core/network/dio_service.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
+import 'package:pintupay/ui/menu/pulsa/model/recent_number_response.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa_payment.dart';
 
@@ -27,6 +28,17 @@ class PulsaProvider {
     DioClient dioClient = DioClient(dio);
     var payment = await dioClient.pulsaPayment(pulsaPayment);
     return ResponsePulsaPayment.fromJson(payment.data);
+  } 
+
+  static Future<List<RecentNumberResponse>> recent() async {
+    List<RecentNumberResponse> list = [];
+    var dio = await DioService.checkConnection(tryAgainMethod: pulsa, isLoading: false);
+    DioClient dioClient = DioClient(dio);
+    var payment = await dioClient.recentNumber(authUsecase.userBox.authToken!);
+    for (var i = 0; i < payment.data.length; i++) {
+      list.add(RecentNumberResponse.fromJson(payment.data[i]));
+    }
+    return list;
   } 
 
 }

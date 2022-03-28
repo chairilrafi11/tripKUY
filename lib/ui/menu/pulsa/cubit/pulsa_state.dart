@@ -24,3 +24,11 @@ class PulsaLoaded extends PulsaState {
 }
 
 class PulsaEmpty extends PulsaState {}
+
+class PulsaRecentNumber extends PulsaState {
+  final List<RecentNumberResponse> listRecent;
+
+  const PulsaRecentNumber({
+    required this.listRecent
+  });
+}

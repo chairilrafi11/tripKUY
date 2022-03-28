@@ -7,6 +7,7 @@ import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/pulsa/cubit/pulsa_cubit.dart';
+import 'package:pintupay/ui/menu/pulsa/model/recent_number_response.dart';
 import 'package:pintupay/ui/menu/pulsa/model/response_pulsa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,13 +74,49 @@ class PulsaView extends StatelessWidget {
                           Flexible(
                             child: TextFormField(
                               controller: phoneContactController,
-                              decoration: Component.decorationNoBorder("No Handpone"),
+                              decoration: InputDecoration(
+                                fillColor: PintuPayPalette.blueLight.withAlpha(50),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(color: PintuPayPalette.white),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: const BorderSide(color: PintuPayPalette.white),
+                                ),
+                                counterText: "",
+                                hintText: "No Handphone",
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.close,
+                                    color: PintuPayPalette.darkBlue,
+                                  ),
+                                  onPressed: (){
+                                    phoneContactController.clear();
+                                     BlocProvider.of<PulsaCubit>(context).history();
+                                  }
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                // labelText: "Search",
+                                // suffixIcon: suffixIcon,
+                                hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
+                              ),
                               onChanged: (value) {
                                 CoreFunction.logPrint("Phone Number", value);
                                 CoreFunction.debouncer.debounce(() {
                                   BlocProvider.of<PulsaCubit>(context).onInquiry(value);
                                 });
                               },
+                              
                               maxLength: 16,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
@@ -129,6 +166,16 @@ class PulsaView extends StatelessWidget {
                               ShimmerPulsa(),
                               ShimmerPulsa(),
                             ]
+                          );
+                        } else if (state is PulsaRecentNumber) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 20,),
+                              Component.textBold("Transaksi Terakhir"),
+                              recentNumber(state.listRecent),
+                            ],
                           );
                         } else {
                           return Container();
@@ -213,47 +260,92 @@ class PulsaView extends StatelessWidget {
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 20),
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [                
-                // Component.textBold(listData[index].name ?? "", colors: PintuPayPalette.darkBlue),
-                const SizedBox(height: 10,),
-                Component.textBold(
-                  listData[index].name ?? "",
-                  fontSize: PintuPayConstant.fontSizeMedium
-                ),
-                const SizedBox(height: 10,),
-                Row(
-                  children: [
-                    Component.textBold(
-                      CoreFunction.moneyFormatter(listData[index].price),
-                      fontSize: 13,
-                      colors: PintuPayPalette.orange
-                    ),
-                    // const SizedBox(width: 10,),
-                    // const Text(
-                    //   "RP 35.000",
-                    //   style: TextStyle(
-                    //     color: PintuPayPalette.grey,
-                    //     fontFamily: PintuPayConstant.avenirRegular,
-                    //     fontSize: PintuPayConstant.fontSizeSmall,
-                    //     overflow: TextOverflow.ellipsis,
-                    //     decoration: TextDecoration.lineThrough
-                    //   ),
-                    // )
-                  ],
-                )
-              ],
+        return InkWell(
+          onTap: () => BlocProvider.of<PulsaCubit>(context).confirmData(listData[index], phoneContactController.text),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [                
+                  // Component.textBold(listData[index].name ?? "", colors: PintuPayPalette.darkBlue),
+                  const SizedBox(height: 10,),
+                  Component.textBold(
+                    listData[index].name ?? "",
+                    fontSize: PintuPayConstant.fontSizeMedium
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      Component.textBold(
+                        CoreFunction.moneyFormatter(listData[index].price),
+                        fontSize: 13,
+                        colors: PintuPayPalette.orange
+                      ),
+                      // const SizedBox(width: 10,),
+                      // const Text(
+                      //   "RP 35.000",
+                      //   style: TextStyle(
+                      //     color: PintuPayPalette.grey,
+                      //     fontFamily: PintuPayConstant.avenirRegular,
+                      //     fontSize: PintuPayConstant.fontSizeSmall,
+                      //     overflow: TextOverflow.ellipsis,
+                      //     decoration: TextDecoration.lineThrough
+                      //   ),
+                      // )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );
       },
     );
   }
+
+  Widget recentNumber(List<RecentNumberResponse> listRecent){
+    if (listRecent.isNotEmpty){
+      return ListView.builder(
+        itemCount: listRecent.length,
+        shrinkWrap: true,
+        padding: const EdgeInsets.only(top: 20),
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              BlocProvider.of<PulsaCubit>(context).onInquiry(listRecent[index].numbers.toString());
+              phoneContactController.text = listRecent[index].numbers ?? "";
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [                
+                    // Component.textBold(listData[index].name ?? "", colors: PintuPayPalette.darkBlue),
+                    const SizedBox(height: 10,),
+                    Component.textDefault(
+                      listRecent[index].numbers ?? "",
+                      fontSize: PintuPayConstant.fontSizeLargeExtra,
+                      colors: PintuPayPalette.darkBlue
+                    ),
+                    const SizedBox(height: 10,),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Component.emptyRecent();
+    }
+  }
+
 }

@@ -14,12 +14,15 @@ import 'package:pintupay/ui/menu/pulsa/provider/pulsa_provider.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 
 import '../model/pulsa_provider_response.dart';
+import '../model/recent_number_response.dart';
 
 part 'pulsa_state.dart';
 
 class PulsaCubit extends Cubit<PulsaState> {
 
-  PulsaCubit() : super(PulsaInitial());
+  PulsaCubit() : super(PulsaInitial()){
+    history();
+  }
 
   late PulsaPaymentModel pulsaPaymentModel;
   List<Set<String>> listInformation = [];
@@ -97,4 +100,42 @@ class PulsaCubit extends Cubit<PulsaState> {
       feature: Feature.pulsa,
     ), RouterType.material);
   }
+
+  confirmData(Data data, String phoneNumber){
+
+    listInformation = [
+      {"Provider", data.providerName ?? ""},
+      {"Produk", data.name ?? ""},
+      {"No Pengguna", phoneNumber},
+      {"Harga", CoreFunction.moneyFormatter(data.price)},
+      {"Total Pembayaran", CoreFunction.moneyFormatter(data.price)},
+    ];
+
+    pulsaPaymentModel = PulsaPaymentModel(
+      authToken: authUsecase.userBox.authToken!,
+      payment: true,
+      transaction: Transaction(
+        balance: "cash",
+        indentifierNumber: phoneNumber,
+        messages: data.name,
+        productPriceId: data.id,
+        providerId: data.id,
+        time: 1,
+        transactionTypeId: 1,
+        userId: authUsecase.userBox.id
+      )
+    );
+
+    routePush(PaymentView(
+      listInformation: listInformation,
+      paymentMethod: onPayment,
+      feature: Feature.pulsa,
+    ), RouterType.material);
+  }
+
+  history() async {
+    emit(PulsaLoading());
+    emit(PulsaRecentNumber(listRecent: await PulsaProvider.recent()));
+  }
+
 }
