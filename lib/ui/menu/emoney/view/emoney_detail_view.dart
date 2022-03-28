@@ -37,21 +37,29 @@ class EmoneyDetailView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                   ),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: TextFormField(
-                      controller: idController,
-                      decoration: Component.decorationNoBorder("Masukan no pelanggan"),
-                      maxLength: 16,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Component.textBold("No pelanggan", textAlign: TextAlign.start),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          controller: idController,
+                          decoration: Component.decorationNoBorder("Contoh: 08xxxxxxxxxx"),
+                          maxLength: 16,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return "Wajib diisi*";
+                            }
+                            return null;
+                          },
+                        ),
                       ],
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return "Wajib diisi*";
-                        }
-                        return null;
-                      },
                     ),
                   ),
                 ),

@@ -30,16 +30,17 @@ class PDAMView extends StatelessWidget {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Card(
                     margin: const EdgeInsets.symmetric(vertical: 10),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Component.textBold("No. Pelanggan", textAlign: TextAlign.start),
+                          const SizedBox(height: 16,),
                           TextFormField(
                             controller: idController,
-                            decoration: Component.decorationNoBorder("No Pelanggan"),
+                            decoration: Component.decorationNoBorder("contoh: 1234567890"),
                             maxLength: 16,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -122,26 +123,27 @@ class PDAMView extends StatelessWidget {
         builder: (context, state) {
           if ((state is PDAMLoaded)) {
             return DropdownButton<PDAMDistricResponse>(
-                isExpanded: true,
-                icon: const Icon(Icons.arrow_drop_down_outlined),
-                value: state.distric,
-                underline: Container(
-                  height: 1,
-                  color: PintuPayPalette.darkBlue,
-                ),
-                hint: Component.textDefault("Pilih daerah"),
-                items: state.listDistric.map((PDAMDistricResponse data) {
-                  return DropdownMenuItem(
-                    value: data,
-                    child: Text(
-                      data.description ?? 'Pilih daerah',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  BlocProvider.of<PdamCubit>(context).setDistric(newValue!);
-                });
+              isExpanded: true,
+              icon: const Icon(Icons.arrow_drop_down_outlined),
+              value: state.distric,
+              underline: Container(
+                height: 1,
+                color: PintuPayPalette.darkBlue,
+              ),
+              hint: Component.textDefault("Pilih daerah"),
+              items: state.listDistric.map((PDAMDistricResponse data) {
+                return DropdownMenuItem(
+                  value: data,
+                  child: Text(
+                    data.description ?? 'Pilih daerah',
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                BlocProvider.of<PdamCubit>(context).setDistric(newValue!);
+              }
+            );
           } else {
             return const Center(child: CircularProgressIndicator());
           }

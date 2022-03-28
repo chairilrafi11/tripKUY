@@ -75,25 +75,35 @@ class ElectricView extends StatelessWidget {
                                     ),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                                      child: TextFormField(
-                                        controller: idContactController,
-                                        decoration: Component.inputDecoration("No pelanggan"),
-                                        maxLength: 16,
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Component.textBold("No. Pelanggan / No. Meter", textAlign: TextAlign.start),
+                                          const SizedBox(height: 16,),
+                                          Flexible(
+                                            child: TextFormField(
+                                              controller: idContactController,
+                                              decoration: Component.decorationNoBorder("1234xxxxx"),
+                                              maxLength: 16,
+                                              keyboardType: TextInputType.number,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter.digitsOnly,
+                                              ],
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return "Wajib diisi*";
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20,),
+                                          Component.notice("Transaksi Token PLN hanya dapat dilakukan pada waktu 00:30 WIB - 23:30 WIB sesuai kebijakan pihak PLN")
                                         ],
-                                        validator: (value) {
-                                          if (value?.isEmpty ?? true) {
-                                            return "Wajib diisi*";
-                                          }
-                                          return null;
-                                        },
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 10,),
-                                  Component.textBold("Pilih Token"),
                                   const SizedBox(height: 10,),
                                   listToken(state.electricTokenResponse),
                                 ],
@@ -193,45 +203,56 @@ class ElectricView extends StatelessWidget {
   }
 
   Widget postpaid(context){
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: TextFormField(
-                controller: idContactController,
-                decoration: Component.inputDecoration("No Pelanggan / No Meter"),
-                maxLength: 16,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return "Wajib diisi*";
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Card(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Component.textBold("No. Pelanggan / No. Meter", textAlign: TextAlign.start),
+                const SizedBox(height: 16,),
+                Flexible(
+                  child: TextFormField(
+                    controller: idContactController,
+                    decoration: Component.decorationNoBorder("1234xxxxxxx"),
+                    maxLength: 16,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return "Wajib diisi*";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20,),
+                Container(
+                  alignment: Alignment.center,
+                  child: Component.notice("Masukan No Pelanggan PLN dengan sesuai",)
+                ),
+                const SizedBox(height: 20,),
+                Component.button(
+                  label: "Cek Tagihan",
+                  onPressed: (){
+                    BlocProvider.of<ElectricCubit>(context).onPostpaidInquiry(idContactController.text);
                   }
-                  return null;
-                },
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20,),
-            Component.notice("Masukan No Pelanggan PLN dengan sesuai"),
-            const SizedBox(height: 20,),
-            Component.button(
-              label: "Cek Tagihan",
-              onPressed: (){
-                BlocProvider.of<ElectricCubit>(context).onPostpaidInquiry(idContactController.text);
-              }
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

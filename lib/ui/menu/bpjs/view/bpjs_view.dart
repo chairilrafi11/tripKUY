@@ -134,14 +134,50 @@ class _BPJSViewState extends State<BPJSView> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Component.textBold("No. Pelanggan", textAlign: TextAlign.start),
+                        const SizedBox(height: 16,),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Flexible(
                               child: TextFormField(
                                 controller: idController,
-                                decoration: Component.inputDecoration("No Pelanggan"),
+                                decoration: InputDecoration(
+                                  fillColor: PintuPayPalette.blueLight.withAlpha(50),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(color: PintuPayPalette.white),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(color: PintuPayPalette.white),
+                                  ),
+                                  counterText: "",
+                                  hintText: "contoh: 1234567890",
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.close,
+                                      color: PintuPayPalette.darkBlue,
+                                    ),
+                                    onPressed: (){
+                                      idController.clear();
+                                      BlocProvider.of<BpjsCubit>(context).onRecentNumber();
+                                    }
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                  hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
+                                ),
                                 maxLength: 16,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
@@ -158,10 +194,14 @@ class _BPJSViewState extends State<BPJSView> {
                             const SizedBox(width: 10,),
                             IconButton(
                               onPressed: () async {
-                                BlocProvider.of<BpjsCubit>(context).onInquiry(
-                                  await CoreFunction.showScanner(ScanMode.BARCODE),
-                                  DateTime.now().month.toString()
-                                );
+                                String billingNumber = await CoreFunction.showScanner(ScanMode.BARCODE);
+                                CoreFunction.logPrint("Billing Number", billingNumber);
+                                if (billingNumber != "-1") {
+                                  BlocProvider.of<BpjsCubit>(context).onInquiry(
+                                    billingNumber,
+                                    DateTime.now().month.toString()
+                                  );
+                                }
                               }, 
                               icon: const Icon(
                                 Icons.qr_code_scanner,
@@ -171,33 +211,17 @@ class _BPJSViewState extends State<BPJSView> {
                           ],
                         ),
                         const SizedBox(height: 10,),
+                        Component.textBold("Bulan", textAlign: TextAlign.start),
+                        const SizedBox(height: 16,),
                         InkWell(
                           onTap: () => showPicker(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.event_note,
-                                  color: PintuPayPalette.darkBlue,
-                                  size: 30,
-                                )
-                              ),
-                              const SizedBox(width: 5,),
-                              Flexible(
-                                flex: 9,
-                                child: TextField(
-                                  keyboardType: TextInputType.phone,
-                                  textInputAction: TextInputAction.done,
-                                  enabled: false,
-                                  controller: monthController,
-                                  style: const TextStyle(fontSize: 14),
-                                  decoration: Component.inputDecoration("Bulan")
-                                ),
-                              ),
-                            ],
+                          child: TextField(
+                            keyboardType: TextInputType.phone,
+                            textInputAction: TextInputAction.done,
+                            enabled: false,
+                            controller: monthController,
+                            style: const TextStyle(fontSize: 14),
+                            decoration: Component.decorationNoBorder("Pilih Bulan", iconPrefix: Icons.event_note)
                           ),
                         ),
                         // TextFormField(

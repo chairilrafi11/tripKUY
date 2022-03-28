@@ -33,20 +33,22 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                 horizontal: PintuPayConstant.paddingHorizontalScreen),
             child: ListView(
               children: [
-                Component.appBar("Pascabayar", transparet: true),
+                Component.appBar("HP Pascabayar", transparet: true),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 30, horizontal: 20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Component.textBold("No. Handphone", textAlign: TextAlign.start),
+                        const SizedBox(height: 16,),
                         TextFormField(
                           // controller: phoneContactController,
                           controller: custCodeController,
-                          decoration: Component.inputDecoration("No Pelanggan"),
+                          decoration: Component.decorationNoBorder("contoh: 08xxxxxxxx"),
                           maxLength: 16,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -60,8 +62,9 @@ class _PhonePostpaidViewState extends State<PhonePostpaidView> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
+                        Component.textBold("Provider", textAlign: TextAlign.start),
                         BlocProvider(
                           create: (context) => phonePostpaidCubit,
                           child: providerList(),

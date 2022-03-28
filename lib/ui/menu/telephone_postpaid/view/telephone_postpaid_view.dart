@@ -31,10 +31,14 @@ class TelephonePostpaid extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Component.textBold("No Telephone", textAlign: TextAlign.start),
+                        const SizedBox(height: 16,),
                         TextFormField(
                           controller: phonenumberController,
-                          decoration: Component.inputDecoration("Nomor Telephone"),
+                          decoration: Component.decorationNoBorder("contoh: 02xxxxxxxx"),
                           maxLength: 16,
                           onChanged: (value){
                           },

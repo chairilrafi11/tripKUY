@@ -107,7 +107,7 @@ class Component {
     hintStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeSmall, color: PintuPayPalette.darkBlue)
   );
 
-  static decorationNoBorder(String hint) => InputDecoration(
+  static decorationNoBorder(String hint, {IconData? iconPrefix}) => InputDecoration(
     fillColor: PintuPayPalette.blueLight.withAlpha(50),
     filled: true,
     border: OutlineInputBorder(
@@ -126,11 +126,14 @@ class Component {
       borderRadius: BorderRadius.circular(10.0),
       borderSide: const BorderSide(color: PintuPayPalette.white),
     ),
+    prefixIcon: iconPrefix != null ? Icon(
+      iconPrefix,
+      color: PintuPayPalette.darkBlue,
+      size: 30,
+    ) : null,
     counterText: "",
     hintText: hint,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-    // labelText: "Search",
-    // suffixIcon: suffixIcon,
     hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
   );
 

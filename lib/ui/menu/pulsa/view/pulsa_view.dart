@@ -41,111 +41,117 @@ class PulsaView extends StatelessWidget {
                     ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                      child: Row(
+                      child: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BlocBuilder<PulsaCubit, PulsaState>(
-                            builder: (context, state) {
-                              if(state is PulsaLoaded){
-                                return CachedNetworkImage(
-                                  width: 50,
-                                  imageUrl: state.pulsaProviderResponse.pulsa?.iconPath ?? "",
-                                  placeholder: (context, string) => const CupertinoActivityIndicator(),
-                                  errorWidget: (context, string, dynamic) => const SizedBox(
-                                    width: 50,
-                                    child: Icon(
-                                      Icons.phone, 
-                                      size: 30,
-                                      color: PintuPayPalette.darkBlue,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return const SizedBox(
-                                  width: 50,
-                                  child: Icon(
-                                    Icons.phone, 
-                                    size: 30,
-                                    color: PintuPayPalette.darkBlue,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                          const SizedBox(width: 10,),
-                          Flexible(
-                            child: TextFormField(
-                              controller: phoneContactController,
-                              decoration: InputDecoration(
-                                fillColor: PintuPayPalette.blueLight.withAlpha(50),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(color: PintuPayPalette.white),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(color: PintuPayPalette.white),
-                                ),
-                                counterText: "",
-                                hintText: "No Handphone",
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.close,
-                                    color: PintuPayPalette.darkBlue,
-                                  ),
-                                  onPressed: (){
-                                    phoneContactController.clear();
-                                     BlocProvider.of<PulsaCubit>(context).history();
+                          Component.textBold("No. HP", textAlign: TextAlign.start),
+                          const SizedBox(height: 16,),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              BlocBuilder<PulsaCubit, PulsaState>(
+                                builder: (context, state) {
+                                  if(state is PulsaLoaded){
+                                    return CachedNetworkImage(
+                                      width: 50,
+                                      imageUrl: state.pulsaProviderResponse.pulsa?.iconPath ?? "",
+                                      placeholder: (context, string) => const CupertinoActivityIndicator(),
+                                      errorWidget: (context, string, dynamic) => const SizedBox(
+                                        width: 50,
+                                        child: Icon(
+                                          Icons.phone, 
+                                          size: 30,
+                                          color: PintuPayPalette.darkBlue,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return const SizedBox(
+                                      width: 50,
+                                      child: Icon(
+                                        Icons.phone, 
+                                        size: 30,
+                                        color: PintuPayPalette.darkBlue,
+                                      ),
+                                    );
                                   }
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                                // labelText: "Search",
-                                // suffixIcon: suffixIcon,
-                                hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
+                                },
                               ),
-                              onChanged: (value) {
-                                CoreFunction.logPrint("Phone Number", value);
-                                CoreFunction.debouncer.debounce(() {
-                                  BlocProvider.of<PulsaCubit>(context).onInquiry(value);
-                                });
-                              },
-                              
-                              maxLength: 16,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              validator: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  return "Wajib diisi*";
-                                }
-                                return null;
-                              },
-                            ),
+                              const SizedBox(width: 10,),
+                              Flexible(
+                                child: TextFormField(
+                                  controller: phoneContactController,
+                                  decoration: InputDecoration(
+                                    fillColor: PintuPayPalette.blueLight.withAlpha(50),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(color: PintuPayPalette.white),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(color: PintuPayPalette.white),
+                                    ),
+                                    counterText: "",
+                                    hintText: "No Handphone",
+                                    suffixIcon: IconButton(
+                                      icon: const Icon(
+                                        Icons.close,
+                                        color: PintuPayPalette.darkBlue,
+                                      ),
+                                      onPressed: (){
+                                        phoneContactController.clear();
+                                         BlocProvider.of<PulsaCubit>(context).history();
+                                      }
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                    hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
+                                  ),
+                                  onChanged: (value) {
+                                    CoreFunction.logPrint("Phone Number", value);
+                                    CoreFunction.debouncer.debounce(() {
+                                      BlocProvider.of<PulsaCubit>(context).onInquiry(value);
+                                    });
+                                  },
+                                  
+                                  maxLength: 16,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return "Wajib diisi*";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  var phoneNumber = (await CoreFunction.getContact()).replaceAll("+62", "0");
+                                  CoreFunction.logPrint("Phone Number Contact", phoneNumber);
+                                  if(phoneNumber != ""){
+                                    phoneContactController.text = phoneNumber;
+                                    BlocProvider.of<PulsaCubit>(context).onInquiry(phoneNumber);
+                                  }
+                                }, 
+                                icon: const Icon(
+                                  Icons.contacts,
+                                  color: PintuPayPalette.darkBlue,
+                                )
+                              )
+                            ],
                           ),
-                          IconButton(
-                            onPressed: () async {
-                              var phoneNumber = (await CoreFunction.getContact()).replaceAll("+62", "0");
-                              CoreFunction.logPrint("Phone Number Contact", phoneNumber);
-                              if(phoneNumber != ""){
-                                phoneContactController.text = phoneNumber;
-                                BlocProvider.of<PulsaCubit>(context).onInquiry(phoneNumber);
-                              }
-                            }, 
-                            icon: const Icon(
-                              Icons.contacts,
-                              color: PintuPayPalette.darkBlue,
-                            )
-                          )
                         ],
                       ),
                     ),
