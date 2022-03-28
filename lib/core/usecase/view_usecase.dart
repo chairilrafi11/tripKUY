@@ -61,18 +61,23 @@ class ViewUsecase {
       case "pulsa":
         return "assets/icons/icmn_pulsa.png";
       case "bpjs":
+      case "ppob bpjs": 
         return "assets/icons/icmn_bpjs.png";
       case "ppob telkom":
         return "assets/icons/icmn_telepon.png";
       case "pdam":
+      case "ppob pdam": 
         return "assets/icons/icmn_pdam.png";
+      case "ppob pln prepaid": 
       case "ppob pln postpaid":
         return "assets/icons/icmn_listrik.png";
       case "cellular pasca bayar":
+      case "ppob pasca bayar":
         return "assets/icons/icmn_hppascabayar.png";
       case "top up":
         return "assets/icons/icmn_topup.png";
       case "pgn":
+      case "ppob pgn": 
         return "assets/icons/icmn_pgn.png";
       case "topup game":
         return "assets/icons/icmn_game.png";

@@ -2,6 +2,8 @@ import 'package:pintupay/core/database/box/user/user_box.dart';
 import 'package:pintupay/core/network/network.dart';
 import 'package:pintupay/core/usecase/auth_usecase.dart';
 
+import '../../../core/network/model/core_model.dart';
+
 class ProfileProvider {
   static Future<UserBox> profile({bool isLoading = false}) async {
     var dio = await DioService.checkConnection(
@@ -34,7 +36,7 @@ class ProfileProvider {
     });
   }
 
-  static Future<Map<String, dynamic>> updatePin(
+  static Future<CoreModel> updatePin(
       Map<String, dynamic> data) async {
     return await DioService.checkConnection(
             isUseBearer: true, tryAgainMethod: logout, isLoading: true)
