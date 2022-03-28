@@ -14,9 +14,11 @@ class HomeLoading extends HomeState {}
 class HomeLoaded extends HomeState {
 
   final List<MenuResponse> listMenu;
+  final List<RecommendedResponse> listRecommended;
 
   const HomeLoaded({
-    required this.listMenu
+    required this.listMenu,
+    required this.listRecommended
   });
 
 }

@@ -221,4 +221,11 @@ class Component {
     return isClosed;
   }
 
+  static emptyRecent(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: textBold("Belum ada transaksi", textAlign: TextAlign.center)
+    );
+  }
+
 }

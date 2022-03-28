@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/ui/home/provider/home_provider.dart';
+import 'package:pintupay/ui/menu/bpjs/cubit/bpjs_cubit.dart';
 import 'package:pintupay/ui/menu/bpjs/view/bpjs_view.dart';
 import 'package:pintupay/ui/menu/data_plan/view/data_plan_view.dart';
 import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
@@ -20,27 +21,33 @@ import 'package:nav_router/nav_router.dart';
 
 import '../../menu/phone_postpaid/cubit/phone_postpaid_cubit.dart';
 import '../model/menu_response.dart';
+import '../model/recommended_response.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeLoading()) {
-    // onGetRecommended();
+    onGetRecommended();
   }
 
   void onClickMenu(String key) {
     switch (key.toLowerCase()) {
       case "bpjs":
-        routePush(const BPJSView(), RouterType.material);
-        break;
-      case "e-money":
         routePush(
           BlocProvider(
-            create: (context) => EmoneyCubit(),
-            child: const EmoneyView(),
+            create: (context) => BpjsCubit()..onRecentNumber(),
+            child: const BPJSView(),
           ),
           RouterType.material
         );
+        break;
+      case "e-money":
+        routePush(
+            BlocProvider(
+              create: (context) => EmoneyCubit(),
+              child: const EmoneyView(),
+            ),
+            RouterType.material);
         break;
       case "hp pascabayar":
         routePush(
@@ -53,12 +60,11 @@ class HomeCubit extends Cubit<HomeState> {
         break;
       case "listrik":
         routePush(
-          BlocProvider(
-            create: (context) => ElectricCubit(),
-            child: ElectricView(),
-          ),
-          RouterType.material
-        );
+            BlocProvider(
+              create: (context) => ElectricCubit(),
+              child: ElectricView(),
+            ),
+            RouterType.material);
         break;
       case "pdam":
         routePush(
@@ -69,14 +75,13 @@ class HomeCubit extends Cubit<HomeState> {
           RouterType.material,
         );
         break;
-      case "pulsa & data":
+      case "pulsa &\n data":
         routePush(
-          BlocProvider(
-            create: (context) => PulsaCubit(),
-            child: PulsaView(),
-          ),
-          RouterType.material
-        );
+            BlocProvider(
+              create: (context) => PulsaCubit(),
+              child: PulsaView(),
+            ),
+            RouterType.material);
         break;
       case "telepon":
         routePush(TelephonePostpaid(), RouterType.material);
@@ -86,24 +91,23 @@ class HomeCubit extends Cubit<HomeState> {
         break;
       case "game":
         routePush(
-          BlocProvider(
-            create: (context) => GameCubit(),
-            child: const GameView(),
-          ),
-          RouterType.material
-        );
+            BlocProvider(
+              create: (context) => GameCubit(),
+              child: const GameView(),
+            ),
+            RouterType.material);
         break;
       // default:
     }
   }
 
   Future onGetMenu() async {
-    emit(HomeLoaded(listMenu: await HomeProvider.menus()));
+    emit(HomeLoaded(
+        listMenu: await HomeProvider.menus(), listRecommended: const []));
   }
 
   Future onGetRecommended() async {
-    // emit(HomeLoaded(listMenu: await HomeProvider.menus()));
-    await HomeProvider.recommended();
+    emit(HomeLoaded(
+        listMenu: const [], listRecommended: await HomeProvider.recommended()));
   }
-
 }
