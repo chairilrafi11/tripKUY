@@ -43,7 +43,10 @@ abstract class DioClient {
   Future<CoreModel> pulsaPayment(@Body() Map<String, dynamic> body);
 
   @GET(PintuPayEndpoint.transactionList)
-  Future<CoreModel> transactionList(@Query('auth_token') String authToken);
+  Future<CoreModel> transactionList(
+    @Query('auth_token') String authToken,
+    @Query('page') int page
+  );
 
   @GET(PintuPayEndpoint.profile)
   Future<CoreModel> profile(@Path('auth_token') String authToken);
@@ -51,7 +54,7 @@ abstract class DioClient {
   @GET(PintuPayEndpoint.emoneyProvider)
   Future<CoreModel> empneyProvider();
 
-  @GET(PintuPayEndpoint.emoneyProvider)
+  @GET(PintuPayEndpoint.emoneyProviderDetail)
   Future<CoreModel> empneyProviderDetail(
       @Query('provider_id') String providerId,
       @Query('auth_token') String authToken);
@@ -68,7 +71,7 @@ abstract class DioClient {
   @POST(PintuPayEndpoint.telephoneInquiry)
   Future<CoreModel> telephoneInquiry(@Body() Map<String, dynamic> body);
 
-  @POST(PintuPayEndpoint.telephoneInquiry)
+  @POST(PintuPayEndpoint.telephonePayment)
   Future<CoreModel> telephonePayment(@Body() Map<String, dynamic> body);
 
   @GET(PintuPayEndpoint.listrikToken)
@@ -136,20 +139,20 @@ abstract class DioClient {
   Future<CoreModel> gameProvider();
 
   @PUT(PintuPayEndpoint.setPin)
-  Future<Map<String, dynamic>> updatePIN(
+  Future<CoreModel> updatePIN(
     @Body() Map<String, dynamic> body,
   );
 
   @POST(PintuPayEndpoint.checkPin)
-  Future<Map<String, dynamic>> checkPIN(
+  Future<CoreModel> checkPIN(
     @Body() Map<String, dynamic> body,
   );
 
   @POST(PintuPayEndpoint.logout)
-  Future<Map<String, dynamic>> logout();
+  Future<CoreModel> logout();
 
   @PUT(PintuPayEndpoint.changePassword)
-  Future<Map<String, dynamic>> changePassword(
+  Future<CoreModel> changePassword(
     @Body() Map<String, dynamic> body,
   );
 

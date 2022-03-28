@@ -19,7 +19,7 @@ class PintuPayEndpoint {
 
   static const String pulsaProvider = "v2/products/provider_icon";
 
-  static const String pulsaPayment = "v6/transactions";
+  static const String pulsaPayment = "v7/transactions";
 
   static const String transactionList = "v1/transactions";
 
@@ -52,7 +52,7 @@ class PintuPayEndpoint {
 
   static const String listrikPrepaidInquiry = "v7/ppob/inquiry/pln_prepaids";
 
-  static const String listrikPrepaidPayment = "v7/ppob/payment/plns";
+  static const String listrikPrepaidPayment = "v7/ppob/payment/pln_prepaids";
 
   static const String listrikPostpaidInquiry = "v7/ppob/inquiry/plns";
 
@@ -60,7 +60,7 @@ class PintuPayEndpoint {
 
   static const String pdamProduct = "v1/pdam_products";
 
-  static const String pdamInquiry = " v7/ppob/inquiry/pdams";
+  static const String pdamInquiry = "v7/ppob/inquiry/pdams";
 
   static const String pdamPayment = "v7/ppob/payment/pdams";
 
@@ -82,7 +82,7 @@ class PintuPayEndpoint {
 
   static const String gamePayment = "v7/transactions";
 
-  static const String recommended = "get_data_recomended_product";
+  static const String recommended = "v2/get_data_recomended_product";
   
   static const String getProfileUser = "v1/users/{auth_token}";
 
@@ -97,4 +97,8 @@ class PintuPayEndpoint {
   static const String changePassword = "v6/account/credential";
 
   static const String forgotPassword = "v6/reset/passwords";
+
+  static const String helpDesk = "v1/helpdesk";
+
+  static const String recentNumber = "v7/pulsa/recent_numbers";
 }

@@ -4,11 +4,11 @@ import 'package:pintupay/ui/transaction/model/response_transaction.dart';
 
 class Transactionprovider {
 
-  static Future<List<ResponseTransaction>> list() async {
+  static Future<List<ResponseTransaction>> list({int page = 1}) async {
     List<ResponseTransaction> list = [];
     var dio = await DioService.checkConnection(tryAgainMethod: list);
     DioClient dioClient = DioClient(dio);
-    var transactionData = await dioClient.transactionList(authUsecase.userBox.authToken ?? "");
+    var transactionData = await dioClient.transactionList(authUsecase.userBox.authToken ?? "", page);
     for (var i = 0; i < transactionData.data.length; i++) {
       list.add(ResponseTransaction.fromJson(transactionData.data[i]));
     }
