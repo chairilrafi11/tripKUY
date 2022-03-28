@@ -1,30 +1,19 @@
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/verification/cubit/check_phone_number_cubit.dart';
 import 'package:pintupay/ui/verification/model/otp_register_model.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
-import '../../../core/util/size_config.dart';
+class AccountVerification extends StatelessWidget {
 
-class AccountVerification extends StatefulWidget {
   final ResponseCheckPhoneNumber responseCheckPhoneNumber;
 
-  const AccountVerification({required this.responseCheckPhoneNumber, Key? key})
-      : super(key: key);
-
-  @override
-  State<AccountVerification> createState() => _AccountVerificationState();
-}
-
-class _AccountVerificationState extends State<AccountVerification> {
-  @override
-  void initState() {
-    super.initState();
-    _listenOtp();
-  }
+  AccountVerification({required this.responseCheckPhoneNumber, Key? key})
+    : super(key: key);
 
   String code = "";
 
@@ -69,17 +58,21 @@ class _AccountVerificationState extends State<AccountVerification> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-                child: PinFieldAutoFill(
-                  // decoration: const UnderlineDecoration(
-                  //   textStyle: TextStyle(
-                  //     color: PintuPayPalette.darkBlue,
-                  //     fontSize: PintuPayConstant.fontSizeLargeExtra
-                  //   ),
-                  //   // colorBuilder: PintuPayPalette.blue1
-                  // ),
-                  codeLength: 4,
-                  onCodeChanged: (value) {
-                    code = value!;
+                child: PinCodeTextField(
+                  length: 4, 
+                  appContext: context, 
+                  animationType: AnimationType.fade,
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) { 
+                    CoreFunction.logPrint("Code", value);
+                    if (value.length == 4){
+                      code = value;
+                      CheckPhoneNumberCubit().onCheckOTP(OtpRegisterModel(
+                        id: responseCheckPhoneNumber.id,
+                        otpCode: value,
+                        phoneNumber: responseCheckPhoneNumber.phoneNumber
+                      ));
+                    }
                   },
                 )
               ),
@@ -116,9 +109,9 @@ class _AccountVerificationState extends State<AccountVerification> {
                   ),
                   onPressed: () {
                     CheckPhoneNumberCubit().onCheckOTP(OtpRegisterModel(
-                      id: widget.responseCheckPhoneNumber.id,
+                      id: responseCheckPhoneNumber.id,
                       otpCode: code,
-                      phoneNumber: widget.responseCheckPhoneNumber.phoneNumber
+                      phoneNumber: responseCheckPhoneNumber.phoneNumber
                     ));
                   },
                   child: Text(
@@ -152,9 +145,5 @@ class _AccountVerificationState extends State<AccountVerification> {
         ),
       ],
     );
-  }
-
-  void _listenOtp() async {
-    SmsAutoFill().listenForCode;
   }
 }

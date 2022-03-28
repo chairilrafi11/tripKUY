@@ -168,7 +168,7 @@ class _LoginViewState extends State<LoginView> {
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () => routePush(CheckPhoneNumberView(), RouterType.cupertino),
+                                onTap: () => routePush(CheckPhoneNumberView(), RouterType.material),
                                 child: GestureDetector(
                                   child: Component.textBold(
                                     'Daftar',

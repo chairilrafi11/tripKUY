@@ -8,7 +8,6 @@ import 'package:pintupay/ui/register/view/register_form.dart';
 import 'package:pintupay/ui/verification/model/check_phone_number.dart';
 import 'package:pintupay/ui/verification/model/otp_register_model.dart';
 import 'package:pintupay/ui/verification/provider/verification_provider.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
 part 'check_phone_number_state.dart';
 
@@ -21,8 +20,6 @@ class CheckPhoneNumberCubit extends Cubit<CheckPhoneNumberState> {
       await PintuPayCrypt().getPassKeyPref()
     );
     var result = await VerificationProvider.checkPhoneNumber(PostBody(phone).toJson());
-    final signCode = await SmsAutoFill().getAppSignature;
-    CoreFunction.logPrint('print signcode: ', signCode);
     if(result.id != null){
       routePush(
         AccountVerification(responseCheckPhoneNumber: result),

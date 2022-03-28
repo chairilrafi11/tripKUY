@@ -132,6 +132,20 @@ class PulsaView extends StatelessWidget {
                               },
                             ),
                           ),
+                          IconButton(
+                            onPressed: () async {
+                              var phoneNumber = (await CoreFunction.getContact()).replaceAll("+62", "0");
+                              CoreFunction.logPrint("Phone Number Contact", phoneNumber);
+                              if(phoneNumber != ""){
+                                phoneContactController.text = phoneNumber;
+                                BlocProvider.of<PulsaCubit>(context).onInquiry(phoneNumber);
+                              }
+                            }, 
+                            icon: const Icon(
+                              Icons.contacts,
+                              color: PintuPayPalette.darkBlue,
+                            )
+                          )
                         ],
                       ),
                     ),
