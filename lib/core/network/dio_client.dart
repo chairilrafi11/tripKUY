@@ -10,9 +10,6 @@ part 'dio_client.g.dart';
 abstract class DioClient {
   factory DioClient(Dio dio, {String baseUrl}) = _DioClient;
 
-  @GET(PintuPayEndpoint.sample)
-  Future<CoreModel> sample();
-
   @GET(PintuPayEndpoint.banner)
   Future<CoreModel> banner();
 
@@ -171,4 +168,12 @@ abstract class DioClient {
 
   @PUT(PintuPayEndpoint.forgotPassword)
   Future<CoreModel> requestForgotPassword(@Body() Map<String, dynamic> body);
+
+  @GET(PintuPayEndpoint.helpDesk)
+  Future<CoreModel> helpDesk();
+
+  @GET(PintuPayEndpoint.recentNumber)
+  Future<CoreModel> recentNumber(
+    @Query('auth_token') String authToken
+  );
 }

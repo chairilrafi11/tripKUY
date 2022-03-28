@@ -14,22 +14,6 @@ class _DioClient implements DioClient {
   String? baseUrl;
 
   @override
-  Future<CoreModel> sample() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CoreModel>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'user',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CoreModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<CoreModel> banner() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -530,7 +514,7 @@ class _DioClient implements DioClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CoreModel>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'v7/ppob/payment/plns',
+                .compose(_dio.options, 'v7/ppob/payment/pln_prepaids',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
@@ -839,6 +823,7 @@ class _DioClient implements DioClient {
     return value;
   }
 
+  @override
   Future<CoreModel> requestForgotPassword(Map<String, dynamic> body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -848,6 +833,40 @@ class _DioClient implements DioClient {
         _setStreamType<CoreModel>(
             Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, 'v6/reset/passwords',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> helpDesk() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v1/helpdesk',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CoreModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CoreModel> recentNumber(authToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'auth_token' : authToken
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CoreModel>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'v7/pulsa/recent_numbers',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CoreModel.fromJson(_result.data!);
