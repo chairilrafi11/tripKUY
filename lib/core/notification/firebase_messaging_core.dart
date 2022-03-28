@@ -62,6 +62,8 @@ class FirebaseMessagingCore {
 
     NotificationBox notificationBox = NotificationBox.fromJson(remoteMessage.data);
     CoreFunction.logPrint('Response Notication', notificationBox.toJson());
+    
+    _broadcastNotificationData(remoteMessage);
 
     switch (notificationBox.notificationType?.toLowerCase()) {
       case CoreVariable.notificationTypeChat:
@@ -78,7 +80,6 @@ class FirebaseMessagingCore {
       case CoreVariable.notificationTypePulsaAndEMoney:
       case CoreVariable.notificationClickActionWitdraw:
         await NotficationBoxController.save(notificationBox);
-        _broadcastNotificationData(remoteMessage);
         break;
       case CoreVariable.notificationTypeInfo:
         await NotficationBoxController.save(notificationBox);

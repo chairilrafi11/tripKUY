@@ -1,3 +1,4 @@
+import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/usecase/view_usecase.dart';
@@ -16,9 +17,15 @@ import 'package:pintupay/ui/menu/pulsa/cubit/pulsa_cubit.dart';
 
 import '../../menu/pulsa/model/response_pulsa.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
 
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
 
   final List<Set<String>> listMenu = [
     {"Pulsa &\n Data", "assets/icons/icmn_pulsa.png"},
@@ -30,6 +37,20 @@ class Home extends StatelessWidget {
     {"E-Money", "assets/icons/icmn_emoney.png"},
     {"Game", "assets/icons/icmn_game.png"}
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    FBroadcast.instance()!.register(CoreVariable.notificationBroadcast, (value, callback) {
+      BlocProvider.of<BalanceCubit>(context).onGetBalance();
+    });
+  }
+
+  @override
+  void dispose() {
+    FBroadcast.instance()!.dispose();
+    super.dispose();
+  }
 
   void bottomsheetRecommended(Pulsa pulsa) {
     TextEditingController idController = TextEditingController();
