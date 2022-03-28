@@ -4,7 +4,6 @@ import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pintupay/ui/menu/game/model/game_product_response.dart';
 
 import '../../../component/shimmer.dart';
@@ -16,6 +15,17 @@ class GameDetailView extends StatelessWidget {
 
   final TextEditingController serverId = TextEditingController();
   final TextEditingController idController = TextEditingController();
+
+  bool isFormValid(List<FormData> form){
+    bool isValid = true;
+    for (var i = 0; i < form.length; i++) {
+      if(form[i].textEditingController.text.isEmpty){
+        isValid = false;
+        break;
+      }
+    }
+    return isValid;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +92,15 @@ class GameDetailView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) { 
         return InkWell(
           onTap: () {
-            // if(idController.text.isNotEmpty && serverId.text.isNotEmpty){
+            if(isFormValid(gameProductResponse.form!)){
               BlocProvider.of<GameDetailCubit>(context).onInquiry(
                 serverId.text,
                 idController.text, 
                 gameProductResponse.game![index]
               );
-            // } else {
-            //   CoreFunction.showToast("Harap masukan no pelanggan");
-            // }
+            } else {
+              CoreFunction.showToast("Harap Lengkapi Form");
+            }
           },
           child: Card(
             child: Padding(
