@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
@@ -134,20 +135,40 @@ class _BPJSViewState extends State<BPJSView> {
                     padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: Column(
                       children: [
-                        TextFormField(
-                          controller: idController,
-                          decoration: Component.inputDecoration("No Pelanggan"),
-                          maxLength: 16,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: TextFormField(
+                                controller: idController,
+                                decoration: Component.inputDecoration("No Pelanggan"),
+                                maxLength: 16,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                validator: (value) {
+                                  if (value?.isEmpty ?? true) {
+                                    return "Wajib diisi*";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                            IconButton(
+                              onPressed: () async {
+                                BlocProvider.of<BpjsCubit>(context).onInquiry(
+                                  await CoreFunction.showScanner(ScanMode.BARCODE),
+                                  DateTime.now().month.toString()
+                                );
+                              }, 
+                              icon: const Icon(
+                                Icons.qr_code_scanner,
+                                color: PintuPayPalette.darkBlue,
+                              )
+                            )
                           ],
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return "Wajib diisi*";
-                            }
-                            return null;
-                          },
                         ),
                         const SizedBox(height: 10,),
                         InkWell(

@@ -207,7 +207,7 @@ class TransactionView extends StatelessWidget {
           return InkWell(
             onTap: () => bottomSheetTransaction(listTransaction[index]),
             child: Card(
-              margin: EdgeInsets.only(top: 5, bottom: index == 9 ? 100 : 5),
+              margin: EdgeInsets.only(top: 5, bottom: index == (listTransaction.length - 1) ? 100 : 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)
               ),
@@ -225,12 +225,12 @@ class TransactionView extends StatelessWidget {
                         const SizedBox(width: 10,),
                         Component.textBold(listTransaction[index].transactionName ?? ""),
                         const Spacer(),
-                        Component.textDefault(listTransaction[index].createdAt.toString(), fontSize: 11)
+                        Component.textDefault(listTransaction[index].serialNumber.toString(), fontSize: 11)
                       ],
                     ),
                     Component.divider(),
-                    const SizedBox(height: 10,),
-                    Component.textBold(listTransaction[index].serialNumber ?? ""),
+                    if(listTransaction[index].indentifierNumber != null) const SizedBox(height: 10,),
+                    if(listTransaction[index].indentifierNumber != null) Component.textBold(listTransaction[index].indentifierNumber ?? ""),
                     const SizedBox(height: 10,),
                     Component.textDefault(
                       listTransaction[index].messages ?? "",

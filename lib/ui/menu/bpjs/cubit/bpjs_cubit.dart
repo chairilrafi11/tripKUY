@@ -79,7 +79,7 @@ class BpjsCubit extends Cubit<BpjsState> {
         var payment = PintuPayCrypt().encrypt(jsonEncode(bpjsPaymentModel), await PintuPayCrypt().getPassKeyPref());
         var result = await BPJSProvider.payment(BodyRequestV7(payment, payment).toJson());
 
-        if(result.noVa != null) {
+        if(result.id != null) {
           BillStatusModel billStatusModel = BillStatusModel(
             billBody: listInformation.map((e){
               return BillBodyModel(e.first, e.last);

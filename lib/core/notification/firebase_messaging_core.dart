@@ -62,7 +62,7 @@ class FirebaseMessagingCore {
 
     NotificationBox notificationBox = NotificationBox.fromJson(remoteMessage.data);
     CoreFunction.logPrint('Response Notication', notificationBox.toJson());
-    
+
     _broadcastNotificationData(remoteMessage);
 
     switch (notificationBox.notificationType?.toLowerCase()) {
@@ -83,7 +83,7 @@ class FirebaseMessagingCore {
         break;
       case CoreVariable.notificationTypeInfo:
         await NotficationBoxController.save(notificationBox);
-        ComponentDialog.info(remoteMessage.notification!.title, remoteMessage.notification!.body, remoteMessage.data['image']);
+        // ComponentDialog.info(remoteMessage.notification!.title, remoteMessage.notification!.body, remoteMessage.data['image']);
         break;
       default:
         CoreFunction.logPrint('Response Notification', notificationBox.toJson());
