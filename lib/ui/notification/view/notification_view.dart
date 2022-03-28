@@ -105,17 +105,21 @@ class NotificationView extends StatelessWidget {
 
 
   Widget empty(){
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(height: SizeConfig.blockSizeHorizontal * 50,),
-        Image.asset(
-          "assets/images/empty_transaction.png",
-          height: SizeConfig.blockSizeHorizontal * 50,
-          width: SizeConfig.blockSizeHorizontal * 50,
-        ),
-        Component.textBold("Belum ada Notifikasi")
-      ],
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: SizeConfig.blockSizeHorizontal * 50,),
+          Image.asset(
+            "assets/images/empty_transaction.png",
+            height: SizeConfig.blockSizeHorizontal * 50,
+            width: SizeConfig.blockSizeHorizontal * 50,
+          ),
+          Component.textBold("Belum ada Notifikasi")
+        ],
+      ),
     );
   }
 }

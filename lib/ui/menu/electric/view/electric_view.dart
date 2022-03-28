@@ -60,7 +60,7 @@ class ElectricView extends StatelessWidget {
                   BlocBuilder<ElectricCubit, ElectricState>(
                     builder: (context, state) {
                       if (state is ElectricLoading) {
-                        return const ShimmerPulsa();
+                        return const Expanded(child: ShimmerPulsa());
                       } else if (state is ElectricLoaded) {
                         return Expanded(
                           child: TabBarView(

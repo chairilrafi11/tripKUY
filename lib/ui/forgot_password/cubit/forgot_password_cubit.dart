@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/forgot_password/model/forgot_password_model.dart';
-import 'package:pintupay/ui/login/view/login.dart';
 import '../../../core/network/model/post_body.dart';
 import '../../../core/pintupay/pintupay_crypt.dart';
 import '../../../core/util/util.dart';

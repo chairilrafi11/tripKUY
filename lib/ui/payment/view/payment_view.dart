@@ -80,6 +80,7 @@ class PaymentView extends StatelessWidget {
                         width: SizeConfig.blockSizeHorizontal * 40,
                         child: Component.textBold(
                           listInformation[index].last, 
+                          maxLines: 5,
                           colors: isTotalValue(listInformation[index].first),
                           textAlign: TextAlign.start
                         )

@@ -4,7 +4,7 @@ class ElectricPospaidInquiryResponse {
   String? rcm;
   String? jmlBln;
   int? amount;
-  String? jmlBlnTagihan;
+  dynamic jmlBlnTagihan;
   int? total;
   int? admin;
   String? daya;

@@ -120,7 +120,6 @@ class _TopupInputNewState extends State<TopupInputNew> {
                   child: Component.button(
                       label: "Lanjutkan",
                       onPressed: () {
-                        print(topup);
                         // if (topup == "bsi") {
                         //   routePush(
                         //       const TopupConfirmBSI(), RouterType.cupertino);

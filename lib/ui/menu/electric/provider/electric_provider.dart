@@ -40,7 +40,7 @@ class ElectricProvider {
   static Future<ElectricPrepaidPaymentResponse> paymentPrepaid(Map<String, dynamic> body) async {
     var dio = await DioService.checkConnection(tryAgainMethod: paymentPrepaid, isLoading: true);
     DioClient dioClient = DioClient(dio);
-    var result = await dioClient.electricPostpaidPayment(body);
+    var result = await dioClient.electricPrepaidPayment(body);
     return ElectricPrepaidPaymentResponse.fromJson(result.data);
   } 
 

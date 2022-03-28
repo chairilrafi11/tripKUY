@@ -7,6 +7,7 @@ class ElectricPrepaidPaymentRequest {
   String? type;
   String? authToken;
   String? balance;
+  String? transactionId;
 
   ElectricPrepaidPaymentRequest({
     this.pin,
@@ -16,7 +17,8 @@ class ElectricPrepaidPaymentRequest {
     this.refnum,
     this.type,
     this.authToken,
-    this.balance
+    this.balance,
+    this.transactionId
   });
 
   ElectricPrepaidPaymentRequest.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class ElectricPrepaidPaymentRequest {
     type = json['type'];
     authToken = json['auth_token'];
     balance = json['balance'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +43,7 @@ class ElectricPrepaidPaymentRequest {
     data['type'] = type;
     data['auth_token'] = authToken;
     data['balance'] = balance;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

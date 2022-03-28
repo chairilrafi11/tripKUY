@@ -78,7 +78,7 @@ class BalanceNew extends StatelessWidget {
     return Card(
       color: PintuPayPalette.darkBlue,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       child: Padding(

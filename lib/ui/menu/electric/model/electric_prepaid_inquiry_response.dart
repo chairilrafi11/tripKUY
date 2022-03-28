@@ -4,9 +4,10 @@ class ElectricPrepaidInquiryResponse {
   String? rcm;
   String? tarifdaya;
   int? amount;
-  int? admin;
+  String? admin;
   String? refnum;
   String? plnToken;
+  dynamic transactionId;
 
   ElectricPrepaidInquiryResponse({
     this.idPel,
@@ -16,7 +17,8 @@ class ElectricPrepaidInquiryResponse {
     this.amount,
     this.admin,
     this.refnum,
-    this.plnToken
+    this.plnToken,
+    this.transactionId
   });
 
   ElectricPrepaidInquiryResponse.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class ElectricPrepaidInquiryResponse {
     admin = json['admin'];
     refnum = json['refnum'];
     plnToken = json['pln_token'];
+    transactionId = json['transaction_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +43,7 @@ class ElectricPrepaidInquiryResponse {
     data['admin'] = admin;
     data['refnum'] = refnum;
     data['pln_token'] = plnToken;
+    data['transaction_id'] = transactionId;
     return data;
   }
 }

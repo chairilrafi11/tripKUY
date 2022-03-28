@@ -70,7 +70,7 @@ class ElectricCubit extends Cubit<ElectricState> {
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPel.toString()},
         {"Daya", result.jmlBlnTagihan.toString()},
-        {"PLN Token", result.plnToken.toString()},
+        // {"PLN Token", result.plnToken.toString()},
         {"No Reff", result.refnum.toString()},
         {"Jumlah Bulan", result.jmlBln.toString()},
         {"Jumlah Bulan Tagihan", result.jmlBlnTagihan.toString()},
@@ -121,7 +121,7 @@ class ElectricCubit extends Cubit<ElectricState> {
       authToken: authUsecase.userBox.authToken,
       type: "prepaid",
       idPel: id,
-      idProduct: 0,
+      idProduct: pulsaListrik.id,
       refnum: ""
     );
     var inquiry = PintuPayCrypt().encrypt(jsonEncode(electricPrepaidInquiry), await PintuPayCrypt().getPassKeyPref());
@@ -131,10 +131,11 @@ class ElectricCubit extends Cubit<ElectricState> {
       
       //? Create Object Payment
       ElectricPrepaidPaymentRequest payment = ElectricPrepaidPaymentRequest(
+        transactionId: result.transactionId.toString(),
         act: "payment",
         authToken: authUsecase.userBox.authToken,
         type: "prepaid",
-        refnum: "",
+        refnum: result.refnum,
         idPel: result.idPel,
         idProduct: pulsaListrik.id,
         balance: "cash"
@@ -145,20 +146,20 @@ class ElectricCubit extends Cubit<ElectricState> {
       listInformation = [
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPel.toString()},
-        // {"Daya", result.jmlBlnTagihan.toString()},
-        {"PLN Token", result.plnToken.toString()},
+        if(result.tarifdaya != null) {"Daya", result.tarifdaya.toString()},
+        {"PLN Token", value.name.toString()},
         {"No Reff", result.refnum.toString()},
         // {"Jumlah Bulan", result.jmlBln.toString()},
         // {"Jumlah Bulan Tagihan", result.jmlBlnTagihan.toString()},
-        {"Tagihan", CoreFunction.moneyFormatter(result.amount)},
+        // {"Tagihan", CoreFunction.moneyFormatter(result.amount)},
         {"Biaya Admin", CoreFunction.moneyFormatter(result.admin)},
-        {"Total Tagihan", CoreFunction.moneyFormatter(pulsaListrik.salePrice! + result.admin!)},
+        {"Total Tagihan", CoreFunction.moneyFormatter(pulsaListrik.salePrice! + int.parse(result.admin!))},
       ];
 
       routePush(
         PaymentView(
           listInformation: listInformation,
-          paymentMethod: onPostpaidPayment,
+          paymentMethod: onPrepaidPayment,
           feature: Feature.electric,
         ), 
         RouterType.material
