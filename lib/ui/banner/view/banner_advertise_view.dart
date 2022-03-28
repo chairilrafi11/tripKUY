@@ -1,3 +1,4 @@
+import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/banner/view/banner_advertise_detail.dart';
 import 'package:pintupay/ui/component/component.dart';
@@ -20,7 +21,6 @@ class BannerAdvertiseView extends StatelessWidget {
         if (state is BannerLoaded) {
           return _bannerLoaded(context, state);
         } else if (state is BannerLoading) {
-          // return const ShimmerBanner();
           return const ShimmerBanner();
         } else {
           return Component.textBold("Error");
@@ -29,9 +29,9 @@ class BannerAdvertiseView extends StatelessWidget {
     );
   }
 
-  Stack _bannerLoaded(BuildContext context, BannerLoaded state) {
-    return Stack(
-      alignment: Alignment.center,
+  Column _bannerLoaded(BuildContext context, BannerLoaded state) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         CarouselSlider(
           options: CarouselOptions(
@@ -74,33 +74,24 @@ class BannerAdvertiseView extends StatelessWidget {
             );
           }).toList(),
         ),
-        // Positioned(
-        //   bottom: 2,
-        //   child: Container(
-        //     margin: const EdgeInsets.only(left: 10, bottom: 5, top: 5),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.start,
-        //       children: state.listBanner
-        //         .asMap()
-        //         .map((index, value) => MapEntry(index, dot(index, context)))
-        //         .values
-        //         .toList(),
-        //     ),
-        //   ),
-        // )
+        Container(
+          margin: const EdgeInsets.only(left: 10, bottom: 5, top: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: state.listBanner
+              .asMap()
+              .map((index, value) => MapEntry(index, dot(state.curentDot ,index, context)))
+              .values
+              .toList(),
+          ),
+        )
       ],
     );
   }
 
-  // Widget dot(int index, BuildContext context) {
-  //   return StreamBuilder<int>(
-  //     initialData: 0,
-  //     stream: BlocProvider.of<BannerCubit>(context).dotObservable,
-  //     builder: (context, AsyncSnapshot<int> snapshot) {
-  //       return snapshot.data == index
-  //         ? const Icon(Icons.circle, color: PintuPayPalette.white, size: 10)
-  //         : const Icon(Icons.horizontal_rule, color: PintuPayPalette.white, size: 10);
-  //     }
-  //   );
-  // }
+  Widget dot(int currentIndex, int index, BuildContext context) {
+    return currentIndex == index
+      ? const Icon(Icons.circle, color: PintuPayPalette.darkBlue, size: 10)
+      : const Icon(Icons.horizontal_rule, color: PintuPayPalette.darkBlue, size: 10);
+  }
 }

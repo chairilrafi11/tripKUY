@@ -10,11 +10,15 @@ abstract class BannerState extends Equatable {
 class BannerLoaded extends BannerState {
 
   final List<BannerResponse> listBanner;
+  final int curentDot;
 
-  const BannerLoaded({required this.listBanner});
+  const BannerLoaded({
+    required this.listBanner,
+    this.curentDot = 0
+  });
 
   @override
-  List<Object> get props => [listBanner];
+  List<Object> get props => [curentDot];
 
 }
 

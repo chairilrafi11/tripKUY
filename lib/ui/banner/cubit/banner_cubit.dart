@@ -18,13 +18,10 @@ class BannerCubit extends Cubit<BannerState> {
   fetchDataBanner(String type) async => emit(BannerLoaded(listBanner: await BannerProvider().fetchBanner(type)));
 
   setDot(int index) {
-    // _dot.add(index);
+    BannerLoaded bannerLoaded = state as BannerLoaded;
+    emit(BannerLoaded(listBanner: bannerLoaded.listBanner, curentDot: index));
   }
 
   // navDetail(BannerResponse value) => routePush(BannerAdvertiseDetail(bannerAdvertiseResponse: value));
-
-  closeController(){
-    // _dot.close();
-  }
 
 }
