@@ -179,4 +179,10 @@ abstract class DioClient {
   Future<CoreModel> recentNumber(
     @Query('auth_token') String authToken
   );
+
+  @GET(PintuPayEndpoint.recentNumber)
+  Future<CoreModel> recentNumberPPOB(
+    @Query('auth_token') String authToken,
+    @Query('type') String type
+  );
 }

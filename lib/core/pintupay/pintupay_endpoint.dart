@@ -101,4 +101,6 @@ class PintuPayEndpoint {
   static const String helpDesk = "v1/helpdesk";
 
   static const String recentNumber = "v7/pulsa/recent_numbers";
+
+  static const String recentNumberPPOB = "v7/ppob/recent_numbers";
 }

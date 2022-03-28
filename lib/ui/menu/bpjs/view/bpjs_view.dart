@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:pintupay/core/usecase/view_usecase.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pintupay/ui/component/shimmer.dart';
 import 'package:pintupay/ui/menu/bpjs/cubit/bpjs_cubit.dart';
+import 'package:pintupay/ui/menu/pulsa/model/recent_number_response.dart';
 
 import '../../../../core/util/util.dart';
 
@@ -193,7 +197,7 @@ class _BPJSViewState extends State<BPJSView> {
                         Component.button(
                           label: "Cek Tagihan",
                           onPressed: (){
-                            BpjsCubit().onInquiry(
+                            BlocProvider.of<BpjsCubit>(context).onInquiry(
                               idController.text,
                               month.toString()
                             );
@@ -203,11 +207,76 @@ class _BPJSViewState extends State<BPJSView> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20,),
+                Component.textBold(
+                  "Transaksi Terakhir",
+                  fontSize: PintuPayConstant.fontSizeLarge
+                ),
+                const SizedBox(height: 8,),
+                Component.divider(),
+                BlocBuilder<BpjsCubit, BpjsState>(
+                  builder: (context, state) {
+                    if (state is BpjsLoading) {
+                      return const ShimmerList();
+                    } else if (state is BpjsRecentNumber) {
+                      return recent(state.listRecent);
+                    } else {
+                      return Container();
+                    }
+                  },
+                )
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget recent(List<RecentNumberResponse> listRecent){
+    if (listRecent.isNotEmpty){
+      return ListView.builder(
+        itemCount: listRecent.length,
+        shrinkWrap: true,
+        padding: const EdgeInsets.only(top: 0),
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              BlocProvider.of<BpjsCubit>(context).onInquiry(
+                listRecent[index].numbers.toString(), 
+                DateTime.now().month.toString()
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Row(
+                  children: [                
+                    Image.asset( 
+                      ViewUsecase.iconFeature(Feature.bpjs),
+                      height: 40,
+                    ),
+                    // Component.textBold(listRecent[index].name ?? "", colors: PintuPayPalette.darkBlue),
+                    const SizedBox(width: 10,),
+                    Component.textBold(
+                      listRecent[index].numbers ?? "",
+                      fontSize: PintuPayConstant.fontSizeLarge,
+                      colors: PintuPayPalette.darkBlue
+                    ),
+                    const SizedBox(height: 10,),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Component.emptyRecent();
+    }
   }
 }

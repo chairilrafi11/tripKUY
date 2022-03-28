@@ -11,13 +11,16 @@ import 'package:pintupay/ui/bill/view/bill_view.dart';
 import 'package:pintupay/ui/menu/bpjs/model/bpjs_inquiry_model.dart';
 import 'package:pintupay/ui/menu/bpjs/model/bpjs_payment_model.dart';
 import 'package:pintupay/ui/menu/bpjs/provider/bpjs_provider.dart';
+import 'package:pintupay/ui/menu/pulsa/model/recent_number_response.dart';
 import 'package:pintupay/ui/payment/view/payment_view.dart';
 
 part 'bpjs_state.dart';
 
 class BpjsCubit extends Cubit<BpjsState> {
 
-  BpjsCubit() : super(BpjsInitial());
+  BpjsCubit() : super(BpjsLoading()){
+    onRecentNumber();
+  }
 
   late BPJSPaymentModel bpjsPaymentModel;
   List<Set<String>> listInformation = [];
@@ -94,6 +97,10 @@ class BpjsCubit extends Cubit<BpjsState> {
         }
       }
     });
+  }
+
+  onRecentNumber() async {
+    emit(BpjsRecentNumber(listRecent: await BPJSProvider.recentNumber("bpjs")));
   }
 
 }

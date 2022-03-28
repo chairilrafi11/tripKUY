@@ -8,3 +8,18 @@ abstract class BpjsState extends Equatable {
 }
 
 class BpjsInitial extends BpjsState {}
+
+class BpjsLoading extends BpjsState {}
+
+class BpjsRecentNumber extends BpjsState {
+
+  final List<RecentNumberResponse> listRecent;
+
+  const BpjsRecentNumber({
+    required this.listRecent
+  });
+
+  @override
+  List<Object> get props => [listRecent];
+
+}
