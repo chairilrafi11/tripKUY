@@ -51,6 +51,7 @@ class BpjsCubit extends Cubit<BpjsState> {
       bpjsPaymentModel = bpjsPayment;
 
       listInformation = [
+        {"Jenis Transaksi", "BPJS Kesehatan"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.noVa.toString()},
         {"No Reff", result.reff.toString()},

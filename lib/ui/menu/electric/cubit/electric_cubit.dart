@@ -67,6 +67,7 @@ class ElectricCubit extends Cubit<ElectricState> {
       electricPospaidPaymentModel = payment;
 
       listInformation = [
+        {"Jenis transaksi", "PLN Tagihan"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPel.toString()},
         {"Daya", result.jmlBlnTagihan.toString()},

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CoreVariable {
 
   //? Global Attributte
-  static const bool debug = false;
+  static const bool debug = true;
   static const bool production = true;
 
   //? Config API

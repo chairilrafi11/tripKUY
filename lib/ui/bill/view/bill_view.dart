@@ -1,9 +1,20 @@
 import 'dart:io';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/usecase/view_usecase.dart';
+import 'package:pintupay/core/util/benpay_cupertino_dialog.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/bill/model/bill_status_model.dart';
+import 'package:pintupay/ui/bill/view/print_view.dart';
 import 'package:pintupay/ui/component/component.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +51,72 @@ class BillView extends StatelessWidget {
       default:
         return "";
     }
+  }
+
+  confirmSaveBill(String fileName, File file) {
+    return showDialog(
+      context: navGK.currentContext!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Konfirmasi Simpan",
+                style: TextStyle(
+                  color: PintuPayPalette.darkBlue,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Simpan Bukti $fileName?",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 14),
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      width: SizeConfig.blockSizeHorizontal * 30,
+                      color: Colors.red,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Batal",
+                        style: TextStyle(color: PintuPayPalette.white),
+                      )
+                    ),
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
+                      OpenFile.open(file.path, type: "image/png");
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8),
+                      width: SizeConfig.blockSizeHorizontal * 30,
+                      color: PintuPayPalette.darkBlue,
+                      child: const Text(
+                        "Simpan",
+                        style: TextStyle(color: PintuPayPalette.white),
+                      )
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      }
+    );
   }
 
   @override
@@ -98,18 +175,6 @@ class BillView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: SizeConfig.blockSizeHorizontal * 10),
-                          // Row(
-                          //   mainAxisSize: MainAxisSize.max,
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Component.textBold() , fontSize: SizeConfig.blockSizeHorizontal * 3.5),
-                          //   ],
-                          // ),
-                          // _textBill("Tanggal : ", DateFormat('yyyy-mm-dd hh:mm:ss').format(DateTime.parse(billStatusModel.createdAt))),
-                          
-                          // const Divider(
-                          //   thickness: 1.5,
-                          // ),
                           for (int i = 0; i < billStatusModel.billBody.length; i++) _textBill(
                             billStatusModel.billBody[i].key,
                             billStatusModel.billBody[i].value,
@@ -140,8 +205,9 @@ class BillView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
+                  _buttonReceipt(),
+                  _buttonPrint(),
                   _buttonOK(),
-                  // _buttonReceipt(),
                 ],
               ),
             ),
@@ -152,138 +218,74 @@ class BillView extends StatelessWidget {
   }
 
   Future<void> _saveBill(String fileName, bool isShare, String transactionId) async {
-    // TODO
-    // return Future.delayed(const Duration(milliseconds: 20), () async {
-    //   RenderRepaintBoundary? boundary = billContainer.currentContext!.findRenderObject() as RenderRepaintBoundary?;
-    //   ui.Image image = await boundary!.toImage();
-    //   var dir = (await getApplicationDocumentsDirectory()).path;
-    //   ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    //   Uint8List pngBytes = byteData!.buffer.asUint8List();
-    //   File imgFile = File('$dir/$fileName.png');
-    //   imgFile.writeAsBytes(pngBytes, mode: FileMode.write).then((value) {
-    //     if (isShare) {
-    //       final box = context.findRenderObject() as RenderBox?;
-    //       Share.shareFiles(
-    //         [
-    //           value.path,
-    //         ],
-    //         mimeTypes: ['images/png'],
-    //         text: 'Bukti Transaksi ECoop',
-    //         subject: 'Id Transaksi $transactionId',
-    //         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    //       );
-    //     } else {
-    //       GallerySaver.saveImage(
-    //         value.path,
-    //         toDcim: true,
-    //         albumName: 'ecoop',
-    //       ).then((bool? isSaved) {
-    //         if (isSaved ?? false) {
-    //           _openFile('$fileName.png', value);
-    //         }
-    //       });
-    //     }
-    //   });
-    // });
+    return Future.delayed(const Duration(milliseconds: 20), () async {
+      RenderRepaintBoundary? boundary = billContainer.currentContext!.findRenderObject() as RenderRepaintBoundary?;
+      ui.Image image = await boundary!.toImage();
+      var dir = (await getApplicationDocumentsDirectory()).path;
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      File imgFile = File('$dir/$fileName.png');
+      imgFile.writeAsBytes(pngBytes, mode: FileMode.write).then((value) {
+        if (isShare) {
+          // final box = navGK.currentContext!.findRenderObject() as RenderBox?;
+          // Share.shareFiles(
+          //   [
+          //     value.path,
+          //   ],
+          //   mimeTypes: ['images/png'],
+          //   text: 'Bukti Transaksi ECoop',
+          //   subject: 'Id Transaksi $transactionId',
+          //   sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          // );
+        } else {
+          GallerySaver.saveImage(
+            value.path,
+            toDcim: true,
+            albumName: 'pintupay',
+          ).then((bool? isSaved) {
+            if (isSaved ?? false) {
+              confirmSaveBill('$fileName.png', value);
+            }
+          });
+        }
+      });
+    });
   }
 
   _downloadBill(bool isShare) async {
-    // CoreFunction.logPrint("childDetail", "dowloadCard");
-    // var storageStatus = await permissionhandler.Permission.storage.status;
-    // CoreFunction.logPrint("childDetail", storageStatus.toString());
-    // if (storageStatus == permissionhandler.PermissionStatus.granted) {
-    //   String fileName = "E_Receipt_${billStatusModel.billBody.first.value}".replaceAll(" ", "_");
-    //   _saveBill(fileName, isShare, billStatusModel.billBody.first.value);
-    // } else {
-    //   await permissionhandler.Permission.storage.request().then((value) async {
-    //     CoreFunction.logPrint('permissionHandler.PermissionStatus', value.toString());
-    //     _downloadBill(isShare);
-    //   });
-    // }
-  }
-
-  _openFile(String fileName, File file) {
-    // TODO
-    // CoreFunction.logPrint("childDetail", "_openFile");
-    // showEtikadCupertionDialog(builder: (BuildContext buildContext) {
-    //   return EtikadCupertinoDialog(
-    //     title: const Text("Konfirmasi"),
-    //     content: Column(
-    //       children: [
-    //         Text("Buka File $fileName?"),
-    //       ],
-    //     ),
-    //     actions: [
-    //       CupertinoDialogAction(
-    //         child: const Text("Tidak"),
-    //         isDefaultAction: false,
-    //         isDestructiveAction: true,
-    //         onPressed: () {
-    //           Navigator.pop(buildContext);
-    //         },
-    //       ),
-    //       CupertinoDialogAction(
-    //         child: const Text("Ya"),
-    //         isDefaultAction: true,
-    //         isDestructiveAction: false,
-    //         onPressed: () {
-    //           Navigator.pop(buildContext);
-    //           OpenFile.open(file.path, type: "image/png");
-    //         },
-    //       ),
-    //     ],
-    //   );
-    // });
-  }
-
-  _downloadCardBottomSheet() {
-    // showModalBottomSheet(
-    //   backgroundColor: Colors.transparent,
-    //   context: context,
-    //   builder: (BuildContext buildContext) {
-    //     return CupertinoActionSheet(
-    //       actions: <Widget>[
-    //         CupertinoDialogAction(
-    //           child: const Text('Unduh'),
-    //           onPressed: () {
-    //             Navigator.pop(buildContext);
-    //             _downloadBill(false);
-    //           },
-    //         ),
-    //         CupertinoDialogAction(
-    //           child: const Text('Bagikan'),
-    //           onPressed: () {
-    //             Navigator.pop(buildContext);
-    //             _downloadBill(true);
-    //           },
-    //         ),
-    //       ],
-    //       cancelButton: CupertinoDialogAction(
-    //         child: const Text('Batalkan'),
-    //         isDestructiveAction: true,
-    //         onPressed: () {
-    //           Navigator.pop(buildContext);
-    //         },
-    //       ),
-    //       title: const Text('Pilih Aksi'),
-    //     );
-    //   },
-    // );
+    var storageStatus = await Permission.storage.status;
+    CoreFunction.logPrint("childDetail", storageStatus.toString());
+    if (storageStatus == PermissionStatus.granted) {
+      String fileName = "Pintupay_${billStatusModel.billBody[1].value}_${DateTime.now().toString()}".replaceAll(" ", "_");
+      _saveBill(fileName, isShare, billStatusModel.billBody[1].value);
+    } else {
+      await Permission.storage.request().then((value) async {
+        CoreFunction.logPrint('permissionHandler.PermissionStatus', value.toString());
+        _downloadBill(isShare);
+      });
+    }
   }
 
   Widget _textBill(String first, String last, {double padding = 0}) {
     padding = SizeConfig.blockSizeHorizontal * 1.5;
+    bool isTotal = first.toLowerCase().contains("total");
     return Padding(
       padding: EdgeInsets.symmetric(vertical: padding),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Component.textDefault(
-            first,
-            fontSize: SizeConfig.blockSizeHorizontal * 3.5,
-            maxLines: 5
-          ),
+          isTotal 
+            ? Component.textBold(
+                first,
+                fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                maxLines: 5
+              ) 
+            : Component.textDefault(
+              first,
+              fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+              maxLines: 5
+            ),
           const SizedBox(
             width: 5,
           ),
@@ -292,7 +294,7 @@ class BillView extends StatelessWidget {
               last,
               fontSize: SizeConfig.blockSizeHorizontal * 3.5,
               textAlign: TextAlign.end,
-              colors: PintuPayPalette.darkBlue,
+              colors: isTotal ? PintuPayPalette.orange : PintuPayPalette.darkBlue,
               maxLines: 5
             )
           ),
@@ -324,7 +326,7 @@ class BillView extends StatelessWidget {
             vertical: SizeConfig.blockSizeHorizontal * 3
           ),
           child: Component.textBold(
-            'OK',
+            'Beranda',
             colors: PintuPayPalette.darkBlue,
             fontSize: PintuPayConstant.fontSizeLarge
           ),
@@ -344,7 +346,8 @@ class BillView extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          _downloadCardBottomSheet();
+          _downloadBill(false);
+          // _downloadCardBottomSheet();
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -353,6 +356,34 @@ class BillView extends StatelessWidget {
           ),
           child: Component.textBold(
             'Unduh Bukti Pembayaran',
+            colors: PintuPayPalette.darkBlue,
+            fontSize: PintuPayConstant.fontSizeLarge
+          ),
+        ),
+      ),
+    )
+  );
+
+  Widget _buttonPrint() => Center(
+    child: SizedBox(
+      width: SizeConfig.blockSizeHorizontal * 85,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: PintuPayPalette.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: () {
+          routePush(PrintView(billStatusModel: billStatusModel), RouterType.material);
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.blockSizeHorizontal * 3,
+            vertical: SizeConfig.blockSizeHorizontal * 3
+          ),
+          child: Component.textBold(
+            'Cetak Bukti',
             colors: PintuPayPalette.darkBlue,
             fontSize: PintuPayConstant.fontSizeLarge
           ),
