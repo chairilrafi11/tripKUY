@@ -206,7 +206,7 @@ class Component {
 
   static Future<bool> showDialogWithRichText(RichText? text, {bool barrierDismissible = true}) async {
     bool isClosed = false;
-    await showEtikadCupertionDialog(
+    await cupertionDialog(
       builder: (BuildContext buildContext) {
         return GestureDetector(
           onTap: () {

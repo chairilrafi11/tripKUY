@@ -17,7 +17,7 @@ class _DialogSizes {
   final double actionSectionYOffset;
 }
 
-Future<T?> showEtikadCupertionDialog<T>({
+Future<T?> cupertionDialog<T>({
   // required BuildContext context,
   required WidgetBuilder builder,
   String? barrierLabel,

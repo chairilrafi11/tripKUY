@@ -166,13 +166,8 @@ class _HomeState extends State<Home> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Image.asset(
-                    listMenu[index].last,
-                  ),
+                Image.asset(
+                  listMenu[index].last,
                 ),
                 const SizedBox(height: 10,),
                 Component.textBold(listMenu[index].first, textAlign: TextAlign.center)

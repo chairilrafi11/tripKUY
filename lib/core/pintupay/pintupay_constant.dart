@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum ErrorPPOB {payed, unknow, failed}
+
 class PintuPayConstant {
   static const avenirRegular = "avenir_regular";
 
