@@ -47,6 +47,7 @@ class PGNCubit extends Cubit<PGNState> {
       pgnPaymentRequest= payment;
 
       listInformation = [
+        {"Jenis Transaksi", "PGN"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPel.toString()},
         {"No Reff", result.refnum.toString()},

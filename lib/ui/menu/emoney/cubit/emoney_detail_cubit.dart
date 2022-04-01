@@ -58,6 +58,7 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
       );
 
       listInformation = [
+        {"Jenis Transaksi", "E-Money Topup"},
         {"Product", emoneyProviderResponse.name.toString()},
         {"No Pelanggan", id.toString()},
         {"Product", emoney.name.toString()},

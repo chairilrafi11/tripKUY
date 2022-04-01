@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/ui/home/provider/home_provider.dart';
 import 'package:pintupay/ui/menu/bpjs/cubit/bpjs_cubit.dart';
 import 'package:pintupay/ui/menu/bpjs/view/bpjs_view.dart';
-import 'package:pintupay/ui/menu/data_plan/view/data_plan_view.dart';
 import 'package:pintupay/ui/menu/electric/cubit/electric_cubit.dart';
 import 'package:pintupay/ui/menu/electric/view/electric_view.dart';
 import 'package:pintupay/ui/menu/emoney/cubit/emoney_cubit.dart';
@@ -87,8 +86,8 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(TelephonePostpaid(), RouterType.material);
         break;
       case "paket \n data":
-        routePush(const DataPlanView(), RouterType.material);
-        break;
+        // routePush(const DataPlanView(), RouterType.material);
+        // break;
       case "game":
         routePush(
             BlocProvider(

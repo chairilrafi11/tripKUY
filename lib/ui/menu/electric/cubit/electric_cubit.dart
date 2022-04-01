@@ -145,6 +145,7 @@ class ElectricCubit extends Cubit<ElectricState> {
       electricPrepaidPaymentRequest = payment;
 
       listInformation = [
+        {"Jenis Transaksi", "PLN Token"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPel.toString()},
         if(result.tarifdaya != null) {"Daya", result.tarifdaya.toString()},

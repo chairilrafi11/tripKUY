@@ -8,6 +8,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pintupay/ui/register/cubit/register_cubit.dart';
+import 'package:pintupay/ui/t&c/view/term_and_condition.dart';
 import 'package:pintupay/ui/verification/model/register_form_model.dart';
 import 'package:pintupay/ui/verification/model/response_check_phone_number.dart';
 
@@ -221,24 +222,24 @@ class _RegisterState extends State<Register> {
                   height: 4,
                 ),
                 _textFieldReferal(),
-                // Row(
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: [
-                //     Checkbox(
-                //       activeColor: PintuPayPalette.darkBlue,
-                //       value: termsCondition,
-                //       // onChanged: (value) => changeTermCondition(value)
-                //       onChanged: (value) {},
-                //     ),
-                //     const Text(
-                //       "Setuju dengan syarat \ndan ketentuan",
-                //       style: TextStyle(
-                //           fontSize: 12, color: PintuPayPalette.darkBlue),
-                //     ),
-                //     const Spacer(),
-                //     _buttonLihatSyaratKetentuan(),
-                //   ],
-                // ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      activeColor: PintuPayPalette.darkBlue,
+                      value: termsCondition,
+                      // onChanged: (value) => changeTermCondition(value)
+                      onChanged: (value) {},
+                    ),
+                    const Text(
+                      "Setuju dengan syarat \ndan ketentuan",
+                      style: TextStyle(
+                          fontSize: 12, color: PintuPayPalette.darkBlue),
+                    ),
+                    const Spacer(),
+                    _buttonLihatSyaratKetentuan(),
+                  ],
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 10, bottom: 50),
                   height: SizeConfig.screenHeight / 20,
@@ -268,32 +269,32 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  // Widget _buttonLihatSyaratKetentuan() {
-  //   return Card(
-  //     margin: const EdgeInsets.only(right: 20.0),
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-  //     color: PintuPayPalette.darkBlue,
-  //     child: InkWell(
-  //       onTap: () {
-  //         routePush(const TermsAndCondition(), RouterType.cupertino)
-  //             .then((value) {
-  //           if (value != null) {
-  //             changeTermCondition(true);
-  //           }
-  //         });
-  //       },
-  //       child: Container(
-  //         alignment: Alignment.center,
-  //         width: SizeConfig.blockSizeHorizontal * 25,
-  //         height: SizeConfig.blockSizeVertical * 3,
-  //         child: const Text(
-  //           "Lihat",
-  //           style: TextStyle(color: Colors.white),
-  //         ),
-  //       ),
-  //     )
-  //   );
-  // }
+  Widget _buttonLihatSyaratKetentuan() {
+    return Card(
+      margin: const EdgeInsets.only(right: 20.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      color: PintuPayPalette.darkBlue,
+      child: InkWell(
+        onTap: () {
+          routePush(const TermsAndCondition(), RouterType.cupertino)
+              .then((value) {
+            if (value != null) {
+              changeTermCondition(true);
+            }
+          });
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: SizeConfig.blockSizeHorizontal * 25,
+          height: SizeConfig.blockSizeVertical * 3,
+          child: const Text(
+            "Lihat",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      )
+    );
+  }
 
   Widget _textFieldUserName() {
     return TextFormField(

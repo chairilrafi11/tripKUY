@@ -203,56 +203,48 @@ class ElectricView extends StatelessWidget {
   }
 
   Widget postpaid(context){
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Card(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-          ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Component.textBold("No. Pelanggan / No. Meter", textAlign: TextAlign.start),
-                const SizedBox(height: 16,),
-                Flexible(
-                  child: TextFormField(
-                    controller: idContactController,
-                    decoration: Component.decorationNoBorder("1234xxxxxxx"),
-                    maxLength: 16,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    validator: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return "Wajib diisi*";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                Container(
-                  alignment: Alignment.center,
-                  child: Component.notice("Masukan No Pelanggan PLN dengan sesuai",)
-                ),
-                const SizedBox(height: 20,),
-                Component.button(
-                  label: "Cek Tagihan",
-                  onPressed: (){
-                    BlocProvider.of<ElectricCubit>(context).onPostpaidInquiry(idContactController.text);
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10)
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Component.textBold("No. Pelanggan / No. Meter", textAlign: TextAlign.start),
+            const SizedBox(height: 16,),
+            Flexible(
+              child: TextFormField(
+                controller: idContactController,
+                decoration: Component.decorationNoBorder("1234xxxxxxx"),
+                maxLength: 16,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return "Wajib diisi*";
                   }
-                ),
-              ],
+                  return null;
+                },
+              ),
             ),
-          ),
+            const SizedBox(height: 20,),
+            Component.notice("Masukan No Pelanggan PLN dengan sesuai",),
+            const SizedBox(height: 20,),
+            Component.button(
+              label: "Cek Tagihan",
+              onPressed: (){
+                BlocProvider.of<ElectricCubit>(context).onPostpaidInquiry(idContactController.text);
+              }
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
