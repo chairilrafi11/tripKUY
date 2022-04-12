@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
   // final TextEditingController userNameController = TextEditingController();
   // final TextEditingController uidNameController = TextEditingController();
   final TextEditingController agentController = TextEditingController();
-  // final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   // final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -99,7 +99,7 @@ class _RegisterState extends State<Register> {
               fcm: await CoreFunction.generateFirebaseToken(),
               // cityName: cityController.text,
               // birthPlace: birthDateController.text,
-              // email: emailController.text,
+              email: emailController.text,
               // gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
               // name: userNameController.text,
               storeName: agentController.text,
@@ -184,10 +184,8 @@ class _RegisterState extends State<Register> {
                 _textFieldAgent(),
                 // const SizedBox(height: 4),
                 // _textFieldUid(),
-                // const SizedBox(
-                //   height: 4,
-                // ),
-                // _textFieldEmail(),
+                const SizedBox(height: 4),
+                _textFieldEmail(),
                 // const SizedBox(height: 4),
                 // _textFieldBirtDate(),
                 const SizedBox(height: 4),
@@ -439,57 +437,57 @@ class _RegisterState extends State<Register> {
   //   );
   // }
 
-  // Widget _textFieldEmail() {
-  //   return TextFormField(
-  //     controller: emailController,
-  //     keyboardType: TextInputType.emailAddress,
-  //     inputFormatters: [
-  //       LengthLimitingTextInputFormatter(255),
-  //       FilteringTextInputFormatter.allow(
-  //           RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
-  //           replacementString: ''),
-  //     ],
-  //     textInputAction: TextInputAction.next,
-  //     maxLength: 40,
-  //     style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-  //     validator: (value) {
-  //       if (value == null || value.isEmpty) {
-  //         return "Wajib diisi*";
-  //       }
-  //       return null;
-  //     },
-  //     decoration: InputDecoration(
-  //       prefixIcon: const Padding(
-  //         padding: EdgeInsets.all(17.0),
-  //         child: Icon(Icons.email, color: PintuPayPalette.darkBlue),
-  //       ),
-  //       hintText: '...@..',
-  //       hintStyle: TextStyle(
-  //         color: PintuPayPalette.darkBlue,
-  //         fontSize: SizeConfig.screenHeight / 60,
-  //       ),
-  //       labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-  //       labelText: 'Email',
-  //       fillColor: PintuPayPalette.darkBlue,
-  //       border: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(10.0),
-  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-  //       ),
-  //       enabledBorder: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(10.0),
-  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-  //       ),
-  //       focusedBorder: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(10.0),
-  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-  //       ),
-  //       errorBorder: OutlineInputBorder(
-  //         borderRadius: BorderRadius.circular(10.0),
-  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget _textFieldEmail() {
+    return TextFormField(
+      controller: emailController,
+      keyboardType: TextInputType.emailAddress,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(255),
+        FilteringTextInputFormatter.allow(
+            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+            replacementString: ''),
+      ],
+      textInputAction: TextInputAction.next,
+      maxLength: 40,
+      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Wajib diisi*";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(17.0),
+          child: Icon(Icons.email, color: PintuPayPalette.darkBlue),
+        ),
+        hintText: '...@..',
+        hintStyle: TextStyle(
+          color: PintuPayPalette.darkBlue,
+          fontSize: SizeConfig.screenHeight / 60,
+        ),
+        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+        labelText: 'Email',
+        fillColor: PintuPayPalette.darkBlue,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+        ),
+      ),
+    );
+  }
 
   Widget _textFieldAddress() {
     return TextFormField(
