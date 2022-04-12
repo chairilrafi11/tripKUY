@@ -49,7 +49,7 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
           balance: "cash",
           indentifierNumber: id,
           messages: emoney.name,
-          productPriceId: emoney.productId,
+          productPriceId: emoney.id,
           providerId: emoneyProviderResponse.id,
           transactionTypeId: 1,
           time: DateTime.now().toString(),
@@ -58,6 +58,7 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
       );
 
       listInformation = [
+        {"Jenis Transaksi", "E-Money Topup"},
         {"Product", emoneyProviderResponse.name.toString()},
         {"No Pelanggan", id.toString()},
         {"Product", emoney.name.toString()},
@@ -80,6 +81,7 @@ class EmoneyDetailCubit extends Cubit<EmoneyDetailState> {
       if(value != null) {
         emoneyPaymentRequest.pin = value;
         var payment = PintuPayCrypt().encrypt(jsonEncode(emoneyPaymentRequest), await PintuPayCrypt().getPassKeyPref());
+        CoreFunction.logPrint("tag", payment);
         var result = await EmoneyProvider.payment(BodyRequestV7(payment, payment).toJson());
 
         if(result.id != null) {

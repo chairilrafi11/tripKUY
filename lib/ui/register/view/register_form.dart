@@ -267,29 +267,29 @@ class _RegisterState extends State<Register> {
 
   Widget _buttonLihatSyaratKetentuan() {
     return Card(
-        margin: const EdgeInsets.only(right: 20.0),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        color: PintuPayPalette.darkBlue,
-        child: InkWell(
-          onTap: () {
-            routePush(const TermsAndCondition(), RouterType.cupertino)
-                .then((value) {
-              if (value != null) {
-                changeTermCondition(true);
-              }
-            });
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: SizeConfig.blockSizeHorizontal * 25,
-            height: SizeConfig.blockSizeVertical * 3,
-            child: const Text(
-              "Lihat",
-              style: TextStyle(color: Colors.white),
-            ),
+      margin: const EdgeInsets.only(right: 20.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      color: PintuPayPalette.darkBlue,
+      child: InkWell(
+        onTap: () {
+          routePush(const TermsAndCondition(), RouterType.cupertino)
+              .then((value) {
+            if (value != null) {
+              changeTermCondition(true);
+            }
+          });
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: SizeConfig.blockSizeHorizontal * 25,
+          height: SizeConfig.blockSizeVertical * 3,
+          child: const Text(
+            "Lihat",
+            style: TextStyle(color: Colors.white),
           ),
-        ));
+        ),
+      )
+    );
   }
 
   Widget _textFieldUserName() {

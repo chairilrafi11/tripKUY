@@ -185,4 +185,14 @@ abstract class DioClient {
     @Query('auth_token') String authToken,
     @Query('type') String type
   );
+
+  @GET(PintuPayEndpoint.tvProduct)
+  Future<CoreModel> tvProducts();
+
+  @POST(PintuPayEndpoint.tvInquiry)
+  Future<CoreModel> tvInquiry(Map<String, dynamic> body);
+
+  @POST(PintuPayEndpoint.tvPayment)
+  Future<CoreModel> tvPayment(Map<String, dynamic> body);
+
 }

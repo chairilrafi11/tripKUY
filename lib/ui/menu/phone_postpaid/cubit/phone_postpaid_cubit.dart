@@ -73,6 +73,7 @@ class PhonePostpaidCubit extends Cubit<PhonePostpaidState> {
       phonePostpaidPaymentModel = paymentModel;
 
       listInformation = [
+        {"Jenis Transaksi", "HP Pascabayar"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.idPelanggan.toString()},
         {"No Reff", result.noResi.toString()},

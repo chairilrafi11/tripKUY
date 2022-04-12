@@ -14,9 +14,11 @@ class ElectricLoading extends ElectricState {}
 class ElectricLoaded extends ElectricState {
 
   final ElectricTokenResponse electricTokenResponse;
+  final List<RecentNumberResponse> listRecent;
 
   const ElectricLoaded({
-    required this.electricTokenResponse
+    required this.electricTokenResponse,
+    required this.listRecent
   });
 }
 class ElectricEmpty extends ElectricState {}
