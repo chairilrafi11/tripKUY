@@ -62,8 +62,15 @@ class Data {
   int? price;
   int? statusId;
   String? providerName;
+  String? explainField;
 
-  Data({this.id, this.name, this.price, this.statusId, this.providerName});
+  Data(
+      {this.id,
+      this.name,
+      this.price,
+      this.statusId,
+      this.providerName,
+      this.explainField});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,6 +78,7 @@ class Data {
     price = json['price'];
     statusId = json['status_id'];
     providerName = json['provider_name'];
+    explainField = json['description'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +88,7 @@ class Data {
     data['price'] = price;
     data['status_id'] = statusId;
     data['provider_name'] = providerName;
+    data['description'] = explainField;
     return data;
   }
 }
