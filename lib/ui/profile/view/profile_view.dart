@@ -107,7 +107,7 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                       Component.textDefault(
-                        authUsecase.userBox.name ?? "",
+                        authUsecase.userBox.storeName ?? "",
                         fontSize: PintuPayConstant.fontSizeLargeExtra,
                         colors: PintuPayPalette.white
                       ),
@@ -164,10 +164,21 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Component.textDefault(
-                        authUsecase.userBox.email ?? "",
-                        fontSize: PintuPayConstant.fontSizeLargeExtra,
-                        colors: PintuPayPalette.white
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Component.textDefault(
+                            authUsecase.userBox.email ?? "",
+                            fontSize: PintuPayConstant.fontSizeLargeExtra,
+                            colors: PintuPayPalette.white
+                          ),
+                          const Spacer(),
+                          Component.textDefault(
+                            authUsecase.userBox.referral ?? "",
+                            fontSize: PintuPayConstant.fontSizeSmall,
+                            colors: PintuPayPalette.white,
+                          ),
+                        ],
                       ),
                     ],
                   ),

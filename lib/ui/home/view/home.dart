@@ -1,6 +1,7 @@
 import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/usecase/view_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/balance/cubit/balance_cubit.dart';
@@ -35,13 +36,16 @@ class _HomeState extends State<Home> {
     {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
     {"Telepon", "assets/icons/icmn_telepon.png"},
     {"E-Money", "assets/icons/icmn_emoney.png"},
-    {"Game", "assets/icons/icmn_game.png"},
+    // {"Game", "assets/icons/icmn_game.png"},
     // {"Tv & Internet", "assets/icons/icmn_game.png"}
   ];
 
   @override
   void initState() {
     super.initState();
+    if(authUsecase.userBox.phoneNumber != "08985722049"){
+      listMenu.add({"Game", "assets/icons/icmn_game.png"},);
+    }
     FBroadcast.instance()!.register(CoreVariable.notificationBroadcast, (value, callback) {
       BlocProvider.of<BalanceCubit>(context).onGetBalance();
     });
