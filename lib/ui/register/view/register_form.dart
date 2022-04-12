@@ -26,17 +26,16 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController uidNameController = TextEditingController();
+  // final TextEditingController userNameController = TextEditingController();
+  // final TextEditingController uidNameController = TextEditingController();
   final TextEditingController agentController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  // final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
+  // final TextEditingController cityController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  // final TextEditingController genderController = TextEditingController();
+  // final TextEditingController birthDateController = TextEditingController();
   final TextEditingController referalController = TextEditingController();
 
   bool isCanChangePassword = false;
@@ -73,7 +72,7 @@ class _RegisterState extends State<Register> {
 
   Future<void> validate() async {
     var form = formKey.currentState;
-    if (form!.validate() && selectedRadioGender != 0) {
+    if (form!.validate()) {
       if (termsCondition) {
         dialogConfirm();
       } else {
@@ -93,15 +92,15 @@ class _RegisterState extends State<Register> {
             imei: "",
             user: User(
               pin: pin,
-              uid: uidNameController.text,
+              // uid: uidNameController.text,
               address: addressController.text,
-              birthDate: birthDateController.text,
+              // birthDate: birthDateController.text,
               fcm: await CoreFunction.generateFirebaseToken(),
-              cityName: cityController.text,
-              birthPlace: birthDateController.text,
-              email: emailController.text,
-              gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
-              name: userNameController.text,
+              // cityName: cityController.text,
+              // birthPlace: birthDateController.text,
+              // email: emailController.text,
+              // gender: selectedRadioGender == 1 ? "Laki - Laki" : "Perempuan",
+              // name: userNameController.text,
               storeName: agentController.text,
               parentReferral: referalController.text.isEmpty
                   ? "PEORANGAN"
@@ -117,25 +116,25 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  void onTapBirtDateOld() {
-    DateTime dateNow = DateTime.now();
-    int endYear = DateTime.now().year - 17;
-    DateTime endDate = DateTime(endYear, dateNow.month, dateNow.day);
-    showDatePicker(
-      context: context,
-      initialDate: endDate,
-      firstDate: DateTime(1960),
-      lastDate: endDate,
-      currentDate: endDate,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-    ).then((date) {
-      if (date is DateTime) {
-        setState(() {
-          birthDateController.text = DateFormat('dd/MM/yyyy').format(date);
-        });
-      }
-    });
-  }
+  // void onTapBirtDateOld() {
+  //   DateTime dateNow = DateTime.now();
+  //   int endYear = DateTime.now().year - 17;
+  //   DateTime endDate = DateTime(endYear, dateNow.month, dateNow.day);
+  //   showDatePicker(
+  //     context: context,
+  //     initialDate: endDate,
+  //     firstDate: DateTime(1960),
+  //     lastDate: endDate,
+  //     currentDate: endDate,
+  //     initialEntryMode: DatePickerEntryMode.calendarOnly,
+  //   ).then((date) {
+  //     if (date is DateTime) {
+  //       setState(() {
+  //         birthDateController.text = DateFormat('dd/MM/yyyy').format(date);
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -177,35 +176,25 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                   height: SizeConfig.blockSizeVertical * 5,
                 ),
-                _textFieldUserName(),
+                // _textFieldUserName(),
                 const SizedBox(
                   height: 4,
                 ),
                 _textFieldAgent(),
-                const SizedBox(
-                  height: 4,
-                ),
-                _textFieldUid(),
-                const SizedBox(
-                  height: 4,
-                ),
-                _textFieldEmail(),
-                const SizedBox(
-                  height: 4,
-                ),
-                _textFieldBirtDate(),
-                const SizedBox(
-                  height: 4,
-                ),
+                // const SizedBox(height: 4),
+                // _textFieldUid(),
+                // const SizedBox(
+                //   height: 4,
+                // ),
+                // _textFieldEmail(),
+                // const SizedBox(height: 4),
+                // _textFieldBirtDate(),
+                const SizedBox(height: 4),
                 _textFieldAddress(),
-                const SizedBox(
-                  height: 4,
-                ),
-                _textFieldCity(),
-                const SizedBox(
-                  height: 4,
-                ),
-                _radioGender(),
+                // const SizedBox(height: 4),
+                // _textFieldCity(),
+                // const SizedBox(height: 4),
+                // _radioGender(),
                 const SizedBox(
                   height: 4,
                 ),
@@ -292,58 +281,58 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _textFieldUserName() {
-    return TextFormField(
-      controller: userNameController,
-      keyboardType: TextInputType.name,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z])', caseSensitive: false),
-            replacementString: ''),
-      ],
-      textInputAction: TextInputAction.next,
-      maxLength: 30,
-      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "Wajib diisi*";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.account_circle_rounded,
-              color: PintuPayPalette.darkBlue),
-        ),
-        hintText: 'xxxxxxxxx',
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'Nama Agen',
-        fillColor: PintuPayPalette.darkBlue,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-      ),
-    );
-  }
+  // Widget _textFieldUserName() {
+  //   return TextFormField(
+  //     controller: userNameController,
+  //     keyboardType: TextInputType.name,
+  //     inputFormatters: [
+  //       LengthLimitingTextInputFormatter(255),
+  //       FilteringTextInputFormatter.allow(
+  //           RegExp(r'([a-z A-Z])', caseSensitive: false),
+  //           replacementString: ''),
+  //     ],
+  //     textInputAction: TextInputAction.next,
+  //     maxLength: 30,
+  //     style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+  //     validator: (value) {
+  //       if (value == null || value.isEmpty) {
+  //         return "Wajib diisi*";
+  //       }
+  //       return null;
+  //     },
+  //     decoration: InputDecoration(
+  //       prefixIcon: const Padding(
+  //         padding: EdgeInsets.all(17.0),
+  //         child: Icon(Icons.account_circle_rounded,
+  //             color: PintuPayPalette.darkBlue),
+  //       ),
+  //       hintText: 'xxxxxxxxx',
+  //       hintStyle: TextStyle(
+  //         color: PintuPayPalette.darkBlue,
+  //         fontSize: SizeConfig.screenHeight / 60,
+  //       ),
+  //       labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+  //       labelText: 'Nama Agen',
+  //       fillColor: PintuPayPalette.darkBlue,
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       enabledBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       errorBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _textFieldAgent() {
     return TextFormField(
@@ -398,108 +387,108 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _textFieldUid() {
-    return TextFormField(
-      controller: uidNameController,
-      keyboardType: TextInputType.name,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.digitsOnly
-      ],
-      textInputAction: TextInputAction.next,
-      maxLength: 16,
-      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "Wajib diisi*";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.account_circle_rounded,
-              color: PintuPayPalette.darkBlue),
-        ),
-        hintText: 'xxxxxxxxx',
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'No KTP',
-        fillColor: PintuPayPalette.darkBlue,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-      ),
-    );
-  }
+  // Widget _textFieldUid() {
+  //   return TextFormField(
+  //     controller: uidNameController,
+  //     keyboardType: TextInputType.name,
+  //     inputFormatters: [
+  //       LengthLimitingTextInputFormatter(255),
+  //       FilteringTextInputFormatter.digitsOnly
+  //     ],
+  //     textInputAction: TextInputAction.next,
+  //     maxLength: 16,
+  //     style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+  //     validator: (value) {
+  //       if (value == null || value.isEmpty) {
+  //         return "Wajib diisi*";
+  //       }
+  //       return null;
+  //     },
+  //     decoration: InputDecoration(
+  //       prefixIcon: const Padding(
+  //         padding: EdgeInsets.all(17.0),
+  //         child: Icon(Icons.account_circle_rounded,
+  //             color: PintuPayPalette.darkBlue),
+  //       ),
+  //       hintText: 'xxxxxxxxx',
+  //       hintStyle: TextStyle(
+  //         color: PintuPayPalette.darkBlue,
+  //         fontSize: SizeConfig.screenHeight / 60,
+  //       ),
+  //       labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+  //       labelText: 'No KTP',
+  //       fillColor: PintuPayPalette.darkBlue,
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       enabledBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       errorBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _textFieldEmail() {
-    return TextFormField(
-      controller: emailController,
-      keyboardType: TextInputType.emailAddress,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
-            replacementString: ''),
-      ],
-      textInputAction: TextInputAction.next,
-      maxLength: 40,
-      style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "Wajib diisi*";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.email, color: PintuPayPalette.darkBlue),
-        ),
-        hintText: '...@..',
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'Email',
-        fillColor: PintuPayPalette.darkBlue,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-      ),
-    );
-  }
+  // Widget _textFieldEmail() {
+  //   return TextFormField(
+  //     controller: emailController,
+  //     keyboardType: TextInputType.emailAddress,
+  //     inputFormatters: [
+  //       LengthLimitingTextInputFormatter(255),
+  //       FilteringTextInputFormatter.allow(
+  //           RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+  //           replacementString: ''),
+  //     ],
+  //     textInputAction: TextInputAction.next,
+  //     maxLength: 40,
+  //     style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+  //     validator: (value) {
+  //       if (value == null || value.isEmpty) {
+  //         return "Wajib diisi*";
+  //       }
+  //       return null;
+  //     },
+  //     decoration: InputDecoration(
+  //       prefixIcon: const Padding(
+  //         padding: EdgeInsets.all(17.0),
+  //         child: Icon(Icons.email, color: PintuPayPalette.darkBlue),
+  //       ),
+  //       hintText: '...@..',
+  //       hintStyle: TextStyle(
+  //         color: PintuPayPalette.darkBlue,
+  //         fontSize: SizeConfig.screenHeight / 60,
+  //       ),
+  //       labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+  //       labelText: 'Email',
+  //       fillColor: PintuPayPalette.darkBlue,
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       enabledBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       errorBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _textFieldAddress() {
     return TextFormField(
@@ -552,56 +541,56 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _textFieldCity() {
-    return TextFormField(
-      controller: cityController,
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(255),
-        FilteringTextInputFormatter.allow(
-            RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
-            replacementString: ''),
-      ],
-      maxLength: 14,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return "Wajib diisi*";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(17.0),
-          child: Icon(Icons.location_city, color: PintuPayPalette.darkBlue),
-        ),
-        hintStyle: TextStyle(
-          color: PintuPayPalette.darkBlue,
-          fontSize: SizeConfig.screenHeight / 60,
-        ),
-        labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-        labelText: 'Kota',
-        fillColor: PintuPayPalette.darkBlue,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-        ),
-      ),
-    );
-  }
+  // Widget _textFieldCity() {
+  //   return TextFormField(
+  //     controller: cityController,
+  //     keyboardType: TextInputType.text,
+  //     textInputAction: TextInputAction.next,
+  //     inputFormatters: [
+  //       LengthLimitingTextInputFormatter(255),
+  //       FilteringTextInputFormatter.allow(
+  //           RegExp(r'([a-z A-Z 0-9 . @])', caseSensitive: false),
+  //           replacementString: ''),
+  //     ],
+  //     maxLength: 14,
+  //     style: const TextStyle(fontSize: 14, color: Colors.black),
+  //     validator: (value) {
+  //       if (value == null || value.isEmpty) {
+  //         return "Wajib diisi*";
+  //       }
+  //       return null;
+  //     },
+  //     decoration: InputDecoration(
+  //       prefixIcon: const Padding(
+  //         padding: EdgeInsets.all(17.0),
+  //         child: Icon(Icons.location_city, color: PintuPayPalette.darkBlue),
+  //       ),
+  //       hintStyle: TextStyle(
+  //         color: PintuPayPalette.darkBlue,
+  //         fontSize: SizeConfig.screenHeight / 60,
+  //       ),
+  //       labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+  //       labelText: 'Kota',
+  //       fillColor: PintuPayPalette.darkBlue,
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       enabledBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //       errorBorder: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _textFieldPassword() {
     return TextFormField(
@@ -795,68 +784,68 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _textFieldBirtDate() {
-    return InkWell(
-      onTap: () {
-        onTapBirtDateOld();
-      },
-      child: TextFormField(
-        controller: birthDateController,
-        keyboardType: TextInputType.text,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(255),
-          FilteringTextInputFormatter.deny(
-              RegExp(
-                  r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
-                  caseSensitive: false),
-              replacementString: ''),
-        ],
-        enabled: false,
-        enableSuggestions: false,
-        autocorrect: false,
-        textInputAction: TextInputAction.next,
-        maxLength: 20,
-        style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
-        validator: (value) {
-          return null;
-        },
-        decoration: InputDecoration(
-          prefixIcon: const Padding(
-            padding: EdgeInsets.all(17.0),
-            child: Icon(Icons.date_range, color: PintuPayPalette.darkBlue),
-          ),
-          hintText: 'xxxxxxxxx',
-          hintStyle: TextStyle(
-            color: PintuPayPalette.darkBlue,
-            fontSize: SizeConfig.screenHeight / 60,
-          ),
-          labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
-          labelText: 'Tanggal Lahir',
-          fillColor: PintuPayPalette.darkBlue,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _textFieldBirtDate() {
+  //   return InkWell(
+  //     onTap: () {
+  //       onTapBirtDateOld();
+  //     },
+  //     child: TextFormField(
+  //       controller: birthDateController,
+  //       keyboardType: TextInputType.text,
+  //       inputFormatters: [
+  //         LengthLimitingTextInputFormatter(255),
+  //         FilteringTextInputFormatter.deny(
+  //             RegExp(
+  //                 r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
+  //                 caseSensitive: false),
+  //             replacementString: ''),
+  //       ],
+  //       enabled: false,
+  //       enableSuggestions: false,
+  //       autocorrect: false,
+  //       textInputAction: TextInputAction.next,
+  //       maxLength: 20,
+  //       style: const TextStyle(fontSize: 14, color: PintuPayPalette.darkBlue),
+  //       validator: (value) {
+  //         return null;
+  //       },
+  //       decoration: InputDecoration(
+  //         prefixIcon: const Padding(
+  //           padding: EdgeInsets.all(17.0),
+  //           child: Icon(Icons.date_range, color: PintuPayPalette.darkBlue),
+  //         ),
+  //         hintText: 'xxxxxxxxx',
+  //         hintStyle: TextStyle(
+  //           color: PintuPayPalette.darkBlue,
+  //           fontSize: SizeConfig.screenHeight / 60,
+  //         ),
+  //         labelStyle: const TextStyle(color: PintuPayPalette.darkBlue),
+  //         labelText: 'Tanggal Lahir',
+  //         fillColor: PintuPayPalette.darkBlue,
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //         ),
+  //         disabledBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //         ),
+  //         enabledBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //         ),
+  //         errorBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _radioGender() {
     return Row(
