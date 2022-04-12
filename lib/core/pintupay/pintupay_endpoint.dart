@@ -38,7 +38,7 @@ class PintuPayEndpoint {
 
   static const String emoneyProviderDetail = "v2/emoney/products";
 
-  static const String emoneyPayment = "v7/transactions";
+  static const String emoneyPayment = "v7/emoney/transactions";
 
   static const String bpjsInuiqry = "v7/ppob/inquiry/bpjs";
 
@@ -103,4 +103,11 @@ class PintuPayEndpoint {
   static const String recentNumber = "v7/pulsa/recent_numbers";
 
   static const String recentNumberPPOB = "v7/ppob/recent_numbers";
+
+  static const String tvProduct = "v2/ppob/tv/tv_products";
+
+  static const String tvInquiry = "v7/ppob/inquiry/tvs";
+
+  static const String tvPayment = "v7/ppob/payment/tvs";
+
 }
