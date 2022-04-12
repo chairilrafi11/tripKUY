@@ -17,6 +17,8 @@ import 'package:pintupay/ui/menu/pulsa/view/pulsa_view.dart';
 import 'package:pintupay/ui/menu/telephone_postpaid/view/telephone_postpaid_view.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nav_router/nav_router.dart';
+import 'package:pintupay/ui/menu/tv/cubit/tv_cubit.dart';
+import 'package:pintupay/ui/menu/tv/view/tv_view.dart';
 
 import '../../menu/phone_postpaid/cubit/phone_postpaid_cubit.dart';
 import '../model/menu_response.dart';
@@ -33,12 +35,11 @@ class HomeCubit extends Cubit<HomeState> {
     switch (key.toLowerCase()) {
       case "bpjs":
         routePush(
-          BlocProvider(
-            create: (context) => BpjsCubit()..onRecentNumber(),
-            child: const BPJSView(),
-          ),
-          RouterType.material
-        );
+            BlocProvider(
+              create: (context) => BpjsCubit()..onRecentNumber(),
+              child: const BPJSView(),
+            ),
+            RouterType.material);
         break;
       case "e-money":
         routePush(
@@ -86,8 +87,8 @@ class HomeCubit extends Cubit<HomeState> {
         routePush(TelephonePostpaid(), RouterType.material);
         break;
       case "paket \n data":
-        // routePush(const DataPlanView(), RouterType.material);
-        // break;
+      // routePush(const DataPlanView(), RouterType.material);
+      // break;
       case "game":
         routePush(
             BlocProvider(
@@ -96,6 +97,14 @@ class HomeCubit extends Cubit<HomeState> {
             ),
             RouterType.material);
         break;
+      case "tv & internet":
+        routePush(
+          BlocProvider(
+            create: (context) => TvCubit(),
+            child: TvView(),
+          ),
+          RouterType.material
+        );
       // default:
     }
   }

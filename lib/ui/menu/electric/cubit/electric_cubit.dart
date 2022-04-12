@@ -16,6 +16,8 @@ import '../../../bill/model/bill_body_model.dart';
 import '../../../bill/model/bill_status_model.dart';
 import '../../../bill/view/bill_view.dart';
 import '../../../payment/view/payment_view.dart';
+import '../../bpjs/provider/bpjs_provider.dart';
+import '../../pulsa/model/recent_number_response.dart';
 
 part 'electric_state.dart';
 
@@ -32,7 +34,10 @@ class ElectricCubit extends Cubit<ElectricState> {
   Future onGetToken() async {
     var electricTokenResponse = await ElectricProvider.token();
     if(electricTokenResponse.pulsaListrik!.isNotEmpty){
-      emit(ElectricLoaded(electricTokenResponse: electricTokenResponse));
+      emit(ElectricLoaded(
+        electricTokenResponse: electricTokenResponse,
+        listRecent: await BPJSProvider.recentNumber("pln_prepaid")
+      ));
     } else {
       emit(ElectricEmpty());
     }
