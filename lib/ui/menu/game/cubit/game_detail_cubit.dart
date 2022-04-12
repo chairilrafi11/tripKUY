@@ -68,6 +68,8 @@ class GameDetailCubit extends Cubit<GameDetailState> {
     listInformation.clear();
     String identifierNumber = "";
 
+    listInformation.add({"Jenis Transaksi", "Game Topup"});
+
     for (var element in gameDetailLoaded.gameProductResponse.form!) {
       listInformation.add({element.label ?? "" , (element.textEditingController.text)});
       identifierNumber += element.textEditingController.text;

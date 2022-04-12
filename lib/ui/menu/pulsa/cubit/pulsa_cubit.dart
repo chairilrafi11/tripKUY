@@ -72,6 +72,7 @@ class PulsaCubit extends Cubit<PulsaState> {
   confirm(Pulsa pulsa, String phoneNumber){
 
     listInformation = [
+      {"Jenis Transaksi", "Pulsa"},
       {"Provider", pulsa.providerName ?? ""},
       {"Produk", pulsa.name ?? ""},
       {"No Pengguna", phoneNumber},
@@ -104,6 +105,7 @@ class PulsaCubit extends Cubit<PulsaState> {
   confirmData(Data data, String phoneNumber){
 
     listInformation = [
+      {"Jenis Transaksi", "Paket Data"},
       {"Provider", data.providerName ?? ""},
       {"Produk", data.name ?? ""},
       {"No Pengguna", phoneNumber},

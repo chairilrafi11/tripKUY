@@ -49,6 +49,7 @@ class TelephoneCubit extends Cubit<TelephoneState> {
       telephonePaymentModel = telephonePayment;
 
       listInformation = [
+        {"Jenis Transaksi", "Telepon"},
         {"Nama Pengguna", result.namaPelanggan.toString()},
         {"No Pelanggan", result.idPelanggan.toString()},
         {"No Reff", result.refnum.toString()},

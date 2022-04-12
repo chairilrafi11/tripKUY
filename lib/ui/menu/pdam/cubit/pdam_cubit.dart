@@ -73,6 +73,7 @@ class PdamCubit extends Cubit<PdamState> {
       pdamPaymentModel = paymentModel;
 
       listInformation = [
+        {"Jenis Transaksi", "Pdam"},
         {"Nama Pengguna", result.nama.toString()},
         {"No Pelanggan", result.noPel.toString()},
         {"No Reff", result.referalNumber.toString()},

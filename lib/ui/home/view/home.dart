@@ -35,7 +35,8 @@ class _HomeState extends State<Home> {
     {"Hp Pascabayar", "assets/icons/icmn_hppascabayar.png"},
     {"Telepon", "assets/icons/icmn_telepon.png"},
     {"E-Money", "assets/icons/icmn_emoney.png"},
-    {"Game", "assets/icons/icmn_game.png"}
+    {"Game", "assets/icons/icmn_game.png"},
+    // {"Tv & Internet", "assets/icons/icmn_game.png"}
   ];
 
   @override
@@ -187,7 +188,7 @@ class _HomeState extends State<Home> {
         Component.textBold("Rekomendasi", colors: PintuPayPalette.darkBlue),
         const SizedBox(height: 20,),
         SizedBox(
-          height: 105,
+          height: 120,
           child: ListView.builder(
             itemCount: listRecommended.length,
             shrinkWrap: true,
@@ -217,6 +218,7 @@ class _HomeState extends State<Home> {
                     alignment: Alignment.bottomLeft,
                     width: SizeConfig.blockSizeHorizontal * 50,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
