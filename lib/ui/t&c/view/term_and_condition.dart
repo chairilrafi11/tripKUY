@@ -63,12 +63,13 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
                   maxLines: 6
               ),
               const SizedBox(height: 20),
-              Component.textBold("Biaya-biaya", colors: Colors.black87, fontSize: 17),
-              const SizedBox(height: 10),
-              Component.textDefault(
-                  "- Topup Virtual Account (BNI, BCA, Mandiri, BSI, Muamalat, Bank Lain) Rp1000,- \n - Transfer Bank Rp2000,-",
-                  maxLines: 5
-              ),
+              // Component.textBold("Biaya-biaya", colors: Colors.black87, fontSize: 17),
+              // const SizedBox(height: 10),
+              // Component.textDefault(
+              //     "- Topup Virtual Account (BNI, BCA, Mandiri, BSI, Muamalat, Bank Lain) Rp1000,- \n - Transfer Bank Rp2000,-",
+              //     maxLines: 5
+              // ),
+              const SizedBox(height: 20),
               _buttonOK(),
               const SizedBox(height: 100),
             ],
