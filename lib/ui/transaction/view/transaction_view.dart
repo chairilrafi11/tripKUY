@@ -10,106 +10,119 @@ import 'package:pintupay/ui/transaction/cubit/transaction_cubit.dart';
 import 'package:pintupay/ui/transaction/model/response_transaction.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class TransactionView extends StatelessWidget {
+import '../../bill/model/bill_body_model.dart';
+import '../../bill/model/bill_status_model.dart';
+import '../../bill/view/bill_view.dart';
 
-  TransactionView({ Key? key }) : super(key: key);
+class TransactionView extends StatelessWidget {
+  TransactionView({Key? key}) : super(key: key);
 
   final TextEditingController searchController = TextEditingController();
 
   bottomSheetTransaction(ResponseTransaction responseTransaction) {
     showModalBottomSheet(
-      enableDrag: true,
-      isDismissible: true,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25))
-      ),
-      context: navGK.currentContext!,
-      builder: (BuildContext buildContext) {
-        var createdAt = DateTime.fromMillisecondsSinceEpoch(responseTransaction.createdAt! * 1000).toLocal();
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Component.textBold("No Order ${responseTransaction.serialNumber ?? "-"}"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        '${ViewUsecase.twoDigitNumber(createdAt.day.toString())}-'
-                        '${ViewUsecase.twoDigitNumber(createdAt.month.toString())}-'
-                        '${createdAt.year} ${ViewUsecase.twoDigitNumber(createdAt.hour.toString())}:'
-                        '${ViewUsecase.twoDigitNumber(createdAt.minute.toString())}'
-                      ),
-                      if(responseTransaction.indentifierNumber != null) SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 60,
-                        child: Component.textBold(
-                          'No Pelanggan : ${responseTransaction.indentifierNumber.toString()}',
-                          colors: Colors.black54)
-                        ),
-                      Component.textBold(
-                          'Total Tagihan : ${responseTransaction.salePrice.toString()}',
-                          colors: Colors.black54),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 60,
-                        child: Component.textDefault(
-                          responseTransaction.messages ?? "",
-                            maxLines: 15
-                          )
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      // Component.textDefault(
-                      //   '*${responseTransaction.statusDesc.toString()}',
-                      //   colors: PintuPayPalette.red
-                      // ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal * 30,
-                    child: Column(
+        enableDrag: true,
+        isDismissible: true,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+        context: navGK.currentContext!,
+        builder: (BuildContext buildContext) {
+          var createdAt = DateTime.fromMillisecondsSinceEpoch(
+                  responseTransaction.createdAt! * 1000)
+              .toLocal();
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          ViewUsecase.iconTransaction(responseTransaction.transactionName!),
-                          height: 50,
-                        ),
-                        const SizedBox(height: 10),
                         Component.textBold(
-                          responseTransaction.transactionName!,
-                          colors: PintuPayPalette.darkBlue,
-                          textAlign: TextAlign.center
-                        )
+                            "No Order ${responseTransaction.serialNumber ?? "-"}"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                            '${ViewUsecase.twoDigitNumber(createdAt.day.toString())}-'
+                            '${ViewUsecase.twoDigitNumber(createdAt.month.toString())}-'
+                            '${createdAt.year} ${ViewUsecase.twoDigitNumber(createdAt.hour.toString())}:'
+                            '${ViewUsecase.twoDigitNumber(createdAt.minute.toString())}'),
+                        if (responseTransaction.indentifierNumber != null)
+                          SizedBox(
+                              width: SizeConfig.blockSizeHorizontal * 60,
+                              child: Component.textBold(
+                                  'No Pelanggan : ${responseTransaction.indentifierNumber.toString()}',
+                                  colors: Colors.black54)),
+                        Component.textBold(
+                            'Total Tagihan : ${responseTransaction.salePrice.toString()}',
+                            colors: Colors.black54),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                            width: SizeConfig.blockSizeHorizontal * 60,
+                            child: Component.textDefault(
+                                responseTransaction.messages ?? "",
+                                maxLines: 15)),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // Component.textDefault(
+                        //   '*${responseTransaction.statusDesc.toString()}',
+                        //   colors: PintuPayPalette.red
+                        // ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Component.button(label: "Tutup", onPressed: (){
-                Navigator.of(navGK.currentContext!).pop();
-              })
-            ],
-          ),
-        );
-      }
-    );
+                    SizedBox(
+                      width: SizeConfig.blockSizeHorizontal * 30,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ViewUsecase.iconTransaction(
+                                responseTransaction.transactionName!),
+                            height: 50,
+                          ),
+                          const SizedBox(height: 10),
+                          Component.textBold(
+                              responseTransaction.transactionName!,
+                              colors: PintuPayPalette.darkBlue,
+                              textAlign: TextAlign.center)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Component.button(
+                    label: "Tutup",
+                    onPressed: () {
+                      Navigator.of(navGK.currentContext!).pop();
+                    }),
+                Component.button(
+                    label: "Print Bukti",
+                    onPressed: () {
+                      showBill(responseTransaction);
+                    }),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -125,12 +138,18 @@ class TransactionView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20,),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
-                child: Component.textBold("Transaksi", fontSize: PintuPayConstant.fontSizeLargeExtra, textAlign: TextAlign.start)
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(height: 10,),
+              Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: PintuPayConstant.paddingHorizontalScreen),
+                  child: Component.textBold("Transaksi",
+                      fontSize: PintuPayConstant.fontSizeLargeExtra,
+                      textAlign: TextAlign.start)),
+              const SizedBox(
+                height: 10,
+              ),
               // Container(
               //   padding: PintuPayConstant.paddingScreen,
               //   child: TextFormField(
@@ -145,46 +164,50 @@ class TransactionView extends StatelessWidget {
               //   )
               // ),
               const TabBar(
-                labelColor: PintuPayPalette.darkBlue,
-                indicatorColor: PintuPayPalette.darkBlue,
-                unselectedLabelColor: PintuPayPalette.grey,
-                tabs: [
-                  Tab(text: "Sukses"),
-                  Tab(text: "Proses"),
-                  Tab(text: "Gagal"),
-                ]
-              ),
-              Expanded(     
+                  labelColor: PintuPayPalette.darkBlue,
+                  indicatorColor: PintuPayPalette.darkBlue,
+                  unselectedLabelColor: PintuPayPalette.grey,
+                  tabs: [
+                    Tab(text: "Sukses"),
+                    Tab(text: "Proses"),
+                    Tab(text: "Gagal"),
+                  ]),
+              Expanded(
                 child: BlocBuilder<TransactionCubit, TransactionState>(
                   builder: (context, state) {
-                    if(state is TransactionLoading){
-                      return const TabBarView(
-                        children: [
-                          ShimmerList(),
-                          ShimmerList(),
-                          ShimmerList(),
-                        ]
-                      );
-                    } else if ( state is TransactionLoaded){
+                    if (state is TransactionLoading) {
+                      return const TabBarView(children: [
+                        ShimmerList(),
+                        ShimmerList(),
+                        ShimmerList(),
+                      ]);
+                    } else if (state is TransactionLoaded) {
                       return TabBarView(
                         children: [
-                          state.listTransactionSuccess.isNotEmpty ? listTransaction(state.successController, state.listTransactionSuccess, context) : emptyTransaction(),
-                          state.listTransactionPending.isNotEmpty ? listTransaction(state.pendingController, state.listTransactionPending, context) : emptyTransaction(),
-                          state.listTransactionFailed.isNotEmpty ? listTransaction(state.failedController, state.listTransactionFailed, context) : emptyTransaction(),
+                          state.listTransactionSuccess.isNotEmpty
+                              ? listTransaction(state.successController,
+                                  state.listTransactionSuccess, context)
+                              : emptyTransaction(),
+                          state.listTransactionPending.isNotEmpty
+                              ? listTransaction(state.pendingController,
+                                  state.listTransactionPending, context)
+                              : emptyTransaction(),
+                          state.listTransactionFailed.isNotEmpty
+                              ? listTransaction(state.failedController,
+                                  state.listTransactionFailed, context)
+                              : emptyTransaction(),
                         ],
                       );
                     } else {
-                      return TabBarView(
-                        children: [
-                          Container(),
-                          Container(),
-                          Container(),
-                        ]
-                      );
+                      return TabBarView(children: [
+                        Container(),
+                        Container(),
+                        Container(),
+                      ]);
                     }
                   },
-                ) 
-              ,)
+                ),
+              )
             ],
           ),
         ),
@@ -192,65 +215,83 @@ class TransactionView extends StatelessWidget {
     );
   }
 
-  Widget listTransaction(RefreshController refreshController, List<ResponseTransaction> listTransaction, context){
+  Widget listTransaction(RefreshController refreshController,
+      List<ResponseTransaction> listTransaction, context) {
     return SmartRefresher(
       controller: refreshController,
       enablePullUp: true,
       enablePullDown: true,
-      onLoading: () => BlocProvider.of<TransactionCubit>(context).onGetTransactionList(isLoadMore: true),
-      onRefresh: () => BlocProvider.of<TransactionCubit>(context).onGetTransactionList(isLoadMore: true),
+      onLoading: () => BlocProvider.of<TransactionCubit>(context)
+          .onGetTransactionList(isLoadMore: true),
+      onRefresh: () => BlocProvider.of<TransactionCubit>(context)
+          .onGetTransactionList(isLoadMore: true),
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal : PintuPayConstant.paddingHorizontalScreen),
+        padding: const EdgeInsets.symmetric(
+            horizontal: PintuPayConstant.paddingHorizontalScreen),
         itemCount: listTransaction.length,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () => bottomSheetTransaction(listTransaction[index]),
             child: Card(
-              margin: EdgeInsets.only(top: 5, bottom: index == (listTransaction.length - 1) ? 100 : 5),
+              margin: EdgeInsets.only(
+                  top: 5,
+                  bottom: index == (listTransaction.length - 1) ? 100 : 5),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)
-              ),
+                  borderRadius: BorderRadius.circular(10)),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [                
+                  children: [
                     Row(
                       children: [
-                        Image.asset( 
-                          ViewUsecase.iconTransaction(listTransaction[index].transactionName ?? ""),
+                        Image.asset(
+                          ViewUsecase.iconTransaction(
+                              listTransaction[index].transactionName ?? ""),
                           height: 30,
                         ),
-                        const SizedBox(width: 10,),
-                        Component.textBold(listTransaction[index].transactionName ?? ""),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Component.textBold(
+                            listTransaction[index].transactionName ?? ""),
                         const Spacer(),
-                        Component.textDefault(listTransaction[index].serialNumber.toString(), fontSize: 11)
+                        Component.textDefault(
+                            listTransaction[index].serialNumber.toString(),
+                            fontSize: 11)
                       ],
                     ),
                     Component.divider(),
-                    if(listTransaction[index].indentifierNumber != null) const SizedBox(height: 10,),
-                    if(listTransaction[index].indentifierNumber != null) Component.textBold(listTransaction[index].indentifierNumber ?? ""),
-                    const SizedBox(height: 10,),
-                    Component.textDefault(
-                      listTransaction[index].messages ?? "",
-                      maxLines: 5,
-                      fontSize: PintuPayConstant.fontSizeSmall
+                    if (listTransaction[index].indentifierNumber != null)
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    if (listTransaction[index].indentifierNumber != null)
+                      Component.textBold(
+                          listTransaction[index].indentifierNumber ?? ""),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    const SizedBox(height: 10,),
+                    Component.textDefault(listTransaction[index].messages ?? "",
+                        maxLines: 5, fontSize: PintuPayConstant.fontSizeSmall),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
-                        Component.textBold(
-                          "Total",
-                          fontSize: 13,
-                          colors: PintuPayPalette.darkBlue
+                        Component.textBold("Total",
+                            fontSize: 13, colors: PintuPayPalette.darkBlue),
+                        const SizedBox(
+                          width: 10,
                         ),
-                        const SizedBox(width: 10,),
                         Component.textBold(
-                          CoreFunction.moneyFormatter(listTransaction[index].salePrice,),
-                          fontSize: 13,
-                          colors: PintuPayPalette.orange
-                        ),
+                            CoreFunction.moneyFormatter(
+                              listTransaction[index].salePrice,
+                            ),
+                            fontSize: 13,
+                            colors: PintuPayPalette.orange),
                       ],
                     )
                   ],
@@ -263,10 +304,32 @@ class TransactionView extends StatelessWidget {
     );
   }
 
-  Widget emptyTransaction(){
+  showBill(listInfo) {
+    List<Set<String>> listInfoDetail = [];
+    listInfoDetail = [
+      {"Jenis transaksi", "PLN Tagihan"},
+      {"ID Pelanggan", listInfo.indentifierNumber},
+      {"Detail Info", listInfo.messages},
+    ];
+    BillStatusModel billStatusModel = BillStatusModel(
+        billBody: listInfoDetail.map((e) {
+          return BillBodyModel(e.first, e.last);
+        }).toList(),
+        status: "");
+    routePush(
+        BillView(
+          billStatusModel: billStatusModel,
+          billStatus: BillStatus.success,
+        ),
+        RouterType.material);
+  }
+
+  Widget emptyTransaction() {
     return Column(
       children: [
-        SizedBox(height: SizeConfig.blockSizeHorizontal * 20,),
+        SizedBox(
+          height: SizeConfig.blockSizeHorizontal * 20,
+        ),
         Image.asset(
           "assets/images/empty_transaction.png",
           height: SizeConfig.blockSizeHorizontal * 50,
