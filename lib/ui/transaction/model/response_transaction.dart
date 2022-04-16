@@ -15,25 +15,26 @@ class ResponseTransaction {
   int? updatedAt;
   int? bankId;
   String? description;
+  String? messagesToShow;
 
-  ResponseTransaction({
-    this.id,
-    this.messages,
-    this.salePrice,
-    this.indentifierNumber,
-    this.providerId,
-    this.productId,
-    this.userSaldo,
-    this.transactionName,
-    this.serialNumber,
-    this.statusName,
-    this.statusCode,
-    this.statusDesc,
-    this.createdAt,
-    this.updatedAt,
-    this.bankId,
-    this.description
-  });
+  ResponseTransaction(
+      {this.id,
+      this.messages,
+      this.salePrice,
+      this.indentifierNumber,
+      this.providerId,
+      this.productId,
+      this.userSaldo,
+      this.transactionName,
+      this.serialNumber,
+      this.statusName,
+      this.statusCode,
+      this.statusDesc,
+      this.createdAt,
+      this.updatedAt,
+      this.bankId,
+      this.description,
+      this.messagesToShow});
 
   ResponseTransaction.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,6 +53,7 @@ class ResponseTransaction {
     updatedAt = json['updated_at'];
     bankId = json['bank_id'];
     description = json['description'];
+    messagesToShow = json['messages_to_show'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +74,7 @@ class ResponseTransaction {
     data['updated_at'] = updatedAt;
     data['bank_id'] = bankId;
     data['description'] = description;
+    data['messages_to_show'] = messagesToShow;
     return data;
   }
 }

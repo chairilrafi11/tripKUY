@@ -309,7 +309,7 @@ class TransactionView extends StatelessWidget {
     listInfoDetail = [
       {"Jenis transaksi", "PLN Tagihan"},
       {"ID Pelanggan", listInfo.indentifierNumber},
-      {"Detail Info", listInfo.messages},
+      {"Detail Info", listInfo.messagesToShow},
     ];
     BillStatusModel billStatusModel = BillStatusModel(
         billBody: listInfoDetail.map((e) {
