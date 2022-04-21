@@ -67,7 +67,7 @@ class TvView extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 if(formKey.currentState!.validate()){
-                                  // BlocProvider.of<PdamCubit>(context).onInquiry(idController.text);
+                                  BlocProvider.of<TvCubit>(context).onInquiry(idController.text);
                                 }
                               },
                               child: Container(
@@ -79,7 +79,7 @@ class TvView extends StatelessWidget {
                                   borderRadius: BorderRadius.all(Radius.circular(10.0))
                                 ),
                                 child: Component.textBold(
-                                  'Tagihan',
+                                  'Cek Tagihan',
                                   colors: PintuPayPalette.white,
                                   fontSize: 15,
                                 ),
