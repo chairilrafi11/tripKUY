@@ -43,12 +43,12 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    if(authUsecase.userBox.phoneNumber != "08985722049"){
-      listMenu.add({"Game", "assets/icons/icmn_game.png"},);
-    }
     FBroadcast.instance()!.register(CoreVariable.notificationBroadcast, (value, callback) {
       BlocProvider.of<BalanceCubit>(context).onGetBalance();
     });
+    if(authUsecase.userBox.phoneNumber != "08985722049"){
+      listMenu.add({"Game", "assets/icons/icmn_game.png"},);
+    }
   }
 
   @override

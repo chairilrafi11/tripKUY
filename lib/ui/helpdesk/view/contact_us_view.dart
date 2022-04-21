@@ -62,7 +62,7 @@ class HelpdeskUsView extends StatelessWidget {
             if(listData[index].title == "contact-us"){
               return whatsAppButton(listData[index].body ?? "");
             } else if (listData[index].title == "email-us") {
-              return emailButton(listData[index].title ?? "");
+              return emailButton(listData[index].body ?? "");
             } else {
               return Container();
             }
@@ -113,7 +113,7 @@ class HelpdeskUsView extends StatelessWidget {
       ),
       onPressed: () {
         CoreFunction.navToAnotherApps(
-          phoneNumber: whatsappNumber,
+          phoneNumber: whatsappNumber.replaceRange(0, 0, '+62'),
           whatsApp: true,
           message: 'Assalamualaikum admin, saya mau bertanya'
         );

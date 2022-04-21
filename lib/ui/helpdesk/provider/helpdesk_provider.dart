@@ -10,7 +10,7 @@ class HelpdeskProvider {
     await DioService.checkConnection(tryAgainMethod: fetchData).then((value) async {
       DioClient dioClient = DioClient(value);
       var response = await dioClient.helpDesk();
-      for (var i = 0; i < response.data; i++) {
+      for (var i = 0; i < response.data.length; i++) {
         list.add(HelpDeskResponse.fromJson(response.data[i]));
       }
     });

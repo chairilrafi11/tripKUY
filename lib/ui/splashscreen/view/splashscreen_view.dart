@@ -3,6 +3,9 @@ import 'package:pintupay/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pintupay/ui/splashscreen/cubit/splashscreen_cubit.dart';
 
+import '../../../core/util/util.dart';
+import '../../component/component.dart';
+
 class SplashscreenView extends StatefulWidget {
 
   const SplashscreenView({Key? key}) : super(key: key);
@@ -44,6 +47,19 @@ class _SplashscreenViewState extends State<SplashscreenView> {
               fit: BoxFit.fill,
             ),
           ),
+          Positioned(
+            bottom: 20.0,
+            child: Container(
+              width: SizeConfig.blockSizeHorizontal * 100,
+              alignment: Alignment.center,
+              child: Component.textDefault(
+                CoreFunction.version() + " (5)",
+                fontSize: 13,
+                textAlign: TextAlign.center,
+                colors: PintuPayPalette.white
+              ),
+            ),
+          )
         ],
       )
     );
