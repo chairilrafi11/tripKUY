@@ -47,7 +47,7 @@ class _AboutAppState extends State<AboutApp> {
         SizedBox(height: SizeConfig.blockSizeVertical * 10),
         Image.asset('assets/icons/logo.png', height: SizeConfig.blockSizeVertical * 20,),
         Component.textBold(
-          CoreFunction.version(),
+          CoreFunction.version() + " (5)",
           textAlign: TextAlign.center,
           fontSize: PintuPayConstant.fontSizeLargeExtra
         ),

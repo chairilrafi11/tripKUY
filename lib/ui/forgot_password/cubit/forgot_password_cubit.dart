@@ -20,16 +20,11 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
         phoneNumber.substring(0, 2) == '62' ||
         phoneNumber.substring(0, 2) == '+62' ||
         phoneNumber.substring(0, 1) == '8') {
-      ForgotPasswordModel forgotPasswordModel = ForgotPasswordModel(
-        phoneNumber : phoneNumber);
-      var bodyRequest = PintuPayCrypt().encrypt(jsonEncode(forgotPasswordModel),
-          await PintuPayCrypt().getPassKeyPref());
-      var result = await ForgotPasswordProvider.onRequestOTP(
-          BodyRequestV7(bodyRequest, bodyRequest).toJson());
+      ForgotPasswordModel forgotPasswordModel = ForgotPasswordModel(phoneNumber : phoneNumber);
+      var bodyRequest = PintuPayCrypt().encrypt(jsonEncode(forgotPasswordModel), await PintuPayCrypt().getPassKeyPref());
+      var result = await ForgotPasswordProvider.onRequestOTP(PostBody(bodyRequest).toJson());
       if (result.phoneNumber != null) {
-        await ForgotPasswordProvider.onRequestOTP(
-                BodyRequestV7(bodyRequest, bodyRequest).toJson())
-            .then((response) {
+        // await ForgotPasswordProvider.onRequestOTP(PostBody(bodyRequest).toJson()).then((response) {
           routePush(BlocProvider(
             create: (context) => this,
             child: ForgotPasswordForm(
@@ -37,7 +32,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
               isFromUpdatePassword: false,
             ),
           ));
-        });
+        // });
       } else {}
     }
   }

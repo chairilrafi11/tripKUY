@@ -103,7 +103,6 @@ class NotificationView extends StatelessWidget {
     );
   }
 
-
   Widget empty(){
     return Center(
       child: Column(

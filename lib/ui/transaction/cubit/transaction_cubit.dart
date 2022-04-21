@@ -25,6 +25,8 @@ class TransactionCubit extends Cubit<TransactionState> {
 
     if(isLoadMore){
       page += 1;
+    } else {
+      emit(TransactionLoading());
     }
 
     var list = await Transactionprovider.list(page: page);

@@ -21,6 +21,7 @@ class PulsaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: DefaultTabController(
         length: 2,
         child: Stack(

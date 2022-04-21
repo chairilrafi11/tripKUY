@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pintupay/core/pintupay/pintupay_crypt.dart';
-import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/ui/menu/tv/model/tv_inquiry_request.dart';
 import 'package:pintupay/ui/menu/tv/model/tv_payment_request.dart';
 import 'package:pintupay/ui/menu/tv/model/tv_product_response.dart';
 import 'package:pintupay/ui/menu/tv/provider/tv_provider.dart';
 
 import '../../../../core/network/model/post_body.dart';
+import '../../../../core/usecase/auth_usecase.dart';
 import '../../../../core/util/util.dart';
 
 part 'tv_state.dart';
@@ -40,7 +40,6 @@ class TvCubit extends Cubit<TvState> {
 
   Future onInquiry(String customerId) async {
     TvLoaded pdamLoaded = state as TvLoaded;
-    var authUsecase;
     TvInquiryRequest tvInquiryRequest = TvInquiryRequest(
       act: "inquiry",
       authToken: authUsecase.userBox.authToken,

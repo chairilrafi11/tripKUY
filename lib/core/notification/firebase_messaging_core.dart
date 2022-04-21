@@ -61,7 +61,7 @@ class FirebaseMessagingCore {
   static processNotification(RemoteMessage remoteMessage, bool fromOpened) async {
 
     NotificationBox notificationBox = NotificationBox.fromJson(remoteMessage.data);
-    CoreFunction.logPrint('Response Notication', notificationBox.toJson());
+    CoreFunction.logPrint('Response Notification', notificationBox.toJson());
 
     _broadcastNotificationData(remoteMessage);
 
@@ -96,6 +96,7 @@ class FirebaseMessagingCore {
       CoreVariable.notificationBroadcast,
       value: remoteMessage.data,
     );
+    CoreFunction.logPrint("Broadcast", "Notification");
   }
 
   static void _broadcastNotificationUpdateOrder(RemoteMessage remoteMessage) {

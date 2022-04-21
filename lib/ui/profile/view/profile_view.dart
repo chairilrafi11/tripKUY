@@ -61,13 +61,14 @@ class ProfilePage extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     ProfileProvider.profile();
+                    CoreFunction.logPrint("FCM", authUsecase.userBox.fcmToken.toString());
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     child: Image.asset(
                       "assets/images/card.png",
                       fit: BoxFit.fill,
-                      height: SizeConfig.blockSizeHorizontal * 50,
+                      height: SizeConfig.blockSizeHorizontal * 55,
                       width: SizeConfig.blockSizeHorizontal * 100,
                     ),
                   ),
@@ -167,10 +168,13 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Component.textDefault(
-                            authUsecase.userBox.email ?? "",
-                            fontSize: PintuPayConstant.fontSizeLargeExtra,
-                            colors: PintuPayPalette.white
+                          SizedBox(
+                            width: SizeConfig.blockSizeHorizontal * 50,
+                            child: Component.textDefault(
+                              authUsecase.userBox.email ?? "",
+                              fontSize: PintuPayConstant.fontSizeLargeExtra,
+                              colors: PintuPayPalette.white
+                            ),
                           ),
                           const Spacer(),
                           Component.textDefault(
@@ -264,7 +268,20 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {
                 CoreFunction.logout();
               }
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Component.textDefault(
+                CoreFunction.version() + " (5)",
+                fontSize: 13,
+                colors: PintuPayPalette.greyText
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),

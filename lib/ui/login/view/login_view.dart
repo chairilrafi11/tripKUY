@@ -1,6 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/component/component.dart';
+import 'package:pintupay/ui/forgot_password/cubit/forgot_password_cubit.dart';
+import 'package:pintupay/ui/forgot_password/view/forgot_password_view.dart';
 import 'package:pintupay/ui/login/cubit/login_cubit.dart';
 import 'package:pintupay/ui/login/model/login_model.dart';
 import 'package:flutter/material.dart';
@@ -89,11 +92,10 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           'PintuPay',
                           style: TextStyle(
-                            fontFamily: PintuPayConstant.avenirRegular,
-                            color: PintuPayPalette.darkBlue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.screenHeight / 16
-                          ),
+                              fontFamily: PintuPayConstant.avenirRegular,
+                              color: PintuPayPalette.darkBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: SizeConfig.screenHeight / 16),
                         ),
                         SizedBox(
                           height: SizeConfig.blockSizeVertical * 15,
@@ -107,15 +109,16 @@ class _LoginViewState extends State<LoginView> {
                           margin: const EdgeInsets.only(top: 20, bottom: 10),
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            // onTap: _routeToForgotPassword,
-                            // onTap: () => routePush(
-                            //     const ForgotPassword(), RouterType.cupertino),
-                            child: GestureDetector(
-                              child: Component.textBold(
-                                'Lupa Kata Sandi?',
-                                colors: PintuPayPalette.darkBlue
-                              )
+                            onTap: () => routePush(
+                              BlocProvider(
+                                create: (context) => ForgotPasswordCubit(),
+                                child: const ForgotPasswordView(),
+                              ),
+                              RouterType.cupertino
                             ),
+                            child: GestureDetector(
+                                child: Component.textBold('Lupa Kata Sandi?',
+                                    colors: PintuPayPalette.darkBlue)),
                           ),
                         ),
                         Container(
@@ -126,33 +129,29 @@ class _LoginViewState extends State<LoginView> {
                             style: ElevatedButton.styleFrom(
                               primary: PintuPayPalette.darkBlue,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                              ),
+                                  borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () {
                               loginCubit.onLogin(LoginModel(
-                                session: Session(
-                                  email: _phoneNumberController.text,
-                                  imei: "",
-                                  deviceId: "",
-                                  deviceRegisterId: "",
-                                  latitude: "",
-                                  longitude: "",
-                                  password: _passwordController.text,
-                                  phoneNumber: _phoneNumberController.text,
-                                  radius: "",
-                                  simImei: ""
-                                ),
-                                // version: "2.1.5"
-                                version: CoreFunction.version()
-                              ));
+                                  session: Session(
+                                      email: _phoneNumberController.text,
+                                      imei: "",
+                                      deviceId: "",
+                                      deviceRegisterId: "",
+                                      latitude: "",
+                                      longitude: "",
+                                      password: _passwordController.text,
+                                      phoneNumber: _phoneNumberController.text,
+                                      radius: "",
+                                      simImei: ""),
+                                  // version: "2.1.5"
+                                  version: CoreFunction.version()));
                             },
                             child: Text(
                               'Masuk',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: SizeConfig.screenHeight / 60
-                              ),
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.screenHeight / 60),
                             ),
                           ),
                         ),
@@ -168,12 +167,11 @@ class _LoginViewState extends State<LoginView> {
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () => routePush(CheckPhoneNumberView(), RouterType.material),
+                                onTap: () => routePush(CheckPhoneNumberView(),
+                                    RouterType.material),
                                 child: GestureDetector(
-                                  child: Component.textBold(
-                                    'Daftar',
-                                    colors: PintuPayPalette.darkBlue
-                                  ),
+                                  child: Component.textBold('Daftar',
+                                      colors: PintuPayPalette.darkBlue),
                                 ),
                               )
                             ],

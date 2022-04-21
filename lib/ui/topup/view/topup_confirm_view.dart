@@ -59,11 +59,15 @@ class _TopupConfirmViewState extends State<TopupConfirmView> {
         onWillPop: onBackPressed,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: PintuPayConstant.paddingHorizontalScreen),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: ListView(
+            // mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 20,),
-              Component.textBold("Informasi Rekening", fontSize: PintuPayConstant.fontSizeLargeExtra),
+              Component.textBold(
+                "Informasi Rekening", 
+                fontSize: PintuPayConstant.fontSizeLargeExtra,
+                textAlign: TextAlign.center
+              ),
               const SizedBox(height: 20,),
               Card(
                 elevation: 3.0,
@@ -107,7 +111,7 @@ class _TopupConfirmViewState extends State<TopupConfirmView> {
                           InkWell(
                             onTap: () {
                               Clipboard.setData(ClipboardData(
-                                text: (widget.bankResponse.accountNumber).toString()
+                                text: (widget.bankResponse.accountNumber).toString().replaceAll('-', '')
                               )).then((value) {
                                 CoreFunction.showToast(
                                   "Nomor Rekening telah di salin",
@@ -202,40 +206,39 @@ class _TopupConfirmViewState extends State<TopupConfirmView> {
               const SizedBox(height: 20,),
               Component.textBold("Petunjuk Transfer"),
               const SizedBox(height: 20,),
-              Flexible(
-                child: ListView.builder(
-                  itemCount: info.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(0),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Component.textDefault("${index + 1}. "),
-                          const SizedBox(width: 5,),
-                          Flexible(
-                            child: Component.textDefault(
-                              info[index], 
-                              fontSize: PintuPayConstant.fontSizeMedium,
-                              maxLines: 4
-                            ),
+              ListView.builder(
+                itemCount: info.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(0),
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Component.textDefault("${index + 1}. "),
+                        const SizedBox(width: 5,),
+                        Flexible(
+                          child: Component.textDefault(
+                            info[index], 
+                            fontSize: PintuPayConstant.fontSizeMedium,
+                            maxLines: 4
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-              const Spacer(),
+              const SizedBox(height: 50,),
               Component.button(
                 label: "Beranda", 
                 onPressed: (){
                   pushAndRemoveUntil(Dashboard(), RouterType.material);
                 }
-              )
+              ),
+              const SizedBox(height: 50,),
             ],
           ),
         ),

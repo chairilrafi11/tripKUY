@@ -11,7 +11,7 @@ class FirebaseCloudMessaging {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   void initializing() async {
-    AndroidInitializationSettings androidInitializationSettings = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings androidInitializationSettings = const AndroidInitializationSettings('@mipmap/launcher_icon');
 
     IOSInitializationSettings iosInitializationSettings = IOSInitializationSettings(
       defaultPresentAlert: true,
@@ -38,7 +38,7 @@ class FirebaseCloudMessaging {
   Future<dynamic> showNotification(RemoteMessage remoteMessage, {String payload = ""}) async {
 
     //? Set Notification Variabel
-    AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/launcher_icon');
 
     IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
       requestSoundPermission: true,
@@ -61,9 +61,9 @@ class FirebaseCloudMessaging {
     );
 
     AndroidNotificationDetails androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      'ecoop_notification_channel',
-      'ecoop',
-      channelDescription: 'ecoop notification channel',
+      'pintupay_notification_channel',
+      'pintupay',
+      channelDescription: 'pintupay notification channel',
       importance: Importance.high,
       fullScreenIntent: false,
       visibility: NotificationVisibility.public,
@@ -76,7 +76,7 @@ class FirebaseCloudMessaging {
       // sound: RawResourceAndroidNotificationSound('notif'),
       enableVibration: true,
       // vibrationPattern: Int64List.fromList([0, 500, 100, 150, 50, 150, 50, 500]),
-      groupKey: 'ecoop',
+      groupKey: 'pintupay',
       autoCancel: true,
       playSound: true,
     );

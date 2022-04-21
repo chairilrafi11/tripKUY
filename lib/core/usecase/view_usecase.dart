@@ -83,6 +83,8 @@ class ViewUsecase {
         return "assets/icons/icmn_game.png";
       case "refund saldo":
         return "assets/icons/icmn_refund.png";
+      case "emoney":
+        return "assets/icons/icmn_emoney.png";
       default:
         return "";
     }

@@ -111,7 +111,8 @@ class ComponentDialog {
                 const SizedBox(height: 20,),
                 if(title != null) Component.textBold(
                   title,
-                  fontSize: 20, colors: PintuPayPalette.darkBlue
+                  fontSize: 20, colors: PintuPayPalette.darkBlue,
+                  textAlign: TextAlign.center
                 ),
               if(body != null) Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),

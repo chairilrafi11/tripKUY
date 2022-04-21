@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/error/error.dart';
 import 'package:pintupay/core/util/core_function.dart';
@@ -146,6 +149,12 @@ class DioService {
       compact: CoreVariable.debug,
       maxWidth: 500
     ));
+    
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      
+  return client;
+};
 
     return dio;
   }
