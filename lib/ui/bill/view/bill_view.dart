@@ -326,7 +326,7 @@ class BillView extends StatelessWidget {
             vertical: SizeConfig.blockSizeHorizontal * 3
           ),
           child: Component.textBold(
-            'Beranda',
+            fromTrans ? 'Kembali' : 'Beranda',
             colors: PintuPayPalette.darkBlue,
             fontSize: PintuPayConstant.fontSizeLarge
           ),
@@ -393,7 +393,11 @@ class BillView extends StatelessWidget {
   );
 
   Future<bool> onBackPressed() {
-    navToDashboard();
+    if(fromTrans){
+      Navigator.of(navGK.currentContext!).pop();
+    } else {
+      navToDashboard();
+    }
     return Future.value(false);
   }
 

@@ -1,3 +1,4 @@
+import 'package:fbroadcast_nullsafety/fbroadcast_nullsafety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
@@ -14,10 +15,23 @@ import '../../bill/model/bill_body_model.dart';
 import '../../bill/model/bill_status_model.dart';
 import '../../bill/view/bill_view.dart';
 
-class TransactionView extends StatelessWidget {
-  TransactionView({Key? key}) : super(key: key);
+class TransactionView extends StatefulWidget {
+  const TransactionView({Key? key}) : super(key: key);
 
+  @override
+  State<TransactionView> createState() => _TransactionViewState();
+}
+
+class _TransactionViewState extends State<TransactionView> {
   final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    FBroadcast.instance()!.register(CoreVariable.notificationBroadcast, (value, callback) {
+      BlocProvider.of<TransactionCubit>(context).onGetTransactionList();
+    });
+  }
 
   bottomSheetTransaction(ResponseTransaction responseTransaction) {
     showModalBottomSheet(
@@ -107,15 +121,18 @@ class TransactionView extends StatelessWidget {
                   height: 10,
                 ),
                 Component.button(
-                    label: "Tutup",
-                    onPressed: () {
-                      Navigator.of(navGK.currentContext!).pop();
-                    }),
+                  label: "Print Bukti",
+                  onPressed: () {
+                    showBill(responseTransaction);
+                  }
+                ),
                 Component.button(
-                    label: "Print Bukti",
-                    onPressed: () {
-                      showBill(responseTransaction);
-                    }),
+                  color: PintuPayPalette.red,
+                  label: "Tutup",
+                  onPressed: () {
+                    Navigator.of(navGK.currentContext!).pop();
+                  }
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -304,35 +321,39 @@ class TransactionView extends StatelessWidget {
     );
   }
 
-  showBill(listInfo) {
+  showBill(ResponseTransaction listInfo) {
     List<Set<String>> listInfoDetail = [];
     if (listInfo.transactionName == "PPOB PLN PREPAID") {
       listInfoDetail = [
-        {"Jenis transaksi", "PintuPay PPOB"},
-        {"ID Pelanggan", listInfo.indentifierNumber},
-        {"Nama Pelanggan", listInfo.custName},
-        {"SN", listInfo.sn},
-        {"KWH", listInfo.kwh},
+        {"Jenis transaksi", listInfo.transactionName ?? ""},
+        {"ID Pelanggan", listInfo.indentifierNumber ?? ""},
+        {"Nama Pelanggan", listInfo.custName ?? ""},
+        {"SN", listInfo.sn ?? ""},
+        {"KWH", listInfo.kwh ?? ""},
       ];
     } else {
       listInfoDetail = [
         {"Jenis transaksi", "PintuPay Pulsa/Data"},
-        {"ID Pelanggan", listInfo.indentifierNumber},
-        {"Detail Info", listInfo.messagesToShow},
+        {"ID Pelanggan", listInfo.indentifierNumber ?? ""},
+        {"Detail Info", listInfo.messagesToShow ?? ""},
       ];
     }
-    ;
+    
     BillStatusModel billStatusModel = BillStatusModel(
-        billBody: listInfoDetail.map((e) {
-          return BillBodyModel(e.first, e.last);
-        }).toList(),
-        status: "");
+      billBody: listInfoDetail.map((e) {
+        return BillBodyModel(e.first, e.last);
+      }).toList(),
+      status: ""
+    );
+
     routePush(
-        BillView(
-          billStatusModel: billStatusModel,
-          billStatus: BillStatus.success,
-        ),
-        RouterType.material);
+      BillView(
+        fromTrans: true,
+        billStatusModel: billStatusModel,
+        billStatus: BillStatus.success,
+      ),
+      RouterType.material
+    );
   }
 
   infoTypeDetail(transName, listInfo) {
