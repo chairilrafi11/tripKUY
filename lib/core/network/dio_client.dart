@@ -195,4 +195,10 @@ abstract class DioClient {
   @POST(PintuPayEndpoint.tvPayment)
   Future<CoreModel> tvPayment(Map<String, dynamic> body);
 
+  @POST(PintuPayEndpoint.forgotPassword)
+  Future<CoreModel> passwordResetRequest(Map<String, dynamic> body);
+
+  @PUT(PintuPayEndpoint.forgotPassword)
+  Future<CoreModel> passwordResetForm(Map<String, dynamic> body);
+
 }

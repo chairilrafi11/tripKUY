@@ -6,12 +6,10 @@ import '../../../core/network/dio_service.dart';
 class ForgotPasswordProvider {
   ForgotPasswordProvider._();
 
-  static Future<ForgotPasswordModel> onRequestOTP(
-      Map<String, dynamic> body) async {
-    var dio = await DioService.checkConnection(
-        tryAgainMethod: onRequestOTP, isLoading: true);
+  static Future<ForgotPasswordModel> onRequestOTP(Map<String, dynamic> body) async {
+    var dio = await DioService.checkConnection(tryAgainMethod: onRequestOTP, isLoading: true);
     DioClient dioClient = DioClient(dio);
-    var result = await dioClient.requestOTPForgotPassword(body);
+    var result = await dioClient.passwordResetRequest(body);
     return ForgotPasswordModel.fromJson(result.data);
   }
 

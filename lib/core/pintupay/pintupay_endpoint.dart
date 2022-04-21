@@ -110,4 +110,6 @@ class PintuPayEndpoint {
 
   static const String tvPayment = "v7/ppob/payment/tvs";
 
+  static const String lupaPassword = "v6/reset/passwords";
+
 }
