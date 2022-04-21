@@ -6,6 +6,8 @@ class PDAMPaymentModel {
   String? product;
   int? productId;
   String? authToken;
+  String? transactionId;
+  String? balance;
 
   PDAMPaymentModel({
     this.pin,
@@ -14,7 +16,9 @@ class PDAMPaymentModel {
     this.totalPayment,
     this.product,
     this.productId,
-    this.authToken
+    this.authToken,
+    this.transactionId,
+    this.balance,
   });
 
   PDAMPaymentModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,8 @@ class PDAMPaymentModel {
     product = json['product'];
     productId = json['product_id'];
     authToken = json['auth_token'];
+    transactionId = json['transaction_id'];
+    balance = json['balance'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +42,8 @@ class PDAMPaymentModel {
     data['product'] = product;
     data['product_id'] = productId;
     data['auth_token'] = authToken;
+    data['transaction_id'] = transactionId;
+    data['balance'] = balance;
     return data;
   }
 }
