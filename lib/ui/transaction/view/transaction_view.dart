@@ -306,11 +306,22 @@ class TransactionView extends StatelessWidget {
 
   showBill(listInfo) {
     List<Set<String>> listInfoDetail = [];
-    listInfoDetail = [
-      {"Jenis transaksi", "PLN Tagihan"},
-      {"ID Pelanggan", listInfo.indentifierNumber},
-      {"Detail Info", listInfo.messagesToShow},
-    ];
+    if (listInfo.transactionName == "PPOB PLN PREPAID") {
+      listInfoDetail = [
+        {"Jenis transaksi", "PintuPay PPOB"},
+        {"ID Pelanggan", listInfo.indentifierNumber},
+        {"Nama Pelanggan", listInfo.custName},
+        {"SN", listInfo.sn},
+        {"KWH", listInfo.kwh},
+      ];
+    } else {
+      listInfoDetail = [
+        {"Jenis transaksi", "PintuPay Pulsa/Data"},
+        {"ID Pelanggan", listInfo.indentifierNumber},
+        {"Detail Info", listInfo.messagesToShow},
+      ];
+    }
+    ;
     BillStatusModel billStatusModel = BillStatusModel(
         billBody: listInfoDetail.map((e) {
           return BillBodyModel(e.first, e.last);
@@ -322,6 +333,24 @@ class TransactionView extends StatelessWidget {
           billStatus: BillStatus.success,
         ),
         RouterType.material);
+  }
+
+  infoTypeDetail(transName, listInfo) {
+    // if (transName == "PPOB PLN PREPAID") {
+    //   return [
+    //     {"Jenis transaksi", "PintuPay PPOB"},
+    //     {"ID Pelanggan", listInfo.indentifierNumber},
+    //     {"Nama Pelanggan", listInfo.custName},
+    //     {"SN", listInfo.sn},
+    //     {"KWH", listInfo.kwh},
+    //   ];
+    // } else {
+    //   return [
+    //     {"Jenis transaksi", "PintuPay Pulsa/Data"},
+    //     {"ID Pelanggan", listInfo.indentifierNumber},
+    //     {"Detail Info", listInfo.messagesToShow},
+    //   ];
+    // }
   }
 
   Widget emptyTransaction() {

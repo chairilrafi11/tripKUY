@@ -30,45 +30,41 @@ class PdamCubit extends Cubit<PdamState> {
     PDAMDistricResponse pdamDistricResponse = PDAMDistricResponse();
     var districs = await PDAMProvider.distric();
     districs.add(pdamDistricResponse);
-    emit(PDAMLoaded(
-      listDistric: districs,
-      distric: pdamDistricResponse
-    ));
+    emit(PDAMLoaded(listDistric: districs, distric: pdamDistricResponse));
   }
 
-  void setDistric(PDAMDistricResponse pdamDistricResponse){
+  void setDistric(PDAMDistricResponse pdamDistricResponse) {
     PDAMLoaded pdamLoaded = state as PDAMLoaded;
     emit(PDAMLoaded(
-      listDistric: pdamLoaded.listDistric,
-      distric: pdamDistricResponse
-    ));
+        listDistric: pdamLoaded.listDistric, distric: pdamDistricResponse));
   }
 
   Future onInquiry(String customerId) async {
     PDAMLoaded pdamLoaded = state as PDAMLoaded;
     PDAMInquiryModel pdamInquiryModel = PDAMInquiryModel(
-      act: "inquiry",
-      authToken: authUsecase.userBox.authToken,
-      id: customerId,
-      product: pdamLoaded.distric.name,
-      productId: pdamLoaded.distric.id,
-      totalPayment: ""
-    );
-    var inquiry = PintuPayCrypt().encrypt(jsonEncode(pdamInquiryModel), await PintuPayCrypt().getPassKeyPref());
-    var result = await PDAMProvider.inquiry(BodyRequestV7(inquiry, inquiry).toJson());
-
-    if(result.noPel!= null){
-      
-      //? Create Object Payment
-      
-      PDAMPaymentModel paymentModel = PDAMPaymentModel(
-        act: "payment",
+        act: "inquiry",
         authToken: authUsecase.userBox.authToken,
         id: customerId,
         product: pdamLoaded.distric.name,
         productId: pdamLoaded.distric.id,
-        totalPayment: result.totTagihan.toString(),
-      );
+        totalPayment: "");
+    var inquiry = PintuPayCrypt().encrypt(
+        jsonEncode(pdamInquiryModel), await PintuPayCrypt().getPassKeyPref());
+    var result =
+        await PDAMProvider.inquiry(BodyRequestV7(inquiry, inquiry).toJson());
+
+    if (result.noPel != null) {
+      //? Create Object Payment
+
+      PDAMPaymentModel paymentModel = PDAMPaymentModel(
+          act: "payment",
+          authToken: authUsecase.userBox.authToken,
+          id: customerId,
+          product: pdamLoaded.distric.name,
+          productId: pdamLoaded.distric.id,
+          totalPayment: result.totTagihan.toString(),
+          balance: "cash",
+          transactionId: result.transactionId.toString());
 
       pdamPaymentModel = paymentModel;
 
@@ -85,41 +81,39 @@ class PdamCubit extends Cubit<PdamState> {
       ];
 
       routePush(
-        PaymentView(
-          listInformation: listInformation,
-          paymentMethod: onPayment,
-          feature: Feature.pdam,
-        ), 
-        RouterType.material
-      );
+          PaymentView(
+            listInformation: listInformation,
+            paymentMethod: onPayment,
+            feature: Feature.pdam,
+          ),
+          RouterType.material);
     }
   }
 
   Future onPayment() async {
     CoreFunction.showPin(navGK.currentContext!).then((value) async {
-      if(value != null) {
+      if (value != null) {
         pdamPaymentModel.pin = value;
-        var payment = PintuPayCrypt().encrypt(jsonEncode(pdamPaymentModel), await PintuPayCrypt().getPassKeyPref());
-        var result = await PDAMProvider.payment(BodyRequestV7(payment, payment).toJson());
+        var payment = PintuPayCrypt().encrypt(jsonEncode(pdamPaymentModel),
+            await PintuPayCrypt().getPassKeyPref());
+        var result = await PDAMProvider.payment(
+            BodyRequestV7(payment, payment).toJson());
 
         BillStatusModel billStatusModel = BillStatusModel(
-          billBody: listInformation.map((e){
-            return BillBodyModel(e.first, e.last);
-          }).toList(),
-          status: ""
-        );
+            billBody: listInformation.map((e) {
+              return BillBodyModel(e.first, e.last);
+            }).toList(),
+            status: "");
 
-        if(result.nama != null){
+        if (result.nama != null) {
           routePush(
-            BillView(
-              billStatusModel: billStatusModel,
-              billStatus: BillStatus.success,
-            ),
-            RouterType.material
-          );
+              BillView(
+                billStatusModel: billStatusModel,
+                billStatus: BillStatus.success,
+              ),
+              RouterType.material);
         }
       }
     });
   }
-
 }
