@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:open_file/open_file.dart';
@@ -10,8 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/usecase/view_usecase.dart';
-import 'package:pintupay/core/util/benpay_cupertino_dialog.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/bill/model/bill_status_model.dart';
 import 'package:pintupay/ui/bill/view/print_view.dart';

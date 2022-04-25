@@ -153,7 +153,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           child: Container(
             alignment: Alignment.center,
             width: SizeConfig.screenWidth,
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: const Text(
               'Kirim',
               style: TextStyle(

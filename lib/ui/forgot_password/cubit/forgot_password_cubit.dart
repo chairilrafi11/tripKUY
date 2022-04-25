@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pintupay/ui/dashboard/view/dashboard.dart';
+import 'package:pintupay/ui/forgot_password/cubit/forgot_password_form_cubit.dart';
 import 'package:pintupay/ui/forgot_password/model/forgot_password_model.dart';
 import '../../../core/network/model/post_body.dart';
 import '../../../core/pintupay/pintupay_crypt.dart';
 import '../../../core/util/util.dart';
-import '../../component/component.dart';
 import '../provider/forgot_password_provider.dart';
 import '../view/forgot_password_form.dart';
 
@@ -23,62 +21,17 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       ForgotPasswordModel forgotPasswordModel = ForgotPasswordModel(phoneNumber : phoneNumber);
       var bodyRequest = PintuPayCrypt().encrypt(jsonEncode(forgotPasswordModel), await PintuPayCrypt().getPassKeyPref());
       var result = await ForgotPasswordProvider.onRequestOTP(PostBody(bodyRequest).toJson());
-      if (result.phoneNumber != null) {
+      // if (result.phoneNumber != null) {
         // await ForgotPasswordProvider.onRequestOTP(PostBody(bodyRequest).toJson()).then((response) {
           routePush(BlocProvider(
-            create: (context) => this,
+            create: (context) => ForgotPasswordFormCubit(),
             child: ForgotPasswordForm(
               secretKey: bodyRequest,
               isFromUpdatePassword: false,
             ),
           ));
         // });
-      } else {}
+      // } else {}
     }
-  }
-
-  Future<void> onRequestForgotPassword({
-    required String otp,
-    required String newPassword,
-    required String confirmNewPassword,
-    required String phoneNumber,
-    required bool isFromUpdatePassword,
-  }) async {
-    await ForgotPasswordProvider.onRequestForgotPassword({
-      'key': otp,
-      'password': newPassword,
-      'password_confirmation': confirmNewPassword,
-      'phone_number': phoneNumber,
-    }).then((response) {
-      Component.showDialogWithRichText(
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            text: isFromUpdatePassword
-                ? 'Berhasil mengganti password\n'
-                : 'Berhasil mengganti password\nSilahkan Login Kembali\n',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
-            ),
-            children: const [
-              TextSpan(
-                text: 'Sentuh dimana saja untuk kembali',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ).then((_) {
-        if (isFromUpdatePassword) {
-          pushAndRemoveUntil(Dashboard());
-        } else {
-          // pushAndRemoveUntil(const Login());
-        }
-      });
-    });
   }
 }

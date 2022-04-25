@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:bluetooth_print/bluetooth_print.dart';
 import 'package:equatable/equatable.dart';
 
 part 'bill_state.dart';

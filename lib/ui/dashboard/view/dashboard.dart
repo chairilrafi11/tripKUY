@@ -42,12 +42,12 @@ class Dashboard extends StatelessWidget {
                             create: (context) => HomeCubit(),
                           ),
                         ],
-                        child: Home(),
+                        child: const Home(),
                       );
                     case NavBarItem.transaction:
                       return BlocProvider(
                         create: (context) => TransactionCubit(),
-                        child: TransactionView(),
+                        child: const TransactionView(),
                       );
                     case NavBarItem.notification:
                       return BlocProvider(

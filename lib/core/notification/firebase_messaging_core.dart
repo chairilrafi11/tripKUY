@@ -7,7 +7,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pintupay/core/database/box/notification/notification_box_controller.dart';
 import 'package:pintupay/core/notification/firebase_cloud_messaging.dart';
 import 'package:pintupay/core/util/util.dart';
-import 'package:pintupay/ui/component/component_dialog.dart';
 
 import '../database/box/notification/notification_box.dart';
 

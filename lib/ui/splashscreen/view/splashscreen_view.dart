@@ -1,5 +1,4 @@
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:pintupay/ui/splashscreen/cubit/splashscreen_cubit.dart';
 

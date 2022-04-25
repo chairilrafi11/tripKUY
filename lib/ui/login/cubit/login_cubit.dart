@@ -8,7 +8,6 @@ import 'package:pintupay/core/usecase/auth_usecase.dart';
 import 'package:pintupay/core/util/util.dart';
 import 'package:pintupay/ui/dashboard/view/dashboard.dart';
 import 'package:pintupay/ui/login/model/login_model.dart';
-import 'package:pintupay/ui/login/model/password_reset_request.dart';
 import 'package:pintupay/ui/login/provider/login_provider.dart';
 
 part 'login_state.dart';

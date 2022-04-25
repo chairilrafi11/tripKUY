@@ -4,8 +4,7 @@
   import 'package:pintupay/core/util/size_config.dart';
   import 'package:flutter/material.dart';
   import 'package:flutter/services.dart';
-
-  import '../cubit/forgot_password_cubit.dart';
+  import 'package:pintupay/ui/forgot_password/cubit/forgot_password_form_cubit.dart';
 
   class ForgotPasswordForm extends StatefulWidget {
     final String secretKey;
@@ -109,7 +108,7 @@
           color: PintuPayPalette.darkBlue,
           child: InkWell(
             onTap: () {
-              BlocProvider.of<ForgotPasswordCubit>(context).onRequestForgotPassword(
+              BlocProvider.of<ForgotPasswordFormCubit>(context).onRequestForgotPassword(
                 otp: otpController.text,
                 newPassword: newPasswordController.text,
                 confirmNewPassword: confirmNewPasswordController.text,

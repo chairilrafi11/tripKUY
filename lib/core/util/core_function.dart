@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pintupay/core/database/core_database.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/ui/bill/view/bill_view.dart';

@@ -52,7 +52,7 @@ android {
         applicationId "id.beben.pintupay"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
+        versionCode 6
         versionName flutterVersionName
     }
 

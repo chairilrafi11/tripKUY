@@ -1,7 +1,4 @@
 import 'package:pintupay/core/network/network.dart';
-import 'package:pintupay/core/usecase/auth_usecase.dart';
-import 'package:pintupay/ui/menu/pdam/model/pdam_disctric_response.dart';
-import 'package:pintupay/ui/menu/pdam/model/pdam_inquiry_response.dart';
 import 'package:pintupay/ui/menu/tv/model/tv_product_response.dart';
 
 import '../model/tv_inquiry_request.dart';

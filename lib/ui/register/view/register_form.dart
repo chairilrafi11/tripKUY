@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pintupay/core/pintupay/pintupay.dart';
 import 'package:pintupay/core/util/core_variable.dart';
@@ -26,6 +25,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  
   // final TextEditingController userNameController = TextEditingController();
   // final TextEditingController uidNameController = TextEditingController();
   final TextEditingController agentController = TextEditingController();
