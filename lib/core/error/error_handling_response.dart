@@ -3,7 +3,6 @@
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/core/util/debouncer.dart';
-import 'package:pintupay/ui/component/component_bottomsheet.dart';
 
 import 'response_converter.dart';
 
@@ -31,7 +30,6 @@ class ErrorHandlingResponse {
       } else if (responseConverter.code == 401) {
         CoreFunction.showToast("Not Authorized");
         debouncer.debounce(() async {
-          CoreFunction.logout();
         });
       } else if (responseConverter.code == 402) {
         CoreFunction.showToast(responseConverter.message!, duration: 2);
@@ -39,17 +37,6 @@ class ErrorHandlingResponse {
       } else if (responseConverter.code == 404) {
         CoreFunction.showToast(responseConverter.message ?? "", duration: 2);
       } else if (responseConverter.code == 406) {
-        switch (responseConverter.message!.toLowerCase()) {
-          case "tagihan belum tersedia":
-            ComponentBottomsheet.infoPPOB(ErrorPPOB.payed);
-            break;
-          case "nomor tujuan salah":
-            ComponentBottomsheet.infoPPOB(ErrorPPOB.unknow);
-            break;
-          default:
-            CoreFunction.showToast(responseConverter.message ?? "", duration: 2);
-            break;
-        }
       } else if (responseConverter.code == 409) { 
         debouncer.debounce(() {
           // EtekadDialog.forceUpdate();

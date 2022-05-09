@@ -5,13 +5,13 @@ import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:pintupay/core/error/error.dart';
 import 'package:pintupay/core/util/core_function.dart';
 import 'package:pintupay/core/util/core_variable.dart';
-import 'package:pintupay/ui/component/component_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../ui/component/component_dialog.dart';
 import 'model/core_model.dart';
 
 enum BASE_URL { platform, product, province }

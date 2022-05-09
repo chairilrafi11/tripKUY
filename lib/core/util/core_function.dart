@@ -3,21 +3,13 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pintupay/core/database/core_database.dart';
 import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:pintupay/ui/bill/view/bill_view.dart';
-import 'package:pintupay/ui/component/component_bottomsheet.dart';
-import 'package:pintupay/ui/component/component_dialog.dart';
-import 'package:pintupay/ui/login/view/login_view.dart';
-import 'package:pintupay/ui/pin/view/pin_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../ui/bill/model/bill_status_model.dart';
 import 'core_variable.dart';
 import 'debouncer.dart';
 
@@ -53,19 +45,6 @@ class CoreFunction {
       connect = false;
     }
     return connect;
-  }
-
-  static Future<String?> showPin(BuildContext? context, {String? label}) async {
-    String? pin = "";
-    await ComponentDialog().cupertinoDialog(builder: (BuildContext buildContext) {
-      return PinPage(
-        label: label,
-      );
-    }).then((dataPin) {
-      pin = dataPin;
-    });
-    // CoreFunction.logPrint("Pin", pin);
-    return pin;
   }
 
   static showToast(String message, {int duration = 3, int position = 1, Color backgroundColor = PintuPayPalette.red}) {
@@ -133,29 +112,6 @@ class CoreFunction {
     }
   }
 
-  static Future<String> getContact() async {
-    String? phoneNumber;
-    final PermissionStatus permissionStatus =
-    await _getPermission(Permission.contacts);
-    if (permissionStatus.isGranted) {
-      phoneNumber = await _openContact();
-    }
-    return phoneNumber ?? '';
-  }
-
-  static Future<String?> _openContact() async {
-    return await FlutterContacts.openExternalPick().then((contact) async {
-      if (contact != null) {
-        if (contact.phones.length > 1) {
-          return await ComponentBottomsheet.selectContact(contact.phones, contact.displayName);
-        } else {
-          return contact.phones.first.number.replaceAll('-', '').replaceAll(' ', '');
-        }
-      }
-      return null;
-    });
-  }
-
   static Future<PermissionStatus> _getPermission(Permission permission) async {
     PermissionStatus permissionStatus = await permission.status;
     if (!permissionStatus.isGranted) {
@@ -213,21 +169,6 @@ class CoreFunction {
     }
     var token = await FirebaseMessaging.instance.getToken();
     return token;
-  }
-
-  static Future<void> logout() async {
-    await CoreDatabase.deleteDatabase();
-    pushAndRemoveUntil(
-      const LoginView(),
-      RouterType.material,
-    );
-  }
-  
-  static openBillDetail(BillStatusModel billStatus) {
-    pushAndRemoveUntil(
-      BillView(billStatusModel: billStatus, billStatus: BillStatus.success), 
-      RouterType.material
-    );
   }
 
   static String version() {

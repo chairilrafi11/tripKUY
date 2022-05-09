@@ -5,9 +5,10 @@ import 'dart:typed_data';
 import 'package:pintupay/core/database/core_database.dart';
 import 'package:pintupay/core/pintupay/pintupay_utility.dart';
 import 'package:pintupay/core/util/util.dart';
-import 'package:pintupay/ui/component/component_dialog.dart';
 import 'package:pointycastle/export.dart';
 import 'package:flutter/material.dart' as prefix;
+
+import '../../ui/component/component_dialog.dart';
 
 export 'dart:convert';
 
