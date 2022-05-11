@@ -1,5 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -47,8 +45,8 @@ Future<void> main() async {
 Future<void> init() async {
   
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
+  // await Firebase.initializeApp();
+  // FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
 
   //? Set Hive Database
   var appDocumentDirectory = await getApplicationDocumentsDirectory();
@@ -60,11 +58,11 @@ Future<void> init() async {
     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
     ?.createNotificationChannel(channel);
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: false,
-    badge: false,
-    sound: false,
-  );
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: false,
+  //   badge: false,
+  //   sound: false,
+  // );
 }
 
 class MyApp extends StatefulWidget {

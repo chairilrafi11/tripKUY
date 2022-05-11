@@ -8,7 +8,7 @@
 PRODUCT_NAME = benpay
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = id.beben.pintupay
+PRODUCT_BUNDLE_IDENTIFIER = id.chairil.example
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.

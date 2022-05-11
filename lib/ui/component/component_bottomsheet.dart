@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-
-import '../../core/util/util.dart';
 
 class ComponentBottomsheet {
 

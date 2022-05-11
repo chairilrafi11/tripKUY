@@ -1,4 +1,4 @@
-package id.beben.pintupay
+package id.chairil.example
 
 import io.flutter.embedding.android.FlutterActivity
 
