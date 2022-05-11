@@ -1,13 +1,14 @@
+import 'package:courier/ui/login/view/login_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pintupay/core/database/box/notification/notification_box.dart';
-import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/util/core_function.dart';
-import 'package:pintupay/ui/app.dart';
-import 'package:pintupay/ui/splashscreen/view/splashscreen_view.dart';
+import 'package:courier/core/database/box/notification/notification_box.dart';
+import 'package:courier/core/pintupay/pintupay_constant.dart';
+import 'package:courier/core/util/core_function.dart';
+import 'package:courier/ui/app.dart';
+import 'package:courier/ui/splashscreen/view/splashscreen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
@@ -30,13 +31,13 @@ Future<void> main() async {
   await init();
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
+      const SystemUiOverlayStyle( 
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
       ),
     );
     BlocOverrides.runZoned(
-      () => runApp(const CounterApp()),
+      () => runApp(const MyApp()),
       blocObserver: CounterObserver(),
     );
   // });
@@ -94,13 +95,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PintuPay',
+      title: 'Courier',
       navigatorKey: navGK,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: PintuPayConstant.avenirRegular
       ),
-      home: const SplashscreenView()
+      home: const LoginView()
     );
   }
 }
