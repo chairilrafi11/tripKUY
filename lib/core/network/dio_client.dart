@@ -1,4 +1,4 @@
-import 'package:pintupay/core/pintupay/pintupay_endpoint.dart';
+import 'package:chairil/core/app/app.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -10,7 +10,7 @@ part 'dio_client.g.dart';
 abstract class DioClient {
   factory DioClient(Dio dio, {String baseUrl}) = _DioClient;
 
-  @GET(PintuPayEndpoint.banner)
+  @GET(Endpoint.banner)
   Future<CoreModel> banner();
 
 }

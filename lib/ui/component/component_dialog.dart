@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/util/util.dart';
+import 'package:chairil/core/app/app.dart';
+import 'package:chairil/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +75,7 @@ class ComponentDialog {
                 Text(
                   "Mohon Tunggu",
                   style: TextStyle(
-                    color: PintuPayPalette.darkBlue,
+                    color: ColorPalette.darkBlue,
                     fontSize: SizeConfig.blockSizeHorizontal * 4),
                 )
               ],
@@ -103,14 +103,14 @@ class ComponentDialog {
                   placeholder: (context, url) => const CupertinoActivityIndicator(),
                   errorWidget: (context, url, error) => const Icon(
                     Icons.payment,
-                    color: PintuPayPalette.darkBlue,
+                    color: ColorPalette.darkBlue,
                     size: 50,
                   ),
                 ),
                 const SizedBox(height: 20,),
                 if(title != null) Component.textBold(
                   title,
-                  fontSize: 20, colors: PintuPayPalette.darkBlue,
+                  fontSize: 20, colors: ColorPalette.darkBlue,
                   textAlign: TextAlign.center
                 ),
               if(body != null) Padding(

@@ -1,18 +1,16 @@
-import 'package:courier/ui/login/view/login_view.dart';
+import 'package:chairil/ui/counter/counter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:courier/core/database/box/notification/notification_box.dart';
-import 'package:courier/core/pintupay/pintupay_constant.dart';
-import 'package:courier/core/util/core_function.dart';
-import 'package:courier/ui/app.dart';
-import 'package:courier/ui/splashscreen/view/splashscreen_view.dart';
+import 'package:chairil/core/database/box/notification/notification_box.dart';
+import 'package:chairil/core/util/core_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nav_router/nav_router.dart';
 
+import 'core/app/app.dart';
 import 'core/database/box/user/user_box.dart';
 import 'core/notification/firebase_cloud_messaging.dart';
 import 'core/notification/firebase_messaging_core.dart';
@@ -21,9 +19,9 @@ import 'ui/counter_observer.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'pintupay_notification_channel',
-  'pintupay',
-  description: 'pintupay notification channel',
+  'chairil_notification_channel',
+  'chairil',
+  description: 'chairil notification channel',
   importance: Importance.high,
 );
 
@@ -99,9 +97,9 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: navGK,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: PintuPayConstant.avenirRegular
+        fontFamily: Constant.avenirRegular
       ),
-      home: const LoginView()
+      home: const CounterPage()
     );
   }
 }

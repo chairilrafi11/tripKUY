@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PintuPayPalette {
+class ColorPalette {
 
   static const Color darkBlue = Color(0xFF2E5699);
   static const Color blue1 = Color(0xff2D3B72);

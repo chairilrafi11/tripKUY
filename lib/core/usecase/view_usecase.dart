@@ -1,5 +1,5 @@
 
-import 'package:pintupay/core/util/util.dart';
+import 'package:chairil/core/util/util.dart';
 
 enum Feature {pulsa, bpjs, telephone, pdam, electric, phone, emoney, pgn, game}
 

@@ -1,5 +1,5 @@
-import 'package:pintupay/core/util/core_function.dart';
-import 'package:pintupay/core/util/debouncer.dart';
+import 'package:chairil/core/util/core_function.dart';
+import 'package:chairil/core/util/debouncer.dart';
 
 import 'response_converter.dart';
 

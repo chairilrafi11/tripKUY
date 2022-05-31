@@ -1,4 +1,4 @@
-import 'package:pintupay/core/pintupay/pintupay_constant.dart';
+import 'package:chairil/core/app/app.dart';
 
 class ComponentBottomsheet {
 

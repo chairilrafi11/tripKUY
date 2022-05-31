@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pintupay/core/database/pintupay_box.dart';
-import 'package:pintupay/core/usecase/auth_usecase.dart';
-import 'package:pintupay/core/util/util.dart';
+import 'package:chairil/core/database/pintupay_box.dart';
+import 'package:chairil/core/usecase/auth_usecase.dart';
+import 'package:chairil/core/util/util.dart';
 
 class CoreDatabase {
 

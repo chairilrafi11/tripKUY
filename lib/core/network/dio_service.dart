@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:chairil/core/app/app.dart';
 import 'package:dio/adapter.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/error/error.dart';
-import 'package:pintupay/core/util/core_function.dart';
-import 'package:pintupay/core/util/core_variable.dart';
+import 'package:chairil/core/error/error.dart';
+import 'package:chairil/core/util/core_function.dart';
+import 'package:chairil/core/util/core_variable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +109,7 @@ class DioService {
             if (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout) {
               CoreFunction.showToast("Koneksi terlalu lambat");
             } else if (e.type == DioErrorType.other) {
-              CoreFunction.showToast("Periksa kembali koneksi anda", backgroundColor: PintuPayPalette.red);
+              CoreFunction.showToast("Periksa kembali koneksi anda", backgroundColor: ColorPalette.red);
             } else if (e.type == DioErrorType.response) {
               CoreFunction.logPrint(" =========== response.statusCode ===========", e.response!.statusCode);
               

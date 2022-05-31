@@ -1,6 +1,6 @@
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
+import 'package:chairil/core/app/app.dart';
 import 'package:flutter/material.dart';
-import 'package:pintupay/ui/splashscreen/cubit/splashscreen_cubit.dart';
+import 'package:chairil/ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 import '../../../core/util/util.dart';
 import '../../component/component.dart';
@@ -26,7 +26,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: PintuPayPalette.darkBlue,
+      backgroundColor: ColorPalette.darkBlue,
       body: Stack(
         children: [
           Container(
@@ -55,7 +55,7 @@ class _SplashscreenViewState extends State<SplashscreenView> {
                 CoreFunction.version() + " (5)",
                 fontSize: 13,
                 textAlign: TextAlign.center,
-                colors: PintuPayPalette.white
+                colors: ColorPalette.white
               ),
             ),
           )

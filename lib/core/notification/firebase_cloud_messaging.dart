@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:pintupay/core/util/util.dart';
+import 'package:chairil/core/util/util.dart';
 
 import '../database/box/notification/notification_box.dart';
 
@@ -61,9 +61,9 @@ class FirebaseCloudMessaging {
     );
 
     AndroidNotificationDetails androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      'pintupay_notification_channel',
-      'pintupay',
-      channelDescription: 'pintupay notification channel',
+      'chairil_notification_channel',
+      'chairil',
+      channelDescription: 'chairil notification channel',
       importance: Importance.high,
       fullScreenIntent: false,
       visibility: NotificationVisibility.public,
@@ -76,7 +76,7 @@ class FirebaseCloudMessaging {
       // sound: RawResourceAndroidNotificationSound('notif'),
       enableVibration: true,
       // vibrationPattern: Int64List.fromList([0, 500, 100, 150, 50, 150, 50, 500]),
-      groupKey: 'pintupay',
+      groupKey: 'chairil',
       autoCancel: true,
       playSound: true,
     );

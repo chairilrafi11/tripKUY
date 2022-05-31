@@ -1,7 +1,6 @@
+import 'package:chairil/core/app/app.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
-import 'package:pintupay/core/pintupay/pintupay_constant.dart';
-import 'package:pintupay/core/util/size_config.dart';
+import 'package:chairil/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/util/benpay_cupertino_dialog.dart';
@@ -9,19 +8,19 @@ import '../../core/util/benpay_cupertino_dialog.dart';
 class Component {
 
   static appBar(String title, {bool transparet = false}) => AppBar(
-    backgroundColor: transparet ? Colors.transparent : PintuPayPalette.white,
+    backgroundColor: transparet ? Colors.transparent : ColorPalette.white,
     elevation: 0.0,
     title: Component.textBold(
       title, 
-      fontSize: PintuPayConstant.fontSizeLargeExtra,
-      colors: transparet ? PintuPayPalette.white : PintuPayPalette.darkBlue
+      fontSize: Constant.fontSizeLargeExtra,
+      colors: transparet ? ColorPalette.white : ColorPalette.darkBlue
     ),
     automaticallyImplyLeading: true,
     leading: InkWell(
       onTap: (){
         Navigator.of(navGK.currentContext!).pop();
       },
-      child: const Icon(Icons.arrow_back, color: PintuPayPalette.darkBlue)
+      child: const Icon(Icons.arrow_back, color: ColorPalette.darkBlue)
     )
   );
 
@@ -29,7 +28,7 @@ class Component {
     return AppBar(
       centerTitle: false,
       automaticallyImplyLeading: false,
-      backgroundColor: PintuPayPalette.white,
+      backgroundColor: ColorPalette.white,
       elevation: 0.0,
       title: Image.asset(
         "assets/icons/logo.png",
@@ -39,9 +38,9 @@ class Component {
   }
 
   static appBarHeader(String title, {bool transparet = false}) => AppBar(
-    backgroundColor: transparet ? Colors.transparent : PintuPayPalette.white,
+    backgroundColor: transparet ? Colors.transparent : ColorPalette.white,
     elevation: 0.0,
-    title: Component.textBold(title, colors: PintuPayPalette.darkBlue),
+    title: Component.textBold(title, colors: ColorPalette.darkBlue),
     automaticallyImplyLeading: true,
   );
 
@@ -56,7 +55,7 @@ class Component {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: colors,
-        fontFamily: PintuPayConstant.avenirRegular,
+        fontFamily: Constant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
@@ -77,7 +76,7 @@ class Component {
       style: TextStyle(
         fontWeight: fontWeight,
         color: colors,
-        fontFamily: PintuPayConstant.avenirRegular,
+        fontFamily: Constant.avenirRegular,
         fontSize: fontSize.toDouble(),
         overflow: TextOverflow.ellipsis,
       ),
@@ -85,30 +84,30 @@ class Component {
   }
 
   static InputDecoration inputDecoration(String label, {String? hintText, Widget? suffixIcon}) => InputDecoration(
-    fillColor: PintuPayPalette.darkBlue,
+    fillColor: ColorPalette.darkBlue,
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+      borderSide: const BorderSide(color: ColorPalette.darkBlue),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+      borderSide: const BorderSide(color: ColorPalette.darkBlue),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: PintuPayPalette.darkBlue),
+      borderSide: const BorderSide(color: ColorPalette.darkBlue),
     ),
     counterText: "",
     hintText: hintText,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     labelText: label,
-    labelStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeMedium, color: PintuPayPalette.darkBlue),
+    labelStyle: const TextStyle(fontSize: Constant.fontSizeMedium, color: ColorPalette.darkBlue),
     suffixIcon: suffixIcon,
-    hintStyle: const TextStyle(fontSize: PintuPayConstant.fontSizeSmall, color: PintuPayPalette.darkBlue)
+    hintStyle: const TextStyle(fontSize: Constant.fontSizeSmall, color: ColorPalette.darkBlue)
   );
 
   static decorationNoBorder(String hint, {IconData? iconPrefix}) => InputDecoration(
-    fillColor: PintuPayPalette.blueLight.withAlpha(50),
+    fillColor: ColorPalette.blueLight.withAlpha(50),
     filled: true,
     border: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.white),
@@ -120,24 +119,24 @@ class Component {
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: PintuPayPalette.white),
+      borderSide: const BorderSide(color: ColorPalette.white),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
-      borderSide: const BorderSide(color: PintuPayPalette.white),
+      borderSide: const BorderSide(color: ColorPalette.white),
     ),
     prefixIcon: iconPrefix != null ? Icon(
       iconPrefix,
-      color: PintuPayPalette.darkBlue,
+      color: ColorPalette.darkBlue,
       size: 30,
     ) : null,
     counterText: "",
     hintText: hint,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-    hintStyle: const TextStyle(fontSize: 15.0, color: PintuPayPalette.blue1, fontWeight: FontWeight.w500)
+    hintStyle: const TextStyle(fontSize: 15.0, color: ColorPalette.blue1, fontWeight: FontWeight.w500)
   );
 
-  static button({required String label, required VoidCallback? onPressed, Color color = PintuPayPalette.darkBlue}){
+  static button({required String label, required VoidCallback? onPressed, Color color = ColorPalette.darkBlue}){
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: color,
@@ -168,7 +167,7 @@ class Component {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Divider(
-        color: PintuPayPalette.grey,
+        color: ColorPalette.grey,
         height: 1,
       ),
     );
@@ -190,12 +189,12 @@ class Component {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.info, color: PintuPayPalette.darkBlue,),
+          const Icon(Icons.info, color: ColorPalette.darkBlue,),
           const SizedBox(width: 10,),
           Flexible(
             child: Component.textDefault(
               notice,
-              fontSize: PintuPayConstant.fontSizeMedium,
+              fontSize: Constant.fontSizeMedium,
               maxLines: 10
             ),
           )

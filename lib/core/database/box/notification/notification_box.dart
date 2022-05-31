@@ -1,7 +1,7 @@
 
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pintupay/core/database/pintupay_box.dart';
+import 'package:chairil/core/database/pintupay_box.dart';
 
 part 'notification_box.g.dart';
 

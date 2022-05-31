@@ -1,4 +1,4 @@
-import 'package:pintupay/core/database/box/user/user_box.dart';
+import 'package:chairil/core/database/box/user/user_box.dart';
 
 class AuthUsecase {
 

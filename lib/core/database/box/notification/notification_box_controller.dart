@@ -1,5 +1,5 @@
-import 'package:pintupay/core/database/box/notification/notification_box.dart';
-import 'package:pintupay/core/database/pintupay_box.dart';
+import 'package:chairil/core/database/box/notification/notification_box.dart';
+import 'package:chairil/core/database/pintupay_box.dart';
 
 import '../../../util/core_function.dart';
 import '../../core_database.dart';

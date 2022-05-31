@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
+import 'package:chairil/core/app/app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pintupay/core/pintupay/pintupay_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
@@ -47,18 +47,18 @@ class CoreFunction {
     return connect;
   }
 
-  static showToast(String message, {int duration = 3, int position = 1, Color backgroundColor = PintuPayPalette.red}) {
+  static showToast(String message, {int duration = 3, int position = 1, Color backgroundColor = ColorPalette.red}) {
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),
       duration: Duration(seconds: duration),
       backgroundColor: backgroundColor,
-      icon: const Icon(Icons.error_outline, color: PintuPayPalette.white),
+      icon: const Icon(Icons.error_outline, color: ColorPalette.white),
       // message: message,
       messageText: Text(
         message,
         style: const TextStyle(
-          color: PintuPayPalette.white,
+          color: ColorPalette.white,
         ),
         maxLines: 3,
       ),

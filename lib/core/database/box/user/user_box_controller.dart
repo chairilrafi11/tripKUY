@@ -1,6 +1,6 @@
-import 'package:pintupay/core/database/pintupay_box.dart';
-import 'package:pintupay/core/usecase/auth_usecase.dart';
-import 'package:pintupay/core/util/core_function.dart';
+import 'package:chairil/core/database/pintupay_box.dart';
+import 'package:chairil/core/usecase/auth_usecase.dart';
+import 'package:chairil/core/util/core_function.dart';
 
 import '../../core_database.dart';
 import 'user_box.dart';

@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:pintupay/core/database/core_database.dart';
-import 'package:pintupay/core/pintupay/pintupay_utility.dart';
-import 'package:pintupay/core/util/util.dart';
+import 'package:chairil/core/database/core_database.dart';
+import 'package:chairil/core/util/util.dart';
 import 'package:pointycastle/export.dart';
 import 'package:flutter/material.dart' as prefix;
 
 import '../../ui/component/component_dialog.dart';
+import 'utility_box.dart';
 
 export 'dart:convert';
 
@@ -138,22 +138,22 @@ class PintuPayCrypt {
   }
 
   Future setPassKey() async {
-    var utilityBox = await CoreDatabase.openBoxDatabase(PintuPayutilityBox.tabelName);
-    if(utilityBox.get(PintuPayutilityBox.passkey) == null){
+    var utilityBox = await CoreDatabase.openBoxDatabase(UtilityBox.tabelName);
+    if(utilityBox.get(UtilityBox.passkey) == null){
       var passKey = getPassKey();
-      utilityBox.put(PintuPayutilityBox.passkey, base64.encode(passKey));
+      utilityBox.put(UtilityBox.passkey, base64.encode(passKey));
       CoreFunction.logPrint('Set Key', 'complete');
     }
   }
 
   Future<Uint8List> getPassKeyPref() async {
-    var utilityBox = await CoreDatabase.openBoxDatabase(PintuPayutilityBox.tabelName);
+    var utilityBox = await CoreDatabase.openBoxDatabase(UtilityBox.tabelName);
     String? passKey;
-    var passKeyDB = await utilityBox.get(PintuPayutilityBox.passkey);
+    var passKeyDB = await utilityBox.get(UtilityBox.passkey);
     if (passKeyDB == null) {
       ComponentDialog.dialogLoading();
       passKeyDB = base64.encode(getPassKey());
-      utilityBox.put(PintuPayutilityBox.passkey, passKeyDB);
+      utilityBox.put(UtilityBox.passkey, passKeyDB);
       passKey = passKeyDB;
       prefix.Navigator.of(navGK.currentContext!).pop();
     } else {
