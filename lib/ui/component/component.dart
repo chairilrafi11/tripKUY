@@ -1,6 +1,6 @@
-import 'package:chairil/core/app/app.dart';
+import 'package:tripkuy/core/app/app.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:chairil/core/util/size_config.dart';
+import 'package:tripkuy/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/util/benpay_cupertino_dialog.dart';
@@ -136,7 +136,7 @@ class Component {
     hintStyle: const TextStyle(fontSize: 15.0, color: ColorPalette.blue1, fontWeight: FontWeight.w500)
   );
 
-  static button({required String label, required VoidCallback? onPressed, Color color = ColorPalette.darkBlue}){
+  static button({required String label, required VoidCallback? onPressed, Color color = ColorPalette.lightPurple}){
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: color,

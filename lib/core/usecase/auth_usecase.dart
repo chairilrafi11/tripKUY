@@ -1,4 +1,4 @@
-import 'package:chairil/core/database/box/user/user_box.dart';
+import 'package:tripkuy/core/database/box/user/user_box.dart';
 
 class AuthUsecase {
 

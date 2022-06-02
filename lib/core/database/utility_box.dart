@@ -1,4 +1,4 @@
-class PintuPayBox {
+class UtilityBox {
 
   //? Hive Type
 

@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chairil/core/app/app.dart';
-import 'package:chairil/core/util/util.dart';
+import 'package:tripkuy/core/app/app.dart';
+import 'package:tripkuy/core/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -97,16 +96,16 @@ class ComponentDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
                 const SizedBox(height: 10,),
-                if(image != null) CachedNetworkImage(
-                  imageUrl: image,
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.payment,
-                    color: ColorPalette.darkBlue,
-                    size: 50,
-                  ),
-                ),
+                // if(image != null) CachedNetworkImage(
+                //   imageUrl: image,
+                //   fit: BoxFit.fill,
+                //   placeholder: (context, url) => const CupertinoActivityIndicator(),
+                //   errorWidget: (context, url, error) => const Icon(
+                //     Icons.payment,
+                //     color: ColorPalette.darkBlue,
+                //     size: 50,
+                //   ),
+                // ),
                 const SizedBox(height: 20,),
                 if(title != null) Component.textBold(
                   title,

@@ -1,67 +1,36 @@
-import 'package:chairil/ui/counter/counter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+
+import 'package:tripkuy/ui/landing/view/landing_view.dart';
+import 'package:tripkuy/ui/splashscreen/view/splashscreen_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:chairil/core/database/box/notification/notification_box.dart';
-import 'package:chairil/core/util/core_function.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:nav_router/nav_router.dart';
 
 import 'core/app/app.dart';
-import 'core/database/box/user/user_box.dart';
-import 'core/notification/firebase_cloud_messaging.dart';
-import 'core/notification/firebase_messaging_core.dart';
-import 'ui/counter_observer.dart';
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'chairil_notification_channel',
-  'chairil',
-  description: 'chairil notification channel',
-  importance: Importance.high,
-);
+import 'core/util/util.dart';
 
 Future<void> main() async {
   await init();
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle( 
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-    BlocOverrides.runZoned(
-      () => runApp(const MyApp()),
-      blocObserver: CounterObserver(),
-    );
-  // });
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle( 
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+  runApp(const MyApp());
 }
 
 Future<void> init() async {
   
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  // FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
 
   //? Set Hive Database
   var appDocumentDirectory = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocumentDirectory.path);
-  Hive.registerAdapter(UserBoxAdapter());
-  Hive.registerAdapter(NotificationBoxAdapter());
-
-  await flutterLocalNotificationsPlugin
-    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-    ?.createNotificationChannel(channel);
-
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: false,
-  //   badge: false,
-  //   sound: false,
-  // );
+  // Hive.registerAdapter(UserBoxAdapter());
+  // Hive.registerAdapter(NotificationBoxAdapter());
 }
 
 class MyApp extends StatefulWidget {
@@ -72,14 +41,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
-  final FirebaseCloudMessaging firebaseCloudMessaging = FirebaseCloudMessaging();
 
   @override
   void initState() {
     _setupLogging();
-    FirebaseMessagingCore.configFirebase();
-    firebaseCloudMessaging.initializing();
     super.initState();
   }
 
@@ -93,13 +58,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Courier',
+      title: 'TripKuy',
       navigatorKey: navGK,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: Constant.avenirRegular
       ),
-      home: const CounterPage()
+      home: const LandingView()
     );
   }
 }

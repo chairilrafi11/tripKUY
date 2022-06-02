@@ -1,11 +1,11 @@
 
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:chairil/core/database/pintupay_box.dart';
+import 'package:tripkuy/core/database/utility_box.dart';
 
 part 'notification_box.g.dart';
 
-@HiveType(typeId: PintuPayBox.hiveType2)
+@HiveType(typeId: UtilityBox.hiveType2)
 
 class NotificationBox {
 

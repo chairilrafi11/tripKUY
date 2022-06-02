@@ -1,6 +1,6 @@
-import 'package:chairil/core/app/app.dart';
+import 'package:tripkuy/core/app/app.dart';
 import 'package:flutter/material.dart';
-import 'package:chairil/ui/splashscreen/cubit/splashscreen_cubit.dart';
+import 'package:tripkuy/ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 import '../../../core/util/util.dart';
 import '../../component/component.dart';

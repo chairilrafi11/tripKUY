@@ -1,14 +1,11 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar.dart';
-import 'package:chairil/core/app/app.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:tripkuy/core/app/app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nav_router/nav_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'core_variable.dart';
 import 'debouncer.dart';
@@ -33,20 +30,6 @@ class CoreFunction {
     return idr.format(price);
   }
 
-  static Future<bool> checkConnectivity() async {
-    bool connect = false;
-    try {
-      final result = await InternetAddress.lookup('google.com')
-          .timeout(const Duration(seconds: 10));
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        connect = true;
-      }
-    } on SocketException catch (_) {
-      connect = false;
-    }
-    return connect;
-  }
-
   static showToast(String message, {int duration = 3, int position = 1, Color backgroundColor = ColorPalette.red}) {
     Flushbar(
       margin: const EdgeInsets.all(8),
@@ -63,53 +46,6 @@ class CoreFunction {
         maxLines: 3,
       ),
     ).show(navGK.currentContext!);
-  }
-
-  static Future<String> showScanner(ScanMode scanMode) async => await FlutterBarcodeScanner.scanBarcode(
-    "",
-    "Batalkan",
-    true,
-    scanMode
-  );
-
-  static Future<void> navToAnotherApps({
-    String? url,
-    String? phoneNumber,
-    String? email,
-    bool? whatsApp = false,
-    String? message = 'Hallo, saya mau bertanya.',
-  }) async {
-    if (phoneNumber != null && phoneNumber != '') {
-      if (whatsApp!) {
-        var whatsapp =
-            "https://api.whatsapp.com/send/?phone=$phoneNumber&text=$message";
-        if (await canLaunch(whatsapp)) {
-          await launch(whatsapp);
-        } else {
-          showToast('whatsapp belum ter-install');
-        }
-      } else {
-        if (await canLaunch('tel:$phoneNumber')) {
-          await launch('tel:$phoneNumber');
-        } else {
-          showToast('Nomor Telepon tidak valid');
-        }
-      }
-    } else if (email != null && email != '') {
-      String mailTo =
-          'mailto:$email?subject=e-Coop&body=${message?.replaceAll(' ', '%20')}';
-      if (await canLaunch(mailTo)) {
-        await launch(mailTo);
-      } else {
-        showToast('e-Mail tidak valid');
-      }
-    } else if (url != null && url != '') {
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        showToast('URL tidak valid');
-      }
-    }
   }
 
   static Future<PermissionStatus> _getPermission(Permission permission) async {
@@ -159,16 +95,6 @@ class CoreFunction {
 
   static String twoDigitNumber(String twoDigit) {
     return twoDigit.toString().length == 1 ? "0" + twoDigit.toString() : twoDigit.toString();
-  }
-
-  static Future<String?> generateFirebaseToken() async {
-    try {
-      await FirebaseMessaging.instance.deleteToken();
-    } catch (e) {
-      CoreFunction.logPrint("Delete Firebase", e.toString());
-    }
-    var token = await FirebaseMessaging.instance.getToken();
-    return token;
   }
 
   static String version() {

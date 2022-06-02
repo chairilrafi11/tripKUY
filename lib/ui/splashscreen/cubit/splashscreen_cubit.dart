@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:chairil/core/util/util.dart';
-import 'package:chairil/ui/counter/view/counter_view.dart';
+import 'package:tripkuy/core/util/util.dart';
 part 'splashscreen_state.dart';
 
 class SplashscreenCubit extends Cubit<SplashscreenState> {
@@ -10,7 +9,7 @@ class SplashscreenCubit extends Cubit<SplashscreenState> {
 
   Future checkSessions() async {
     CoreFunction.logPrint("Check", "Sessions");
-    pushAndRemoveUntil(CounterView(), RouterType.material);
+    // pushAndRemoveUntil(CounterView(), RouterType.material);
   }
 
 }

@@ -1,5 +1,5 @@
 
-import 'package:chairil/core/util/util.dart';
+import 'package:tripkuy/core/util/util.dart';
 
 enum Feature {pulsa, bpjs, telephone, pdam, electric, phone, emoney, pgn, game}
 

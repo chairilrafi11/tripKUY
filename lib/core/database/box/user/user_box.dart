@@ -1,11 +1,9 @@
-
-
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:chairil/core/database/pintupay_box.dart';
+import 'package:tripkuy/core/database/utility_box.dart';
 
 part 'user_box.g.dart';
 
-@HiveType(typeId: PintuPayBox.hiveType1)
+@HiveType(typeId: UtilityBox.hiveType1)
 
 class UserBox {
   

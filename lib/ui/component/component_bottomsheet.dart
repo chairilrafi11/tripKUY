@@ -1,4 +1,4 @@
-import 'package:chairil/core/app/app.dart';
+import 'package:tripkuy/core/app/app.dart';
 
 class ComponentBottomsheet {
 

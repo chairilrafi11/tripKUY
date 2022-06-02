@@ -5,6 +5,10 @@ enum ErrorPPOB {payed, unknow, failed}
 class Constant {
   static const avenirRegular = "avenir_regular";
 
+  static const String adminEmail = "admin@gmail.com";
+  static const String adminPassword = "admin@gmail.com";
+  static const String adminName = "Super Admin Chairil";
+
   static const fontSizeLargeExtra = 20.0;
   static const fontSizeLarge = 15.0;
   static const fontSizeMedium = 13.0;

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:chairil/core/database/pintupay_box.dart';
-import 'package:chairil/core/usecase/auth_usecase.dart';
-import 'package:chairil/core/util/util.dart';
+import 'package:tripkuy/core/database/utility_box.dart';
+import 'package:tripkuy/core/usecase/auth_usecase.dart';
+import 'package:tripkuy/core/util/util.dart';
 
 class CoreDatabase {
 
@@ -74,8 +74,8 @@ class CoreDatabase {
 
 
   static Future deleteDatabase() async {
-    var userBox = await openBoxDatabase(PintuPayBox.user);
-    var notificationBox = await openBoxDatabase(PintuPayBox.notification);
+    var userBox = await openBoxDatabase(UtilityBox.user);
+    var notificationBox = await openBoxDatabase(UtilityBox.notification);
     userBox.clear();
     notificationBox.clear();
 
