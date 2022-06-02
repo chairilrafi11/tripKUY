@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tripkuy/ui/splashscreen/cubit/splashscreen_cubit.dart';
 
 import '../../../core/util/util.dart';
-import '../../component/component.dart';
+import '../../component.dart';
 
 class SplashscreenView extends StatefulWidget {
 

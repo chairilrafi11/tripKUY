@@ -3,11 +3,11 @@ import 'package:nav_router/nav_router.dart';
 import 'package:tripkuy/core/util/size_config.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/util/benpay_cupertino_dialog.dart';
+import '../core/util/benpay_cupertino_dialog.dart';
 
 class Component {
 
-  static appBar(String title, {bool transparet = false}) => AppBar(
+  static appBar(String title, {bool transparet = false, bool buttonBack = true}) => AppBar(
     backgroundColor: transparet ? Colors.transparent : ColorPalette.white,
     elevation: 0.0,
     title: Component.textBold(
@@ -15,7 +15,7 @@ class Component {
       fontSize: Constant.fontSizeLargeExtra,
       colors: transparet ? ColorPalette.white : ColorPalette.darkBlue
     ),
-    automaticallyImplyLeading: true,
+    automaticallyImplyLeading: buttonBack,
     leading: InkWell(
       onTap: (){
         Navigator.of(navGK.currentContext!).pop();
@@ -127,13 +127,13 @@ class Component {
     ),
     prefixIcon: iconPrefix != null ? Icon(
       iconPrefix,
-      color: ColorPalette.darkBlue,
+      color: ColorPalette.white,
       size: 30,
     ) : null,
     counterText: "",
     hintText: hint,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-    hintStyle: const TextStyle(fontSize: 15.0, color: ColorPalette.blue1, fontWeight: FontWeight.w500)
+    hintStyle: const TextStyle(fontSize: 15.0, color: ColorPalette.white, fontWeight: FontWeight.w500)
   );
 
   static button({required String label, required VoidCallback? onPressed, Color color = ColorPalette.lightPurple}){
